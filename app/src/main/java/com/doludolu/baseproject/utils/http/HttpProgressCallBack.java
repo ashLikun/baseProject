@@ -1,0 +1,76 @@
+package com.doludolu.baseproject.utils.http;
+
+import com.ashlikun.okhttputils.http.request.ProgressCallBack;
+import com.ashlikun.utils.other.LogUtils;
+import com.doludolu.baseproject.code.iview.IProgressView;
+
+/**
+ * Created by Administrator on 2016/8/9.
+ */
+
+public abstract class HttpProgressCallBack<ResultType> extends HttpCallBack<ResultType> implements ProgressCallBack {
+    //下载或者上传 回调的频率  ms
+    public long rate = 500;
+
+    protected boolean isShowProgress = true;
+
+    public HttpProgressCallBack(Buider buider) {
+        super(buider);
+        isShowProgress = buider.isShowProgress;
+    }
+
+    public void onStart(boolean isCompress) {
+        LogUtils.e("onStart2");
+        super.onStart();
+
+        onLoading(0, 100, false, true, isCompress);
+    }
+
+    @Override
+    public void onStart() {
+        onStart(false);
+        LogUtils.e("onStart");
+    }
+
+    @Override
+    public long getRate() {
+        return rate;
+    }
+
+    @Override
+    public void setRate(long rate) {
+        this.rate = rate;
+    }
+
+
+    @Override
+    protected void dismissUi() {
+        super.dismissUi();
+        if (isShowProgress && basePresenter != null && basePresenter.mvpView != null
+                && basePresenter.mvpView instanceof IProgressView) {
+            ((IProgressView) basePresenter.mvpView).dismissProgressDialog();
+        }
+        LogUtils.e("dismissUi");
+    }
+
+    @Override
+    public void onLoading(long progress, long total, boolean done, boolean isUpdate) {
+        LogUtils.e("onLoading");
+
+        onLoading(progress, total, done, isUpdate, false);
+    }
+
+
+    public void onLoading(long progress, long total, boolean done, boolean isUpdate, boolean isCompress) {
+        if (done) {
+            dismissUi();
+            return;
+        }
+        LogUtils.e("onLoading");
+        if (basePresenter != null && basePresenter.mvpView != null
+                && basePresenter.mvpView instanceof IProgressView) {
+            int percentage = (int) (progress * 100.0 / total);
+            ((IProgressView) basePresenter.mvpView).upLoading(percentage, done, isUpdate, isCompress);
+        }
+    }
+}

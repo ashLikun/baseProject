@@ -1,0 +1,265 @@
+apply plugin: 'com.android.application'
+
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
+def getApkFlavorsName(def variant) {
+    return variant.productFlavors[0].name;
+}
+
+android {
+    signingConfigs {
+        release {
+        }
+        debug {
+        }
+    }
+    dataBinding {
+        enabled true
+    }
+    loadSigningConfigs()
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    defaultConfig {
+        applicationId "com.doludolu.baseproject"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+        flavorDimensions "versionCode"
+        signingConfig signingConfigs.release
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86"
+        }
+        multiDexEnabled true
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
+        manifestPlaceholders = [
+                JPUSH_PKGNAME: applicationId,
+                JPUSH_APPKEY : "42f2215e7e880605381fc777", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
+        ]
+    }
+    dexOptions {
+        javaMaxHeapSize "4g"
+        jumboMode = true
+    }
+    buildTypes {
+        release {
+            //自定义属性   BuildConfig.LOG_DEBUG
+            // buildConfigField "boolean", "LOG_DEBUG", "false"
+            //构建的时候打印文本
+            println 'build - release'
+            debuggable false
+            //设置是否混淆
+            minifyEnabled true
+            //设置压缩对齐
+            zipAlignEnabled true
+            //移除无用的资源文件
+            shrinkResources true
+            //设置混淆配置文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //如果签名配置不为空 则设置签名信息
+            if (signingConfigs.release != null) {
+                signingConfig signingConfigs.release
+            }
+            manifestPlaceholders = [MANIFEST_BAIDU_KEY: "toUmNtuDF71jgxw1PSAr5icN5svnSjpH"]
+        }
+        debug {
+            //自定义属性   BuildConfig.LOG_DEBUG
+            //buildConfigField "boolean", "LOG_DEBUG", "false"
+            //构建的时候打印文本
+            println 'build - debug'
+            debuggable true
+            //设置是否混淆
+            minifyEnabled false
+            //设置压缩对齐
+            zipAlignEnabled false
+            //移除无用的资源文件
+            shrinkResources false
+            //设置混淆配置文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //versionNameSuffix
+            versionNameSuffix "_内测"
+            //applicationIdSuffix-测试版本使用debug作为后缀
+            applicationIdSuffix "debug"
+            manifestPlaceholders = [MANIFEST_BAIDU_KEY: "I3WxKaRakTXcZw164eIAGKxeGaIBHtZr"]
+            if (signingConfigs.debug != null) {
+                signingConfig signingConfigs.debug
+            }
+
+        }
+    }
+    /**
+     * 指定签名包得输入文件名称
+     */
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            if (variant.buildType.isDebuggable()) {
+                outputFileName = 'APP' + variant.versionName + releaseTime() + getApkFlavorsName(variant) + 'debug.apk'
+            } else {
+                outputFileName = 'APP' + variant.versionName + getApkFlavorsName(variant) + 'release.apk'
+            }
+        }
+    }
+
+/**
+ * aar文件的编译
+ */
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+        maven {
+            url "https://jitpack.io"
+        }
+    }
+
+    productFlavors {
+        beta {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "beta"]
+        }
+        xiaomi {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi"]
+        }
+        coolapk {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "coolapk"]
+        }
+        wandoujia {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "wandoujia"]
+        }
+        fir {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "fir"]
+        }
+        umeng {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "umeng"]
+        }
+        play {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "play"]
+        }
+        productFlavors.all { flavor ->
+            flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+        }
+    }
+
+    lintOptions {
+        checkReleaseBuilds true
+        abortOnError true
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile rootProject.ext.designVersion
+    compile 'com.android.support:multidex:1.0.2'
+    //alibaba的路由框架
+    compile 'com.alibaba:arouter-api:1.2.1.1'
+    annotationProcessor 'com.alibaba:arouter-compiler:1.1.2.1'
+    //6.0权限管理
+    compile('com.github.hotchemi:permissionsdispatcher:2.4.0') {
+        // if you don't use android.app.Fragment you can exclude support for them
+        exclude module: "support-v13"
+    }
+    annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:2.4.0"
+    compile 'com.github.ashLikun.frame:stickyrecyclerview:' + rootProject.ext.frameVersion
+    compile 'com.github.ashLikun.frame:flatbutton:' + rootProject.ext.frameVersion
+    compile 'com.github.ashLikun.frame:numberprogressbar:' + rootProject.ext.frameVersion
+    compile 'com.github.ashLikun.frame:segmentcontrol:' + rootProject.ext.frameVersion
+    compile 'com.github.ashLikun.frame:supergridlayout:' + rootProject.ext.frameVersion
+    compile 'com.github.ashLikun.frame:banner:' + rootProject.ext.frameVersion
+    compile 'com.github.ashLikun.frame:charbar:' + rootProject.ext.frameVersion
+    compile 'com.github.ashLikun.frame:supertoobar:' + rootProject.ext.frameVersion
+    compile 'com.github.ashLikun.frame:scaleimageview:' + rootProject.ext.frameVersion
+    compile 'com.github.ashLikun.frame:wheelview3d:' + rootProject.ext.frameVersion
+    compile 'com.github.ashLikun.frame:badgeview:' + rootProject.ext.frameVersion
+    compile 'com.github.ashLikun.frame:baseresource:' + rootProject.ext.frameVersion
+    compile 'com.github.ashLikun.frame:animcheckbox:' + rootProject.ext.frameVersion
+    compile 'com.github.ashLikun.frame:pathanim:' + rootProject.ext.frameVersion
+    compile 'com.github.ashLikun.frame:glideutils:' + rootProject.ext.frameVersion
+    compile 'com.github.ashLikun:EventBus:0.0.1'
+    compile 'com.github.ashLikun:ImageGridView:0.0.1'
+    compile 'com.github.ashLikun:OkHttpUtils:1.3.5'
+    compile 'com.github.ashLikun:LiteOrm:1.0.0'
+    compile 'com.github.ashLikun:XRecycleView:1.1.4'
+    compile 'com.github.ashLikun:CommonUtils:1.2.4'
+    compile 'com.github.ashLikun.CommonAdapter:databindadapter:1.1.7'
+    compile 'com.github.ashLikun:CustomDialog:1.0.8'
+    compile 'com.github.ashLikun:FrameLayoutManager:1.0.1'
+    compile 'com.github.ashLikun:PhotoHander:1.2.9'
+    compile 'com.github.ashLikun:LoadSwitch:1.0.3'
+    compile 'com.github.ashLikun:CompatView:1.0.1'
+    //错误捕获
+    debugCompile 'me.drakeet.library:crashwoodpecker:1.2'
+    releaseCompile 'me.drakeet.library:crashwoodpecker-do-nothing:1.2'
+    //shimmer 文字
+    compile 'com.romainpiel.shimmer:library:1.4.0'
+    //导航tab
+    compile 'com.github.ashLikun:BottomNavigation:2.0.8'
+    //rxjava
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'io.reactivex.rxjava2:rxjava:2.y.z'
+    //okhttp
+    compile 'com.squareup.okhttp3:okhttp:3.8.1'
+    compile 'com.google.code.gson:gson:2.8.0'
+    //图片加载
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
+    compile 'jp.wasabeef:glide-transformations:2.0.1'
+    //md风格对话框
+    compile 'com.afollestad.material-dialogs:core:0.9.4.3'
+    //Android官方流布局
+    compile 'com.google.android:flexbox:0.3.0'
+    //    compile 'me.leolin:ShortcutBadger:1.1.4'
+    //星评论
+    compile 'com.github.ashLikun:MaterialRatingBar:1.0.0'
+    //Md日历选择
+    compile 'com.prolificinteractive:material-calendarview:1.4.3'
+    compile 'com.wdullaer:materialdatetimepicker:3.2.0'
+    //图片查看
+    compile 'com.bm.photoview:library:1.4.1'
+    //友盟统计
+    compile 'com.umeng.analytics:analytics:latest.integration'
+}
+/**
+ * 加载签名配置文件
+ */
+def loadSigningConfigs() {
+    def Properties props = new Properties()
+    def propFile = file('../local.properties')
+    if (propFile.canRead()) {
+        props.load(new FileInputStream(propFile))
+        if (props != null && props.containsKey('RELEASE_STORE_FILE') && props.containsKey('RELEASE_STORE_PASSWORD') &&
+                props.containsKey('RELEASE_KEY_ALIAS') && props.containsKey('RELEASE_KEY_PASSWORD')) {
+            android.signingConfigs.release.storeFile = file(props['RELEASE_STORE_FILE'])
+            android.signingConfigs.release.storePassword = props['RELEASE_STORE_PASSWORD']
+            android.signingConfigs.release.keyAlias = props['RELEASE_KEY_ALIAS']
+            android.signingConfigs.release.keyPassword = props['RELEASE_KEY_PASSWORD']
+        } else {
+            android.buildTypes.release.signingConfig = null
+        }
+        if (props != null && props.containsKey('DEBUG_STORE_FILE') && props.containsKey('RELEASE_STORE_PASSWORD') &&
+                props.containsKey('RELEASE_KEY_ALIAS') && props.containsKey('RELEASE_KEY_PASSWORD')) {
+            android.signingConfigs.debug.storeFile = file(props['DEBUG_STORE_FILE'])
+            android.signingConfigs.debug.storePassword = props['RELEASE_STORE_PASSWORD']
+            android.signingConfigs.debug.keyAlias = props['RELEASE_KEY_ALIAS']
+            android.signingConfigs.debug.keyPassword = props['RELEASE_KEY_PASSWORD']
+        } else {
+            android.buildTypes.debug.signingConfig = null
+        }
+    } else {
+        android.buildTypes.release.signingConfig = null
+    }
+}

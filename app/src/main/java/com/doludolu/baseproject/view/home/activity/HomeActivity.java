@@ -1,0 +1,154 @@
+package com.doludolu.baseproject.view.home.activity;
+
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.ashlikun.adapter.SectionsPagerAdapter;
+import com.ashlikun.bottomnavigation.AHBottomNavigation;
+import com.ashlikun.bottomnavigation.AHBottomNavigationItem;
+import com.ashlikun.utils.ui.ActivityManager;
+import com.ashlikun.utils.ui.SuperToast;
+import com.ashlikun.utils.ui.ToastUtils;
+import com.doludolu.baseproject.R;
+import com.doludolu.baseproject.code.ARouterFlag;
+import com.doludolu.baseproject.code.activity.BaseActivity;
+import com.doludolu.baseproject.view.home.fragment.HomeFragment;
+
+import java.util.ArrayList;
+
+
+/**
+ * 作者　　: 李坤
+ * 创建时间:2016/9/19　17:04
+ * 邮箱　　：496546144@qq.com
+ * <p>
+ * 功能介绍：
+ */
+@Route(path = ARouterFlag.HOME)
+public class HomeActivity extends BaseActivity
+        implements AHBottomNavigation.OnTabSelectedListener
+        , ViewPager.OnPageChangeListener {
+    AHBottomNavigation ahBottomNavigation;
+    private long exitTime = 0;
+
+    ViewPager viewPager;
+
+    private ArrayList<Fragment> fragmentList = new ArrayList<>();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            setCurrentItem(savedInstanceState.getInt("tab"));
+        } else {
+            setCurrentItem(0);
+        }
+    }
+
+    public void setCurrentItem(int postion) {
+        ahBottomNavigation.setCurrentItem(postion);
+    }
+
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_home;
+    }
+
+
+    @Override
+    public int getStatusBarColor() {
+        return R.color.colorPrimary;
+    }
+
+
+    @Override
+    public void initView() {
+        ahBottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation_bar);
+        viewPager = (ViewPager) findViewById(R.id.content);
+
+        ahBottomNavigation.setAccentColor(getResources().getColor(R.color.colorPrimary));
+        ahBottomNavigation.addItem(new AHBottomNavigationItem.Builder(R.string.bottom_1,
+                R.mipmap.default_icon, R.mipmap.default_icon).builder());
+        ahBottomNavigation.addItem(new AHBottomNavigationItem.Builder(R.string.bottom_2,
+                R.mipmap.default_icon, R.mipmap.default_icon).builder());
+        ahBottomNavigation.addItem(new AHBottomNavigationItem.Builder(R.string.bottom_3,
+                R.mipmap.default_icon, R.mipmap.default_icon).builder());
+
+        ahBottomNavigation.setDefaultBackgroundColor(getResources().getColor(R.color.white));
+        ahBottomNavigation.setCurrentItem(0, false);
+        ahBottomNavigation.setForceTint(true);
+        ahBottomNavigation.setOnTabSelectedListener(this);
+        fragmentList.add(new HomeFragment());
+        fragmentList.add(new HomeFragment());
+        fragmentList.add(new HomeFragment());
+        SectionsPagerAdapter mAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), fragmentList);
+        viewPager.setAdapter(mAdapter);
+        viewPager.addOnPageChangeListener(this);
+    }
+
+    @Override
+    public void parseIntent(Intent intent) {
+
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        isExitApplication(this);
+    }
+
+
+    public void isExitApplication(Context context) {
+        if ((System.currentTimeMillis() - exitTime) > 2000) {
+            SuperToast.get("再按一次退出程序").info();
+            exitTime = System.currentTimeMillis();
+        } else {
+            // 退出
+            ActivityManager.getInstance().exitAllActivity();
+            ToastUtils.getMyToast().cancel();
+        }
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        useCallback = false;
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        ahBottomNavigation.setCurrentItem(position, useCallback);
+    }
+
+    boolean useCallback = false;
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
+    @Override
+    public boolean onTabSelected(int position, boolean wasSelected) {
+        useCallback = true;
+        viewPager.setCurrentItem(position, false);
+
+        return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+}

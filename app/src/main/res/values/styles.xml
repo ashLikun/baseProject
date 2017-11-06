@@ -1,0 +1,12 @@
+<resources>
+
+    <style name="AppTheme" parent="BaseTheme">
+        <item name="md_negative_color">@color/text_color</item>
+        <item name="md_content_color">@color/black_33</item>
+        <item name="md_positive_color">@color/colorPrimary</item>
+    </style>
+    <style name="ToolbarTitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+</resources>
