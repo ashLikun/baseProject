@@ -1,4 +1,4 @@
-package com.doludolu.baseproject.code;
+package com.doludolu.baseproject.core;
 
 import android.app.Activity;
 import android.app.Application;
@@ -8,6 +8,7 @@ import android.support.multidex.MultiDexApplication;
 import android.view.Gravity;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.ashlikun.appcrash.config.CaocConfig;
 import com.ashlikun.loadswitch.LoadSwitchService;
 import com.ashlikun.orm.LiteOrmUtil;
 import com.ashlikun.utils.Utils;
@@ -16,12 +17,10 @@ import com.ashlikun.utils.ui.SuperToast;
 import com.doludolu.baseproject.BuildConfig;
 import com.doludolu.baseproject.R;
 import com.doludolu.baseproject.utils.http.HttpManager;
-import com.hbung.glideutils.GlideUtils;
+import com.ashlikun.glideutils.GlideUtils;
 import com.umeng.analytics.MobclickAgent;
 
 import java.io.File;
-
-import me.drakeet.library.CrashWoodpecker;
 
 public class MyApplication extends MultiDexApplication {
     public static Application myApp;
@@ -61,7 +60,8 @@ public class MyApplication extends MultiDexApplication {
     }
 
     private void initLib() {
-        CrashWoodpecker.init(this);
+        CaocConfig.Builder.create()
+                .apply();
         LiteOrmUtil.init(new LiteOrmUtil.OnNeedListener() {
             @Override
             public Application getApplication() {
@@ -94,17 +94,8 @@ public class MyApplication extends MultiDexApplication {
                 return HttpManager.BASE_URL;
             }
         });
-        Utils.init(new Utils.OnNeedListener() {
-            @Override
-            public Application getApplication() {
-                return myApp;
-            }
-
-            @Override
-            public boolean isDebug() {
-                return BuildConfig.DEBUG;
-            }
-        });
+        Utils.init(this);
+        Utils.setDebug(BuildConfig.DEBUG);
         SuperToast.setGravity(Gravity.CENTER);
         if (BuildConfig.DEBUG) {           // 这两行必须写在init之前，否则这些配置在init过程中将无效
             ARouter.openLog();     // 打印日志

@@ -12,7 +12,7 @@ import android.databinding.BindingMethod;
 import android.databinding.BindingMethods;
 
 import com.doludolu.baseproject.widget.LineItenView;
-import com.hbung.animcheckbox.AnimCheckBox;
+import com.ashlikun.animcheckbox.AnimCheckBox;
 
 /**
  * AnimCheckBox

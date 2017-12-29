@@ -16,13 +16,13 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-        <com.hbung.supertoobar.SupperToolBar
+        <com.ashlikun.supertoobar.SupperToolBar
             android:id="@+id/toolbar"
             style="@style/Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
-            app:layout_collapseMode="pin"></com.hbung.supertoobar.SupperToolBar>
+            app:layout_collapseMode="pin"></com.ashlikun.supertoobar.SupperToolBar>
 
         <com.ashlikun.xrecycleview.SuperRecyclerView
             android:id="@+id/switchRoot"

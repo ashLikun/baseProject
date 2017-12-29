@@ -10,12 +10,12 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.ashlikun.adapter.SectionsPagerAdapter;
 import com.ashlikun.bottomnavigation.AHBottomNavigation;
 import com.ashlikun.bottomnavigation.AHBottomNavigationItem;
+import com.ashlikun.core.activity.BaseActivity;
 import com.ashlikun.utils.ui.ActivityManager;
 import com.ashlikun.utils.ui.SuperToast;
 import com.ashlikun.utils.ui.ToastUtils;
 import com.doludolu.baseproject.R;
-import com.doludolu.baseproject.code.ARouterFlag;
-import com.doludolu.baseproject.code.activity.BaseActivity;
+import com.doludolu.baseproject.core.ARouterFlag;
 import com.doludolu.baseproject.view.home.fragment.HomeFragment;
 
 import java.util.ArrayList;

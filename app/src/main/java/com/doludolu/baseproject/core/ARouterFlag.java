@@ -1,4 +1,4 @@
-package com.doludolu.baseproject.code;
+package com.doludolu.baseproject.core;
 
 /**
  * 作者　　: 李坤

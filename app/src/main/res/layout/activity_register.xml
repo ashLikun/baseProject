@@ -17,7 +17,7 @@
         android:orientation="vertical">
 
 
-        <com.hbung.supertoobar.SupperToolBar xmlns:android="http://schemas.android.com/apk/res/android"
+        <com.ashlikun.supertoobar.SupperToolBar xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/toolbar"
             style="@style/Toolbar"
             android:layout_width="match_parent"
@@ -32,7 +32,7 @@
                 app:tabIndicatorColor="@color/white"
                 app:tabSelectedTextColor="@color/white"
                 app:tabTextColor="@color/gray_dd"></android.support.design.widget.TabLayout>
-        </com.hbung.supertoobar.SupperToolBar>
+        </com.ashlikun.supertoobar.SupperToolBar>
 
 
         <android.support.design.widget.TextInputLayout
@@ -93,7 +93,7 @@
                     android:textSize="@dimen/dp_14" />
             </android.support.design.widget.TextInputLayout>
 
-            <com.hbung.flatbutton.FlatButton
+            <com.ashlikun.flatbutton.FlatButton
                 android:id="@+id/sendButton"
                 style="@style/FlatButton.EntityPrimary"
                 android:layout_width="wrap_content"
@@ -101,7 +101,7 @@
                 android:layout_gravity="right"
                 android:onClick="onSendCodeClick"
                 android:text="@string/get_yanzenma"
-                app:cornerRadius="0dp"></com.hbung.flatbutton.FlatButton>
+                app:cornerRadius="0dp"></com.ashlikun.flatbutton.FlatButton>
 
         </FrameLayout>
 
@@ -160,7 +160,7 @@
         </android.support.design.widget.TextInputLayout>
 
 
-        <com.hbung.flatbutton.FlatButton xmlns:app="http://schemas.android.com/apk/res-auto"
+        <com.ashlikun.flatbutton.FlatButton xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/amend"
             style="@style/FlatButton.EntityPrimary"
             android:layout_marginLeft="@dimen/dp_15"

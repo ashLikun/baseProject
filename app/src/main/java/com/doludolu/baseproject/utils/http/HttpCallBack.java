@@ -2,6 +2,11 @@ package com.doludolu.baseproject.utils.http;
 
 import android.view.View;
 
+import com.ashlikun.core.BasePresenter;
+import com.ashlikun.core.activity.BaseActivity;
+import com.ashlikun.core.iview.BaseView;
+import com.ashlikun.core.iview.IBaseListView;
+import com.ashlikun.core.iview.IBaseSwipeView;
 import com.ashlikun.loadswitch.ContextData;
 import com.ashlikun.loadswitch.LoadSwitchService;
 import com.ashlikun.okhttputils.http.Callback;
@@ -11,12 +16,7 @@ import com.ashlikun.utils.other.LogUtils;
 import com.ashlikun.xrecycleview.RefreshLayout;
 import com.ashlikun.xrecycleview.StatusChangListener;
 import com.doludolu.baseproject.R;
-import com.doludolu.baseproject.code.BasePresenter;
-import com.doludolu.baseproject.code.MyApplication;
-import com.doludolu.baseproject.code.activity.BaseActivity;
-import com.doludolu.baseproject.code.iview.BaseView;
-import com.doludolu.baseproject.code.iview.IBaseListView;
-import com.doludolu.baseproject.code.iview.IBaseSwipeView;
+import com.doludolu.baseproject.core.MyApplication;
 
 public abstract class HttpCallBack<ResultType> implements Callback<ResultType> {
     private final String ERROR_MSG_FORMAT = "%s(错误码:%d)";
@@ -58,18 +58,18 @@ public abstract class HttpCallBack<ResultType> implements Callback<ResultType> {
      * <p>
      * 方法功能：请求开始
      */
+    @Override
     public void onStart() {
         setEnableView(false);
-        if (loadSwitchService != null) {
-            if (swipeRefreshLayout != null && !swipeRefreshLayout.isRefreshing()) {
-                loadSwitchService.showLoading(null);
-            }
+        if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
+            return;
+        }
+        if (loadSwitchService != null && loadSwitchService.isLoadingCanShow()) {
+            loadSwitchService.showLoading(null);
         } else if (isShowLoadding && basePresenter != null && basePresenter.mvpView != null) {
             basePresenter.mvpView.showDialog(hint, isCancelable);
         } else if (isShowLoadding && baseActivity != null) {
             baseActivity.showDialog(hint, isCancelable);
-        } else {
-
         }
     }
 
@@ -80,6 +80,7 @@ public abstract class HttpCallBack<ResultType> implements Callback<ResultType> {
      * <p>
      * 方法功能：请求完成
      */
+    @Override
     public void onCompleted() {
         LogUtils.e("onCompleted");
         setEnableView(true);
@@ -115,6 +116,7 @@ public abstract class HttpCallBack<ResultType> implements Callback<ResultType> {
      * <p>
      * 方法功能：请求出错
      */
+    @Override
     public void onError(HttpException error) {
 
         LogUtils.wtf(error);
@@ -156,6 +158,7 @@ public abstract class HttpCallBack<ResultType> implements Callback<ResultType> {
      * <p>
      * 方法功能：请求成功
      */
+    @Override
     public void onSuccess(ResultType result) {
         onSuccess(result, true);
     }
@@ -342,7 +345,9 @@ public abstract class HttpCallBack<ResultType> implements Callback<ResultType> {
          * 方法功能：设置下位刷新，底加载，状态显示
          */
         public Buider setLoadingStatus(BaseView mvpView) {
-            if (mvpView == null) return this;
+            if (mvpView == null) {
+                return this;
+            }
             if (mvpView instanceof IBaseSwipeView) {
                 setSwipeRefreshLayout(((IBaseSwipeView) mvpView).getSwipeRefreshLayout());
             }
@@ -353,6 +358,4 @@ public abstract class HttpCallBack<ResultType> implements Callback<ResultType> {
             return this;
         }
     }
-
-
 }

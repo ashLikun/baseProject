@@ -13,12 +13,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.hbung.supertoobar.SupperToolBar
+            <com.ashlikun.supertoobar.SupperToolBar
                 android:id="@+id/toolbar"
                 style="@style/Toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|enterAlways"></com.hbung.supertoobar.SupperToolBar>
+                app:layout_scrollFlags="scroll|enterAlways"></com.ashlikun.supertoobar.SupperToolBar>
 
         </android.support.design.widget.AppBarLayout>
 

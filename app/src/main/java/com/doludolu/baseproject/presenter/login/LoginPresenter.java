@@ -2,8 +2,8 @@ package com.doludolu.baseproject.presenter.login;
 
 import android.view.View;
 
+import com.ashlikun.core.BasePresenter;
 import com.ashlikun.okhttputils.http.response.HttpResult;
-import com.doludolu.baseproject.code.BasePresenter;
 import com.doludolu.baseproject.mode.httpquest.ApiService;
 import com.doludolu.baseproject.mode.javabean.base.UserData;
 import com.doludolu.baseproject.utils.http.HttpCallBack;

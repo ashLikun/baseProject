@@ -9,19 +9,21 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.ashlikun.adapter.databind.recycleview.CommonBindAdapter;
+import com.ashlikun.core.activity.BaseListActivity;
+import com.ashlikun.core.factory.Presenter;
 import com.ashlikun.loadswitch.ContextData;
 import com.doludolu.baseproject.R;
-import com.doludolu.baseproject.code.activity.BaseListActivity;
 import com.doludolu.baseproject.databinding.AaaBinding;
 import com.doludolu.baseproject.presenter.login.LoginPresenter;
 
-import static com.doludolu.baseproject.code.ARouterFlag.TEST;
+import static com.doludolu.baseproject.core.ARouterFlag.TEST;
 
 
 /**
  * Created by yang on 2016/9/3.
  */
 @Route(path = TEST)
+@Presenter(LoginPresenter.class)
 public class TestActivity extends BaseListActivity<LoginPresenter, AaaBinding, String> {
 
 
@@ -66,7 +68,6 @@ public class TestActivity extends BaseListActivity<LoginPresenter, AaaBinding, S
 //    }
 
 
-
     @Override
     public void onLoadding() {
         listSwipeView.postDelayed(new Runnable() {
@@ -95,10 +96,6 @@ public class TestActivity extends BaseListActivity<LoginPresenter, AaaBinding, S
         }, 4000);
     }
 
-    @Override
-    public LoginPresenter initPressenter() {
-        return new LoginPresenter();
-    }
 
     @Override
     public int getLayoutId() {

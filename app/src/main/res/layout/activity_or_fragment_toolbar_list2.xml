@@ -8,13 +8,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.hbung.supertoobar.SupperToolBar
+        <com.ashlikun.supertoobar.SupperToolBar
             android:id="@+id/toolbar"
             style="@style/Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
-            app:layout_scrollFlags="scroll|enterAlways"></com.hbung.supertoobar.SupperToolBar>
+            app:layout_scrollFlags="scroll|enterAlways"></com.ashlikun.supertoobar.SupperToolBar>
 
         <com.ashlikun.xrecycleview.SuperRecyclerView
             android:id="@+id/switchRoot"

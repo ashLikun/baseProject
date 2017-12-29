@@ -8,10 +8,10 @@ import android.widget.ImageView;
 import com.doludolu.baseproject.R;
 import com.doludolu.baseproject.utils.http.HttpManager;
 import com.doludolu.baseproject.mode.javabean.base.BannerAdData;
-import com.hbung.banner.ConvenientBanner;
-import com.hbung.banner.holder.Holder;
-import com.hbung.glideutils.GlideOptions;
-import com.hbung.glideutils.GlideUtils;
+import com.ashlikun.banner.ConvenientBanner;
+import com.ashlikun.banner.holder.Holder;
+import com.ashlikun.glideutils.GlideOptions;
+import com.ashlikun.glideutils.GlideUtils;
 import com.ashlikun.utils.http.HttpLocalUtils;
 
 

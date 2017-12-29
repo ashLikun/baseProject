@@ -5,11 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.ashlikun.core.activity.BaseMvpActivity;
+import com.ashlikun.core.factory.Presenter;
 import com.ashlikun.utils.other.Validators;
 import com.ashlikun.utils.ui.EditHelper;
 import com.doludolu.baseproject.R;
-import com.doludolu.baseproject.code.ARouterFlag;
-import com.doludolu.baseproject.code.activity.BaseMvpActivity;
+import com.doludolu.baseproject.core.ARouterFlag;
 import com.doludolu.baseproject.databinding.ActivityUpdataPasswordBinding;
 import com.doludolu.baseproject.mode.javabean.base.UserData;
 import com.doludolu.baseproject.presenter.login.UpDataPasswordPresenter;
@@ -24,6 +25,7 @@ import com.doludolu.baseproject.view.login.iview.IBLoginView;
  * 功能介绍：修改密码
  */
 @Route(path = ARouterFlag.UPDATA_PASSWORD)
+@Presenter(UpDataPasswordPresenter.class)
 public class UpdataPasswordActivity extends BaseMvpActivity<UpDataPasswordPresenter, ActivityUpdataPasswordBinding>
         implements IBLoginView.IUpDataPasswordView {
     public EditHelper editHelper = new EditHelper(this);
@@ -40,6 +42,7 @@ public class UpdataPasswordActivity extends BaseMvpActivity<UpDataPasswordPresen
 
     }
 
+    @Override
     public void initView() {
         toolbar.setTitle("修改密码");
         toolbar.setBack(this);
@@ -63,12 +66,6 @@ public class UpdataPasswordActivity extends BaseMvpActivity<UpDataPasswordPresen
         super.onDestroy();
 
     }
-
-    @Override
-    public UpDataPasswordPresenter initPressenter() {
-        return new UpDataPasswordPresenter();
-    }
-
 
     @Override
     public void receiverUserData(UserData userData) {

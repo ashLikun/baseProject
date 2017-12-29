@@ -1,8 +1,10 @@
 package com.doludolu.baseproject.presenter.login;
 
+import android.os.Bundle;
+
+import com.ashlikun.core.BasePresenter;
 import com.ashlikun.okhttputils.http.response.HttpResult;
 import com.ashlikun.utils.other.StringUtils;
-import com.doludolu.baseproject.code.BasePresenter;
 import com.doludolu.baseproject.mode.javabean.base.UserData;
 import com.doludolu.baseproject.utils.http.HttpCallBack;
 import com.doludolu.baseproject.view.login.iview.IBLoginView;
@@ -21,8 +23,8 @@ public class UpDataPasswordPresenter extends BasePresenter<IBLoginView.IUpDataPa
     public String password2;
 
     @Override
-    public void onCreate(IBLoginView.IUpDataPasswordView mvpView) {
-        super.onCreate(mvpView);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         mvpView.getDataBind().setPresenter(this);
     }
 

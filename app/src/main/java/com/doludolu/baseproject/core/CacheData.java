@@ -1,10 +1,8 @@
-package com.doludolu.baseproject.code;
+package com.doludolu.baseproject.core;
 
 import com.ashlikun.orm.LiteOrmUtil;
 import com.ashlikun.orm.db.assit.QueryBuilder;
 import com.doludolu.baseproject.mode.javabean.CityData;
-
-import java.util.ArrayList;
 
 
 /**

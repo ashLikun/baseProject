@@ -5,16 +5,17 @@ import android.support.design.widget.TabLayout;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.ashlikun.core.activity.BaseMvpActivity;
+import com.ashlikun.core.factory.Presenter;
 import com.ashlikun.utils.other.Validators;
 import com.ashlikun.utils.ui.EditHelper;
 import com.doludolu.baseproject.R;
-import com.doludolu.baseproject.code.activity.BaseMvpActivity;
 import com.doludolu.baseproject.databinding.ActivityRegisterBinding;
 import com.doludolu.baseproject.mode.javabean.base.UserData;
 import com.doludolu.baseproject.presenter.login.RegisterPresenter;
 import com.doludolu.baseproject.view.login.iview.IBLoginView;
 
-import static com.doludolu.baseproject.code.ARouterFlag.REGISTER;
+import static com.doludolu.baseproject.core.ARouterFlag.REGISTER;
 
 
 /**
@@ -22,6 +23,7 @@ import static com.doludolu.baseproject.code.ARouterFlag.REGISTER;
  * *
  */
 @Route(path = REGISTER)
+@Presenter(RegisterPresenter.class)
 public class RegisterActivity extends BaseMvpActivity<RegisterPresenter, ActivityRegisterBinding>
         implements IBLoginView.IRegisterView, TabLayout.OnTabSelectedListener {
     public EditHelper editHelper = new EditHelper(this);
@@ -99,12 +101,6 @@ public class RegisterActivity extends BaseMvpActivity<RegisterPresenter, Activit
         super.onDestroy();
 
     }
-
-    @Override
-    public RegisterPresenter initPressenter() {
-        return new RegisterPresenter();
-    }
-
 
     @Override
     public void clearData() {

@@ -17,7 +17,7 @@ import com.ashlikun.okhttputils.http.response.HttpResponse;
 import com.ashlikun.utils.ui.ActivityManager;
 import com.ashlikun.utils.ui.MainHandle;
 import com.ashlikun.utils.ui.SuperToast;
-import com.doludolu.baseproject.code.MyApplication;
+import com.doludolu.baseproject.core.MyApplication;
 import com.doludolu.baseproject.mode.javabean.base.UserData;
 
 import java.io.File;

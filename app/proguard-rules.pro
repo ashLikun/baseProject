@@ -209,9 +209,9 @@
 #EventBus3.0
 -keepattributes *Annotation*
 -keepclassmembers class ** {
-    @com.hbung.eventbus.Subscribe <methods>;
+    @com.ashlikun.eventbus.Subscribe <methods>;
 }
--keep enum com.hbung.eventbus.ThreadMode { *; }
+-keep enum com.ashlikun.eventbus.ThreadMode { *; }
 
 # Only required if you use AsyncExecutor
 -keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {

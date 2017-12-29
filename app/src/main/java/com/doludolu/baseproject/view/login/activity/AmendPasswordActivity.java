@@ -5,11 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.ashlikun.core.activity.BaseMvpActivity;
+import com.ashlikun.core.factory.Presenter;
 import com.ashlikun.utils.other.Validators;
 import com.ashlikun.utils.ui.EditHelper;
 import com.doludolu.baseproject.R;
-import com.doludolu.baseproject.code.ARouterFlag;
-import com.doludolu.baseproject.code.activity.BaseMvpActivity;
+import com.doludolu.baseproject.core.ARouterFlag;
 import com.doludolu.baseproject.databinding.ActivityAmendPasswordBinding;
 import com.doludolu.baseproject.mode.javabean.base.UserData;
 import com.doludolu.baseproject.presenter.login.AmendPasswordPresenter;
@@ -24,6 +25,7 @@ import com.doludolu.baseproject.view.login.iview.IBLoginView;
  * 功能介绍：忘记密码
  */
 @Route(path = ARouterFlag.AMEND_PASSWORD)
+@Presenter(AmendPasswordPresenter.class)
 public class AmendPasswordActivity extends BaseMvpActivity<AmendPasswordPresenter, ActivityAmendPasswordBinding>
         implements IBLoginView.IAmendPasswordView {
     public EditHelper editHelper = new EditHelper(this);
@@ -40,6 +42,7 @@ public class AmendPasswordActivity extends BaseMvpActivity<AmendPasswordPresente
 
     }
 
+    @Override
     public void initView() {
         toolbar.setTitle("忘记密码");
         toolbar.setBack(this);
@@ -65,11 +68,6 @@ public class AmendPasswordActivity extends BaseMvpActivity<AmendPasswordPresente
     protected void onDestroy() {
         super.onDestroy();
 
-    }
-
-    @Override
-    public AmendPasswordPresenter initPressenter() {
-        return new AmendPasswordPresenter();
     }
 
 

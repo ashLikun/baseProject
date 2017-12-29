@@ -5,8 +5,8 @@ import android.graphics.Bitmap;
 import android.widget.ImageView;
 
 import com.doludolu.baseproject.R;
-import com.hbung.glideutils.GlideOptions;
-import com.hbung.glideutils.GlideUtils;
+import com.ashlikun.glideutils.GlideOptions;
+import com.ashlikun.glideutils.GlideUtils;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 

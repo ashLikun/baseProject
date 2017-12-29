@@ -10,14 +10,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.hbung.supertoobar.SupperToolBar
+            <com.ashlikun.supertoobar.SupperToolBar
                 android:id="@+id/toolbar"
                 style="@style/Toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_scrollFlags="scroll|enterAlways">
 
-            </com.hbung.supertoobar.SupperToolBar>
+            </com.ashlikun.supertoobar.SupperToolBar>
 
             <android.support.design.widget.TabLayout xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/tabLayout"

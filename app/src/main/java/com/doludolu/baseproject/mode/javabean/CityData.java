@@ -9,12 +9,12 @@ import com.ashlikun.orm.db.assit.WhereBuilder;
 import com.ashlikun.orm.db.enums.AssignType;
 import com.ashlikun.orm.db.model.ColumnsValue;
 import com.ashlikun.orm.db.model.ConflictAlgorithm;
-import com.doludolu.baseproject.code.MyApplication;
+import com.doludolu.baseproject.core.MyApplication;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
-import com.hbung.charbar.CharComparator;
-import com.hbung.charbar.HanziToPinyin;
-import com.hbung.charbar.TargetField;
+import com.ashlikun.charbar.CharComparator;
+import com.ashlikun.charbar.HanziToPinyin;
+import com.ashlikun.charbar.TargetField;
 
 import java.io.IOException;
 import java.io.InputStream;

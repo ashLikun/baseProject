@@ -1,10 +1,12 @@
 package com.doludolu.baseproject.presenter.login;
 
+import android.os.Bundle;
+
+import com.ashlikun.core.BasePresenter;
 import com.ashlikun.okhttputils.http.response.HttpResult;
 import com.ashlikun.utils.other.CountdownUtils;
 import com.ashlikun.utils.other.StringUtils;
 import com.doludolu.baseproject.R;
-import com.doludolu.baseproject.code.BasePresenter;
 import com.doludolu.baseproject.mode.httpquest.ApiService;
 import com.doludolu.baseproject.utils.http.HttpCallBack;
 import com.doludolu.baseproject.view.login.iview.IBLoginView;
@@ -19,8 +21,8 @@ public class AmendPasswordPresenter extends BasePresenter<IBLoginView.IAmendPass
     public String password2;
 
     @Override
-    public void onCreate(IBLoginView.IAmendPasswordView mvpView) {
-        super.onCreate(mvpView);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         mvpView.getDataBind().setPresenter(this);
     }
 

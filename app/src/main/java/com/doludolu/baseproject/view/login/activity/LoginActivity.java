@@ -5,17 +5,18 @@ import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.ashlikun.core.activity.BaseMvpActivity;
+import com.ashlikun.core.factory.Presenter;
 import com.ashlikun.utils.other.Validators;
 import com.ashlikun.utils.ui.EditHelper;
 import com.doludolu.baseproject.R;
-import com.doludolu.baseproject.code.ARouterFlag;
-import com.doludolu.baseproject.code.activity.BaseMvpActivity;
+import com.doludolu.baseproject.core.ARouterFlag;
 import com.doludolu.baseproject.databinding.ActivityLoginBinding;
 import com.doludolu.baseproject.mode.javabean.base.UserData;
 import com.doludolu.baseproject.presenter.login.LoginPresenter;
 import com.doludolu.baseproject.view.login.iview.IBLoginView;
 
-import static com.doludolu.baseproject.code.ARouterFlag.LOGIN;
+import static com.doludolu.baseproject.core.ARouterFlag.LOGIN;
 
 
 /**
@@ -23,6 +24,7 @@ import static com.doludolu.baseproject.code.ARouterFlag.LOGIN;
  * *
  */
 @Route(path = LOGIN)
+@Presenter(LoginPresenter.class)
 public class LoginActivity extends BaseMvpActivity<LoginPresenter, ActivityLoginBinding>
         implements IBLoginView.IloginView {
     public EditHelper editHelper = new EditHelper(this);
@@ -58,11 +60,6 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter, ActivityLogin
     protected void onDestroy() {
         super.onDestroy();
 
-    }
-
-    @Override
-    public LoginPresenter initPressenter() {
-        return new LoginPresenter();
     }
 
 

@@ -1,7 +1,7 @@
 package com.doludolu.baseproject.view.home;
 
-import com.doludolu.baseproject.code.iview.IBaseListView;
-import com.doludolu.baseproject.code.iview.IDatBindView;
+import com.ashlikun.core.iview.IBaseListView;
+import com.ashlikun.core.iview.IDatBindView;
 import com.doludolu.baseproject.databinding.FragmentHomeBinding;
 
 /**

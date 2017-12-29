@@ -1,8 +1,8 @@
 package com.doludolu.baseproject.view.login.iview;
 
-import com.doludolu.baseproject.code.iview.BaseView;
-import com.doludolu.baseproject.code.iview.ICheckView;
-import com.doludolu.baseproject.code.iview.IDatBindView;
+import com.ashlikun.core.iview.BaseView;
+import com.ashlikun.core.iview.ICheckView;
+import com.ashlikun.core.iview.IDatBindView;
 import com.doludolu.baseproject.databinding.ActivityAmendPasswordBinding;
 import com.doludolu.baseproject.databinding.ActivityRegisterBinding;
 import com.doludolu.baseproject.databinding.ActivityUpdataPasswordBinding;

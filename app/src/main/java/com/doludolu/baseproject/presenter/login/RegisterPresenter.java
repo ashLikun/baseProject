@@ -2,17 +2,17 @@ package com.doludolu.baseproject.presenter.login;
 
 import android.view.View;
 
+import com.ashlikun.core.BasePresenter;
 import com.ashlikun.okhttputils.http.response.HttpResult;
 import com.ashlikun.utils.other.CountdownUtils;
 import com.ashlikun.utils.other.StringUtils;
 import com.doludolu.baseproject.R;
-import com.doludolu.baseproject.code.BasePresenter;
 import com.doludolu.baseproject.mode.httpquest.ApiService;
 import com.doludolu.baseproject.mode.javabean.base.UserData;
 import com.doludolu.baseproject.utils.http.HttpCallBack;
 import com.doludolu.baseproject.view.login.iview.IBLoginView;
 
-import static com.doludolu.baseproject.code.MyApplication.myApp;
+import static com.doludolu.baseproject.core.MyApplication.myApp;
 
 /**
  * Created by yang on 2016/8/17.

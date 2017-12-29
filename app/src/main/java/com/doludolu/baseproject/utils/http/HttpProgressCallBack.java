@@ -1,12 +1,8 @@
 package com.doludolu.baseproject.utils.http;
 
+import com.ashlikun.core.iview.IProgressView;
 import com.ashlikun.okhttputils.http.request.ProgressCallBack;
 import com.ashlikun.utils.other.LogUtils;
-import com.doludolu.baseproject.code.iview.IProgressView;
-
-/**
- * Created by Administrator on 2016/8/9.
- */
 
 public abstract class HttpProgressCallBack<ResultType> extends HttpCallBack<ResultType> implements ProgressCallBack {
     //下载或者上传 回调的频率  ms

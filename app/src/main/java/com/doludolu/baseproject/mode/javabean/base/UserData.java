@@ -22,16 +22,15 @@ import com.ashlikun.utils.other.StringUtils;
 import com.ashlikun.utils.ui.ActivityManager;
 import com.ashlikun.utils.ui.SuperToast;
 import com.doludolu.baseproject.R;
-import com.doludolu.baseproject.code.ARouterFlag;
-import com.doludolu.baseproject.code.CacheData;
-import com.doludolu.baseproject.code.Global;
+import com.doludolu.baseproject.core.ARouterFlag;
+import com.doludolu.baseproject.core.Global;
 import com.doludolu.baseproject.mode.enum_type.DomeEnum;
 import com.google.gson.annotations.SerializedName;
-import com.hbung.eventbus.EventBus;
+import com.ashlikun.eventbus.EventBus;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import static com.doludolu.baseproject.code.MyApplication.myApp;
+import static com.doludolu.baseproject.core.MyApplication.myApp;
 
 
 /**

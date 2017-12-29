@@ -15,13 +15,13 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.ashlikun.core.activity.BaseActivity;
 import com.ashlikun.utils.other.SharedPreUtils;
 import com.ashlikun.utils.ui.SuperToast;
 import com.ashlikun.utils.ui.UiUtils;
 import com.doludolu.baseproject.BuildConfig;
 import com.doludolu.baseproject.R;
-import com.doludolu.baseproject.code.ARouterFlag;
-import com.doludolu.baseproject.code.activity.BaseActivity;
+import com.doludolu.baseproject.core.ARouterFlag;
 import com.doludolu.baseproject.mode.javabean.base.UserData;
 import com.romainpiel.shimmer.Shimmer;
 import com.romainpiel.shimmer.ShimmerTextView;
@@ -30,8 +30,6 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnPermissionDenied;
@@ -76,34 +74,19 @@ public class WelcomeActivity extends BaseActivity {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE})
     protected void getPermission() {
-
         initViewOnPermiss();
         Observable.timer(time, TimeUnit.MILLISECONDS)
-                .map(new Function<Long, Boolean>() {
-                    @Override
-                    public Boolean apply(Long aLong) throws Exception {
-                        return checkIsFirst();
-                    }
-                })
-                .map(new Function<Boolean, Integer>() {
-                    @Override
-                    public Integer apply(Boolean aBoolean) throws Exception {
-                        return getServiceUser();
-                    }
-                })
+                .map(aLong -> checkIsFirst())
+                .map(aLong -> getServiceUser())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Integer>() {
-                    @Override
-                    public void accept(Integer stepCode) throws Exception {
-                        //1跳转登陆或者首页，2：不跳转
-                        if (stepCode == 1) {
-                            ARouter.getInstance().build(UserData.isSLogin() ? ARouterFlag.HOME : ARouterFlag.LOGIN_SELECT)
-                                    .withFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
-                                    .navigation(WelcomeActivity.this);
-                            finish();
-                        }
-
+                .subscribe(stepCode -> {
+                    //1跳转登陆或者首页，2：不跳转
+                    if (stepCode == 1) {
+                        ARouter.getInstance().build(ARouterFlag.HOME)
+                                .withFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                                .navigation(WelcomeActivity.this);
+                        finish();
                     }
                 });
         checkIsFirst();
@@ -216,7 +199,9 @@ public class WelcomeActivity extends BaseActivity {
 
     @Override
     public void finish() {
-        shimmer.cancel();
+        if (shimmer != null) {
+            shimmer.cancel();
+        }
         super.finish();
     }
 
@@ -245,6 +230,6 @@ public class WelcomeActivity extends BaseActivity {
 //            e.printStackTrace();
 //            return 1;
 //        }
-        return 2;
+        return 1;
     }
 }

@@ -2,9 +2,9 @@ package com.doludolu.baseproject.mode.javabean.base;
 
 import android.text.TextUtils;
 
-import com.doludolu.baseproject.code.MyApplication;
+import com.doludolu.baseproject.core.MyApplication;
 import com.ashlikun.utils.other.StringUtils;
-import com.hbung.wheelview3d.adapter.LoopViewData;
+import com.ashlikun.wheelview3d.adapter.LoopViewData;
 
 import org.json.JSONArray;
 import org.json.JSONException;

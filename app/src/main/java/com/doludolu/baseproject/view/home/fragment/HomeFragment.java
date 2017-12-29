@@ -3,10 +3,11 @@ package com.doludolu.baseproject.view.home.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.ashlikun.core.factory.Presenter;
+import com.ashlikun.core.fragment.BaseMvpFragment;
 import com.ashlikun.loadswitch.ContextData;
 import com.ashlikun.loadswitch.OnLoadSwitchClick;
 import com.doludolu.baseproject.R;
-import com.doludolu.baseproject.code.fragment.BaseMvpFragment;
 import com.doludolu.baseproject.databinding.FragmentHomeBinding;
 import com.doludolu.baseproject.presenter.home.HomePresenter;
 import com.doludolu.baseproject.view.home.IBHomeView;
@@ -18,7 +19,7 @@ import com.doludolu.baseproject.view.home.IBHomeView;
  * <p>
  * 功能介绍：
  */
-
+@Presenter(HomePresenter.class)
 public class HomeFragment extends BaseMvpFragment<HomePresenter, FragmentHomeBinding>
         implements IBHomeView.IHomeView, OnLoadSwitchClick {
 
@@ -37,12 +38,6 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter, FragmentHomeBin
     public void initView() {
         toolbar.setTitle("首页");
 
-    }
-
-
-    @Override
-    public HomePresenter initPressenter() {
-        return new HomePresenter();
     }
 
     @Override

@@ -162,76 +162,79 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile rootProject.ext.designVersion
-    compile 'com.android.support:multidex:1.0.2'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation rootProject.ext.designVersion
+    implementation 'com.github.ashLikun:CustomMvp:1.1.4'
+    implementation 'com.android.support:multidex:1.0.2'
     //alibaba的路由框架
-    compile 'com.alibaba:arouter-api:1.2.1.1'
+    implementation 'com.alibaba:arouter-api:1.2.1.1'
     annotationProcessor 'com.alibaba:arouter-compiler:1.1.2.1'
     //6.0权限管理
-    compile('com.github.hotchemi:permissionsdispatcher:2.4.0') {
+    implementation('com.github.hotchemi:permissionsdispatcher:2.4.0') {
         // if you don't use android.app.Fragment you can exclude support for them
         exclude module: "support-v13"
     }
     annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:2.4.0"
-    compile 'com.github.ashLikun.frame:stickyrecyclerview:' + rootProject.ext.frameVersion
-    compile 'com.github.ashLikun.frame:flatbutton:' + rootProject.ext.frameVersion
-    compile 'com.github.ashLikun.frame:numberprogressbar:' + rootProject.ext.frameVersion
-    compile 'com.github.ashLikun.frame:segmentcontrol:' + rootProject.ext.frameVersion
-    compile 'com.github.ashLikun.frame:supergridlayout:' + rootProject.ext.frameVersion
-    compile 'com.github.ashLikun.frame:banner:' + rootProject.ext.frameVersion
-    compile 'com.github.ashLikun.frame:charbar:' + rootProject.ext.frameVersion
-    compile 'com.github.ashLikun.frame:supertoobar:' + rootProject.ext.frameVersion
-    compile 'com.github.ashLikun.frame:scaleimageview:' + rootProject.ext.frameVersion
-    compile 'com.github.ashLikun.frame:wheelview3d:' + rootProject.ext.frameVersion
-    compile 'com.github.ashLikun.frame:badgeview:' + rootProject.ext.frameVersion
-    compile 'com.github.ashLikun.frame:baseresource:' + rootProject.ext.frameVersion
-    compile 'com.github.ashLikun.frame:animcheckbox:' + rootProject.ext.frameVersion
-    compile 'com.github.ashLikun.frame:pathanim:' + rootProject.ext.frameVersion
-    compile 'com.github.ashLikun.frame:glideutils:' + rootProject.ext.frameVersion
-    compile 'com.github.ashLikun:EventBus:0.0.1'
-    compile 'com.github.ashLikun:ImageGridView:0.0.1'
-    compile 'com.github.ashLikun:OkHttpUtils:1.3.5'
-    compile 'com.github.ashLikun:LiteOrm:1.0.0'
-    compile 'com.github.ashLikun:XRecycleView:1.1.4'
-    compile 'com.github.ashLikun:CommonUtils:1.2.4'
-    compile 'com.github.ashLikun.CommonAdapter:databindadapter:1.1.7'
-    compile 'com.github.ashLikun:CustomDialog:1.0.8'
-    compile 'com.github.ashLikun:FrameLayoutManager:1.0.1'
-    compile 'com.github.ashLikun:PhotoHander:1.2.9'
-    compile 'com.github.ashLikun:LoadSwitch:1.0.3'
-    compile 'com.github.ashLikun:CompatView:1.0.1'
+    implementation 'com.github.ashLikun.frame:stickyrecyclerview:' + rootProject.ext.frameVersion
+    implementation 'com.github.ashLikun.frame:flatbutton:' + rootProject.ext.frameVersion
+    implementation 'com.github.ashLikun.frame:numberprogressbar:' + rootProject.ext.frameVersion
+    implementation 'com.github.ashLikun.frame:segmentcontrol:' + rootProject.ext.frameVersion
+    implementation 'com.github.ashLikun.frame:supergridlayout:' + rootProject.ext.frameVersion
+    implementation 'com.github.ashLikun.frame:banner:' + rootProject.ext.frameVersion
+    implementation 'com.github.ashLikun.frame:charbar:' + rootProject.ext.frameVersion
+    implementation 'com.github.ashLikun.frame:supertoobar:' + rootProject.ext.frameVersion
+    implementation 'com.github.ashLikun.frame:scaleimageview:' + rootProject.ext.frameVersion
+    implementation 'com.github.ashLikun.frame:wheelview3d:' + rootProject.ext.frameVersion
+    implementation 'com.github.ashLikun.frame:badgeview:' + rootProject.ext.frameVersion
+    implementation 'com.github.ashLikun.frame:baseresource:' + rootProject.ext.frameVersion
+    implementation 'com.github.ashLikun.frame:animcheckbox:' + rootProject.ext.frameVersion
+    implementation 'com.github.ashLikun.frame:pathanim:' + rootProject.ext.frameVersion
+    implementation 'com.github.ashLikun.frame:glideutils:' + rootProject.ext.frameVersion
+    implementation 'com.github.ashLikun.frame:superwebview:' + rootProject.ext.frameVersion
+    implementation 'com.github.ashLikun:EasyPopupWindow:1.0.0'
+    implementation 'com.github.ashLikun:EventBus:0.0.4'
+    implementation 'com.github.ashLikun:ImageGridView:0.0.4'
+
+    implementation 'com.github.ashLikun:LiteOrm:1.0.0'
+    implementation 'com.github.ashLikun:XRecycleView:1.1.5'
+    implementation 'com.github.ashLikun:CommonUtils:1.3.4'
+    implementation 'com.github.ashLikun.CommonAdapter:databindadapter:1.1.9'
+    implementation 'com.github.ashLikun:CustomDialog:1.1.1'
+    implementation 'com.github.ashLikun:FrameLayoutManager:1.0.1'
+    implementation 'com.github.ashLikun:PhotoHander:1.2.9'
+    implementation 'com.github.ashLikun:LoadSwitch:1.0.4'
+    implementation 'com.github.ashLikun:CompatView:1.0.2'
     //错误捕获
-    debugCompile 'me.drakeet.library:crashwoodpecker:1.2'
-    releaseCompile 'me.drakeet.library:crashwoodpecker-do-nothing:1.2'
+    implementation 'com.github.ashLikun:AppCrashDispose:0.0.3'
     //shimmer 文字
-    compile 'com.romainpiel.shimmer:library:1.4.0'
+    implementation 'com.romainpiel.shimmer:library:1.4.0'
     //导航tab
-    compile 'com.github.ashLikun:BottomNavigation:2.0.8'
+    implementation 'com.github.ashLikun:BottomNavigation:2.0.8'
     //rxjava
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'io.reactivex.rxjava2:rxjava:2.y.z'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.y.z'
     //okhttp
-    compile 'com.squareup.okhttp3:okhttp:3.8.1'
-    compile 'com.google.code.gson:gson:2.8.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.8.1'
+    implementation 'com.google.code.gson:gson:2.8.0'
+    implementation 'com.github.ashLikun:OkHttpUtils:1.4.2'
     //图片加载
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
-    compile 'jp.wasabeef:glide-transformations:2.0.1'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
+    implementation 'jp.wasabeef:glide-transformations:2.0.1'
     //md风格对话框
-    compile 'com.afollestad.material-dialogs:core:0.9.4.3'
+    implementation 'com.afollestad.material-dialogs:core:0.9.4.3'
     //Android官方流布局
-    compile 'com.google.android:flexbox:0.3.0'
+    implementation 'com.google.android:flexbox:0.3.0'
     //    compile 'me.leolin:ShortcutBadger:1.1.4'
     //星评论
-    compile 'com.github.ashLikun:MaterialRatingBar:1.0.0'
+    implementation 'com.github.ashLikun:MaterialRatingBar:1.0.0'
     //Md日历选择
-    compile 'com.prolificinteractive:material-calendarview:1.4.3'
-    compile 'com.wdullaer:materialdatetimepicker:3.2.0'
+    implementation 'com.prolificinteractive:material-calendarview:1.4.3'
+    implementation 'com.wdullaer:materialdatetimepicker:3.2.0'
     //图片查看
-    compile 'com.bm.photoview:library:1.4.1'
+    implementation 'com.bm.photoview:library:1.4.1'
     //友盟统计
-    compile 'com.umeng.analytics:analytics:latest.integration'
+    implementation 'com.umeng.analytics:analytics:latest.integration'
 }
 /**
  * 加载签名配置文件
