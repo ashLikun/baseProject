@@ -49,22 +49,7 @@
     </style>
 
 
-    <style name="RatingBar" parent="android:Widget.RatingBar">
-        <!--<item name="android:progressDrawable">@drawable/select_rating_bar_bag</item>-->
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="mrb_progressTint">@color/yellow</item>
-        <item name="mrb_progressBackgroundTint">@color/gray</item>
-        <item name="android:minHeight">24dp</item>
-        <item name="android:maxHeight">24dp</item>
-        <item name="android:numStars">5</item>
-        <item name="android:stepSize">1</item>
-    </style>
 
-    <style name="RatingBar.Max">
-        <item name="android:minHeight">36dp</item>
-        <item name="android:maxHeight">36dp</item>
-    </style>
 
     <!--***************************************AnimCheckBox**************************************************-->
     <style name="CheckBoxGroup">

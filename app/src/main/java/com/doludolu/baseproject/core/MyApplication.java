@@ -78,22 +78,9 @@ public class MyApplication extends MultiDexApplication {
                 return BuildConfig.VERSION_CODE;
             }
         });
-        GlideUtils.init(new GlideUtils.OnNeedListener() {
-            @Override
-            public Application getApplication() {
-                return myApp;
-            }
+        GlideUtils.setBaseUrl(HttpManager.BASE_URL);
+        GlideUtils.setDebug(BuildConfig.DEBUG);
 
-            @Override
-            public boolean isDebug() {
-                return BuildConfig.DEBUG;
-            }
-
-            @Override
-            public String getBaseUrl() {
-                return HttpManager.BASE_URL;
-            }
-        });
         Utils.init(this);
         Utils.setDebug(BuildConfig.DEBUG);
         SuperToast.setGravity(Gravity.CENTER);

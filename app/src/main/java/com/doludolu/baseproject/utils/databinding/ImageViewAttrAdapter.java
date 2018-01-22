@@ -4,11 +4,8 @@ import android.databinding.BindingAdapter;
 import android.graphics.Bitmap;
 import android.widget.ImageView;
 
-import com.doludolu.baseproject.R;
-import com.ashlikun.glideutils.GlideOptions;
 import com.ashlikun.glideutils.GlideUtils;
-
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
+import com.bumptech.glide.request.RequestOptions;
 
 
 /**
@@ -45,36 +42,28 @@ public class ImageViewAttrAdapter {
 
     @BindingAdapter({"imageUrl", "placeHolder", "error"})
     public static void loadImage(ImageView imageView, String url, int holderId, int errorId) {
-        GlideOptions.Builder builder = new GlideOptions.Builder();
-        if (holderId > 0) builder.setPlaceholder(holderId);
-        else builder.setPlaceholder(R.drawable.material_default_image_1_1);
-        if (errorId > 0) builder.setError(errorId);
-        else builder.setError(R.color.glide_placeholder_color);
-        GlideUtils.show(imageView, url, builder.bulider());
+        GlideUtils.show(imageView, url, new RequestOptions()
+                .placeholder(holderId)
+                .error(errorId)
+        );
     }
 
     @BindingAdapter({"imageUrl", "error"})
     public static void loadImage(ImageView imageView, String url, int errorId) {
-        GlideOptions.Builder builder = new GlideOptions.Builder();
-        if (errorId > 0) builder.setError(errorId);
-        GlideUtils.show(imageView, url, builder.bulider());
+        GlideUtils.show(imageView, url, new RequestOptions()
+                .placeholder(errorId)
+                .error(errorId)
+        );
     }
 
     @BindingAdapter({"imageUrl"})
     public static void loadImage(ImageView imageView, String url) {
-        GlideOptions.Builder builder = new GlideOptions
-                .Builder()
-                .setPlaceholder1_1();
-        GlideUtils.show(imageView, url, builder.bulider());
+        GlideUtils.show(imageView, url);
     }
 
     @BindingAdapter({"imageUrlCircle"})
     public static void imageUrlCircle(ImageView imageView, String url) {
-        GlideOptions.Builder builder = new GlideOptions
-                .Builder()
-                .setPlaceholder1_1();
-        builder.addTransformation(new CropCircleTransformation(imageView.getContext()));
-        GlideUtils.show(imageView, url, builder.bulider());
+        GlideUtils.showCircle(imageView, url);
     }
 
 
