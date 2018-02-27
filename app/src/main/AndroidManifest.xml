@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.doludolu.baseproject">
+    package="com.ashlikun.baseproject">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -22,14 +22,14 @@
 
 
     <application
-        android:name=".core.MyApplication"
+        android:name="com.ashlikun.baseproject.core.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.WelcomeActivity"
+            android:name="com.ashlikun.baseproject.view.WelcomeActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -41,38 +41,38 @@
 
         <!--**********************************主界面******************************************* -->
         <activity
-            android:name=".view.home.activity.HomeActivity"
+            android:name="com.ashlikun.baseproject.view.home.activity.HomeActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.MainTheme"
             android:windowSoftInputMode="stateHidden|adjustPan" />
 
         <activity
-            android:name=".view.login.activity.LoginActivity"
+            android:name="com.ashlikun.baseproject.view.login.activity.LoginActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.OtherTheme" />
         <activity
-            android:name=".view.login.activity.AmendPasswordActivity"
+            android:name="com.ashlikun.baseproject.view.login.activity.AmendPasswordActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.OtherTheme" />
         <activity
-            android:name=".view.login.activity.UpdataPasswordActivity"
+            android:name="com.ashlikun.baseproject.view.login.activity.UpdataPasswordActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.OtherTheme" />
 
         <!--注册-->
         <activity
-            android:name=".view.login.activity.RegisterActivity"
+            android:name="com.ashlikun.baseproject.view.login.activity.RegisterActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.OtherTheme" />
 
 
         <activity
-            android:name=".view.other.activity.TestActivity"
+            android:name="com.ashlikun.baseproject.view.other.activity.TestActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.OtherTheme" />

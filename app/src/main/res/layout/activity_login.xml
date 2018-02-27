@@ -5,7 +5,7 @@
 
         <variable
             name="presenter"
-            type="com.doludolu.baseproject.presenter.login.LoginPresenter"></variable>
+            type="com.ashlikun.baseproject.presenter.login.LoginPresenter"></variable>
 
     </data>
 

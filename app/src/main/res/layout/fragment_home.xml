@@ -5,7 +5,7 @@
 
         <variable
             name="presenter"
-            type="com.doludolu.baseproject.presenter.home.HomePresenter"></variable>
+            type="com.ashlikun.baseproject.presenter.home.HomePresenter"></variable>
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
