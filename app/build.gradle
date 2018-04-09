@@ -164,6 +164,7 @@ dependencies {
         // if you don't use android.app.Fragment you can exclude support for them
         exclude module: "support-v13"
     }
+
     //权限插件
     annotationProcessor libs.permissionprocessor
 
@@ -257,6 +258,7 @@ dependencies {
 
     //友盟统计
     implementation libs.umeng
+    implementation project(':libarouter')
 }
 
 /**

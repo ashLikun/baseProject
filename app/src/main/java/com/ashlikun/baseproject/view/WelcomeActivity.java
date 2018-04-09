@@ -6,7 +6,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.animation.DecelerateInterpolator;
@@ -15,15 +14,15 @@ import android.widget.ImageView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
+import com.ashlikun.baseproject.BuildConfig;
+import com.ashlikun.baseproject.R;
+import com.ashlikun.baseproject.mode.javabean.base.UserData;
 import com.ashlikun.core.activity.BaseActivity;
+import com.ashlikun.libarouter.ARouterManage;
+import com.ashlikun.libarouter.constant.ARouterPath;
 import com.ashlikun.utils.other.SharedPreUtils;
 import com.ashlikun.utils.ui.SuperToast;
 import com.ashlikun.utils.ui.UiUtils;
-import com.ashlikun.baseproject.BuildConfig;
-import com.ashlikun.baseproject.R;
-import com.ashlikun.baseproject.core.ARouterFlag;
-import com.ashlikun.baseproject.mode.javabean.base.UserData;
 import com.romainpiel.shimmer.Shimmer;
 import com.romainpiel.shimmer.ShimmerTextView;
 
@@ -39,7 +38,7 @@ import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
-@Route(path = ARouterFlag.WELCOME)
+@Route(path = ARouterPath.WELCOME)
 public class WelcomeActivity extends BaseActivity {
     private int time = 3000;
 
@@ -84,9 +83,8 @@ public class WelcomeActivity extends BaseActivity {
                 .subscribe(stepCode -> {
                     //1跳转登陆或者首页，2：不跳转
                     if (stepCode == 1) {
-                        ARouter.getInstance().build(Uri.parse("/activity/home?index=1"))
-                                .withFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
-                                .navigation(WelcomeActivity.this);
+//                        ARouter.getInstance().build(Uri.parse("/activity/home?index=1"))
+                        ARouterManage.get().getHomeService().startHome(2, "aaa");
                         finish();
                     }
                 });

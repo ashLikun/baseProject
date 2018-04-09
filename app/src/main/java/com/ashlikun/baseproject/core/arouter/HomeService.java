@@ -1,11 +1,8 @@
 package com.ashlikun.baseproject.core.arouter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.ashlikun.libarouter.constant.ARouterPath;
 import com.ashlikun.libarouter.service.IHomeService;
 
@@ -27,15 +24,5 @@ public class HomeService implements IHomeService {
     }
 
 
-    @Override
-    public void startHome(int index, String canshu) {
-        Bundle bundle = new Bundle();
-        bundle.putInt("index", index);
-        bundle.putString("name", canshu);
-        ARouter.getInstance().build(ARouterPath.HOME)
-                .with(bundle)
-                .withFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
-                .withFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                .navigation();
-    }
+
 }

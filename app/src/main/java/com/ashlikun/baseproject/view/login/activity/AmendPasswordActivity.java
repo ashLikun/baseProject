@@ -10,7 +10,7 @@ import com.ashlikun.core.factory.Presenter;
 import com.ashlikun.utils.other.Validators;
 import com.ashlikun.utils.ui.EditHelper;
 import com.ashlikun.baseproject.R;
-import com.ashlikun.baseproject.core.ARouterFlag;
+import com.ashlikun.libarouter.constant.ARouterPath;
 import com.ashlikun.baseproject.databinding.ActivityAmendPasswordBinding;
 import com.ashlikun.baseproject.mode.javabean.base.UserData;
 import com.ashlikun.baseproject.presenter.login.AmendPasswordPresenter;
@@ -24,7 +24,7 @@ import com.ashlikun.baseproject.view.login.iview.IBLoginView;
  * <p>
  * 功能介绍：忘记密码
  */
-@Route(path = ARouterFlag.AMEND_PASSWORD)
+@Route(path = ARouterPath.AMEND_PASSWORD)
 @Presenter(AmendPasswordPresenter.class)
 public class AmendPasswordActivity extends BaseMvpActivity<AmendPasswordPresenter, ActivityAmendPasswordBinding>
         implements IBLoginView.IAmendPasswordView {

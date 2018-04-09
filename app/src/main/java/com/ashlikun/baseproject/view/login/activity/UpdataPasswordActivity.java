@@ -10,7 +10,7 @@ import com.ashlikun.core.factory.Presenter;
 import com.ashlikun.utils.other.Validators;
 import com.ashlikun.utils.ui.EditHelper;
 import com.ashlikun.baseproject.R;
-import com.ashlikun.baseproject.core.ARouterFlag;
+import com.ashlikun.libarouter.constant.ARouterPath;
 import com.ashlikun.baseproject.databinding.ActivityUpdataPasswordBinding;
 import com.ashlikun.baseproject.mode.javabean.base.UserData;
 import com.ashlikun.baseproject.presenter.login.UpDataPasswordPresenter;
@@ -24,7 +24,7 @@ import com.ashlikun.baseproject.view.login.iview.IBLoginView;
  * <p>
  * 功能介绍：修改密码
  */
-@Route(path = ARouterFlag.UPDATA_PASSWORD)
+@Route(path = ARouterPath.UPDATA_PASSWORD)
 @Presenter(UpDataPasswordPresenter.class)
 public class UpdataPasswordActivity extends BaseMvpActivity<UpDataPasswordPresenter, ActivityUpdataPasswordBinding>
         implements IBLoginView.IUpDataPasswordView {

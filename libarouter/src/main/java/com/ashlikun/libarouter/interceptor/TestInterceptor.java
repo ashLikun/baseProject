@@ -19,6 +19,8 @@ public class TestInterceptor implements IInterceptor {
     public void process(final Postcard postcard, final InterceptorCallback callback) {
         Log.d("ARouter", "TestInterceptor process");
         //这里加上自己的判断
+
+        //执行默认操作
         callback.onContinue(postcard);
     }
 

@@ -10,13 +10,13 @@ import com.ashlikun.core.factory.Presenter;
 import com.ashlikun.utils.other.Validators;
 import com.ashlikun.utils.ui.EditHelper;
 import com.ashlikun.baseproject.R;
-import com.ashlikun.baseproject.core.ARouterFlag;
+import com.ashlikun.libarouter.constant.ARouterPath;
 import com.ashlikun.baseproject.databinding.ActivityLoginBinding;
 import com.ashlikun.baseproject.mode.javabean.base.UserData;
 import com.ashlikun.baseproject.presenter.login.LoginPresenter;
 import com.ashlikun.baseproject.view.login.iview.IBLoginView;
 
-import static com.ashlikun.baseproject.core.ARouterFlag.LOGIN;
+import static com.ashlikun.libarouter.constant.ARouterPath.LOGIN;
 
 
 /**
@@ -69,14 +69,14 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter, ActivityLogin
     }
 
     public void onWangjiClick(View view) {
-        ARouter.getInstance().build(ARouterFlag.AMEND_PASSWORD)
+        ARouter.getInstance().build(ARouterPath.AMEND_PASSWORD)
                 .navigation(this);
     }
 
     @Override
     public void login(UserData data) {
         if (UserData.isSLogin()) {
-            ARouter.getInstance().build(ARouterFlag.HOME)
+            ARouter.getInstance().build(ARouterPath.HOME)
                     .withFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                     .navigation(this);
         }

@@ -15,7 +15,7 @@ import com.ashlikun.baseproject.mode.javabean.base.UserData;
 import com.ashlikun.baseproject.presenter.login.RegisterPresenter;
 import com.ashlikun.baseproject.view.login.iview.IBLoginView;
 
-import static com.ashlikun.baseproject.core.ARouterFlag.REGISTER;
+import static com.ashlikun.libarouter.constant.ARouterPath.REGISTER;
 
 
 /**

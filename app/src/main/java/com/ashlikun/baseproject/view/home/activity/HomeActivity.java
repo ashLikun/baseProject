@@ -18,7 +18,7 @@ import com.ashlikun.utils.ui.ActivityManager;
 import com.ashlikun.utils.ui.SuperToast;
 import com.ashlikun.utils.ui.ToastUtils;
 import com.ashlikun.baseproject.R;
-import com.ashlikun.baseproject.core.ARouterFlag;
+import com.ashlikun.libarouter.constant.ARouterPath;
 import com.ashlikun.baseproject.view.home.fragment.HomeFragment;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ import java.util.ArrayList;
  * <p>
  * 功能介绍：
  */
-@Route(path = ARouterFlag.HOME)
+@Route(path = ARouterPath.HOME)
 public class HomeActivity extends BaseActivity
         implements AHBottomNavigation.OnTabSelectedListener
         , ViewPager.OnPageChangeListener {
@@ -54,6 +54,8 @@ public class HomeActivity extends BaseActivity
 
     @Autowired
     public int index = 0;
+    @Autowired
+    public String name = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

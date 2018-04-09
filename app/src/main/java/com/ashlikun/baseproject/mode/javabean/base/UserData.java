@@ -22,7 +22,7 @@ import com.ashlikun.utils.other.StringUtils;
 import com.ashlikun.utils.ui.ActivityManager;
 import com.ashlikun.utils.ui.SuperToast;
 import com.ashlikun.baseproject.R;
-import com.ashlikun.baseproject.core.ARouterFlag;
+import com.ashlikun.libarouter.constant.ARouterPath;
 import com.ashlikun.baseproject.core.Global;
 import com.ashlikun.baseproject.mode.enum_type.DomeEnum;
 import com.google.gson.annotations.SerializedName;
@@ -125,7 +125,7 @@ public class UserData {
             if (showToast) {
                 SuperToast.get("您未登录，请先登录").info();
             }
-            ARouter.getInstance().build(ARouterFlag.LOGIN)
+            ARouter.getInstance().build(ARouterPath.LOGIN)
                     .navigation(activity);
             return false;
         }
@@ -150,7 +150,7 @@ public class UserData {
          */
         EventBus.getDefault().post(Global.EXIT_LOGIN);
         // 返回登录页面
-        ARouter.getInstance().build(ARouterFlag.LOGIN)
+        ARouter.getInstance().build(ARouterPath.LOGIN)
                 .navigation(context);
         return res;
     }

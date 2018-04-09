@@ -16,7 +16,7 @@ import com.ashlikun.baseproject.core.base.view.BaseListActivity;
 import com.ashlikun.baseproject.databinding.AaaBinding;
 import com.ashlikun.baseproject.presenter.login.LoginPresenter;
 
-import static com.ashlikun.baseproject.core.ARouterFlag.TEST;
+import static com.ashlikun.libarouter.constant.ARouterPath.TEST;
 
 
 /**
