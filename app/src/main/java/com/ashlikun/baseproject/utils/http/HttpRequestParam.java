@@ -1,9 +1,9 @@
 package com.ashlikun.baseproject.utils.http;
 
+import com.ashlikun.baseproject.mode.javabean.base.UserData;
 import com.ashlikun.okhttputils.http.request.RequestParam;
 import com.ashlikun.utils.other.LogUtils;
-import com.ashlikun.xrecycleview.PagingHelp;
-import com.ashlikun.baseproject.mode.javabean.base.UserData;
+import com.ashlikun.xrecycleview.PageHelp;
 
 import java.util.Map;
 
@@ -40,11 +40,9 @@ public class HttpRequestParam extends RequestParam {
      * <p>
      * 方法功能：添加分页数据  pageIndex,pageSize
      */
-    public void addPaging(PagingHelp pagingHelp) {
+    public void addPaging(PageHelp pagingHelp) {
         //第几页
-        addParam("pageIndex", pagingHelp.getPageindex());
-        //每页大小
-        addParam("pageSize", pagingHelp.getPageCount());
+        addParam("pageIndex", pagingHelp.getCurrentPage());
     }
 
     /**
@@ -52,6 +50,7 @@ public class HttpRequestParam extends RequestParam {
      *
      * @return
      */
+    @Override
     public boolean isEmpty(String str) {
         return (str == null || str.length() == 0);
     }
@@ -68,8 +67,11 @@ public class HttpRequestParam extends RequestParam {
      * 邮箱　　：496546144@qq.com
      * 方法功能：添加签名，在全部参数添加完毕后,请不要调用toJson方法
      */
+    @Override
     public void onBuildRequestBody() {
-        if (params == null) return;
+        if (params == null) {
+            return;
+        }
         StringBuilder sign = new StringBuilder();
         if (!params.isEmpty()) {
             for (Map.Entry<String, Object> entry : params.entrySet()) {

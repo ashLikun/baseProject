@@ -1,7 +1,7 @@
 package com.ashlikun.baseproject.core.base.iview;
 
 import com.ashlikun.core.iview.INotifyView;
-import com.ashlikun.xrecycleview.PagingHelp;
+import com.ashlikun.xrecycleview.PageHelp;
 import com.ashlikun.xrecycleview.StatusChangListener;
 
 import java.util.Collection;
@@ -56,5 +56,5 @@ public interface IBaseListView extends IBaseSwipeView, INotifyView {
 
     int getPageCount();
 
-    PagingHelp getPagingHelp();
+    PageHelp getPageHelp();
 }

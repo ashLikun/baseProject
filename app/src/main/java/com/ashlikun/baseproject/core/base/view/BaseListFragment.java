@@ -10,7 +10,7 @@ import com.ashlikun.core.BasePresenter;
 import com.ashlikun.core.fragment.BaseMvpFragment;
 import com.ashlikun.loadswitch.ContextData;
 import com.ashlikun.loadswitch.OnLoadSwitchClick;
-import com.ashlikun.xrecycleview.PagingHelp;
+import com.ashlikun.xrecycleview.PageHelp;
 import com.ashlikun.xrecycleview.RefreshLayout;
 import com.ashlikun.xrecycleview.StatusChangListener;
 import com.ashlikun.xrecycleview.SuperRecyclerView;
@@ -65,12 +65,6 @@ public abstract class BaseListFragment<P extends BasePresenter, VDB extends View
 
     public abstract RecyclerView.ItemDecoration getItemDecoration();
 
-    /**
-     * 获取分页的有效数据
-     */
-    public <T> Collection<T> getValidData(Collection<T> c) {
-        return listSwipeView.getPagingHelp().getValidData(c);
-    }
 
     public void clearData() {
     }
@@ -79,20 +73,16 @@ public abstract class BaseListFragment<P extends BasePresenter, VDB extends View
         return listSwipeView.getRefreshLayout();
     }
 
-    public PagingHelp getPagingHelp() {
-        return listSwipeView.getPagingHelp();
+    public PageHelp getPageHelp() {
+        return listSwipeView.getPageHelp();
     }
 
     public void clearPagingData() {
-        listSwipeView.getPagingHelp().clear();
+        listSwipeView.getPageHelp().clear();
     }
 
-    public int getPageindex() {
-        return listSwipeView.getPagingHelp().getPageindex();
-    }
-
-    public int getPageCount() {
-        return listSwipeView.getPagingHelp().getPageCount();
+    public int getCurrentPage() {
+        return listSwipeView.getPageHelp().getCurrentPage();
     }
 
     public void notifyChanged() {

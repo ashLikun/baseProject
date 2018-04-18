@@ -2,13 +2,12 @@ package com.ashlikun.baseproject.presenter.login;
 
 import android.view.View;
 
-import com.ashlikun.core.BasePresenter;
-import com.ashlikun.okhttputils.http.response.HttpResult;
 import com.ashlikun.baseproject.mode.httpquest.ApiService;
 import com.ashlikun.baseproject.mode.javabean.base.UserData;
 import com.ashlikun.baseproject.utils.http.HttpCallBack;
 import com.ashlikun.baseproject.view.login.iview.IBLoginView;
-import com.ashlikun.xrecycleview.PagingHelp;
+import com.ashlikun.core.BasePresenter;
+import com.ashlikun.okhttputils.http.response.HttpResult;
 
 /**
  * Created by yang on 2016/8/17.
