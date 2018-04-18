@@ -11,15 +11,15 @@ import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.ashlikun.adapter.SectionsPagerAdapter;
+import com.ashlikun.baseproject.R;
+import com.ashlikun.baseproject.view.home.fragment.HomeFragment;
 import com.ashlikun.bottomnavigation.AHBottomNavigation;
 import com.ashlikun.bottomnavigation.AHBottomNavigationItem;
 import com.ashlikun.core.activity.BaseActivity;
+import com.ashlikun.libarouter.constant.ARouterPath;
 import com.ashlikun.utils.ui.ActivityManager;
 import com.ashlikun.utils.ui.SuperToast;
 import com.ashlikun.utils.ui.ToastUtils;
-import com.ashlikun.baseproject.R;
-import com.ashlikun.libarouter.constant.ARouterPath;
-import com.ashlikun.baseproject.view.home.fragment.HomeFragment;
 
 import java.util.ArrayList;
 
@@ -54,7 +54,7 @@ public class HomeActivity extends BaseActivity
 
     @Autowired
     public int index = 0;
-    @Autowired
+    @Autowired(name = "/aaa/sss")
     public String name = "";
 
     @Override

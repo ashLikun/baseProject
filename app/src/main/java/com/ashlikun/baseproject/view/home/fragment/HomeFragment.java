@@ -1,16 +1,13 @@
 package com.ashlikun.baseproject.view.home.fragment;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-
-import com.ashlikun.core.factory.Presenter;
-import com.ashlikun.core.fragment.BaseMvpFragment;
-import com.ashlikun.loadswitch.ContextData;
-import com.ashlikun.loadswitch.OnLoadSwitchClick;
 import com.ashlikun.baseproject.R;
 import com.ashlikun.baseproject.databinding.FragmentHomeBinding;
 import com.ashlikun.baseproject.presenter.home.HomePresenter;
 import com.ashlikun.baseproject.view.home.IBHomeView;
+import com.ashlikun.core.factory.Presenter;
+import com.ashlikun.core.fragment.BaseMvpFragment;
+import com.ashlikun.loadswitch.ContextData;
+import com.ashlikun.loadswitch.OnLoadSwitchClick;
 
 /**
  * 作者　　: 李坤
@@ -28,10 +25,6 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter, FragmentHomeBin
         return R.layout.fragment_home;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public void initView() {

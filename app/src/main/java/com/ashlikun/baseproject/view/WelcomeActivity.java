@@ -17,8 +17,8 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.ashlikun.baseproject.BuildConfig;
 import com.ashlikun.baseproject.R;
 import com.ashlikun.baseproject.mode.javabean.base.UserData;
+import com.ashlikun.baseproject.presenter.home.HomePresenter;
 import com.ashlikun.core.activity.BaseActivity;
-import com.ashlikun.libarouter.ARouterManage;
 import com.ashlikun.libarouter.constant.ARouterPath;
 import com.ashlikun.utils.other.SharedPreUtils;
 import com.ashlikun.utils.ui.SuperToast;
@@ -59,6 +59,7 @@ public class WelcomeActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getLifecycle().addObserver(new HomePresenter());
         WelcomeActivityPermissionsDispatcher.getPermissionWithPermissionCheck(this);
     }
 
@@ -84,7 +85,7 @@ public class WelcomeActivity extends BaseActivity {
                     //1跳转登陆或者首页，2：不跳转
                     if (stepCode == 1) {
 //                        ARouter.getInstance().build(Uri.parse("/activity/home?index=1"))
-                        ARouterManage.get().getHomeService().startHome(2, "aaa");
+                      //  ARouterManage.get().getHomeService().startHome(2, "aaa");
                         finish();
                     }
                 });

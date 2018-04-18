@@ -2,12 +2,12 @@ package com.ashlikun.baseproject.presenter.home;
 
 import android.os.Bundle;
 
-import com.ashlikun.core.BasePresenter;
-import com.ashlikun.okhttputils.http.response.HttpResult;
 import com.ashlikun.baseproject.mode.httpquest.ApiService;
 import com.ashlikun.baseproject.mode.javabean.base.UserData;
 import com.ashlikun.baseproject.utils.http.HttpCallBack;
 import com.ashlikun.baseproject.view.home.IBHomeView;
+import com.ashlikun.core.BasePresenter;
+import com.ashlikun.okhttputils.http.response.HttpResult;
 
 
 public class HomePresenter extends BasePresenter<IBHomeView.IHomeView> {
