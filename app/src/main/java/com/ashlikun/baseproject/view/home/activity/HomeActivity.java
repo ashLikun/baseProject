@@ -54,7 +54,7 @@ public class HomeActivity extends BaseActivity
 
     @Autowired
     public int index = 0;
-    @Autowired(name = "/aaa/sss")
+    @Autowired()
     public String name = "";
 
     @Override
