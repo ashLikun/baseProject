@@ -240,7 +240,9 @@ dependencies {
     implementation libs.glideTransformations
 
     //md风格对话框
-    implementation libs.materialDialogs
+    implementation(libs.materialDialogs) {
+        exclude group: 'com.android.support'
+    }
 
     //Android官方流布局
     implementation libs.flexbox

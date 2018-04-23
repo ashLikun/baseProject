@@ -41,15 +41,15 @@ ext {
             //权限插件
             permissionprocessor  : "com.github.hotchemi:permissionsdispatcher-processor:3.1.0",
             //简单的PopupWindow
-            EasyPopupWindow      : "com.github.ashLikun:EasyPopupWindow:1.0.0",
+            EasyPopupWindow      : "com.github.ashLikun:EasyPopupWindow:1.0.2",
             //事件总线
-            EventBuss            : "com.github.ashLikun:EventBus:0.0.6",
+            EventBuss            : "com.github.ashLikun:EventBus:0.0.7",
 
             //数据库
-            LiteOrm              : "com.github.ashLikun:LiteOrm:1.0.0",
+            LiteOrm              : "com.github.ashLikun:LiteOrm:1.0.2",
 
             //封装的RecycleView
-            XRecycleView         : "com.github.ashLikun:XRecycleView:1.2.0",
+            XRecycleView         : "com.github.ashLikun:XRecycleView:1.2.1",
             //公共的工具
             CommonUtils          : "com.github.ashLikun:CommonUtils:1.3.4",
             //公共的Adapter
@@ -62,10 +62,10 @@ ext {
             LoadSwitch           : "com.github.ashLikun:LoadSwitch:1.0.7",
 
             //兼容的View textview
-            CompatView           : "com.github.ashLikun:CompatView:1.0.2",
+            CompatView           : "com.github.ashLikun:CompatView:1.0.4",
 
             //错误捕获
-            AppCrashDispose      : "com.github.ashLikun:AppCrashDispose:0.0.3",
+            AppCrashDispose      : "com.github.ashLikun:AppCrashDispose:0.0.4",
 
             //shimmer 文字
             shimmer              : "com.romainpiel.shimmer:library:1.4.0",
