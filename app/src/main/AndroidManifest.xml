@@ -32,11 +32,7 @@
             android:name="com.ashlikun.baseproject.view.WelcomeActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <!--**********************************主界面******************************************* -->
@@ -75,27 +71,20 @@
             android:name="com.ashlikun.baseproject.view.other.activity.TestActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.OtherTheme" />
+            android:theme="@style/AppTheme.OtherTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
 
         <activity
-            android:name="com.hubng.photo_hander.PhotoHanderActivity"
+            android:name="com.ashlikun.photo_hander.PhotoHanderActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.OtherTheme"></activity>
-
-        <activity
-            android:name="com.hubng.photo_hander.crop.CropImageActivity"
-            android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.OtherTheme" />
-        <activity
-            android:name="cat.ereza.customactivityoncrash.activity.DefaultErrorActivity"
-            android:process=":error_activity">
-            <intent-filter>
-                <action android:name="cat.ereza.customactivityoncrash.ERROR" />
-            </intent-filter>
-        </activity>
 
     </application>
 

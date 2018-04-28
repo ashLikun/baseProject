@@ -16,7 +16,7 @@ import com.ashlikun.libarouter.constant.ARouterPath;
 
 public class ARouterJump {
 
-    void startHome(int index, String canshu) {
+    public static void startHome(int index, String canshu) {
         Bundle bundle = new Bundle();
         bundle.putInt("index", index);
         bundle.putString("name", canshu);
@@ -24,6 +24,11 @@ public class ARouterJump {
                 .with(bundle)
                 .withFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 .withFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                .navigation();
+    }
+
+    public static void startTest() {
+        ARouter.getInstance().build(ARouterPath.TEST)
                 .navigation();
     }
 }

@@ -7,11 +7,12 @@
 
     </data>
 
-    <android.support.design.widget.CoordinatorLayout
+    <LinearLayout
         android:id="@+id/viewParent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
+
         android:orientation="vertical">
 
         <android.support.design.widget.AppBarLayout
@@ -31,8 +32,20 @@
         <com.ashlikun.xrecycleview.SuperRecyclerView
             android:id="@+id/switchRoot"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"></com.ashlikun.xrecycleview.SuperRecyclerView>
-    </android.support.design.widget.CoordinatorLayout>
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        </com.ashlikun.xrecycleview.SuperRecyclerView>
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:padding="@dimen/dp_20"
+            android:onClick="onButtonClick"
+            android:layout_height="wrap_content"
+            android:text="Button" />
+
+    </LinearLayout>
 </layout>
 

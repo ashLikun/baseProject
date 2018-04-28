@@ -37,7 +37,7 @@ public class LoginPresenter extends BasePresenter<IBLoginView.IloginView> {
                 }
             }
         };
-        addHttpCall(ApiService.getApi().login(phone, password, httpCallBack));
+        ApiService.getApi().login(phone, password, httpCallBack);
     }
 
 

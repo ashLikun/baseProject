@@ -19,6 +19,7 @@ import com.ashlikun.utils.ui.MainHandle;
 import com.ashlikun.utils.ui.SuperToast;
 import com.ashlikun.baseproject.core.MyApplication;
 import com.ashlikun.baseproject.mode.javabean.base.UserData;
+import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.IOException;
@@ -96,7 +97,12 @@ public class HttpManager implements SuperHttp {
         if (responseBody instanceof HttpResponse) {
             response = (HttpResponse) responseBody;
         } else if (responseBody instanceof String) {
-            response = new HttpResponse();
+            response = new HttpResponse() {
+                @Override
+                public Gson parseGson() {
+                    return null;
+                }
+            };
             response.setOnGsonErrorData((String) responseBody);
         }
         if (response != null) {

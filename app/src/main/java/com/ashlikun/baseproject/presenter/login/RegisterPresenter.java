@@ -39,7 +39,7 @@ public class RegisterPresenter extends BasePresenter<IBLoginView.IRegisterView> 
                 }
             }
         };
-        addHttpCall(ApiService.getApi().register(registerType, phone, password, code, callBack));
+        ApiService.getApi().register(registerType, phone, password, code, callBack);
     }
 
     public void sendMsg() {
@@ -59,7 +59,7 @@ public class RegisterPresenter extends BasePresenter<IBLoginView.IRegisterView> 
 
             }
         };
-        addHttpCall(ApiService.getApi().sendMsg(phone, httpCallBack));
+        ApiService.getApi().sendMsg(phone, httpCallBack);
     }
 
     public void onClickView(View view) {

@@ -22,7 +22,6 @@ android {
     }
     loadSigningConfigs()
     compileSdkVersion config.compileSdkVersion
-    buildToolsVersion config.buildToolsVersion
     defaultConfig {
         applicationId "com.ashlikun.baseproject"
         minSdkVersion config.minSdkVersion
@@ -142,6 +141,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    buildToolsVersion '27.0.3'
 }
 
 dependencies {
@@ -153,7 +153,7 @@ dependencies {
     implementation libs.multidex
 
     //alibaba的路由框架
-    implementation libs.arouterapi
+    api libs.arouterapi
     annotationProcessor libs.aroutercompiler
 
     //6.0权限管理
@@ -170,7 +170,6 @@ dependencies {
     implementation 'com.github.ashLikun.frame:flatbutton:' + rootProject.ext.frameVersion
     implementation 'com.github.ashLikun.frame:numberprogressbar:' + rootProject.ext.frameVersion
     implementation 'com.github.ashLikun.frame:segmentcontrol:' + rootProject.ext.frameVersion
-    implementation 'com.github.ashLikun.frame:supergridlayout:' + rootProject.ext.frameVersion
     implementation 'com.github.ashLikun.frame:banner:' + rootProject.ext.frameVersion
     implementation 'com.github.ashLikun.frame:charbar:' + rootProject.ext.frameVersion
     implementation 'com.github.ashLikun.frame:supertoobar:' + rootProject.ext.frameVersion
@@ -205,6 +204,10 @@ dependencies {
     //公共的Adapter
     implementation libs.CommonAdapter
 
+    //阿里的vlayout
+    implementation(libs.vlayout) {
+        transitive = true
+    }
     //习惯的对话框
     implementation libs.CustomDialog
 

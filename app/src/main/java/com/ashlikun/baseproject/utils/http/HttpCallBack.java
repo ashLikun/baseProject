@@ -2,25 +2,22 @@ package com.ashlikun.baseproject.utils.http;
 
 import android.view.View;
 
+import com.ashlikun.baseproject.R;
+import com.ashlikun.baseproject.core.MyApplication;
+import com.ashlikun.baseproject.core.base.iview.IBaseListView;
+import com.ashlikun.baseproject.core.base.iview.IBaseSwipeView;
 import com.ashlikun.core.BasePresenter;
-import com.ashlikun.core.HttpCacheExecuteCall;
 import com.ashlikun.core.activity.BaseActivity;
 import com.ashlikun.core.iview.BaseView;
 import com.ashlikun.loadswitch.ContextData;
 import com.ashlikun.loadswitch.LoadSwitchService;
 import com.ashlikun.okhttputils.http.Callback;
-import com.ashlikun.okhttputils.http.ExecuteCall;
 import com.ashlikun.okhttputils.http.HttpException;
+import com.ashlikun.okhttputils.http.OkHttpUtils;
 import com.ashlikun.okhttputils.http.response.HttpResponse;
 import com.ashlikun.utils.other.LogUtils;
 import com.ashlikun.xrecycleview.RefreshLayout;
 import com.ashlikun.xrecycleview.StatusChangListener;
-import com.ashlikun.baseproject.R;
-import com.ashlikun.baseproject.core.MyApplication;
-import com.ashlikun.baseproject.core.base.iview.IBaseListView;
-import com.ashlikun.baseproject.core.base.iview.IBaseSwipeView;
-
-import java.util.List;
 
 public abstract class HttpCallBack<ResultType> implements Callback<ResultType> {
     private final String ERROR_MSG_FORMAT = "%s(错误码:%d)";
@@ -88,23 +85,14 @@ public abstract class HttpCallBack<ResultType> implements Callback<ResultType> {
     public void onCompleted() {
         LogUtils.e("onCompleted");
         setEnableView(true);
-        //先找出对应的请求，然后去除
-        List<ExecuteCall> list = HttpCacheExecuteCall.getInstance().get(basePresenter == null ? baseActivity : basePresenter);
-        if (list != null) {
-            for (ExecuteCall call : list) {
-                if (call.getFlag() == hashCode()) {
-                    list.remove(call);
-                    break;
-                }
-            }
-        }
+
         dismissUi();
     }
 
     public void dismissUi() {
-        List<ExecuteCall> list = HttpCacheExecuteCall.getInstance().get(basePresenter == null ? baseActivity : basePresenter);
-        //如果这个请求集合不为null，说明当前页面还有请求，就不销毁对话框
-        if (list != null && !list.isEmpty()) {
+
+        //如果count > 0，说明当前页面还有请求，就不销毁对话框
+        if (count() > 0) {
             return;
         }
         if (isShowLoadding && basePresenter != null && basePresenter.mvpView != null) {
@@ -243,13 +231,9 @@ public abstract class HttpCallBack<ResultType> implements Callback<ResultType> {
      * @return
      */
     public boolean isFirstRequest() {
-        //先找出对应的请求
-        List<ExecuteCall> list = HttpCacheExecuteCall.getInstance().get(basePresenter == null ? baseActivity : basePresenter);
-        //如果这个请求集合大于2，说明当前页面还有请求，
-        if (list == null) {
-            return true;
-        }
-        if (list.size() >= 2) {
+
+        //如果这个请求集合大于1，说明当前页面还有请求，
+        if (count() > 1) {
             return false;
         }
         return true;
@@ -395,5 +379,13 @@ public abstract class HttpCallBack<ResultType> implements Callback<ResultType> {
             setLoadSwitchService(mvpView.getLoadSwitchService());
             return this;
         }
+    }
+
+    public long count() {
+        return OkHttpUtils.getInstance().countRequest(baseActivity, basePresenter);
+    }
+
+    public Object getTag() {
+        return baseActivity == null ? basePresenter : baseActivity;
     }
 }

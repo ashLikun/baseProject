@@ -1,5 +1,6 @@
 package com.ashlikun.baseproject.mode.httpquest;
 
+import com.ashlikun.baseproject.utils.http.HttpCallBack;
 import com.ashlikun.okhttputils.http.Callback;
 import com.ashlikun.okhttputils.http.ExecuteCall;
 import com.ashlikun.okhttputils.http.SuperHttp;
@@ -21,12 +22,22 @@ public class BaseApiService implements SuperHttp {
     //异步回调
     @Override
     public <T> ExecuteCall execute(RequestCall requestCall, Callback<T> callback) {
+        if (requestCall.getRequestParam().getTag() == null) {
+            if (callback instanceof HttpCallBack) {
+                requestCall.getRequestParam().tag(((HttpCallBack) callback).getTag());
+            }
+        }
         return HttpManager.getInstance().execute(requestCall, callback);
     }
 
     //异步回调
     @Override
     public <T> ExecuteCall execute(RequestParam requestParam, Callback<T> callback) {
+        if (requestParam.getTag() == null) {
+            if (callback instanceof HttpCallBack) {
+                requestParam.tag(((HttpCallBack) callback).getTag());
+            }
+        }
         return HttpManager.getInstance().execute(requestParam, callback);
     }
 

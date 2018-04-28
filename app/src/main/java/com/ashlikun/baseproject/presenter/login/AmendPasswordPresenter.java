@@ -51,7 +51,7 @@ public class AmendPasswordPresenter extends BasePresenter<IBLoginView.IAmendPass
 
             }
         };
-        addHttpCall(ApiService.getApi().upDataPassword(phone, password1, code, httpCallBack));
+        ApiService.getApi().upDataPassword(phone, password1, code, httpCallBack);
     }
 
 
@@ -72,6 +72,6 @@ public class AmendPasswordPresenter extends BasePresenter<IBLoginView.IAmendPass
 
             }
         };
-        addHttpCall(ApiService.getApi().sendMsg(phone, httpCallBack));
+       ApiService.getApi().sendMsg(phone, httpCallBack);
     }
 }

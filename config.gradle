@@ -31,7 +31,7 @@ ext {
             supportV4            : "com.android.support:support-v4:$superVersion",
             appcompat            : "com.android.support:appcompat-v7:$superVersion",
             //基本架构
-            CustomMvp            : "com.github.ashLikun:CustomMvp:1.2.2",
+            CustomMvp            : "com.github.ashLikun:CustomMvp:1.2.4",
             multidex             : "com.android.support:multidex:1.0.2",
             //alibaba的路由框架
             arouterapi           : "com.alibaba:arouter-api:1.3.1",
@@ -43,23 +43,26 @@ ext {
             //简单的PopupWindow
             EasyPopupWindow      : "com.github.ashLikun:EasyPopupWindow:1.0.2",
             //事件总线
-            EventBuss            : "com.github.ashLikun:EventBus:0.0.7",
+            EventBuss            : "com.github.ashLikun:EventBus:0.0.8",
 
             //数据库
             LiteOrm              : "com.github.ashLikun:LiteOrm:1.0.2",
 
             //封装的RecycleView
-            XRecycleView         : "com.github.ashLikun:XRecycleView:1.2.1",
+            XRecycleView         : "com.github.ashLikun:XRecycleView:1.2.4",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:1.3.4",
+            CommonUtils          : "com.github.ashLikun:CommonUtils:1.4.0",
             //公共的Adapter
-            CommonAdapter        : "com.github.ashLikun.CommonAdapter:databindadapter:1.3.7",
+            CommonAdapter        : "com.github.ashLikun.CommonAdapter:adapter:1.3.7",
+
+            //阿里的vlayout
+            vlayout              : "com.alibaba.android:vlayout:1.2.8@aar",
 
             //习惯的对话框
-            CustomDialog         : "com.github.ashLikun:CustomDialog:1.1.1",
+            CustomDialog         : "com.github.ashLikun:CustomDialog:1.1.3",
 
             //布局切换
-            LoadSwitch           : "com.github.ashLikun:LoadSwitch:1.0.7",
+            LoadSwitch           : "com.github.ashLikun:LoadSwitch:1.1.3",
 
             //兼容的View textview
             CompatView           : "com.github.ashLikun:CompatView:1.0.4",
@@ -71,7 +74,7 @@ ext {
             shimmer              : "com.romainpiel.shimmer:library:1.4.0",
 
             //导航tab
-            BottomNavigation     : "com.github.ashLikun:BottomNavigation:2.0.8",
+            BottomNavigation     : "com.github.ashLikun:BottomNavigation:2.1.0",
 
             //rxjava
             rxandroid            : "io.reactivex.rxjava2:rxandroid:2.0.1",
@@ -82,7 +85,7 @@ ext {
             gson                 : "com.google.code.gson:gson:2.8.2",
 
             //基于Okhttp封装的
-            OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:1.4.6",
+            OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:1.5.2",
 
             //图片加载
             glide                : "com.github.bumptech.glide:glide:4.5.0",

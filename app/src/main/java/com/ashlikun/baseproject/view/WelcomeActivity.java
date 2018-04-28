@@ -20,6 +20,7 @@ import com.ashlikun.baseproject.mode.javabean.base.UserData;
 import com.ashlikun.baseproject.presenter.home.HomePresenter;
 import com.ashlikun.core.activity.BaseActivity;
 import com.ashlikun.libarouter.constant.ARouterPath;
+import com.ashlikun.libarouter.jump.ARouterJump;
 import com.ashlikun.utils.other.SharedPreUtils;
 import com.ashlikun.utils.ui.SuperToast;
 import com.ashlikun.utils.ui.UiUtils;
@@ -85,7 +86,7 @@ public class WelcomeActivity extends BaseActivity {
                     //1跳转登陆或者首页，2：不跳转
                     if (stepCode == 1) {
 //                        ARouter.getInstance().build(Uri.parse("/activity/home?index=1"))
-                      //  ARouterManage.get().getHomeService().startHome(2, "aaa");
+                        ARouterJump.startTest();
                         finish();
                     }
                 });

@@ -20,7 +20,6 @@ public class HomePresenter extends BasePresenter<IBHomeView.IHomeView> {
         Integer a = new Integer(22);
         int c = 22;
         Integer b = new Integer(22);
-        boolean aa = a == b;
     }
 
     public void login() {
@@ -46,7 +45,7 @@ public class HomePresenter extends BasePresenter<IBHomeView.IHomeView> {
                 }
             }
         };
-        addHttpCall(ApiService.getApi().login("18662288251", "18662288251", httpCallBack));
+        ApiService.getApi().login("18662288251", "18662288251", httpCallBack);
     }
 
     public void login2() {
@@ -72,6 +71,6 @@ public class HomePresenter extends BasePresenter<IBHomeView.IHomeView> {
                 }
             }
         };
-        addHttpCall(ApiService.getApi().login("18662288251", "18662288251", httpCallBack));
+        ApiService.getApi().login("18662288251", "18662288251", httpCallBack);
     }
 }

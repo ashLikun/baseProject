@@ -4,7 +4,7 @@ import android.databinding.ViewDataBinding;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.ashlikun.adapter.databind.recycleview.CommonBindAdapter;
+import com.ashlikun.adapter.recyclerview.CommonAdapter;
 import com.ashlikun.adapter.recyclerview.click.OnItemClickListener;
 import com.ashlikun.core.BasePresenter;
 import com.ashlikun.core.activity.BaseMvpActivity;
@@ -14,6 +14,7 @@ import com.ashlikun.xrecycleview.PageHelp;
 import com.ashlikun.xrecycleview.RefreshLayout;
 import com.ashlikun.xrecycleview.StatusChangListener;
 import com.ashlikun.xrecycleview.SuperRecyclerView;
+import com.ashlikun.xrecycleview.listener.RecycleViewSwipeListener;
 
 
 /**
@@ -22,11 +23,11 @@ import com.ashlikun.xrecycleview.SuperRecyclerView;
 
 public abstract class BaseListActivity<P extends BasePresenter, VDB extends ViewDataBinding, D>
         extends BaseMvpActivity<P, VDB>
-        implements SuperRecyclerView.ListSwipeViewListener, OnItemClickListener<D>,
+        implements RecycleViewSwipeListener, OnItemClickListener<D>,
         OnLoadSwitchClick {
     protected SuperRecyclerView listSwipeView;
 
-    protected CommonBindAdapter adapter;
+    protected CommonAdapter adapter;
 
     public RefreshLayout getRefreshLayout() {
         return listSwipeView.getRefreshLayout();
@@ -56,7 +57,7 @@ public abstract class BaseListActivity<P extends BasePresenter, VDB extends View
         return new LinearLayoutManager(this);
     }
 
-    public abstract CommonBindAdapter getAdapter();
+    public abstract CommonAdapter getAdapter();
 
     public void clearData() {
     }
