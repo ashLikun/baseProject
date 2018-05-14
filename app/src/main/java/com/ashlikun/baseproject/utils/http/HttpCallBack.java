@@ -11,15 +11,15 @@ import com.ashlikun.core.activity.BaseActivity;
 import com.ashlikun.core.iview.BaseView;
 import com.ashlikun.loadswitch.ContextData;
 import com.ashlikun.loadswitch.LoadSwitchService;
-import com.ashlikun.okhttputils.http.Callback;
 import com.ashlikun.okhttputils.http.HttpException;
 import com.ashlikun.okhttputils.http.OkHttpUtils;
+import com.ashlikun.okhttputils.http.callback.AbsCallback;
 import com.ashlikun.okhttputils.http.response.HttpResponse;
 import com.ashlikun.utils.other.LogUtils;
 import com.ashlikun.xrecycleview.RefreshLayout;
 import com.ashlikun.xrecycleview.StatusChangListener;
 
-public abstract class HttpCallBack<ResultType> implements Callback<ResultType> {
+public abstract class HttpCallBack<ResultType> extends AbsCallback<ResultType> {
     private final String ERROR_MSG_FORMAT = "%s(错误码:%d)";
     protected String hint = null;//对话框提示的文本  空就不显示对话框
 

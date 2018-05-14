@@ -1,7 +1,7 @@
 package com.ashlikun.baseproject.utils.http;
 
 import com.ashlikun.baseproject.mode.javabean.base.UserData;
-import com.ashlikun.okhttputils.http.request.RequestParam;
+import com.ashlikun.okhttputils.http.request.HttpRequest;
 import com.ashlikun.utils.other.LogUtils;
 import com.ashlikun.xrecycleview.PageHelp;
 
@@ -14,7 +14,7 @@ import java.util.Map;
  * <p>
  * 功能介绍： 请求参数
  */
-public class HttpRequestParam extends RequestParam {
+public class HttpRequestParam extends HttpRequest {
     private static final String SIGN = "baseproject";
 
     public HttpRequestParam(String path) {

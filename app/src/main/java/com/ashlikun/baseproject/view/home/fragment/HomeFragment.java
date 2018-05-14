@@ -8,6 +8,7 @@ import com.ashlikun.core.factory.Presenter;
 import com.ashlikun.core.fragment.BaseMvpFragment;
 import com.ashlikun.loadswitch.ContextData;
 import com.ashlikun.loadswitch.OnLoadSwitchClick;
+import com.ashlikun.utils.ui.AndroidBug5497Workaround;
 
 /**
  * 作者　　: 李坤

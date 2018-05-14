@@ -208,6 +208,7 @@ dependencies {
     implementation(libs.vlayout) {
         transitive = true
     }
+    implementation libs.MultiTypeGson
     //习惯的对话框
     implementation libs.CustomDialog
 

@@ -1,13 +1,12 @@
 package com.ashlikun.baseproject.utils.http;
 
 import com.ashlikun.core.iview.IProgressView;
-import com.ashlikun.okhttputils.http.request.ProgressCallBack;
+import com.ashlikun.okhttputils.http.callback.ProgressCallBack;
 import com.ashlikun.utils.other.LogUtils;
 
 public abstract class HttpProgressCallBack<ResultType> extends HttpCallBack<ResultType> implements ProgressCallBack {
     //下载或者上传 回调的频率  ms
     public long rate = 500;
-
     protected boolean isShowProgress = true;
 
     public HttpProgressCallBack(Buider buider) {
@@ -31,11 +30,6 @@ public abstract class HttpProgressCallBack<ResultType> extends HttpCallBack<Resu
     @Override
     public long getRate() {
         return rate;
-    }
-
-    @Override
-    public void setRate(long rate) {
-        this.rate = rate;
     }
 
 

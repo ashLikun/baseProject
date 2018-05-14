@@ -1,8 +1,8 @@
 package com.ashlikun.baseproject.mode.httpquest;
 
-import com.ashlikun.okhttputils.http.Callback;
-import com.ashlikun.okhttputils.http.ExecuteCall;
 import com.ashlikun.baseproject.utils.http.HttpRequestParam;
+import com.ashlikun.okhttputils.http.ExecuteCall;
+import com.ashlikun.okhttputils.http.callback.Callback;
 
 /**
  * 作者　　: 李坤

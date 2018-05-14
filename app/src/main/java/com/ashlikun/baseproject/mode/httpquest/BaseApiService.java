@@ -1,14 +1,10 @@
 package com.ashlikun.baseproject.mode.httpquest;
 
 import com.ashlikun.baseproject.utils.http.HttpCallBack;
-import com.ashlikun.okhttputils.http.Callback;
+import com.ashlikun.baseproject.utils.http.HttpRequestParam;
 import com.ashlikun.okhttputils.http.ExecuteCall;
-import com.ashlikun.okhttputils.http.SuperHttp;
-import com.ashlikun.okhttputils.http.request.RequestCall;
-import com.ashlikun.okhttputils.http.request.RequestParam;
-import com.ashlikun.baseproject.utils.http.HttpManager;
-
-import java.io.IOException;
+import com.ashlikun.okhttputils.http.OkHttpUtils;
+import com.ashlikun.okhttputils.http.callback.Callback;
 
 /**
  * 作者　　: 李坤
@@ -18,38 +14,20 @@ import java.io.IOException;
  * 功能介绍：
  */
 
-public class BaseApiService implements SuperHttp {
-    //异步回调
-    @Override
-    public <T> ExecuteCall execute(RequestCall requestCall, Callback<T> callback) {
-        if (requestCall.getRequestParam().getTag() == null) {
+public class BaseApiService {
+
+    /**
+     * http://121.43.181.169/app/log.php
+     * post
+     * username,password
+     */
+    public ExecuteCall execute(HttpRequestParam param, Callback callback) {
+        if (param.getTag() == null) {
             if (callback instanceof HttpCallBack) {
-                requestCall.getRequestParam().tag(((HttpCallBack) callback).getTag());
+                param.tag(((HttpCallBack) callback).getTag());
             }
         }
-        return HttpManager.getInstance().execute(requestCall, callback);
-    }
-
-    //异步回调
-    @Override
-    public <T> ExecuteCall execute(RequestParam requestParam, Callback<T> callback) {
-        if (requestParam.getTag() == null) {
-            if (callback instanceof HttpCallBack) {
-                requestParam.tag(((HttpCallBack) callback).getTag());
-            }
-        }
-        return HttpManager.getInstance().execute(requestParam, callback);
-    }
-
-    //同步执行
-    @Override
-    public <ResultType> ResultType syncExecute(RequestCall requestCall, Class raw, final Class... args) throws IOException {
-        return HttpManager.getInstance().syncExecute(requestCall, raw, args);
-    }
-
-    //同步执行
-    @Override
-    public <ResultType> ResultType syncExecute(RequestParam requestParam, Class raw, final Class... args) throws IOException {
-        return HttpManager.getInstance().syncExecute(requestParam, raw, args);
+        return OkHttpUtils.request(param)
+                .execute(callback);
     }
 }
