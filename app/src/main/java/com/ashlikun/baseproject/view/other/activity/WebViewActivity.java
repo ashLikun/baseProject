@@ -7,7 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.ashlikun.core.activity.BaseActivity;
-import com.ashlikun.libarouter.constant.ARouterWith;
+import com.ashlikun.libarouter.constant.ARouterKey;
 import com.ashlikun.superwebview.SuperWebView;
 import com.ashlikun.utils.http.HttpLocalUtils;
 import com.ashlikun.utils.other.StringUtils;
@@ -15,7 +15,7 @@ import com.ashlikun.utils.ui.SuperToast;
 import com.ashlikun.xrecycleview.SuperSwipeRefreshLayout;
 import com.ashlikun.baseproject.R;
 import com.ashlikun.libarouter.constant.ARouterPath;
-import com.ashlikun.baseproject.utils.http.HttpManager;
+import com.ashlikun.libcore.utils.http.HttpManager;
 
 
 /**
@@ -38,8 +38,8 @@ public class WebViewActivity extends BaseActivity implements SwipeRefreshLayout.
             return;
         }
         Intent intent = new Intent(context, WebViewActivity.class);
-        intent.putExtra(ARouterWith.FLAG_TITLE, title);
-        intent.putExtra(ARouterWith.FLAG_URL, url);
+        intent.putExtra(ARouterKey.FLAG_TITLE, title);
+        intent.putExtra(ARouterKey.FLAG_URL, url);
         context.startActivity(intent);
     }
 

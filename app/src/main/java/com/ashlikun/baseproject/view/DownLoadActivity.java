@@ -21,8 +21,13 @@ import com.ashlikun.utils.other.LogUtils;
 import java.io.File;
 
 /**
- * 类/接口描述
+ * @author　　: 李坤
+ * 创建时间: 2018/7/18 13:22
+ * 邮箱　　：496546144@qq.com
+ *
+ * 功能介绍：下载的案例类
  */
+
 public class DownLoadActivity extends AppCompatActivity implements View.OnClickListener, DownloadTaskListener {
     private ProgressBar mProgressBar;
     private Button mButton;

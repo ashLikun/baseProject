@@ -5,18 +5,15 @@ import android.view.View;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.ashlikun.adapter.recyclerview.multiltem.MultipleAdapter;
 import com.ashlikun.baseproject.R;
-import com.ashlikun.baseproject.databinding.AaaBinding;
-import com.ashlikun.core.activity.DataBindingActivity;
-import com.google.gson.GsonBuilder;
-
-import static com.ashlikun.libarouter.constant.ARouterPath.TEST;
+import com.ashlikun.core.activity.BaseActivity;
+import com.ashlikun.libarouter.constant.ARouterPath;
 
 
 /**
  * Created by yang on 2016/9/3.
  */
-@Route(path = TEST)
-public class TestActivity extends DataBindingActivity<AaaBinding> {
+@Route(path = ARouterPath.TEST)
+public class TestActivity extends BaseActivity {
     MultipleAdapter adapter;
 
 
@@ -27,11 +24,6 @@ public class TestActivity extends DataBindingActivity<AaaBinding> {
 
     @Override
     public void initView() {
-//        VirtualLayoutManager manager = new VirtualLayoutManager(this);
-//        adapter = new MultipleAdapter(manager);
-//        dataBind.switchRoot.setAdapter(adapter);
-//        dataBind.switchRoot.setLayoutManager(manager);
-
     }
 
     public void onButtonClick(View view) {

@@ -2,12 +2,13 @@ package com.ashlikun.baseproject.presenter.login;
 
 import android.os.Bundle;
 
+import com.ashlikun.baseproject.view.login.iview.IBLoginView;
 import com.ashlikun.core.BasePresenter;
+import com.ashlikun.libcore.javabean.UserData;
+import com.ashlikun.libcore.utils.http.HttpCallBack;
 import com.ashlikun.okhttputils.http.response.HttpResult;
 import com.ashlikun.utils.other.StringUtils;
-import com.ashlikun.baseproject.mode.javabean.base.UserData;
-import com.ashlikun.baseproject.utils.http.HttpCallBack;
-import com.ashlikun.baseproject.view.login.iview.IBLoginView;
+import com.ashlikun.utils.ui.SuperToast;
 
 /**
  * 作者　　: 李坤
@@ -25,7 +26,6 @@ public class UpDataPasswordPresenter extends BasePresenter<IBLoginView.IUpDataPa
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mvpView.getDataBind().setPresenter(this);
     }
 
     /**
@@ -36,14 +36,16 @@ public class UpDataPasswordPresenter extends BasePresenter<IBLoginView.IUpDataPa
      * AgainPwd：确认密码
      */
     public void updateUserPwd() {
-        if (!UserData.isSLogin()) return;
+        if (!UserData.isSLogin()) {
+            return;
+        }
         if (!StringUtils.isEquals(password1, password2)) {
-            mvpView.showWarningMessage("两次密码不一致");
+            SuperToast.showWarningMessage("两次密码不一致");
             return;
         }
         HttpCallBack.Buider buider = HttpCallBack.Buider.get(this)
                 .setShowLoadding(false)
-                .setLoadSwitchService(mvpView.getLoadSwitchService());
+                .setLoadSwitchService(mvpView.getSwitchService());
         HttpCallBack httpCallBack = new HttpCallBack<HttpResult>(buider) {
 
             @Override
@@ -51,10 +53,10 @@ public class UpDataPasswordPresenter extends BasePresenter<IBLoginView.IUpDataPa
                 super.onSuccess(result);
 
                 if (result.isSucceed()) {
-                    mvpView.showInfoMessage(result.getMessage());
+                    SuperToast.showInfoMessage(result.getMessage());
                     mvpView.finish();
                 } else {
-                    mvpView.showErrorMessage(result.getMessage());
+                    SuperToast.showErrorMessage(result.getMessage());
                 }
             }
         };

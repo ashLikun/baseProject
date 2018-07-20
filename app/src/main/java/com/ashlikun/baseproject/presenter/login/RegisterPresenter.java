@@ -2,15 +2,15 @@ package com.ashlikun.baseproject.presenter.login;
 
 import android.view.View;
 
-import com.ashlikun.core.BasePresenter;
-import com.ashlikun.okhttputils.http.response.HttpResult;
-import com.ashlikun.utils.other.CountdownUtils;
-import com.ashlikun.utils.other.StringUtils;
 import com.ashlikun.baseproject.R;
 import com.ashlikun.baseproject.mode.httpquest.ApiService;
-import com.ashlikun.baseproject.mode.javabean.base.UserData;
-import com.ashlikun.baseproject.utils.http.HttpCallBack;
 import com.ashlikun.baseproject.view.login.iview.IBLoginView;
+import com.ashlikun.core.BasePresenter;
+import com.ashlikun.libcore.javabean.UserData;
+import com.ashlikun.libcore.utils.http.HttpCallBack;
+import com.ashlikun.okhttputils.http.response.HttpResult;
+import com.ashlikun.utils.other.StringUtils;
+import com.ashlikun.utils.ui.SuperToast;
 
 import static com.ashlikun.baseproject.core.MyApplication.myApp;
 
@@ -33,9 +33,9 @@ public class RegisterPresenter extends BasePresenter<IBLoginView.IRegisterView> 
                 if (result.isSucceed() && result.getData() != null) {
                     result.getData().save();
                     mvpView.receiverUserData(result.getData());
-                    mvpView.showInfoMessage(result.getMessage());
+                    SuperToast.showInfoMessage(result.getMessage());
                 } else {
-                    mvpView.showWarningMessage(result.getMessage());
+                    SuperToast.showWarningMessage(result.getMessage());
                 }
             }
         };
@@ -49,12 +49,12 @@ public class RegisterPresenter extends BasePresenter<IBLoginView.IRegisterView> 
             public void onSuccess(HttpResult result) {
                 super.onSuccess(result);
                 if (result.isSucceed()) {
-                    new CountdownUtils.Bulider()
-                            .setMsg(mvpView.getContext().getResources().getString(R.string.get_yanzenma))
-                            .bulid()
-                            .start(mvpView.getDataBind().sendButton);
+//                    new CountdownUtils.Bulider()
+//                            .setMsg(mvpView.getContext().getResources().getString(R.string.get_yanzenma))
+//                            .bulid()
+//                            .start(sendButton);
                 } else {
-                    mvpView.showErrorMessage(result.getMessage());
+                    SuperToast.showErrorMessage(result.getMessage());
                 }
 
             }
@@ -65,7 +65,7 @@ public class RegisterPresenter extends BasePresenter<IBLoginView.IRegisterView> 
     public void onClickView(View view) {
         if (mvpView.checkData()) {
             if (!StringUtils.isEquals(password, password2)) {
-                mvpView.showWarningMessage(myApp.getResources().getString(R.string.inputCheckHint));
+                SuperToast.showWarningMessage(myApp.getResources().getString(R.string.inputCheckHint));
             } else {
                 goRegister();
             }

@@ -11,8 +11,8 @@ import com.ashlikun.glideutils.GlideUtils;
 import com.ashlikun.utils.http.HttpLocalUtils;
 import com.bumptech.glide.request.RequestOptions;
 import com.ashlikun.baseproject.R;
-import com.ashlikun.baseproject.mode.javabean.base.BannerAdData;
-import com.ashlikun.baseproject.utils.http.HttpManager;
+import com.ashlikun.libcore.javabean.BannerAdData;
+import com.ashlikun.libcore.utils.http.HttpManager;
 
 
 /**

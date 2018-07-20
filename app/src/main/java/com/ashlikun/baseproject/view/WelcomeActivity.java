@@ -16,11 +16,11 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.ashlikun.baseproject.BuildConfig;
 import com.ashlikun.baseproject.R;
-import com.ashlikun.baseproject.mode.javabean.base.UserData;
 import com.ashlikun.baseproject.presenter.home.HomePresenter;
 import com.ashlikun.core.activity.BaseActivity;
 import com.ashlikun.libarouter.constant.ARouterPath;
 import com.ashlikun.libarouter.jump.ARouterJump;
+import com.ashlikun.libcore.javabean.UserData;
 import com.ashlikun.utils.other.SharedPreUtils;
 import com.ashlikun.utils.ui.SuperToast;
 import com.ashlikun.utils.ui.UiUtils;
@@ -37,6 +37,14 @@ import permissions.dispatcher.OnPermissionDenied;
 import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
+
+/**
+ * @author　　: 李坤
+ * 创建时间: 2018/7/18 13:22
+ * 邮箱　　：496546144@qq.com
+ * <p>
+ * 功能介绍：项目入口类
+ */
 
 @RuntimePermissions
 @Route(path = ARouterPath.WELCOME)
@@ -85,8 +93,7 @@ public class WelcomeActivity extends BaseActivity {
                 .subscribe(stepCode -> {
                     //1跳转登陆或者首页，2：不跳转
                     if (stepCode == 1) {
-//                        ARouter.getInstance().build(Uri.parse("/activity/home?index=1"))
-                        ARouterJump.startTest();
+                        ARouterJump.startHome(0, "");
                         finish();
                     }
                 });

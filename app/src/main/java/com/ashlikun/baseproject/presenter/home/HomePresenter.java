@@ -3,27 +3,25 @@ package com.ashlikun.baseproject.presenter.home;
 import android.os.Bundle;
 
 import com.ashlikun.baseproject.mode.httpquest.ApiService;
-import com.ashlikun.baseproject.mode.javabean.base.UserData;
-import com.ashlikun.baseproject.utils.http.HttpCallBack;
+import com.ashlikun.libcore.javabean.UserData;
+import com.ashlikun.libcore.utils.http.HttpCallBack;
 import com.ashlikun.baseproject.view.home.IBHomeView;
 import com.ashlikun.core.BasePresenter;
 import com.ashlikun.okhttputils.http.response.HttpResult;
+import com.ashlikun.utils.ui.SuperToast;
 
 
 public class HomePresenter extends BasePresenter<IBHomeView.IHomeView> {
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mvpView.getDataBind().setPresenter(this);
         Integer a = new Integer(22);
         int c = 22;
         Integer b = new Integer(22);
     }
 
     public void login() {
-        HttpCallBack.Buider buider = HttpCallBack.Buider.get(this).setLoadSwitchService(mvpView.getLoadSwitchService());
+        HttpCallBack.Buider buider = HttpCallBack.Buider.get(this).setLoadSwitchService(mvpView.getSwitchService());
         HttpCallBack httpCallBack = new HttpCallBack<HttpResult<UserData>>(buider) {
             @Override
             public void onSuccessSubThread(HttpResult<UserData> responseBody) {
@@ -41,7 +39,7 @@ public class HomePresenter extends BasePresenter<IBHomeView.IHomeView> {
                 if (result.isSucceed() && result.getData() != null) {
                     result.getData().save();
                 } else {
-                    mvpView.showErrorMessage(result.getMessage());
+                    SuperToast.showErrorMessage(result.getMessage());
                 }
             }
         };
@@ -49,7 +47,7 @@ public class HomePresenter extends BasePresenter<IBHomeView.IHomeView> {
     }
 
     public void login2() {
-        HttpCallBack.Buider buider = HttpCallBack.Buider.get(this).setLoadSwitchService(mvpView.getLoadSwitchService());
+        HttpCallBack.Buider buider = HttpCallBack.Buider.get(this).setLoadSwitchService(mvpView.getSwitchService());
         HttpCallBack httpCallBack = new HttpCallBack<HttpResult<UserData>>(buider) {
             @Override
             public void onSuccessSubThread(HttpResult<UserData> responseBody) {
@@ -67,7 +65,7 @@ public class HomePresenter extends BasePresenter<IBHomeView.IHomeView> {
                 if (result.isSucceed() && result.getData() != null) {
                     result.getData().save();
                 } else {
-                    mvpView.showErrorMessage(result.getMessage());
+                    SuperToast.showErrorMessage(result.getMessage());
                 }
             }
         };

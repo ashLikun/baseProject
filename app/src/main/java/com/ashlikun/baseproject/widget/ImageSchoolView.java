@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.ashlikun.baseproject.R;
-import com.ashlikun.baseproject.utils.databinding.ImageViewAttrAdapter;
+import com.ashlikun.glideutils.GlideUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +83,7 @@ public class ImageSchoolView extends ViewGroup {
         removeAllViews();
         for (int i = 0; i < listDatas.size(); i++) {
             ImageView image = getImageView(i);
-            ImageViewAttrAdapter.loadImage(image, listDatas.get(i));
+            GlideUtils.show(image, listDatas.get(i));
             addView(image, generateDefaultLayoutParams());
         }
     }

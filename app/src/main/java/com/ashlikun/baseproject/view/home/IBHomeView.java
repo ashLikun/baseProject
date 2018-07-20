@@ -1,8 +1,7 @@
 package com.ashlikun.baseproject.view.home;
 
-import com.ashlikun.core.iview.IDatBindView;
-import com.ashlikun.baseproject.core.base.iview.IBaseListView;
-import com.ashlikun.baseproject.databinding.FragmentHomeBinding;
+import com.ashlikun.core.iview.BaseView;
+import com.ashlikun.libcore.mvp.iview.IBaseListView;
 
 /**
  * 作者　　: 李坤
@@ -13,7 +12,7 @@ import com.ashlikun.baseproject.databinding.FragmentHomeBinding;
  */
 
 public interface IBHomeView {
-    interface IHomeView extends IDatBindView<FragmentHomeBinding> {
+    interface IHomeView extends BaseView {
     }
 
     interface IHuodongView extends IBaseListView {

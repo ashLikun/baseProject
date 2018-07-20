@@ -1,6 +1,7 @@
 package com.ashlikun.baseproject.mode.httpquest;
 
-import com.ashlikun.baseproject.utils.http.HttpRequestParam;
+import com.ashlikun.libcore.utils.http.HttpRequestParam;
+import com.ashlikun.libcore.BaseApiService;
 import com.ashlikun.okhttputils.http.ExecuteCall;
 import com.ashlikun.okhttputils.http.callback.Callback;
 

@@ -1,1 +1,3 @@
-include ':app', ':libarouter',":libcore"
+include ':app',
+        ':libarouter',
+        ":libcore"
