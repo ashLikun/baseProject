@@ -1,37 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
 
-    <data>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/viewParent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
 
-        <variable
-            name="presenter"
-            type="com.ashlikun.baseproject.presenter.home.HomePresenter"></variable>
-    </data>
+    <com.ashlikun.supertoobar.SupperToolBar
+        android:id="@+id/toolbar"
+        style="@style/Toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:layout_collapseMode="pin"></com.ashlikun.supertoobar.SupperToolBar>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/viewParent"
+    <com.ashlikun.xrecycleview.SuperRecyclerView
+        android:id="@+id/switchRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.ashlikun.supertoobar.SupperToolBar
-            android:id="@+id/toolbar"
-            style="@style/Toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            app:layout_collapseMode="pin"></com.ashlikun.supertoobar.SupperToolBar>
-
-        <com.ashlikun.xrecycleview.SuperRecyclerView
-            android:id="@+id/switchRoot"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        </com.ashlikun.xrecycleview.SuperRecyclerView>
+    </com.ashlikun.xrecycleview.SuperRecyclerView>
 
 
-    </LinearLayout>
-</layout>
+</LinearLayout>

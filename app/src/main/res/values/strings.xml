@@ -7,14 +7,6 @@
     <string name="bottom_3">我的</string>
 
 
-    <string name="loadding">  加载中...</string>
-    <string name="snackbar_action">关闭</string>
-    <string name="autoloadding_zhunbei">  准备加载</string>
-    <string name="autoloadding_no_data">没有数据可以加载</string>
-    <string name="autoloadding_comple_data">共为您加载 %1$d 条数据</string>
-    <string name="autoloadding_failure">加载失败</string>
-
-
     <!--****************************登录注册********************************-->
 
     <string name="inputPhone">请输入手机号</string>

@@ -65,7 +65,30 @@ public class HomeActivity extends BaseActivity
         } else {
             setCurrentItem(index);
         }
+//        TestData data = GsonHelper.getGson().fromJson(aaa, TestData.class);
+//        Log.e("aaa",data.getGoods_id());
     }
+
+    private static String aaa = "{\n" +
+            "\t\t\"goods_id\": \"42155\",\n" +
+            "\t\t\"goods_name\": \"\\u6b63\\u5c71\\u5c0f\\u79cd\\u7ea2\\u83361\\u76d232\\u6ce1\",\n" +
+            "\t\t\"goods_des\": \"\\u6b63\\u5c71\\u5c0f\\u79cd\\u7ea2\\u8336\\u6b63\\u5b97\\u8336\\u53f6\\u793c\\u76d2\\u88c5\",\n" +
+            "\t\t\"default_image\": \"https:\\/\\/ojn89n2tq.qnssl.com\\/comment0gow_58f068a015d7c?imageMogr2\\/thumbnail\\/320x\\/strip\\/quality\\/75\\/format\\/jpg\",\n" +
+            "\t\t\"Price\": \"21.90\",\n" +
+            "\t\t\"scPrice\": \"42.00\",\n" +
+            "\t\t\"wlPrice\": \"0.00\",\n" +
+            "\t\t\"seller_id\": \"6718\",\n" +
+            "\t\t\"sale\": \"10238\",\n" +
+            "\t\t\"base_sale\": \"0\",\n" +
+            "\t\t\"has_storecoupon\": \"0\",\n" +
+            "\t\t\"is_act\": 0,\n" +
+            "\t\t\"seller_info\": {\n" +
+            "\t\t\t\"seller_id\": \"6718\",\n" +
+            "\t\t\t\"store_name\": \"\\u99a8\\u9732\\u65d7\\u8230\\u5e97\",\n" +
+            "\t\t\t\"icon\": \"\"\n" +
+            "\t\t},\n" +
+            "\t\t\"act_image\": \"\"\n" +
+            "\t}";
 
     public void setCurrentItem(int postion) {
         ahBottomNavigation.setCurrentItem(postion);

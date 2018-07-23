@@ -3,54 +3,33 @@ package com.ashlikun.baseproject.core;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.multidex.MultiDexApplication;
 import android.view.Gravity;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.ashlikun.appcrash.config.CaocConfig;
+import com.ashlikun.baseproject.BuildConfig;
+import com.ashlikun.baseproject.R;
 import com.ashlikun.glideutils.GlideUtils;
+import com.ashlikun.libcore.utils.CacheUtils;
+import com.ashlikun.libcore.utils.http.HttpManager;
 import com.ashlikun.loadswitch.LoadSwitch;
 import com.ashlikun.orm.LiteOrmUtil;
 import com.ashlikun.utils.Utils;
 import com.ashlikun.utils.ui.ActivityManager;
 import com.ashlikun.utils.ui.SuperToast;
-import com.ashlikun.baseproject.BuildConfig;
-import com.ashlikun.baseproject.R;
-import com.ashlikun.baseproject.utils.http.HttpManager;
-import com.umeng.analytics.MobclickAgent;
-
-import java.io.File;
 
 public class MyApplication extends MultiDexApplication {
     public static Application myApp;
-    //app缓存路径，内部
-    public static String appCachePath;
-    //app文件路径，内部
-    public static String appFilePath;
-    //appsd卡缓存路径
-    public static String appSDCachePath;
-    //appsd卡文件路径
-    public static String appSDFilePath;
+
 
     @Override
     public void onCreate() {
         super.onCreate();
         myApp = this;
         initLib();
-        String cacheStr = "/" + getResources().getString(R.string.app_name_letter) + "/cache";
-        String fileStr = "/" + getResources().getString(R.string.app_name_letter) + "/file";
-        appCachePath = getCacheDir().getPath() + cacheStr;
-        appFilePath = getFilesDir().getPath() + fileStr;
-        appSDCachePath = Environment.getExternalStorageDirectory().getPath() + cacheStr;
-        appSDFilePath = Environment.getExternalStorageDirectory().getPath() + fileStr;
+        CacheUtils.init(getResources().getString(R.string.app_name_letter));
 
-        File file = new File(appSDCachePath);
-        if (file.exists() || file.mkdirs()) {
-        }
-        File file2 = new File(appSDFilePath);
-        if (file2.exists() || file2.mkdirs()) {
-        }
         //布局切换管理器
         LoadSwitch.BASE_EMPTY_LAYOUT_ID = R.layout.base_load_empty;
         LoadSwitch.BASE_RETRY_LAYOUT_ID = R.layout.base_load_retry;
@@ -62,22 +41,10 @@ public class MyApplication extends MultiDexApplication {
     private void initLib() {
         CaocConfig.Builder.create()
                 .apply();
-        LiteOrmUtil.init(new LiteOrmUtil.OnNeedListener() {
-            @Override
-            public Application getApplication() {
-                return myApp;
-            }
+        LiteOrmUtil.init(myApp);
+        LiteOrmUtil.setVersionCode(BuildConfig.VERSION_CODE);
+        LiteOrmUtil.setIsDebug(BuildConfig.DEBUG);
 
-            @Override
-            public boolean isDebug() {
-                return BuildConfig.DEBUG;
-            }
-
-            @Override
-            public int getVersionCode() {
-                return BuildConfig.VERSION_CODE;
-            }
-        });
         GlideUtils.setBaseUrl(HttpManager.BASE_URL);
         GlideUtils.setDebug(BuildConfig.DEBUG);
 
@@ -115,12 +82,10 @@ public class MyApplication extends MultiDexApplication {
 
         @Override
         public void onActivityResumed(Activity activity) {
-            MobclickAgent.onResume(activity);
         }
 
         @Override
         public void onActivityPaused(Activity activity) {
-            MobclickAgent.onPause(activity);
         }
 
         @Override

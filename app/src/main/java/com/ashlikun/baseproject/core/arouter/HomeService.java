@@ -1,8 +1,10 @@
 package com.ashlikun.baseproject.core.arouter;
 
+import android.app.Application;
 import android.content.Context;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.ashlikun.baseproject.core.MyApplication;
 import com.ashlikun.libarouter.constant.ARouterPath;
 import com.ashlikun.libarouter.service.IHomeService;
 
@@ -23,6 +25,11 @@ public class HomeService implements IHomeService {
         mContext = context;
     }
 
+
+    @Override
+    public Application getApp() {
+        return MyApplication.myApp;
+    }
 
 
 }

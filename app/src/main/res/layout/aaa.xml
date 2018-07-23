@@ -1,51 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/viewParent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
 
-    <data>
+    android:orientation="vertical">
 
-
-    </data>
-
-    <LinearLayout
-        android:id="@+id/viewParent"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
+        android:layout_height="wrap_content">
 
-        android:orientation="vertical">
-
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appbar"
+        <com.ashlikun.supertoobar.SupperToolBar
+            android:id="@+id/toolbar"
+            style="@style/Toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.ashlikun.supertoobar.SupperToolBar
-                android:id="@+id/toolbar"
-                style="@style/Toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|enterAlways"></com.ashlikun.supertoobar.SupperToolBar>
-
-        </android.support.design.widget.AppBarLayout>
-
-        <com.ashlikun.xrecycleview.SuperRecyclerView
-            android:id="@+id/switchRoot"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        </com.ashlikun.xrecycleview.SuperRecyclerView>
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:padding="@dimen/dp_20"
-            android:onClick="onButtonClick"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            app:layout_scrollFlags="scroll|enterAlways"></com.ashlikun.supertoobar.SupperToolBar>
 
-    </LinearLayout>
-</layout>
+    </android.support.design.widget.AppBarLayout>
+
+    <com.ashlikun.xrecycleview.SuperRecyclerView
+        android:id="@+id/switchRoot"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    </com.ashlikun.xrecycleview.SuperRecyclerView>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onButtonClick"
+        android:padding="@dimen/dp_20"
+        android:text="Button" />
+
+</LinearLayout>
 

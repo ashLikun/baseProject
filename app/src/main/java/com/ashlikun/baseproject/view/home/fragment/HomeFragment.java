@@ -1,14 +1,12 @@
 package com.ashlikun.baseproject.view.home.fragment;
 
 import com.ashlikun.baseproject.R;
-import com.ashlikun.baseproject.databinding.FragmentHomeBinding;
 import com.ashlikun.baseproject.presenter.home.HomePresenter;
 import com.ashlikun.baseproject.view.home.IBHomeView;
 import com.ashlikun.core.factory.Presenter;
 import com.ashlikun.core.fragment.BaseMvpFragment;
 import com.ashlikun.loadswitch.ContextData;
 import com.ashlikun.loadswitch.OnLoadSwitchClick;
-import com.ashlikun.utils.ui.AndroidBug5497Workaround;
 
 /**
  * 作者　　: 李坤
@@ -18,7 +16,7 @@ import com.ashlikun.utils.ui.AndroidBug5497Workaround;
  * 功能介绍：
  */
 @Presenter(HomePresenter.class)
-public class HomeFragment extends BaseMvpFragment<HomePresenter, FragmentHomeBinding>
+public class HomeFragment extends BaseMvpFragment<HomePresenter>
         implements IBHomeView.IHomeView, OnLoadSwitchClick {
 
     @Override

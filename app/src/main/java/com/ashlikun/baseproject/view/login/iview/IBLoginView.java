@@ -2,11 +2,7 @@ package com.ashlikun.baseproject.view.login.iview;
 
 import com.ashlikun.core.iview.BaseView;
 import com.ashlikun.core.iview.ICheckView;
-import com.ashlikun.core.iview.IDatBindView;
-import com.ashlikun.baseproject.databinding.ActivityAmendPasswordBinding;
-import com.ashlikun.baseproject.databinding.ActivityRegisterBinding;
-import com.ashlikun.baseproject.databinding.ActivityUpdataPasswordBinding;
-import com.ashlikun.baseproject.mode.javabean.base.UserData;
+import com.ashlikun.libcore.javabean.UserData;
 
 /**
  * 作者　　: 李坤
@@ -34,11 +30,11 @@ public interface IBLoginView {
     /**
      * Created by yang on 2016/8/17.
      */
-    interface IAmendPasswordView extends IDatBindView<ActivityAmendPasswordBinding> {
+    interface IAmendPasswordView extends BaseView {
         void receiverUserData(UserData UserData);
     }
 
-    interface IUpDataPasswordView extends IDatBindView<ActivityUpdataPasswordBinding> {
+    interface IUpDataPasswordView extends BaseView {
 
         void receiverUserData(UserData UserData);
     }
@@ -46,7 +42,7 @@ public interface IBLoginView {
     /**
      * Created by yang on 2016/8/17.
      */
-    interface IRegisterView extends IDatBindView<ActivityRegisterBinding>, ICheckView {
+    interface IRegisterView extends BaseView, ICheckView {
 
         /**
          * 注册成功后接收UserData对象

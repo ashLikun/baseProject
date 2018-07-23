@@ -2,14 +2,15 @@ package com.ashlikun.baseproject.presenter.login;
 
 import android.os.Bundle;
 
+import com.ashlikun.baseproject.R;
+import com.ashlikun.baseproject.mode.httpquest.ApiService;
+import com.ashlikun.baseproject.view.login.iview.IBLoginView;
 import com.ashlikun.core.BasePresenter;
+import com.ashlikun.libcore.utils.http.HttpCallBack;
 import com.ashlikun.okhttputils.http.response.HttpResult;
 import com.ashlikun.utils.other.CountdownUtils;
 import com.ashlikun.utils.other.StringUtils;
-import com.ashlikun.baseproject.R;
-import com.ashlikun.baseproject.mode.httpquest.ApiService;
-import com.ashlikun.baseproject.utils.http.HttpCallBack;
-import com.ashlikun.baseproject.view.login.iview.IBLoginView;
+import com.ashlikun.utils.ui.SuperToast;
 
 /**
  * Created by yang on 2016/8/17.
@@ -23,7 +24,6 @@ public class AmendPasswordPresenter extends BasePresenter<IBLoginView.IAmendPass
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mvpView.getDataBind().setPresenter(this);
     }
 
     /**
@@ -34,7 +34,7 @@ public class AmendPasswordPresenter extends BasePresenter<IBLoginView.IAmendPass
      */
     public void updateUserPwd() {
         if (!StringUtils.isEquals(password1, password2)) {
-            mvpView.showWarningMessage("两次密码不一致");
+            SuperToast.showWarningMessage("两次密码不一致");
             return;
         }
         HttpCallBack.Buider buider = HttpCallBack.Buider.get(this);
@@ -43,10 +43,10 @@ public class AmendPasswordPresenter extends BasePresenter<IBLoginView.IAmendPass
             public void onSuccess(HttpResult result) {
                 super.onSuccess(result);
                 if (result.isSucceed()) {
-                    mvpView.showInfoMessage(result.getMessage());
+                    SuperToast.showInfoMessage(result.getMessage());
                     mvpView.finish();
                 } else {
-                    mvpView.showErrorMessage(result.getMessage());
+                    SuperToast.showErrorMessage(result.getMessage());
                 }
 
             }
@@ -62,12 +62,12 @@ public class AmendPasswordPresenter extends BasePresenter<IBLoginView.IAmendPass
             public void onSuccess(HttpResult result) {
                 super.onSuccess(result);
                 if (result.isSucceed()) {
-                    new CountdownUtils.Bulider()
-                            .setMsg(mvpView.getContext().getResources().getString(R.string.get_yanzenma))
-                            .bulid()
-                            .start(mvpView.getDataBind().sendButton);
+//                    new CountdownUtils.Bulider()
+//                            .setMsg(mvpView.getContext().getResources().getString(R.string.get_yanzenma))
+//                            .bulid()
+//                            .start(sendButton);
                 } else {
-                    mvpView.showErrorMessage(result.getMessage());
+                    SuperToast.showErrorMessage(result.getMessage());
                 }
 
             }

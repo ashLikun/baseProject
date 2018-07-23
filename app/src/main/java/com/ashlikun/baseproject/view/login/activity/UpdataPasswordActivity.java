@@ -5,16 +5,14 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.ashlikun.core.activity.BaseMvpActivity;
-import com.ashlikun.core.factory.Presenter;
-import com.ashlikun.utils.other.Validators;
-import com.ashlikun.utils.ui.EditHelper;
 import com.ashlikun.baseproject.R;
-import com.ashlikun.libarouter.constant.ARouterPath;
-import com.ashlikun.baseproject.databinding.ActivityUpdataPasswordBinding;
-import com.ashlikun.baseproject.mode.javabean.base.UserData;
 import com.ashlikun.baseproject.presenter.login.UpDataPasswordPresenter;
 import com.ashlikun.baseproject.view.login.iview.IBLoginView;
+import com.ashlikun.core.activity.BaseMvpActivity;
+import com.ashlikun.core.factory.Presenter;
+import com.ashlikun.libarouter.constant.ARouterPath;
+import com.ashlikun.libcore.javabean.UserData;
+import com.ashlikun.utils.ui.EditHelper;
 
 
 /**
@@ -26,7 +24,7 @@ import com.ashlikun.baseproject.view.login.iview.IBLoginView;
  */
 @Route(path = ARouterPath.UPDATA_PASSWORD)
 @Presenter(UpDataPasswordPresenter.class)
-public class UpdataPasswordActivity extends BaseMvpActivity<UpDataPasswordPresenter, ActivityUpdataPasswordBinding>
+public class UpdataPasswordActivity extends BaseMvpActivity<UpDataPasswordPresenter>
         implements IBLoginView.IUpDataPasswordView {
     public EditHelper editHelper = new EditHelper(this);
 
@@ -46,12 +44,12 @@ public class UpdataPasswordActivity extends BaseMvpActivity<UpDataPasswordPresen
     public void initView() {
         toolbar.setTitle("修改密码");
         toolbar.setBack(this);
-        editHelper.addEditHelperData(
-                new EditHelper.EditHelperData(dataBind.oldPasswordTil, Validators.getLengthSRegex(6, dataBind.oldPasswordTil.getCounterMaxLength()), "密码6-20位"));
-        editHelper.addEditHelperData(
-                new EditHelper.EditHelperData(dataBind.passwordTil1, Validators.getLengthSRegex(6, dataBind.passwordTil1.getCounterMaxLength()), "密码6-20位"));
-        editHelper.addEditHelperData(
-                new EditHelper.EditHelperData(dataBind.passwordTil2, Validators.getLengthSRegex(6, dataBind.passwordTil2.getCounterMaxLength()), "密码6-20位"));
+//        editHelper.addEditHelperData(
+//                new EditHelper.EditHelperData(dataBind.oldPasswordTil, Validators.getLengthSRegex(6, dataBind.oldPasswordTil.getCounterMaxLength()), "密码6-20位"));
+//        editHelper.addEditHelperData(
+//                new EditHelper.EditHelperData(dataBind.passwordTil1, Validators.getLengthSRegex(6, dataBind.passwordTil1.getCounterMaxLength()), "密码6-20位"));
+//        editHelper.addEditHelperData(
+//                new EditHelper.EditHelperData(dataBind.passwordTil2, Validators.getLengthSRegex(6, dataBind.passwordTil2.getCounterMaxLength()), "密码6-20位"));
     }
 
 

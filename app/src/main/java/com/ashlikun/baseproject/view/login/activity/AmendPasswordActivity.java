@@ -5,16 +5,14 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.ashlikun.core.activity.BaseMvpActivity;
-import com.ashlikun.core.factory.Presenter;
-import com.ashlikun.utils.other.Validators;
-import com.ashlikun.utils.ui.EditHelper;
 import com.ashlikun.baseproject.R;
-import com.ashlikun.libarouter.constant.ARouterPath;
-import com.ashlikun.baseproject.databinding.ActivityAmendPasswordBinding;
-import com.ashlikun.baseproject.mode.javabean.base.UserData;
 import com.ashlikun.baseproject.presenter.login.AmendPasswordPresenter;
 import com.ashlikun.baseproject.view.login.iview.IBLoginView;
+import com.ashlikun.core.activity.BaseMvpActivity;
+import com.ashlikun.core.factory.Presenter;
+import com.ashlikun.libarouter.constant.ARouterPath;
+import com.ashlikun.libcore.javabean.UserData;
+import com.ashlikun.utils.ui.EditHelper;
 
 
 /**
@@ -26,7 +24,7 @@ import com.ashlikun.baseproject.view.login.iview.IBLoginView;
  */
 @Route(path = ARouterPath.AMEND_PASSWORD)
 @Presenter(AmendPasswordPresenter.class)
-public class AmendPasswordActivity extends BaseMvpActivity<AmendPasswordPresenter, ActivityAmendPasswordBinding>
+public class AmendPasswordActivity extends BaseMvpActivity<AmendPasswordPresenter>
         implements IBLoginView.IAmendPasswordView {
     public EditHelper editHelper = new EditHelper(this);
 
@@ -46,15 +44,15 @@ public class AmendPasswordActivity extends BaseMvpActivity<AmendPasswordPresente
     public void initView() {
         toolbar.setTitle("忘记密码");
         toolbar.setBack(this);
-        editHelper.addEditHelperData(
-                new EditHelper.EditHelperData(dataBind.phoneTil, Validators.REGEX_PHONE_NUMBER, "请正确输入11位手机号"));
-        editHelper.addEditHelperData(new EditHelper.EditHelperData(dataBind.codeTil,
-                "[0-9]{6,6}",
-                "请正确输入验证码"));
-        editHelper.addEditHelperData(
-                new EditHelper.EditHelperData(dataBind.passwordTil1, Validators.getLengthSRegex(6, dataBind.passwordTil1.getCounterMaxLength()), "密码6-20位"));
-        editHelper.addEditHelperData(
-                new EditHelper.EditHelperData(dataBind.passwordTil2, Validators.getLengthSRegex(6, dataBind.passwordTil2.getCounterMaxLength()), "密码6-20位"));
+//        editHelper.addEditHelperData(
+//                new EditHelper.EditHelperData(dataBind.phoneTil, Validators.REGEX_PHONE_NUMBER, "请正确输入11位手机号"));
+//        editHelper.addEditHelperData(new EditHelper.EditHelperData(dataBind.codeTil,
+//                "[0-9]{6,6}",
+//                "请正确输入验证码"));
+//        editHelper.addEditHelperData(
+//                new EditHelper.EditHelperData(dataBind.passwordTil1, Validators.getLengthSRegex(6, dataBind.passwordTil1.getCounterMaxLength()), "密码6-20位"));
+//        editHelper.addEditHelperData(
+//                new EditHelper.EditHelperData(dataBind.passwordTil2, Validators.getLengthSRegex(6, dataBind.passwordTil2.getCounterMaxLength()), "密码6-20位"));
     }
 
 

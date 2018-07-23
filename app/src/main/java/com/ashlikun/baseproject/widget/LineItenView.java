@@ -77,7 +77,9 @@ public class LineItenView extends LinearLayout {
         }
         if (isShowArror) {
             Drawable drawable = context.getResources().getDrawable(R.drawable.ic_arrow_right);
-            DrawableUtils.setCompoundDrawables(subTextView, null, null, drawable, null);
+            DrawableUtils.createTextDraw(subTextView,drawable)
+                    .location(3)
+                    .set();
         }
         imageView.setVisibility(isShowIcon ? VISIBLE : GONE);
         if (!isShowIcon) {
