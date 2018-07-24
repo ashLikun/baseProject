@@ -38,7 +38,7 @@ public abstract class NetworkImageHolderView implements Holder<BannerAdData> {
     @Override
     public void UpdateUI(Context context, final int position, final BannerAdData data) {
 
-        GlideUtils.show(imageView, HttpLocalUtils.getHttpFileUrl(HttpManager.BASE_URL, data.getImg_url()),
+        GlideUtils.show(imageView, HttpLocalUtils.getHttpFileUrl(HttpManager.BASE_URL, data.imgUrl),
                 new RequestOptions()
                         .override(width, height));
         imageView.setOnClickListener(new View.OnClickListener() {

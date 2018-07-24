@@ -1,0 +1,12 @@
+ext {
+    /**
+     * 配置组件
+     */
+    modules = [
+            //是否是单组件运行
+            login: [
+                    isRun        : false,
+                    applicationId: "${android.applicationId}.login",
+            ]
+    ]
+}

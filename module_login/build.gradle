@@ -1,0 +1,68 @@
+def currentModule = rootProject.ext.modules.login // 当前的module
+if (currentModule.isRun) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
+}
+
+def config = rootProject.ext.android // 工程配置
+def libs = rootProject.ext.dependencies // 库依赖
+android {
+    compileSdkVersion config.compileSdkVersion
+    buildToolsVersion config.buildToolsVersion
+    defaultConfig {
+        if (currentModule.isRun) {
+            // 当前组件独立运行，需要设置applicationId,和主包的id不一样
+            applicationId currentModule.applicationId
+            //applicationIdSuffix ".login"
+        }
+        minSdkVersion config.minSdkVersion
+        targetSdkVersion config.targetSdkVersion
+        versionCode config.versionCode
+        versionName config.versionName
+        multiDexEnabled true
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    /*java插件引入了一个概念叫做SourceSets，通过修改SourceSets中的属性，可以指定哪些源文件（或文件夹下的源文件）要被编译，哪些源文件要被排除。*/
+    sourceSets {
+        main {
+            if (currentModule.isRun) {
+                manifest.srcFile 'src/main/module/AndroidManifest.xml'
+            } else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+                java {
+                    //排除java/debug文件夹下的所有文件
+                    exclude '*debug'
+                }
+            }
+
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':component_core')
+    implementation project(':component_common')
+    annotationProcessor libs.aroutercompiler
+    //权限插件
+    annotationProcessor libs.permissionprocessor
+    annotationProcessor libs.glideCompiler
+}
+repositories {
+    mavenCentral()
+}
+
+

@@ -1,9 +1,11 @@
 ext {
+
     superVersion = "27.0.2"
     frameVersion = "2.2.4"
     android = [
+            applicationId    : "com.ashlikun.baseproject",
             compileSdkVersion: 27,
-            buildToolsVersion: "27.0.2",
+            buildToolsVersion: "27.0.3",
             versionCode      : 1,
             versionName      : "0.0.1",
             targetSdkVersion : 24,

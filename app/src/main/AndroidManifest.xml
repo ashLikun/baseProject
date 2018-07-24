@@ -9,7 +9,6 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-    <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -22,7 +21,7 @@
 
 
     <application
-        android:name="com.ashlikun.baseproject.core.MyApplication"
+        android:name="com.ashlikun.baseproject.MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -46,29 +45,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.MainTheme"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-
-        <activity
-            android:name="com.ashlikun.baseproject.view.login.activity.LoginActivity"
-            android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.OtherTheme" />
-        <activity
-            android:name="com.ashlikun.baseproject.view.login.activity.AmendPasswordActivity"
-            android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.OtherTheme" />
-        <activity
-            android:name="com.ashlikun.baseproject.view.login.activity.UpdataPasswordActivity"
-            android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.OtherTheme" />
-
-        <!--注册-->
-        <activity
-            android:name="com.ashlikun.baseproject.view.login.activity.RegisterActivity"
-            android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.OtherTheme" />
 
 
         <activity

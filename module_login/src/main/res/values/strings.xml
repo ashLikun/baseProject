@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">登录</string>
+    <!--****************************登录注册********************************-->
+
+    <string name="inputPhone">请输入手机号</string>
+    <string name="inputPassword">请输入密码</string>
+    <string name="inputPasswordAffitm">请确认密码</string>
+    <string name="inputCheckHint">两次密码不一致</string>
+    <string name="get_yanzenma">获取验证码</string>
+    <string name="login">立即登录</string>
+    <string name="register">立即注册</string>
+</resources>

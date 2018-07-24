@@ -1,5 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 apply from: file('./config.gradle')
+apply from: file('./config_component.gradle')
 buildscript {
     ext.kotlin_version = '1.2.51'
     repositories {

@@ -1,10 +1,8 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 def config = rootProject.ext.android // 工程配置
 def sdk = rootProject.ext.sdk // SDK配置
 def libs = rootProject.ext.dependencies // 库依赖
+def moudles = rootProject.ext.modules //全部组件
 def releaseTime() {
     return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
 }
@@ -20,13 +18,11 @@ android {
         debug {
         }
     }
-    dataBinding {
-        enabled true
-    }
     loadSigningConfigs()
     compileSdkVersion config.compileSdkVersion
+    buildToolsVersion config.buildToolsVersion
     defaultConfig {
-        applicationId "com.ashlikun.baseproject"
+        applicationId config.applicationId
         minSdkVersion config.minSdkVersion
         targetSdkVersion config.targetSdkVersion
         versionCode config.versionCode
@@ -148,12 +144,19 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation project(':libcore')
-    implementation project(':libarouter')
-    kapt libs.aroutercompiler
+    //基础组件
+    implementation project(':component_core')
+    //公共组件
+    implementation project(':component_common')
+    annotationProcessor libs.aroutercompiler
     //权限插件
-    kapt libs.permissionprocessor
-    kapt libs.glideCompiler
+    annotationProcessor libs.permissionprocessor
+    annotationProcessor libs.glideCompiler
+    //登录模块
+    if (!moudles.login.isRun) {
+        implementation project(':module_login')
+    }
+
 }
 
 /**

@@ -18,9 +18,9 @@ import com.ashlikun.baseproject.BuildConfig;
 import com.ashlikun.baseproject.R;
 import com.ashlikun.baseproject.presenter.home.HomePresenter;
 import com.ashlikun.core.activity.BaseActivity;
+import com.ashlikun.libarouter.RouterManage;
 import com.ashlikun.libarouter.constant.ARouterPath;
 import com.ashlikun.libarouter.jump.ARouterJump;
-import com.ashlikun.libcore.javabean.UserData;
 import com.ashlikun.utils.other.SharedPreUtils;
 import com.ashlikun.utils.ui.SuperToast;
 import com.ashlikun.utils.ui.UiUtils;
@@ -222,7 +222,7 @@ public class WelcomeActivity extends BaseActivity {
      * //1跳转登陆或者首页，2：不跳转
      */
     public int getServiceUser() {
-        if (!UserData.isSLogin()) {
+        if (!RouterManage.getLogin().isLogin()) {
             return 1;
         }
 //        HttpRequestParam p = new HttpRequestParam(UserData.getDbUserData().isStudent() ?
