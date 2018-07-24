@@ -7,7 +7,7 @@ package com.ashlikun.libarouter.constant;
  * <p>
  * 功能介绍：路由的key值
  */
-public interface ARouterKey {
+public interface RouterKey {
     /********************************************************************************************
      * Intent  Flag   int
      *******************************************************************************************/

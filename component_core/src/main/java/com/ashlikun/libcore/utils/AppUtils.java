@@ -2,8 +2,6 @@ package com.ashlikun.libcore.utils;
 
 import android.app.Application;
 
-import com.ashlikun.libarouter.RouterManage;
-
 /**
  * 作者　　: 李坤
  * 创建时间: 2018/7/18　10:47
@@ -12,7 +10,13 @@ import com.ashlikun.libarouter.RouterManage;
  * 功能介绍：
  */
 public class AppUtils {
+    public static Application app;
+
+    public static void init(Application app) {
+        AppUtils.app = app;
+    }
+
     public static Application getApp() {
-        return RouterManage.getHome().getApp();
+        return app;
     }
 }

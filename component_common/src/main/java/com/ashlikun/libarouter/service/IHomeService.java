@@ -1,7 +1,5 @@
 package com.ashlikun.libarouter.service;
 
-import android.app.Application;
-
 import com.alibaba.android.arouter.facade.template.IProvider;
 
 /**
@@ -12,5 +10,4 @@ import com.alibaba.android.arouter.facade.template.IProvider;
  * 功能介绍：首页模块的服务
  */
 public interface IHomeService extends IProvider {
-    Application getApp();
 }

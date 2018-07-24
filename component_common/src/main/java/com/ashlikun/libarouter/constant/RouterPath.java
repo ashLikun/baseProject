@@ -7,16 +7,16 @@ package com.ashlikun.libarouter.constant;
  * <p>
  * 功能介绍：Arouter用到的path标识
  */
-public interface ARouterPath {
+public interface RouterPath {
     /********************************************************************************************
      *                                           activity的
      ********************************************************************************************/
-    String LOGIN = "/activity/login";
+    String LOGIN = "/activity/logincc";
     String WELCOME = "/activity/WELCOME";
     String WEBVIEW = "/activity/WEBVIEW";
     String REGISTER = "/activity/REGISTER";
     String TEST = "/activity/test";
-    String HOME = "/activity/home";
+    String HOME = "/activity/homeac";
     String AMEND_PASSWORD = "/activity/AMEND_PASSWORD";
     String UPDATA_PASSWORD = "/activity/UPDATA_PASSWORD";
     String LOGIN_SELECT = "/activity/LOGIN_SELECT";
@@ -29,4 +29,5 @@ public interface ARouterPath {
      *                                           service path
      ********************************************************************************************/
     String SERVICE_HOME = "/service/home";
+    String SERVICE_LOGIN = "/service/login";
 }

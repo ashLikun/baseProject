@@ -1,8 +1,10 @@
-package com.ashlikun.module.login;
+package com.ashlikun.module.login.router;
 
 import android.app.Activity;
 import android.content.Context;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.ashlikun.libarouter.constant.RouterPath;
 import com.ashlikun.libarouter.service.ILoginService;
 import com.ashlikun.module.login.mode.javaben.UserData;
 
@@ -13,6 +15,7 @@ import com.ashlikun.module.login.mode.javaben.UserData;
  * <p>
  * 功能介绍：登录模块提供的接口
  */
+@Route(path = RouterPath.SERVICE_LOGIN)
 public class LoginServiceIml implements ILoginService {
     Context context;
 

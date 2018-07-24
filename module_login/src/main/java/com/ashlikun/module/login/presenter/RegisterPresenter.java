@@ -3,12 +3,12 @@ package com.ashlikun.module.login.presenter;
 import android.view.View;
 
 import com.ashlikun.core.BasePresenter;
-import com.ashlikun.libcore.BaseApplication;
-import com.ashlikun.module.login.mode.javaben.UserData;
+import com.ashlikun.libcore.utils.AppUtils;
 import com.ashlikun.libcore.utils.http.HttpCallBack;
 import com.ashlikun.module.login.R;
 import com.ashlikun.module.login.iview.IBLoginView;
 import com.ashlikun.module.login.mode.ApiLogin;
+import com.ashlikun.module.login.mode.javaben.UserData;
 import com.ashlikun.okhttputils.http.response.HttpResult;
 import com.ashlikun.utils.other.StringUtils;
 import com.ashlikun.utils.ui.SuperToast;
@@ -64,7 +64,7 @@ public class RegisterPresenter extends BasePresenter<IBLoginView.IRegisterView> 
     public void onClickView(View view) {
         if (mvpView.checkData()) {
             if (!StringUtils.isEquals(password, password2)) {
-                SuperToast.showWarningMessage(BaseApplication.myApp.getResources().getString(R.string.inputCheckHint));
+                SuperToast.showWarningMessage(AppUtils.getApp().getResources().getString(R.string.inputCheckHint));
             } else {
                 goRegister();
             }

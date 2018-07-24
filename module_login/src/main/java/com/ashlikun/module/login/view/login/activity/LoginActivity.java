@@ -7,7 +7,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.ashlikun.core.activity.BaseMvpActivity;
 import com.ashlikun.core.factory.Presenter;
-import com.ashlikun.libarouter.constant.ARouterPath;
+import com.ashlikun.libarouter.constant.RouterPath;
 import com.ashlikun.module.login.R;
 import com.ashlikun.module.login.iview.IBLoginView;
 import com.ashlikun.module.login.mode.javaben.UserData;
@@ -19,7 +19,7 @@ import com.ashlikun.utils.ui.EditHelper;
  * 登录页面
  * *
  */
-@Route(path = ARouterPath.LOGIN)
+@Route(path = RouterPath.LOGIN)
 @Presenter(LoginPresenter.class)
 public class LoginActivity extends BaseMvpActivity<LoginPresenter>
         implements IBLoginView.IloginView {
@@ -65,14 +65,14 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter>
     }
 
     public void onWangjiClick(View view) {
-        ARouter.getInstance().build(ARouterPath.AMEND_PASSWORD)
+        ARouter.getInstance().build(RouterPath.AMEND_PASSWORD)
                 .navigation(this);
     }
 
     @Override
     public void login(UserData data) {
         if (UserData.isLogin()) {
-            ARouter.getInstance().build(ARouterPath.HOME)
+            ARouter.getInstance().build(RouterPath.HOME)
                     .withFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                     .navigation(this);
         }

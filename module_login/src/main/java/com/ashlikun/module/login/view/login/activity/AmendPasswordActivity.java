@@ -7,7 +7,7 @@ import android.view.View;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.ashlikun.core.activity.BaseMvpActivity;
 import com.ashlikun.core.factory.Presenter;
-import com.ashlikun.libarouter.constant.ARouterPath;
+import com.ashlikun.libarouter.constant.RouterPath;
 import com.ashlikun.module.login.R;
 import com.ashlikun.module.login.iview.IBLoginView;
 import com.ashlikun.module.login.mode.javaben.UserData;
@@ -22,7 +22,7 @@ import com.ashlikun.utils.ui.EditHelper;
  * <p>
  * 功能介绍：忘记密码
  */
-@Route(path = ARouterPath.AMEND_PASSWORD)
+@Route(path = RouterPath.AMEND_PASSWORD)
 @Presenter(AmendPasswordPresenter.class)
 public class AmendPasswordActivity extends BaseMvpActivity<AmendPasswordPresenter>
         implements IBLoginView.IAmendPasswordView {

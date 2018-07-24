@@ -7,8 +7,8 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.ashlikun.eventbus.EventBus;
-import com.ashlikun.libarouter.constant.ARouterPath;
-import com.ashlikun.libarouter.jump.ARouterJump;
+import com.ashlikun.libarouter.constant.RouterPath;
+import com.ashlikun.libarouter.jump.RouterJump;
 import com.ashlikun.libcore.Global;
 import com.ashlikun.orm.LiteOrmUtil;
 import com.ashlikun.orm.db.annotation.Column;
@@ -87,7 +87,7 @@ public class UserData {
             if (showToast) {
                 SuperToast.get("您未登录，请先登录").info();
             }
-            ARouter.getInstance().build(ARouterPath.LOGIN)
+            ARouter.getInstance().build(RouterPath.LOGIN)
                     .navigation(activity);
             return false;
         }
@@ -110,7 +110,7 @@ public class UserData {
          * 发送退出广播
          */
         EventBus.getDefault().post(Global.EXIT_LOGIN);
-        ARouterJump.startLogin();
+        RouterJump.startLogin();
         return res;
     }
 

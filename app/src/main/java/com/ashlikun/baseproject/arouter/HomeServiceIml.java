@@ -1,12 +1,10 @@
 package com.ashlikun.baseproject.arouter;
 
-import android.app.Application;
 import android.content.Context;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.ashlikun.libarouter.constant.ARouterPath;
+import com.ashlikun.libarouter.constant.RouterPath;
 import com.ashlikun.libarouter.service.IHomeService;
-import com.ashlikun.libcore.BaseApplication;
 
 /**
  * 作者　　: 李坤
@@ -15,8 +13,8 @@ import com.ashlikun.libcore.BaseApplication;
  * <p>
  * 功能介绍：
  */
-@Route(path = ARouterPath.SERVICE_HOME)
-public class HomeService implements IHomeService {
+@Route(path = RouterPath.SERVICE_HOME)
+public class HomeServiceIml implements IHomeService {
     Context mContext;
 
 
@@ -25,11 +23,6 @@ public class HomeService implements IHomeService {
         mContext = context;
     }
 
-
-    @Override
-    public Application getApp() {
-        return BaseApplication.myApp;
-    }
 
 
 }
