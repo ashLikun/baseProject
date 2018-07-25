@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/view_edit_botton_line_select" android:state_focused="true" />
-    <item android:drawable="@drawable/view_edit_botton_line_no_select" />
-</selector>

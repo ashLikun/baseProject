@@ -7,10 +7,6 @@ def releaseTime() {
     return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
 }
 
-def getApkFlavorsName(def variant) {
-    return variant.productFlavors[0].name;
-}
-
 android {
     signingConfigs {
         release {
@@ -102,9 +98,9 @@ android {
     applicationVariants.all { variant ->
         variant.outputs.all {
             if (variant.buildType.isDebuggable()) {
-                outputFileName = 'APP' + variant.versionName + releaseTime() + getApkFlavorsName(variant) + 'debug.apk'
+                outputFileName = 'APP' + variant.versionName + releaseTime() + 'debug.apk'
             } else {
-                outputFileName = 'APP' + variant.versionName + getApkFlavorsName(variant) + 'release.apk'
+                outputFileName = 'APP' + variant.versionName + releaseTime() + 'release.apk'
             }
         }
     }
@@ -117,16 +113,6 @@ android {
             dirs 'libs'
         }
     }
-
-    productFlavors {
-        beta {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "beta"]
-        }
-        productFlavors.all { flavor ->
-            flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
-        }
-    }
-
     lintOptions {
         checkReleaseBuilds true
         abortOnError true
@@ -155,6 +141,10 @@ dependencies {
     //登录模块
     if (!moudles.login.isRun) {
         implementation project(':module_login')
+    }
+    //其他模块
+    if (!moudles.other.isRun) {
+        implementation project(':module_other')
     }
 
 }

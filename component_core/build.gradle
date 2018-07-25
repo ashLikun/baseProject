@@ -17,17 +17,25 @@ android {
     }
 
     buildTypes {
+        debug {
+            //保存appid，因为当前模块本来的appid是清单文件的包名
+            buildConfigField "String", "MY_APP_ID", "\"$config.applicationId\""
+        }
         release {
-            minifyEnabled false
+            minifyEnabled true
+            //保存appid，因为当前模块本来的appid是清单文件的包名
+            buildConfigField "String", "MY_APP_ID", "\"$config.applicationId\""
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
-    implementation libs.kotlin
     annotationProcessor libs.aroutercompiler
     //权限插件
     annotationProcessor libs.permissionprocessor

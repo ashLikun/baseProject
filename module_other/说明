@@ -1,0 +1,5 @@
+其他模块
+
+1：启动页面和其他Test页面
+2：可单独运行的组件
+3：本模块依赖component_common和component_core

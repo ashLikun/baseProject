@@ -1,7 +1,7 @@
 package com.ashlikun.baseproject.view.home;
 
 import com.ashlikun.core.iview.BaseView;
-import com.ashlikun.libcore.mvp.iview.IBaseListView;
+import com.ashlikun.baseproject.libcore.mvp.iview.IBaseListView;
 
 /**
  * 作者　　: 李坤

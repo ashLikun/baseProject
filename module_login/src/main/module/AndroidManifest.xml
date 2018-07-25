@@ -1,38 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ashlikun.module.login">
-    <!--android:name属性——是用来设置所有activity属于哪个application的，默认是android.app.Application。-->
+    package="com.ashlikun.baseproject.module.login">
+
     <application
-        android:name="com.ashlikun.debug.MyCommenApp"
+        android:name="com.ashlikun.baseproject.module.debug.MyCommenApp"
         android:allowBackup="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.login.activity.LoginActivity">
+        <activity
+            android:name=".view.login.activity.LoginActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.OtherTheme"/>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
         <activity
-            android:name="com.ashlikun.module.login.view.login.activity.LoginActivity"
+            android:name=".view.login.activity.AmendPasswordActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.OtherTheme" />
         <activity
-            android:name="com.ashlikun.module.login.view.login.activity.AmendPasswordActivity"
-            android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.OtherTheme" />
-        <activity
-            android:name="com.ashlikun.module.login.view.login.activity.UpdataPasswordActivity"
+            android:name=".view.login.activity.UpdataPasswordActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.OtherTheme" />
 
         <!--注册-->
         <activity
-            android:name="com.ashlikun.module.login.view.login.activity.RegisterActivity"
+            android:name=".view.login.activity.RegisterActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.OtherTheme" />

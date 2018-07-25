@@ -1,6 +1,6 @@
 package com.ashlikun.baseproject;
 
-import com.ashlikun.libcore.BaseApplication;
+import com.ashlikun.baseproject.libcore.BaseApplication;
 
 /**
  * 作者　　: 李坤

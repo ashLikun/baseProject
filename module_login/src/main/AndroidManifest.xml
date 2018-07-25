@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ashlikun.module.login">
+    package="com.ashlikun.baseproject.module.login">
 
     <application>
         <activity
-            android:name="com.ashlikun.module.login.view.login.activity.LoginActivity"
+            android:name=".view.login.activity.LoginActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.OtherTheme" />
         <activity
-            android:name="com.ashlikun.module.login.view.login.activity.AmendPasswordActivity"
+            android:name=".view.login.activity.AmendPasswordActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.OtherTheme" />
         <activity
-            android:name="com.ashlikun.module.login.view.login.activity.UpdataPasswordActivity"
+            android:name=".view.login.activity.UpdataPasswordActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.OtherTheme" />
 
         <!--注册-->
         <activity
-            android:name="com.ashlikun.module.login.view.login.activity.RegisterActivity"
+            android:name=".view.login.activity.RegisterActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.OtherTheme" />
