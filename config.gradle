@@ -1,7 +1,7 @@
 ext {
 
     superVersion = "27.0.2"
-    frameVersion = "2.2.4"
+    frameVersion = "2.2.6"
     android = [
             applicationId    : "com.ashlikun.baseproject",
             compileSdkVersion: 27,
@@ -33,7 +33,7 @@ ext {
             supportV4            : "com.android.support:support-v4:$superVersion",
             appcompat            : "com.android.support:appcompat-v7:$superVersion",
             //基本架构
-            CustomMvp            : "com.github.ashLikun:CustomMvp:1.2.9",
+            CustomMvp            : "com.github.ashLikun:CustomMvp:1.3.1",
             multidex             : "com.android.support:multidex:1.0.2",
             //alibaba的路由框架
             arouterapi           : "com.alibaba:arouter-api:1.3.1",
@@ -49,11 +49,11 @@ ext {
             //数据库
             LiteOrm              : "com.github.ashLikun:LiteOrm:1.0.5",
             //封装的RecycleView
-            XRecycleView         : "com.github.ashLikun:XRecycleView:1.3.5",
+            XRecycleView         : "com.github.ashLikun:XRecycleView:1.3.7",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:1.4.6",
+            CommonUtils          : "com.github.ashLikun:CommonUtils:1.4.8",
             //公共的Adapter
-            CommonAdapter        : "com.github.ashLikun.CommonAdapter:adapter:1.4.3",
+            CommonAdapter        : "com.github.ashLikun.CommonAdapter:adapter:1.8.2",
             //阿里的vlayout
             vlayout              : "com.alibaba.android:vlayout:1.2.8@aar",
             //不同type的json解析,依赖于gson

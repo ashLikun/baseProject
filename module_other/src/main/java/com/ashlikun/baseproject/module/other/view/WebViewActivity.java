@@ -60,9 +60,9 @@ public class WebViewActivity extends BaseActivity implements SwipeRefreshLayout.
     public void initView() {
         webView = (SuperWebView) findViewById(R.id.webView);
         switchRoot = (SuperSwipeRefreshLayout) findViewById(R.id.switchRoot);
-        toolbar.setSuperTitle(title);
+        toolbar.setTitle(title);
         toolbar.setBack(this);
-        toolbar.addAction(0, "", R.drawable.md_transparent);
+        //toolbar.addAction(0, "", R.drawable.md_transparent);
         switchRoot.setOnRefreshListener(this);
         webView.loadUrl(HttpLocalUtils.getHttpFileUrl(HttpManager.BASE_URL, url));
     }

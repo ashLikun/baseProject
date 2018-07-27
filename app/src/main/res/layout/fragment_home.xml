@@ -10,11 +10,9 @@
 
     <com.ashlikun.supertoobar.SupperToolBar
         android:id="@+id/toolbar"
-        style="@style/Toolbar"
+        style="@style/SupperToolBar.White"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        app:layout_collapseMode="pin"></com.ashlikun.supertoobar.SupperToolBar>
+        android:layout_height="wrap_content"></com.ashlikun.supertoobar.SupperToolBar>
 
     <com.ashlikun.xrecycleview.SuperRecyclerView
         android:id="@+id/switchRoot"
