@@ -60,7 +60,6 @@ dependencies {
     api 'com.github.ashLikun.frame:flatbutton:' + rootProject.ext.frameVersion
     api 'com.github.ashLikun.frame:numberprogressbar:' + rootProject.ext.frameVersion
     api 'com.github.ashLikun.frame:segmentcontrol:' + rootProject.ext.frameVersion
-    api 'com.github.ashLikun.frame:banner:' + rootProject.ext.frameVersion
     api 'com.github.ashLikun.frame:charbar:' + rootProject.ext.frameVersion
     api 'com.github.ashLikun.frame:supertoobar:' + rootProject.ext.frameVersion
     api 'com.github.ashLikun.frame:scaleimageview:' + rootProject.ext.frameVersion

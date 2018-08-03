@@ -1,7 +1,7 @@
 ext {
 
     superVersion = "27.1.1"
-    frameVersion = "2.2.6"
+    frameVersion = "2.2.7"
     android = [
             applicationId    : "com.ashlikun.baseproject",
             compileSdkVersion: 27,
@@ -29,75 +29,77 @@ ext {
     ]
     dependencies = [
             //kotlin               : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
-            design               : "com.android.support:design:$superVersion",
-            supportV4            : "com.android.support:support-v4:$superVersion",
-            appcompat            : "com.android.support:appcompat-v7:$superVersion",
+            design                 : "com.android.support:design:$superVersion",
+            supportV4              : "com.android.support:support-v4:$superVersion",
+            appcompat              : "com.android.support:appcompat-v7:$superVersion",
             //基本架构
-            CustomMvp            : "com.github.ashLikun:CustomMvp:1.3.2",
-            multidex             : "com.android.support:multidex:1.0.2",
+            CustomMvp              : "com.github.ashLikun:CustomMvp:1.3.2",
+            multidex               : "com.android.support:multidex:1.0.2",
             //alibaba的路由框架
-            arouterapi           : "com.alibaba:arouter-api:1.3.1",
-            aroutercompiler      : "com.alibaba:arouter-compiler:1.1.4",
+            arouterapi             : "com.alibaba:arouter-api:1.3.1",
+            aroutercompiler        : "com.alibaba:arouter-compiler:1.1.4",
             //6.0权限管理
-            permissionsdispatcher: "com.github.hotchemi:permissionsdispatcher:3.1.0",
+            permissionsdispatcher  : "com.github.hotchemi:permissionsdispatcher:3.1.0",
             //权限插件
-            permissionprocessor  : "com.github.hotchemi:permissionsdispatcher-processor:3.1.0",
+            permissionprocessor    : "com.github.hotchemi:permissionsdispatcher-processor:3.1.0",
             //简单的PopupWindow
-            EasyPopupWindow      : "com.github.ashLikun:EasyPopupWindow:1.0.2",
+            EasyPopupWindow        : "com.github.ashLikun:EasyPopupWindow:1.0.2",
             //事件总线
-            EventBuss            : "com.github.ashLikun:EventBus:0.0.8",
+            EventBuss              : "com.github.ashLikun:EventBus:0.0.8",
             //数据库
-            LiteOrm              : "com.github.ashLikun:LiteOrm:1.0.5",
+            LiteOrm                : "com.github.ashLikun:LiteOrm:1.0.5",
             //封装的RecycleView
-            XRecycleView         : "com.github.ashLikun:XRecycleView:1.3.7",
+            XRecycleView           : "com.github.ashLikun:XRecycleView:1.3.7",
+            //封装的viewpager，banner，启动页
+            XViewPager             : "com.github.ashLikun:XViewPager:1.0.1",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:1.4.9",
+            CommonUtils            : "com.github.ashLikun:CommonUtils:1.5.0",
             //公共的Adapter
-            CommonAdapter        : "com.github.ashLikun.CommonAdapter:adapter:1.8.2",
+            CommonAdapter          : "com.github.ashLikun.CommonAdapter:adapter:1.8.2",
             //阿里的vlayout
-            vlayout              : "com.alibaba.android:vlayout:1.2.8@aar",
+            vlayout                : "com.alibaba.android:vlayout:1.2.8@aar",
             //不同type的json解析,依赖于gson
-            MultiTypeGson        : "com.github.ashLikun:MultiTypeGson:1.0.3",
+            MultiTypeGson          : "com.github.ashLikun:MultiTypeGson:1.0.3",
             //习惯的对话框
-            CustomDialog         : "com.github.ashLikun:CustomDialog:1.1.3",
+            CustomDialog           : "com.github.ashLikun:CustomDialog:1.1.3",
             //布局切换
-            LoadSwitch           : "com.github.ashLikun:LoadSwitch:1.2.2",
+            LoadSwitch             : "com.github.ashLikun:LoadSwitch:1.2.2",
             //兼容的View
-            CompatView           : "com.github.ashLikun:CompatView:1.0.5",
+            CompatView             : "com.github.ashLikun:CompatView:1.0.5",
             //错误捕获
-            AppCrashDispose      : "com.github.ashLikun:AppCrashDispose:0.0.4",
+            AppCrashDispose        : "com.github.ashLikun:AppCrashDispose:0.0.4",
             //app内存溢出捕获
-            leakcanaryDebug      : "com.squareup.leakcanary:leakcanary-android:1.6.1",
-            leakcanaryFragmentDebug      : "com.squareup.leakcanary:leakcanary-support-fragment:1.6.1",
-            leakcanaryRelease    : "com.squareup.leakcanary:leakcanary-android-no-op:1.6.1",
+            leakcanaryDebug        : "com.squareup.leakcanary:leakcanary-android:1.6.1",
+            leakcanaryFragmentDebug: "com.squareup.leakcanary:leakcanary-support-fragment:1.6.1",
+            leakcanaryRelease      : "com.squareup.leakcanary:leakcanary-android-no-op:1.6.1",
             //shimmer 文字
-            shimmer              : "com.romainpiel.shimmer:library:1.4.0",
+            shimmer                : "com.romainpiel.shimmer:library:1.4.0",
             //导航tab
-            BottomNavigation     : "com.github.ashLikun:BottomNavigation:2.1.0",
+            BottomNavigation       : "com.github.ashLikun:BottomNavigation:2.1.0",
             //rxjava
-            rxandroid            : "io.reactivex.rxjava2:rxandroid:2.0.1",
-            rxjava               : "io.reactivex.rxjava2:rxjava:x.y.z",
+            rxandroid              : "io.reactivex.rxjava2:rxandroid:2.0.1",
+            rxjava                 : "io.reactivex.rxjava2:rxjava:x.y.z",
             //okhttp
-            okhttp               : "com.squareup.okhttp3:okhttp:3.9.1",
-            gson                 : "com.google.code.gson:gson:2.8.2",
+            okhttp                 : "com.squareup.okhttp3:okhttp:3.9.1",
+            gson                   : "com.google.code.gson:gson:2.8.2",
             //基于Okhttp封装的
-            OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:1.5.5",
+            OkHttpUtils            : "com.github.ashLikun:OkHttpUtils:1.5.5",
             //图片加载
-            glide                : "com.github.bumptech.glide:glide:4.5.0",
-            glideCompiler        : "com.github.bumptech.glide:compiler:4.5.0",
-            glideTransformations : "jp.wasabeef:glide-transformations:3.0.1",
+            glide                  : "com.github.bumptech.glide:glide:4.5.0",
+            glideCompiler          : "com.github.bumptech.glide:compiler:4.5.0",
+            glideTransformations   : "jp.wasabeef:glide-transformations:3.0.1",
             //md风格对话框
-            materialDialogs      : "com.afollestad.material-dialogs:core:0.9.6.0",
+            materialDialogs        : "com.afollestad.material-dialogs:core:0.9.6.0",
             //Android官方流布局
-            flexbox              : "com.google.android:flexbox:0.3.2",
+            flexbox                : "com.google.android:flexbox:0.3.2",
             //图片查看
-            PhotoView            : "com.github.ashLikun:PhotoView:0.0.6",
+            PhotoView              : "com.github.ashLikun:PhotoView:0.0.6",
             //照片处理
-            PhotoHander          : "com.github.ashLikun:PhotoHander:1.3.0",
+            PhotoHander            : "com.github.ashLikun:PhotoHander:1.3.0",
             //阿里的vlayout
-            vlayout              : "com.alibaba.android:vlayout:1.2.16@aar",
+            vlayout                : "com.alibaba.android:vlayout:1.2.16@aar",
             //不同type的json解析,依赖于gson
-            multiTypeGson        : "com.github.ashLikun:MultiTypeGson:1.0.5"
+            multiTypeGson          : "com.github.ashLikun:MultiTypeGson:1.0.5"
     ]
 
 
