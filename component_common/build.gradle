@@ -36,6 +36,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //alibaba的路由框架
     implementation libs.arouterapi
+    //公共模块引用核心模块，其他模块只需引用本模块就可以
+    api project(':component_core')
     annotationProcessor libs.aroutercompiler
 }
 repositories {

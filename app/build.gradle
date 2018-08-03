@@ -130,14 +130,16 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    //基础组件
-    implementation project(':component_core')
     //公共组件
     implementation project(':component_common')
     annotationProcessor libs.aroutercompiler
     //权限插件
     annotationProcessor libs.permissionprocessor
     annotationProcessor libs.glideCompiler
+    //主模块
+    if (!moudles.main.isRun) {
+        implementation project(':module_main')
+    }
     //登录模块
     if (!moudles.login.isRun) {
         implementation project(':module_login')

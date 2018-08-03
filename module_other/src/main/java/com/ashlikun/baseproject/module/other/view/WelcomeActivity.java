@@ -17,9 +17,9 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.ashlikun.baseproject.module.other.BuildConfig;
 import com.ashlikun.baseproject.module.other.R;
 import com.ashlikun.core.activity.BaseActivity;
-import com.ashlikun.libarouter.RouterManage;
-import com.ashlikun.libarouter.constant.RouterPath;
-import com.ashlikun.libarouter.jump.RouterJump;
+import com.ashlikun.baseproject.libcore.libarouter.RouterManage;
+import com.ashlikun.baseproject.libcore.libarouter.constant.RouterPath;
+import com.ashlikun.baseproject.libcore.libarouter.jump.RouterJump;
 import com.ashlikun.utils.other.SharedPreUtils;
 import com.ashlikun.utils.ui.SuperToast;
 import com.ashlikun.utils.ui.UiUtils;
@@ -117,7 +117,7 @@ public class WelcomeActivity extends BaseActivity {
             Manifest.permission.READ_EXTERNAL_STORAGE})
     void showRationaleForCamera(final PermissionRequest request) {
         new MaterialDialog.Builder(this)
-                .content(R.string.permission_rationale)
+                .content(R.string.other_permission_rationale)
                 .cancelable(false)
                 .positiveText("确定")
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
@@ -138,13 +138,13 @@ public class WelcomeActivity extends BaseActivity {
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_welcom;
+        return R.layout.other_activity_welcom;
     }
 
     @Override
     public void initView() {
-        imageView = (ImageView) findViewById(R.id.image);
-        text = (ShimmerTextView) findViewById(R.id.shimmer_tv);
+        imageView = f(R.id.image);
+        text = f(R.id.shimmer_tv);
     }
 
 
@@ -220,7 +220,7 @@ public class WelcomeActivity extends BaseActivity {
      * //1跳转登陆或者首页，2：不跳转
      */
     public int getServiceUser() {
-        if (!RouterManage.getLogin().isLogin()) {
+        if (RouterManage.haveLogin() && !RouterManage.getLogin().isLogin()) {
             return 1;
         }
 //        HttpRequestParam p = new HttpRequestParam(UserData.getDbUserData().isStudent() ?

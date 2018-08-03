@@ -1,6 +1,9 @@
 package com.ashlikun.baseproject.module.login.presenter;
 
+import android.os.Bundle;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.widget.TextView;
 
 import com.ashlikun.core.BasePresenter;
 import com.ashlikun.baseproject.module.login.mode.javaben.UserData;
@@ -16,6 +19,11 @@ import com.ashlikun.utils.ui.SuperToast;
 public class LoginPresenter extends BasePresenter<IBLoginView.IloginView> {
     public String phone;
     public String password;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     /**
      * 作者　　: 李坤

@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.ashlikun.baseproject.module.other">
 
     <application
-        android:name="com.ashlikun.baseproject.module.debug.MyCommenApp"
+        android:name="com.ashlikun.baseproject.module.debug.ModuleDebugApp"
         android:allowBackup="true"
+        android:icon="@mipmap/app_logo"
+        android:label="@string/other_app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:label">
         <activity
             android:name=".view.WelcomeActivity"
             android:configChanges="orientation|keyboardHidden"

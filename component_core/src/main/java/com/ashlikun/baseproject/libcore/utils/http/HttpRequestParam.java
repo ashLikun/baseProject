@@ -1,6 +1,6 @@
 package com.ashlikun.baseproject.libcore.utils.http;
 
-import com.ashlikun.libarouter.RouterManage;
+import com.ashlikun.baseproject.libcore.libarouter.RouterManage;
 import com.ashlikun.okhttputils.http.request.HttpRequest;
 import com.ashlikun.utils.other.LogUtils;
 import com.ashlikun.xrecycleview.PageHelp;
@@ -56,7 +56,9 @@ public class HttpRequestParam extends HttpRequest {
 
     //通用参数：Mobile：手机号码，PassWord：密码
     public void addUserInfo() {
-        if (RouterManage.getLogin().isLogin()) {
+        if (RouterManage.haveLogin()) {
+            if (RouterManage.getLogin().isLogin()) {
+            }
         }
     }
 

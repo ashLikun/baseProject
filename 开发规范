@@ -1,0 +1,42 @@
+重要Java代码规范
+    java代码完全按照 阿里巴巴的Java开发手册，请安装插件（Alibaba Java Coding Guidelines）自动提示
+
+
+组件化
+       0：要单独运行某个组件请在config_component.gradle里面配置对应的isRun = true,只能有一个为true
+       1:项目中有一个module_备份目录供复制，负责后请参考-->新建一个module步骤
+              module里面的包名请参考module_备份，不得删除，不得改名
+       2:新建资源时候,公共资源请放到公共组件
+            a:布局      模块名_activity(fragment、view、item)_功能名.xml   如main_activity_home.xml
+            b:图片      模块名_bag(ic)_功能名.png              如 main_bag_arror_botton.png
+            c:drawable  模块名_draw_bag(ic)_功能名.xml        如 main_draw_bag_arror_botton.xml
+            d:String    模块名_功能名                         如 main_loadding_string
+            e:其他资源请以   模块名_为前缀
+       3：A组件依赖其他组件时候
+            a:     if (moudles.other.isRun) {
+                       //单一模块运行时候依赖其他模块，全局运行时候不包括
+                       implementation project(':module_login')
+                   }
+            b:严格全局运行的时候组件之间耦合
+       4:组件间通信请使用Aroute的service，就是面向接口
+
+
+Mvp
+        1：每个页面请使用mvp设计规范，如果页面不是很复杂可以不用
+        2：数据模型类，尽量把数据处理完了后交于View层，意思就是view层可以自己通过方法拿到页面显示的数据，不在view层写过多的逻辑
+        3：view层不保存任何形式的P层数据
+        4：每个组件有javaben，请加入混淆-keep class 包名.module.mode.javabean.** { *; }
+
+
+第三方库
+        1:
+
+
+
+多进程
+        1：目前只有sp有多进程功能
+
+
+
+
+

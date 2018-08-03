@@ -7,7 +7,7 @@ import android.view.View;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.ashlikun.core.activity.BaseMvpActivity;
 import com.ashlikun.core.factory.Presenter;
-import com.ashlikun.libarouter.constant.RouterPath;
+import com.ashlikun.baseproject.libcore.libarouter.constant.RouterPath;
 import com.ashlikun.baseproject.module.login.R;
 import com.ashlikun.baseproject.module.login.iview.IBLoginView;
 import com.ashlikun.baseproject.module.login.mode.javaben.UserData;
@@ -30,7 +30,7 @@ public class AmendPasswordActivity extends BaseMvpActivity<AmendPasswordPresente
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_amend_password;
+        return R.layout.login_activity_amend_password;
     }
 
     @Override

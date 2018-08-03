@@ -56,7 +56,7 @@ public class DownLoadActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_download);
+        setContentView(R.layout.other_activity_download);
         initView();
 
     }

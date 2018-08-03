@@ -1,8 +1,9 @@
 package com.ashlikun.baseproject.libcore.utils.http;
 
-import com.ashlikun.libarouter.RouterManage;
+import com.ashlikun.baseproject.libcore.libarouter.RouterManage;
 
 import java.io.IOException;
+
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -112,7 +113,7 @@ public class MarvelSigningInterceptor implements Interceptor {
 
 
         Request newRequest = oldRequest.newBuilder()
-                .addHeader("token", RouterManage.getLogin().getToken())
+                .addHeader("token", RouterManage.haveLogin() ? RouterManage.getLogin().getToken() : "")
                 .build();
         return chain.proceed(newRequest);
     }

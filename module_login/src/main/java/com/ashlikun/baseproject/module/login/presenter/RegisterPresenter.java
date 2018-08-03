@@ -64,7 +64,7 @@ public class RegisterPresenter extends BasePresenter<IBLoginView.IRegisterView> 
     public void onClickView(View view) {
         if (mvpView.checkData()) {
             if (!StringUtils.isEquals(password, password2)) {
-                SuperToast.showWarningMessage(AppUtils.getApp().getResources().getString(R.string.inputCheckHint));
+                SuperToast.showWarningMessage(AppUtils.getApp().getResources().getString(R.string.login_inputCheckHint));
             } else {
                 goRegister();
             }

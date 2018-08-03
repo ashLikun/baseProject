@@ -110,6 +110,10 @@ dependencies {
 
     //错误捕获
     api libs.AppCrashDispose
+    //app内存溢出捕获
+    releaseImplementation libs.leakcanaryRelease
+    debugImplementation libs.leakcanaryDebug
+    debugImplementation libs.leakcanaryFragmentDebug
 
     //shimmer 文字
     api libs.shimmer
@@ -145,5 +149,4 @@ dependencies {
 
     //照片处理
     api libs.PhotoHander
-    api project(':component_common')
 }

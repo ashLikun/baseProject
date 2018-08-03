@@ -1,0 +1,8 @@
+1:复制(module_备份)，改包名。或者直接新建(包名复制app里面的temp)，gradle要写好，参照其他module
+2:在config_component.gradle里面新增一个module
+3:每个module都有2个清单文件（单独运行的时候有一个）
+4:每个module都有...debug/ModuleDebugApp---->负责单独运行时候的app，还要在空壳app -> onCreate的super之前初始化ModuleApp
+5:每个module都有...module名字/ModuleApp ---->负责全局打包运行的时候app（本模块）初始化
+6:配置好gradle
+7:填写好说明文档
+8：在app的application添加...module名字/ModuleApp。

@@ -13,13 +13,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-
 <resources>
-
-    <item name="twowayview_item_click_support" type="id" />
-    <item name="twowayview_item_selection_support" type="id" />
-    <item name="list_swipe_target" type="id" />
-    <item name="swipe" type="id" />
     <item name="toolbar" type="id" />
     <item name="switchRoot" type="id" />
 

@@ -3,17 +3,26 @@ ext {
      * 配置组件
      */
     modules = [
+            //main组件
+            main: [
+                    //是否是单组件运行
+                    isRun        : true,
+                    name        : "main",
+                    applicationId: "${android.applicationId}.$name",
+            ],
             //登陆组件
             login: [
                     //是否是单组件运行
                     isRun        : false,
-                    applicationId: "${android.applicationId}.login",
+                    name        : "login",
+                    applicationId: "${android.applicationId}.$name",
             ],
             //其他一些组件
             other: [
                     //是否是单组件运行
                     isRun        : false,
-                    applicationId: "${android.applicationId}.other",
+                    name        : "other",
+                    applicationId: "${android.applicationId}.$name",
             ]
     ]
 }

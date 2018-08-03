@@ -6,7 +6,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.ashlikun.adapter.recyclerview.multiltem.MultipleAdapter;
 import com.ashlikun.baseproject.module.other.R;
 import com.ashlikun.core.activity.BaseActivity;
-import com.ashlikun.libarouter.constant.RouterPath;
+import com.ashlikun.baseproject.libcore.libarouter.constant.RouterPath;
 
 
 /**
@@ -19,7 +19,7 @@ public class TestActivity extends BaseActivity {
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_test;
+        return R.layout.other_activity_test;
     }
 
     @Override

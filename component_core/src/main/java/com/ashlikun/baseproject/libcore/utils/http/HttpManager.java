@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.ashlikun.libarouter.RouterManage;
+import com.ashlikun.baseproject.libcore.libarouter.RouterManage;
 import com.ashlikun.baseproject.libcore.utils.CacheUtils;
 import com.ashlikun.okhttputils.http.OkHttpUtils;
 import com.ashlikun.okhttputils.http.response.HttpCode;
@@ -84,7 +84,9 @@ public class HttpManager {
             if (response.isSucceed()) {
                 return true;
             } else if (response.getCode() == HttpCode.TOKEN_ERROR) {
-                RouterManage.getLogin().exit();
+                if(RouterManage.haveLogin()) {
+                    RouterManage.getLogin().exit();
+                }
                 final Activity activity = ActivityManager.getForegroundActivity();
                 if (activity != null && !activity.isFinishing()) {
                     if (Looper.getMainLooper() != Looper.myLooper()) {
@@ -120,7 +122,9 @@ public class HttpManager {
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        RouterManage.getLogin().exitLogin(activity);
+                        if(RouterManage.haveLogin()) {
+                            RouterManage.getLogin().exitLogin(activity);
+                        }
                     }
                 })
                 .build().show();
