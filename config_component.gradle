@@ -6,7 +6,7 @@ ext {
             //main组件
             main: [
                     //是否是单组件运行
-                    isRun        : true,
+                    isRun        : false,
                     name        : "main",
                     applicationId: "${android.applicationId}.$name",
             ],

@@ -11,6 +11,7 @@ import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.ashlikun.adapter.SectionsPagerAdapter;
 import com.ashlikun.baseproject.libcore.libarouter.constant.RouterPath;
+import com.ashlikun.baseproject.libcore.widget.NestViewPager;
 import com.ashlikun.baseproject.module.main.R;
 import com.ashlikun.baseproject.module.main.view.fragment.HomeFragment;
 import com.ashlikun.bottomnavigation.AHBottomNavigation;
@@ -34,8 +35,10 @@ import java.util.ArrayList;
 public class HomeActivity extends BaseActivity
         implements AHBottomNavigation.OnTabSelectedListener
         , ViewPager.OnPageChangeListener {
-    AHBottomNavigation ahBottomNavigation;
     private long exitTime = 0;
+    private NestViewPager viewPager;
+    private AHBottomNavigation bottom_navigation_bar;
+    private AHBottomNavigation bottomNavigationBar;
 
     @Override
     public void onTrimMemory(int level) {
@@ -47,7 +50,6 @@ public class HomeActivity extends BaseActivity
         return super.dispatchTouchEvent(ev);
     }
 
-    ViewPager viewPager;
 
     private ArrayList<Fragment> fragmentList = new ArrayList<>();
 
@@ -68,7 +70,7 @@ public class HomeActivity extends BaseActivity
 
 
     public void setCurrentItem(int postion) {
-        ahBottomNavigation.setCurrentItem(postion);
+        bottomNavigationBar.setCurrentItem(postion);
     }
 
 
@@ -86,26 +88,28 @@ public class HomeActivity extends BaseActivity
 
     @Override
     public void initView() {
-        ahBottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation_bar);
-        viewPager = (ViewPager) findViewById(R.id.content);
-        ahBottomNavigation.setAccentColor(getResources().getColor(R.color.colorPrimary));
-        ahBottomNavigation.addItem(new AHBottomNavigationItem.Builder(R.string.main_bottom_1,
+        viewPager = f(R.id.viewPager);
+        bottomNavigationBar = f(R.id.bottomNavigationBar);
+        bottomNavigationBar.setAccentColor(getResources().getColor(R.color.colorPrimary));
+        bottomNavigationBar.addItem(new AHBottomNavigationItem.Builder(R.string.main_bottom_1,
                 R.mipmap.app_logo, R.mipmap.app_logo).builder());
-        ahBottomNavigation.addItem(new AHBottomNavigationItem.Builder(R.string.main_bottom_2,
+        bottomNavigationBar.addItem(new AHBottomNavigationItem.Builder(R.string.main_bottom_2,
                 R.mipmap.app_logo, R.mipmap.app_logo).builder());
-        ahBottomNavigation.addItem(new AHBottomNavigationItem.Builder(R.string.main_bottom_3,
+        bottomNavigationBar.addItem(new AHBottomNavigationItem.Builder(R.string.main_bottom_3,
                 R.mipmap.app_logo, R.mipmap.app_logo).builder());
 
-        ahBottomNavigation.setDefaultBackgroundColor(getResources().getColor(R.color.white));
-        ahBottomNavigation.setCurrentItem(0, false);
-        ahBottomNavigation.setForceTint(true);
-        ahBottomNavigation.setOnTabSelectedListener(this);
+        bottomNavigationBar.setDefaultBackgroundColor(getResources().getColor(R.color.white));
+        bottomNavigationBar.setCurrentItem(0, false);
+        bottomNavigationBar.setForceTint(true);
+        bottomNavigationBar.setOnTabSelectedListener(this);
         fragmentList.add(new HomeFragment());
         fragmentList.add(new HomeFragment());
         fragmentList.add(new HomeFragment());
         SectionsPagerAdapter mAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), fragmentList);
         viewPager.setAdapter(mAdapter);
         viewPager.addOnPageChangeListener(this);
+
+
     }
 
     @Override
@@ -138,7 +142,7 @@ public class HomeActivity extends BaseActivity
 
     @Override
     public void onPageSelected(int position) {
-        ahBottomNavigation.setCurrentItem(position, useCallback);
+        bottomNavigationBar.setCurrentItem(position, useCallback);
     }
 
     boolean useCallback = false;

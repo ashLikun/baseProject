@@ -34,9 +34,9 @@ public class LineItenView extends LinearLayout {
     private CharSequence title;
     private CharSequence subTitle;
 
-    private ImageView imageView;
     private TextView textView;
     private TextView subTextView;
+    private ImageView imageView;
 
     public LineItenView(Context context) {
         this(context, null);
@@ -65,9 +65,10 @@ public class LineItenView extends LinearLayout {
 
     private void initView(Context context, AttributeSet attrs) {
         LayoutInflater.from(context).inflate(R.layout.view_line_item, this, true);
-        imageView = (ImageView) findViewById(R.id.imageView);
-        textView = (TextView) findViewById(R.id.textView);
-        subTextView = (TextView) findViewById(R.id.subTitle);
+        textView = findViewById(R.id.textView);
+        subTextView = findViewById(R.id.subTitle);
+        imageView = findViewById(R.id.imageView);
+
         paint = new Paint();
         paint.setAntiAlias(true);
         paint.setColor(bottomLineColor);
@@ -77,15 +78,15 @@ public class LineItenView extends LinearLayout {
         }
         if (isShowArror) {
             Drawable drawable = context.getResources().getDrawable(R.drawable.ic_arrow_right);
-            DrawableUtils.createTextDraw(subTextView,drawable)
+            DrawableUtils.createTextDraw(subTextView, drawable)
                     .location(3)
                     .set();
         }
         imageView.setVisibility(isShowIcon ? VISIBLE : GONE);
         if (!isShowIcon) {
-            ((LinearLayout.LayoutParams) textView.getLayoutParams()).setMargins(0, 0, 0, 0);
+            ((LayoutParams) textView.getLayoutParams()).setMargins(0, 0, 0, 0);
         } else {
-            ((LinearLayout.LayoutParams) textView.getLayoutParams()).setMargins(DimensUtils.dip2px(context, 20), 0, 0, 0);
+            ((LayoutParams) textView.getLayoutParams()).setMargins(DimensUtils.dip2px(context, 20), 0, 0, 0);
         }
         imageView.setImageResource(iconRes);
         textView.setText(title);
@@ -109,4 +110,6 @@ public class LineItenView extends LinearLayout {
             canvas.drawRect(0, getHeight() - bottomLineSize, getWidth(), getHeight(), paint);
         }
     }
+
+
 }
