@@ -1,5 +1,7 @@
 package com.ashlikun.baseproject.module.login.presenter;
 
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProvider;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewTreeObserver;

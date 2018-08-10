@@ -7,7 +7,7 @@ import com.ashlikun.baseproject.libcore.mvp.iview.IBaseListView;
 import com.ashlikun.baseproject.libcore.mvp.iview.IBaseSwipeView;
 import com.ashlikun.core.BasePresenter;
 import com.ashlikun.core.activity.BaseActivity;
-import com.ashlikun.core.iview.BaseView;
+import com.ashlikun.core.iview.IBaseView;
 import com.ashlikun.loadswitch.ContextData;
 import com.ashlikun.loadswitch.LoadSwitchService;
 import com.ashlikun.okhttputils.http.HttpException;
@@ -375,7 +375,7 @@ public abstract class HttpCallBack<ResultType> extends AbsCallback<ResultType> {
          * <p>
          * 方法功能：设置下位刷新，底加载，状态显示
          */
-        public Buider setLoadingStatus(BaseView mvpView) {
+        public Buider setLoadingStatus(IBaseView mvpView) {
             if (mvpView == null) {
                 return this;
             }

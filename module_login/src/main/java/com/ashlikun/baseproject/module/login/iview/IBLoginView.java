@@ -1,8 +1,8 @@
 package com.ashlikun.baseproject.module.login.iview;
 
-import com.ashlikun.core.iview.BaseView;
-import com.ashlikun.core.iview.ICheckView;
 import com.ashlikun.baseproject.module.login.mode.javaben.UserData;
+import com.ashlikun.core.iview.IBaseView;
+import com.ashlikun.core.iview.ICheckView;
 
 /**
  * 作者　　: 李坤
@@ -17,7 +17,7 @@ public interface IBLoginView {
     /**
      * Created by yang on 2016/8/17.
      */
-    interface IloginView extends BaseView, ICheckView {
+    interface IloginView extends IBaseView, ICheckView {
 
         /**
          * 登录成功后接收UserData对象
@@ -30,11 +30,11 @@ public interface IBLoginView {
     /**
      * Created by yang on 2016/8/17.
      */
-    interface IAmendPasswordView extends BaseView {
+    interface IAmendPasswordView extends IBaseView {
         void receiverUserData(UserData UserData);
     }
 
-    interface IUpDataPasswordView extends BaseView {
+    interface IUpDataPasswordView extends IBaseView {
 
         void receiverUserData(UserData UserData);
     }
@@ -42,13 +42,13 @@ public interface IBLoginView {
     /**
      * Created by yang on 2016/8/17.
      */
-    interface IRegisterView extends BaseView, ICheckView {
+    interface IRegisterView extends IBaseView, ICheckView {
 
         /**
          * 注册成功后接收UserData对象
          *
          * @param
          */
-        void receiverUserData(UserData UserData);
+        void receiverUserData(UserData userData);
     }
 }

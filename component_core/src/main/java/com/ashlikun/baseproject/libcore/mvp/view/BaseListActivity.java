@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import com.ashlikun.adapter.recyclerview.CommonAdapter;
 import com.ashlikun.adapter.recyclerview.click.OnItemClickListener;
 import com.ashlikun.core.BasePresenter;
-import com.ashlikun.core.fragment.BaseMvpFragment;
+import com.ashlikun.core.activity.BaseMvpActivity;
 import com.ashlikun.loadswitch.OnLoadSwitchClick;
 import com.ashlikun.xrecycleview.PageHelp;
 import com.ashlikun.xrecycleview.RefreshLayout;
@@ -21,7 +21,7 @@ import com.ashlikun.xrecycleview.listener.RecycleViewSwipeListener;
  * 功能介绍：列表界面父类
  */
 public abstract class BaseListActivity<P extends BasePresenter, D>
-        extends BaseMvpFragment<P>
+        extends BaseMvpActivity<P>
         implements RecycleViewSwipeListener, OnItemClickListener<D>,
         OnLoadSwitchClick {
     protected SuperRecyclerView listSwipeView;
@@ -30,7 +30,7 @@ public abstract class BaseListActivity<P extends BasePresenter, D>
     @Override
     protected void baseInitView() {
         super.baseInitView();
-        listSwipeView = (SuperRecyclerView) rootView.findViewById(com.ashlikun.core.R.id.switchRoot);
+        listSwipeView = f(com.ashlikun.core.R.id.switchRoot);
         adapter = getAdapter();
 
         RecyclerView.ItemDecoration itemDecoration = getItemDecoration();

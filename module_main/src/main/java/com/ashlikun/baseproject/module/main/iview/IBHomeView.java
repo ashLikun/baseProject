@@ -1,6 +1,6 @@
 package com.ashlikun.baseproject.module.main.iview;
 
-import com.ashlikun.core.iview.BaseView;
+import com.ashlikun.core.iview.IBaseView;
 
 /**
  * 作者　　: 李坤
@@ -11,6 +11,6 @@ import com.ashlikun.core.iview.BaseView;
  */
 
 public interface IBHomeView {
-    interface IHomeView extends BaseView {
+    interface IHomeView extends IBaseView {
     }
 }

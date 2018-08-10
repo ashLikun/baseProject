@@ -1,5 +1,6 @@
 package com.ashlikun.baseproject.libcore.widget;
 
+import android.arch.lifecycle.LiveData;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;

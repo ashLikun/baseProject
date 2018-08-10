@@ -5,49 +5,43 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.ashlikun.banner.ConvenientBanner;
-import com.ashlikun.banner.holder.Holder;
 import com.ashlikun.baseproject.libcore.R;
 import com.ashlikun.baseproject.libcore.javabean.BannerAdData;
 import com.ashlikun.baseproject.libcore.utils.http.HttpManager;
 import com.ashlikun.glideutils.GlideUtils;
 import com.ashlikun.utils.http.HttpLocalUtils;
+import com.ashlikun.xviewpager.listener.ViewPageHelperListener;
+import com.ashlikun.xviewpager.view.BannerViewPager;
 import com.bumptech.glide.request.RequestOptions;
 
 
 /**
- * Created by Sai on 15/8/4.
- * 网络图片加载例子
+ * @author　　: 李坤
+ * 创建时间: 2018/8/10 14:55
+ * 邮箱　　：496546144@qq.com
+ * <p>
+ * 功能介绍：Glide加载网络图片的BannerHolder
  */
-public abstract class NetworkImageHolderView implements Holder<BannerAdData> {
+
+public abstract class BannerImageHolderView implements ViewPageHelperListener<BannerAdData> {
     private ImageView imageView;
     int width = 0;
     int height = 0;
 
     @Override
-    public View createView(ConvenientBanner banner, Context context) {
+    public View createView(Context context, BannerViewPager banner, BannerAdData data, int position) {
         //你可以通过layout文件来创建，也可以像我一样用代码创建，不一定是Image，任何控件都可以进行翻页
         imageView = new ImageView(context);
         imageView.setLayoutParams(new ViewGroup.LayoutParams(width = banner.getWidth(), height = banner.getHeight()));
         imageView.setMinimumWidth(width);
         imageView.setMinimumHeight(height);
         imageView.setId(R.id.switchRoot);
-        return imageView;
-    }
-
-    @Override
-    public void UpdateUI(Context context, final int position, final BannerAdData data) {
-
         GlideUtils.show(imageView, HttpLocalUtils.getHttpFileUrl(HttpManager.BASE_URL, data.imgUrl),
-                new RequestOptions()
-                        .override(width, height));
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onItemClicklistener(imageView, position, data);
-            }
+                new RequestOptions().override(width, height));
+        imageView.setOnClickListener(v -> {
+            onItemClicklistener(imageView, 0, data);
         });
-
+        return imageView;
     }
 
     public View getView() {

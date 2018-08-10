@@ -11,7 +11,7 @@ android {
         versionName config.versionName
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [moduleName: project.getName()]
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
         }
     }
@@ -75,7 +75,7 @@ dependencies {
     api libs.EasyPopupWindow
 
     //事件总线
-    api libs.EventBuss
+    api libs.EventBus
 
     //    //图片GridView
 
@@ -86,6 +86,9 @@ dependencies {
 
     //封装的RecycleView
     api libs.XRecycleView
+
+    ///封装的viewpager，banner，启动页
+    api libs.XViewPager
 
     //公共的工具
     api libs.CommonUtils

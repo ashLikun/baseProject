@@ -1,6 +1,6 @@
 package com.ashlikun.baseproject.libcore.mvp.iview;
 
-import com.ashlikun.core.iview.BaseView;
+import com.ashlikun.core.iview.IBaseView;
 import com.ashlikun.xrecycleview.RefreshLayout;
 
 /**
@@ -10,7 +10,7 @@ import com.ashlikun.xrecycleview.RefreshLayout;
  * <p>
  * 功能介绍：下拉刷新的基类接口
  */
-public interface IBaseSwipeView extends BaseView, RefreshLayout.OnRefreshListener {
+public interface IBaseSwipeView extends IBaseView, RefreshLayout.OnRefreshListener {
     /**
      * 获取下拉刷新控件
      */

@@ -2,7 +2,7 @@ package com.ashlikun.baseproject.libcore.mvp.view;
 
 
 import com.ashlikun.core.BasePresenter;
-import com.ashlikun.core.iview.BaseView;
+import com.ashlikun.core.iview.IBaseView;
 
 import java.util.ArrayList;
 
@@ -14,6 +14,6 @@ import java.util.ArrayList;
  * <p>
  * 功能介绍：
  */
-public abstract class BaseListPresenter<D, V extends BaseView> extends BasePresenter<V> {
+public abstract class BaseListPresenter<D, V extends IBaseView> extends BasePresenter<V> {
     public ArrayList<D> listDatas = new ArrayList<>();
 }

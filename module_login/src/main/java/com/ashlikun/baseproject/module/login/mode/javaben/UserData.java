@@ -6,10 +6,8 @@ import android.support.annotation.NonNull;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.ashlikun.eventbus.EventBus;
 import com.ashlikun.baseproject.libcore.libarouter.constant.RouterPath;
 import com.ashlikun.baseproject.libcore.libarouter.jump.RouterJump;
-import com.ashlikun.baseproject.libcore.Global;
 import com.ashlikun.orm.LiteOrmUtil;
 import com.ashlikun.orm.db.annotation.Column;
 import com.ashlikun.orm.db.annotation.Ignore;
@@ -109,7 +107,7 @@ public class UserData {
         /**
          * 发送退出广播
          */
-        EventBus.getDefault().post(Global.EXIT_LOGIN);
+        //EventBus.getDefault().post(Global.EXIT_LOGIN);
         RouterJump.startLogin();
         return res;
     }
@@ -161,7 +159,7 @@ public class UserData {
             LiteOrmUtil.get().save(this);
             UserData.userData = this;
             //发送通知
-            EventBus.getDefault().post(userData, Global.EVENBUS_USERDATA_CHANG);
+            //EventBus.getDefault().post(userData, Global.EVENBUS_USERDATA_CHANG);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
