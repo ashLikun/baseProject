@@ -5,13 +5,13 @@ import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.ashlikun.core.activity.BaseMvpActivity;
-import com.ashlikun.core.factory.Presenter;
 import com.ashlikun.baseproject.libcore.libarouter.constant.RouterPath;
 import com.ashlikun.baseproject.module.login.R;
 import com.ashlikun.baseproject.module.login.iview.IBLoginView;
 import com.ashlikun.baseproject.module.login.mode.javaben.UserData;
 import com.ashlikun.baseproject.module.login.presenter.LoginPresenter;
+import com.ashlikun.core.activity.BaseMvpActivity;
+import com.ashlikun.core.factory.Presenter;
 import com.ashlikun.utils.ui.EditHelper;
 
 
