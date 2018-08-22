@@ -1,18 +1,15 @@
 package com.ashlikun.baseproject.module.login.presenter;
 
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewTreeObserver;
-import android.widget.TextView;
-
 import com.ashlikun.core.BasePresenter;
-import com.ashlikun.baseproject.module.login.mode.javaben.UserData;
+import com.ashlikun.okhttputils.http.response.HttpResult;
 import com.ashlikun.baseproject.libcore.utils.http.HttpCallBack;
 import com.ashlikun.baseproject.module.login.iview.IBLoginView;
 import com.ashlikun.baseproject.module.login.mode.ApiLogin;
-import com.ashlikun.okhttputils.http.response.HttpResult;
+import com.ashlikun.baseproject.module.login.mode.javaben.UserData;
+
+
 import com.ashlikun.utils.ui.SuperToast;
 
 /**
@@ -21,6 +18,7 @@ import com.ashlikun.utils.ui.SuperToast;
 public class LoginPresenter extends BasePresenter<IBLoginView.IloginView> {
     public String phone;
     public String password;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

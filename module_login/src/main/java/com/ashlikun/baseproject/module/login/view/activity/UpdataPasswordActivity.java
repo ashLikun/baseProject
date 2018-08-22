@@ -1,4 +1,4 @@
-package com.ashlikun.baseproject.module.login.view.login.activity;
+package com.ashlikun.baseproject.module.login.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;

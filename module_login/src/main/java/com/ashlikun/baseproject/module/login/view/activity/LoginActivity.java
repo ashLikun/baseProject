@@ -1,18 +1,18 @@
-package com.ashlikun.baseproject.module.login.view.login.activity;
+package com.ashlikun.baseproject.module.login.view.activity;
 
 import android.content.Intent;
 import android.view.View;
 
+import com.ashlikun.core.activity.BaseMvpActivity;
+import com.ashlikun.core.factory.Presenter;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+
 import com.ashlikun.baseproject.libcore.libarouter.constant.RouterPath;
 import com.ashlikun.baseproject.module.login.R;
 import com.ashlikun.baseproject.module.login.iview.IBLoginView;
 import com.ashlikun.baseproject.module.login.mode.javaben.UserData;
 import com.ashlikun.baseproject.module.login.presenter.LoginPresenter;
-import com.ashlikun.core.activity.BaseMvpActivity;
-import com.ashlikun.core.factory.Presenter;
-import com.ashlikun.utils.ui.EditHelper;
 
 
 /**
@@ -23,16 +23,10 @@ import com.ashlikun.utils.ui.EditHelper;
 @Presenter(LoginPresenter.class)
 public class LoginActivity extends BaseMvpActivity<LoginPresenter>
         implements IBLoginView.IloginView {
-    public EditHelper editHelper = new EditHelper(this);
 
     @Override
     public int getLayoutId() {
         return R.layout.login_activity_login;
-    }
-
-
-    @Override
-    public void parseIntent(Intent intent) {
     }
 
     @Override
@@ -48,7 +42,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter>
 
     @Override
     public boolean checkData() {
-        return editHelper.check();
+        return false;
     }
 
     @Override
