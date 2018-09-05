@@ -4,7 +4,6 @@ import com.ashlikun.baseproject.libcore.utils.http.BaseApiService;
 import com.ashlikun.baseproject.libcore.utils.http.HttpRequestParam;
 import com.ashlikun.okhttputils.http.ExecuteCall;
 import com.ashlikun.okhttputils.http.callback.Callback;
-import com.ashlikun.utils.ui.ScreenInfoUtils;
 
 /**
  * 作者　　: 李坤
@@ -18,7 +17,6 @@ public class ApiMain extends BaseApiService {
     private static ApiMain api;
 
     public static ApiMain getApi() {
-        ScreenInfoUtils
         if (api == null) {
             synchronized (ApiMain.class) {
                 if (api == null) {

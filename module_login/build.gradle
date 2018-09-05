@@ -54,7 +54,7 @@ android {
                 manifest.srcFile 'src/main/AndroidManifest.xml'
                 java {
                     //排除java/debug文件夹下的所有文件
-                    exclude 'debug/**'
+                    exclude 'com/ashlikun/baseproject/module/debug/**'
                 }
             }
 
