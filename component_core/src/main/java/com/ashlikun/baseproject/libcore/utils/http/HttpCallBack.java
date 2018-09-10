@@ -16,9 +16,12 @@ import com.ashlikun.okhttputils.http.callback.AbsCallback;
 import com.ashlikun.okhttputils.http.response.HttpResponse;
 import com.ashlikun.utils.AppUtils;
 import com.ashlikun.utils.other.LogUtils;
+import com.ashlikun.utils.other.MainHandle;
 import com.ashlikun.utils.ui.SuperToast;
 import com.ashlikun.xrecycleview.RefreshLayout;
 import com.ashlikun.xrecycleview.StatusChangListener;
+
+import java.lang.ref.WeakReference;
 
 /**
  * @author　　: 李坤
@@ -75,7 +78,7 @@ public abstract class HttpCallBack<ResultType> extends AbsCallback<ResultType> {
             return;
         }
         if (loadSwitchService != null && loadSwitchService.isLoadingCanShow()) {
-            loadSwitchService.showLoading(null);
+            loadSwitchService.showLoading(new ContextData(hint));
         } else if (isShowLoadding && basePresenter != null && basePresenter.mvpView != null) {
             basePresenter.mvpView.showProgress(hint, isCancelable);
         } else if (isShowLoadding && baseActivity != null) {
@@ -94,23 +97,23 @@ public abstract class HttpCallBack<ResultType> extends AbsCallback<ResultType> {
     public void onCompleted() {
         LogUtils.e("onCompleted");
         setEnableView(true);
-
         dismissUi();
     }
 
     public void dismissUi() {
-
-        //如果count > 0，说明当前页面还有请求，就不销毁对话框
-        if (count() > 0) {
-            return;
-        }
-        if (isShowLoadding && basePresenter != null && basePresenter.mvpView != null) {
-            basePresenter.mvpView.hintProgress();
-        } else if (isShowLoadding && baseActivity != null) {
-            baseActivity.hintProgress();
-        }
         if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(false);
+        }
+        //如果count > 0，说明当前页面还有请求，就不销毁对话框
+        if (count() > 0) {
+            //Okhttp内部在子线程里面执行的，这里延时1秒检测
+            MainHandle.get().postDelayed(new MyRunnable(this), 1000);
+            return;
+        }
+        if (basePresenter != null && basePresenter.mvpView != null) {
+            basePresenter.mvpView.hintProgress();
+        } else if (baseActivity != null) {
+            baseActivity.hintProgress();
         }
     }
 
@@ -396,5 +399,23 @@ public abstract class HttpCallBack<ResultType> extends AbsCallback<ResultType> {
 
     public Object getTag() {
         return baseActivity == null ? basePresenter : baseActivity;
+    }
+
+    /**
+     * 请求数目可能不对Okhttp内部在子线程里面执行的，这里延时1秒检测,销毁对话框
+     */
+    private static class MyRunnable implements Runnable {
+        WeakReference<HttpCallBack> reference;
+
+        public MyRunnable(HttpCallBack httpCallBack) {
+            this.reference = new WeakReference<>(httpCallBack);
+        }
+
+        @Override
+        public void run() {
+            if (reference.get() != null) {
+                reference.get().dismissUi();
+            }
+        }
     }
 }
