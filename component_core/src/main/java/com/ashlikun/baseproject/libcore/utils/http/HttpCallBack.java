@@ -100,16 +100,31 @@ public abstract class HttpCallBack<ResultType> extends AbsCallback<ResultType> {
         dismissUi();
     }
 
+    /**
+     * 销毁页面的状态
+     */
     public void dismissUi() {
         if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(false);
         }
-        //如果count > 0，说明当前页面还有请求，就不销毁对话框
-        if (count() > 0) {
-            //Okhttp内部在子线程里面执行的，这里延时1秒检测
-            MainHandle.get().postDelayed(new MyRunnable(this), 1000);
+        boolean isNoRun = (basePresenter == null || basePresenter.mvpView == null) && baseActivity == null;
+        if (isNoRun) {
             return;
         }
+        //如果count > 0，说明当前页面还有请求，就不销毁对话框
+        if (count() > 0) {
+            //是否等待,Okhttp内部在子线程里面执行的，这里延时1秒检测
+            //可能会一直占用内存不释放，所以这里false
+            MainHandle.get().postDelayed(() -> dismissDialog(), 1000);
+            return;
+        }
+        dismissDialog();
+    }
+
+    /**
+     * 销毁对话框
+     */
+    public void dismissDialog() {
         if (basePresenter != null && basePresenter.mvpView != null) {
             basePresenter.mvpView.hintProgress();
         } else if (baseActivity != null) {

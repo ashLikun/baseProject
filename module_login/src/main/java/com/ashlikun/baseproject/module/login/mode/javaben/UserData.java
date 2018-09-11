@@ -7,7 +7,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.ashlikun.baseproject.libcore.libarouter.constant.RouterPath;
-import com.ashlikun.baseproject.libcore.libarouter.jump.RouterJump;
+import com.ashlikun.common.utils.jump.RouterJump;
 import com.ashlikun.orm.LiteOrmUtil;
 import com.ashlikun.orm.db.annotation.Column;
 import com.ashlikun.orm.db.annotation.Ignore;

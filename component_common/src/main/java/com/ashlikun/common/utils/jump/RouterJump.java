@@ -1,4 +1,4 @@
-package com.ashlikun.baseproject.libcore.libarouter.jump;
+package com.ashlikun.common.utils.jump;
 
 import android.content.Intent;
 import android.os.Bundle;

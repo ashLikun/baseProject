@@ -19,7 +19,7 @@ import com.ashlikun.baseproject.module.other.R;
 import com.ashlikun.core.activity.BaseActivity;
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage;
 import com.ashlikun.baseproject.libcore.libarouter.constant.RouterPath;
-import com.ashlikun.baseproject.libcore.libarouter.jump.RouterJump;
+import com.ashlikun.common.utils.jump.RouterJump;
 import com.ashlikun.utils.other.SharedPreUtils;
 import com.ashlikun.utils.ui.SuperToast;
 import com.ashlikun.utils.ui.UiUtils;
