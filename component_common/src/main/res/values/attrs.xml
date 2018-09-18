@@ -8,5 +8,9 @@
         <attr name="liv_is_show_arror" format="string"></attr>
         <attr name="liv_bottom_line_size" format="dimension"></attr>
         <attr name="liv_bottom_line_color" format="color"></attr>
+        <attr name="liv_title_size" format="dimension"></attr>
+        <attr name="liv_title_color" format="color"></attr>
+        <attr name="liv_sub_title_size" format="color"></attr>
+        <attr name="liv_sub_title_color" format="color"></attr>
     </declare-styleable>
 </resources>

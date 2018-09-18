@@ -1,7 +1,7 @@
 ext {
 
     superVersion = "27.1.1"
-    frameVersion = "2.3.6"
+    frameVersion = "2.3.9"
     android = [
             applicationId    : "com.ashlikun.yoohfit",
             compileSdkVersion: 27,
@@ -38,7 +38,7 @@ ext {
             supportV4              : "com.android.support:support-v4:$superVersion",
             appcompat              : "com.android.support:appcompat-v7:$superVersion",
             //基本架构
-            CustomMvp              : "com.github.ashLikun:CustomMvp:1.3.7",
+            CustomMvp              : "com.github.ashLikun:CustomMvp:1.3.9",
             multidex               : "com.android.support:multidex:1.0.2",
             //alibaba的路由框架
             arouterapi             : "com.alibaba:arouter-api:+",
@@ -54,25 +54,25 @@ ext {
             //数据库
             LiteOrm                : "com.github.ashLikun:LiteOrm:1.0.5",
             //封装的RecycleView
-            XRecycleView           : "com.github.ashLikun:XRecycleView:1.4.0",
+            XRecycleView           : "com.github.ashLikun:XRecycleView:1.4.2",
             //自定义的下拉刷新
-            RefreshLayout           : "com.github.ashLikun:RefreshLayout:1.2.1",
+            RefreshLayout          : "com.github.ashLikun:RefreshLayout:1.2.2",
             //封装的viewpager，banner，启动页
-            XViewPager             : "com.github.ashLikun:XViewPager:1.0.8",
+            XViewPager             : "com.github.ashLikun:XViewPager:1.1.0",
             //公共的工具
-            CommonUtils            : "com.github.ashLikun:CommonUtils:1.5.7",
+            CommonUtils            : "com.github.ashLikun:CommonUtils:1.5.9",
             //公共的Adapter
-            CommonAdapter          : "com.github.ashLikun.CommonAdapter:adapter:1.8.2",
+            CommonAdapter          : "com.github.ashLikun.CommonAdapter:adapter:1.8.4",
             //阿里的vlayout
             vlayout                : "com.alibaba.android:vlayout:1.2.8@aar",
             //不同type的json解析,依赖于gson
             MultiTypeGson          : "com.github.ashLikun:MultiTypeGson:1.0.3",
             //习惯的对话框
-            CustomDialog           : "com.github.ashLikun:CustomDialog:1.1.6",
+            CustomDialog           : "com.github.ashLikun:CustomDialog:1.1.7",
             //布局切换
-            LoadSwitch             : "com.github.ashLikun:LoadSwitch:1.2.2",
+            LoadSwitch             : "com.github.ashLikun:LoadSwitch:1.2.3",
             //兼容的View
-            CompatView             : "com.github.ashLikun:CompatView:1.1.0",
+            CompatView             : "com.github.ashLikun:CompatView:1.1.1",
             //错误捕获
             AppCrashDispose        : "com.github.ashLikun:AppCrashDispose:0.0.4",
             //app内存溢出捕获
@@ -88,7 +88,7 @@ ext {
             rxjava                 : "io.reactivex.rxjava2:rxjava:x.y.z",
             //okhttp
             okhttp                 : "com.squareup.okhttp3:okhttp:3.9.1",
-            gson                   : "com.google.code.gson:gson:2.8.2",
+            gson                   : "com.google.code.gson:gson:2.8.5",
             //基于Okhttp封装的
             OkHttpUtils            : "com.github.ashLikun:OkHttpUtils:1.5.6",
             //图片加载
@@ -111,7 +111,8 @@ ext {
             //输入验证码
             VerificationCodeInput  : "com.github.ashLikun:VerifyCodeView:0.0.1",
             //评分控件
-            MaterialRatingBar      : "com.github.ashLikun:MaterialRatingBar:1.0.1"
+            MaterialRatingBar      : "com.github.ashLikun:MaterialRatingBar:1.0.1",
+            CalendarView           : "com.github.ashLikun:CalendarView:1.0.6"
     ]
 
 

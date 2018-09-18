@@ -1,0 +1,22 @@
+<resources>
+    <!--对应ui上面的大小-->
+    <dimen name="udp_44">18dp</dimen>
+    <dimen name="udp_42">17.5dp</dimen>
+    <dimen name="udp_40">17dp</dimen>
+    <dimen name="udp_38">16.5dp</dimen>
+    <dimen name="udp_36">16dp</dimen>
+    <dimen name="udp_35">15.5dp</dimen>
+    <dimen name="udp_34">15dp</dimen>
+    <dimen name="udp_32">14.5dp</dimen>
+    <dimen name="udp_30">14dp</dimen>
+    <dimen name="udp_28">13dp</dimen>
+    <dimen name="udp_26">12.5dp</dimen>
+    <dimen name="udp_24">12dp</dimen>
+    <dimen name="udp_22">11dp</dimen>
+    <dimen name="udp_20">10.5dp</dimen>
+    <dimen name="udp_14">7dp</dimen>
+    <dimen name="udp_10">5dp</dimen>
+    <dimen name="line">0.8dp</dimen>
+    <dimen name="line_max">1.5dp</dimen>
+
+</resources>

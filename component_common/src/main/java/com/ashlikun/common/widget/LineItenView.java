@@ -1,6 +1,5 @@
-package com.ashlikun.baseproject.libcore.widget;
+package com.ashlikun.common.widget;
 
-import android.arch.lifecycle.LiveData;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -8,12 +7,13 @@ import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.ashlikun.baseproject.libcore.R;
+import com.ashlikun.common.R;
 import com.ashlikun.utils.other.DimensUtils;
 import com.ashlikun.utils.ui.DrawableUtils;
 
@@ -59,16 +59,30 @@ public class LineItenView extends LinearLayout {
         iconRes = a.getResourceId(R.styleable.LineItenView_liv_icon_res, 0);
         title = a.getString(R.styleable.LineItenView_liv_title);
         subTitle = a.getString(R.styleable.LineItenView_liv_sub_title);
+        initView(context, a);
         a.recycle();
-        initView(context, attrs);
-
     }
 
-    private void initView(Context context, AttributeSet attrs) {
+    private void initView(Context context, TypedArray a) {
         LayoutInflater.from(context).inflate(R.layout.view_line_item, this, true);
         textView = findViewById(R.id.textView);
         subTextView = findViewById(R.id.subTitle);
         imageView = findViewById(R.id.imageView);
+
+        if (a.hasValue(R.styleable.LineItenView_liv_title_size)) {
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                    a.getDimensionPixelSize(R.styleable.LineItenView_liv_title_size, 0));
+        }
+        if (a.hasValue(R.styleable.LineItenView_liv_title_color)) {
+            textView.setTextColor(a.getColor(R.styleable.LineItenView_liv_title_color, 0));
+        }
+        if (a.hasValue(R.styleable.LineItenView_liv_sub_title_size)) {
+            subTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                    a.getDimensionPixelSize(R.styleable.LineItenView_liv_sub_title_size, 0));
+        }
+        if (a.hasValue(R.styleable.LineItenView_liv_sub_title_color)) {
+            subTextView.setTextColor(a.getColor(R.styleable.LineItenView_liv_sub_title_color, 0));
+        }
 
         paint = new Paint();
         paint.setAntiAlias(true);
@@ -92,6 +106,18 @@ public class LineItenView extends LinearLayout {
         imageView.setImageResource(iconRes);
         textView.setText(title);
         subTextView.setText(subTitle);
+    }
+
+    public TextView getTitleView() {
+        return textView;
+    }
+
+    public TextView getSubTitleView() {
+        return subTextView;
+    }
+
+    public ImageView getImageView() {
+        return imageView;
     }
 
     public void setTitle(CharSequence title) {

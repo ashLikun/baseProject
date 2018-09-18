@@ -6,13 +6,13 @@
 
     android:orientation="vertical">
 
-    <com.ashlikun.baseproject.libcore.widget.NestViewPager
+    <com.ashlikun.xviewpager.view.NestViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottomNavigationBar">
 
-    </com.ashlikun.baseproject.libcore.widget.NestViewPager>
+    </com.ashlikun.xviewpager.view.NestViewPager>
 
 
     <com.ashlikun.bottomnavigation.AHBottomNavigation

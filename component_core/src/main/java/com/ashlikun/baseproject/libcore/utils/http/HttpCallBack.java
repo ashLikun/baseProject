@@ -115,7 +115,11 @@ public abstract class HttpCallBack<ResultType> extends AbsCallback<ResultType> {
         if (count() > 0) {
             //是否等待,Okhttp内部在子线程里面执行的，这里延时1秒检测
             //可能会一直占用内存不释放，所以这里false
-            MainHandle.get().postDelayed(() -> dismissDialog(), 1000);
+            MainHandle.get().postDelayed(() -> {
+                if (count() <= 0) {
+                    dismissDialog();
+                }
+            }, 1000);
             return;
         }
         dismissDialog();

@@ -11,7 +11,6 @@ import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.ashlikun.adapter.SectionsPagerAdapter;
 import com.ashlikun.baseproject.libcore.libarouter.constant.RouterPath;
-import com.ashlikun.baseproject.libcore.widget.NestViewPager;
 import com.ashlikun.baseproject.module.main.R;
 import com.ashlikun.baseproject.module.main.view.fragment.HomeFragment;
 import com.ashlikun.bottomnavigation.AHBottomNavigation;
@@ -20,6 +19,7 @@ import com.ashlikun.core.activity.BaseActivity;
 import com.ashlikun.utils.ui.ActivityManager;
 import com.ashlikun.utils.ui.SuperToast;
 import com.ashlikun.utils.ui.ToastUtils;
+import com.ashlikun.xviewpager.view.NestViewPager;
 
 import java.util.ArrayList;
 
