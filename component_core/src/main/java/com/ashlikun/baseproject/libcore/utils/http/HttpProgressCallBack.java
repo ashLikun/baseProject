@@ -1,5 +1,7 @@
 package com.ashlikun.baseproject.libcore.utils.http;
 
+import android.os.Build;
+
 import com.ashlikun.core.iview.IProgressView;
 import com.ashlikun.okhttputils.http.callback.ProgressCallBack;
 import com.ashlikun.utils.other.LogUtils;
@@ -36,9 +38,9 @@ public abstract class HttpProgressCallBack<ResultType> extends HttpCallBack<Resu
     @Override
     public void dismissUi() {
         super.dismissUi();
-        if (isShowProgress && basePresenter != null && basePresenter.mvpView != null
-                && basePresenter.mvpView instanceof IProgressView) {
-            ((IProgressView) basePresenter.mvpView).dismissProgressDialog();
+        if (isShowProgress && basePresenter != null && basePresenter.getView() != null
+                && basePresenter.getView() instanceof IProgressView) {
+            ((IProgressView) basePresenter.getView()).dismissProgressDialog();
         }
         LogUtils.e("dismissUi");
     }
@@ -57,10 +59,10 @@ public abstract class HttpProgressCallBack<ResultType> extends HttpCallBack<Resu
             return;
         }
         LogUtils.e("onLoading");
-        if (basePresenter != null && basePresenter.mvpView != null
-                && basePresenter.mvpView instanceof IProgressView) {
+        if (basePresenter != null && basePresenter.getView() != null
+                && basePresenter.getView() instanceof IProgressView) {
             int percentage = (int) (progress * 100.0 / total);
-            ((IProgressView) basePresenter.mvpView).upLoading(percentage, done, isUpdate, isCompress);
+            ((IProgressView) basePresenter.getView()).upLoading(percentage, done, isUpdate, isCompress);
         }
     }
 }

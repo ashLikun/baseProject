@@ -21,8 +21,6 @@ import com.ashlikun.utils.ui.SuperToast;
 import com.ashlikun.xrecycleview.RefreshLayout;
 import com.ashlikun.xrecycleview.StatusChangListener;
 
-import java.lang.ref.WeakReference;
-
 /**
  * @author　　: 李坤
  * 创建时间: 2018/7/18 13:12
@@ -79,8 +77,8 @@ public abstract class HttpCallBack<ResultType> extends AbsCallback<ResultType> {
         }
         if (loadSwitchService != null && loadSwitchService.isLoadingCanShow()) {
             loadSwitchService.showLoading(new ContextData(hint));
-        } else if (isShowLoadding && basePresenter != null && basePresenter.mvpView != null) {
-            basePresenter.mvpView.showProgress(hint, isCancelable);
+        } else if (isShowLoadding && basePresenter != null && basePresenter.getView() != null) {
+            basePresenter.getView().showProgress(hint, isCancelable);
         } else if (isShowLoadding && baseActivity != null) {
             baseActivity.showProgress(hint, isCancelable);
         }
@@ -107,7 +105,7 @@ public abstract class HttpCallBack<ResultType> extends AbsCallback<ResultType> {
         if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(false);
         }
-        boolean isNoRun = (basePresenter == null || basePresenter.mvpView == null) && baseActivity == null;
+        boolean isNoRun = (basePresenter == null || basePresenter.getView() == null) && baseActivity == null;
         if (isNoRun) {
             return;
         }
@@ -129,8 +127,8 @@ public abstract class HttpCallBack<ResultType> extends AbsCallback<ResultType> {
      * 销毁对话框
      */
     public void dismissDialog() {
-        if (basePresenter != null && basePresenter.mvpView != null) {
-            basePresenter.mvpView.hintProgress();
+        if (basePresenter != null && basePresenter.getView() != null) {
+            basePresenter.getView().hintProgress();
         } else if (baseActivity != null) {
             baseActivity.hintProgress();
         }
@@ -162,7 +160,7 @@ public abstract class HttpCallBack<ResultType> extends AbsCallback<ResultType> {
         data.setTitle(error.message());
         data.setErrCode(error.code());
         data.setResId(R.drawable.material_service_error);
-        if (basePresenter != null && basePresenter.mvpView != null) {
+        if (basePresenter != null && basePresenter.getView() != null) {
             SuperToast.showErrorMessage(String.format(ERROR_MSG_FORMAT, data.getTitle(), data.getErrCode()));
         } else if (baseActivity != null) {
             SuperToast.showErrorMessage(String.format(ERROR_MSG_FORMAT, data.getTitle(), data.getErrCode()));
@@ -229,7 +227,7 @@ public abstract class HttpCallBack<ResultType> extends AbsCallback<ResultType> {
         if (statusChangListener != null) {
             statusChangListener.complete();
         }
-        if (loadSwitchService != null && isFirstRequest()) {
+        if (loadSwitchService != null) {
             if (result instanceof HttpResponse && isHanderError) {
                 if (((HttpResponse) result).isSucceed()) {
                     loadSwitchService.showContent();
@@ -274,7 +272,7 @@ public abstract class HttpCallBack<ResultType> extends AbsCallback<ResultType> {
         private String hint = null;
 
         private View[] enableView;
-        private boolean isCancelable = false;
+        private boolean isCancelable = true;
         private boolean isShowLoadding = true;
         //下拉刷新
         private RefreshLayout swipeRefreshLayout;
@@ -408,6 +406,7 @@ public abstract class HttpCallBack<ResultType> extends AbsCallback<ResultType> {
                 setStatusChangListener(((IBaseListView) mvpView).getStatusChangListener());
             }
             setLoadSwitchService(mvpView.getSwitchService());
+            setShowLoadding(false);
             return this;
         }
     }
@@ -420,21 +419,4 @@ public abstract class HttpCallBack<ResultType> extends AbsCallback<ResultType> {
         return baseActivity == null ? basePresenter : baseActivity;
     }
 
-    /**
-     * 请求数目可能不对Okhttp内部在子线程里面执行的，这里延时1秒检测,销毁对话框
-     */
-    private static class MyRunnable implements Runnable {
-        WeakReference<HttpCallBack> reference;
-
-        public MyRunnable(HttpCallBack httpCallBack) {
-            this.reference = new WeakReference<>(httpCallBack);
-        }
-
-        @Override
-        public void run() {
-            if (reference.get() != null) {
-                reference.get().dismissUi();
-            }
-        }
-    }
 }

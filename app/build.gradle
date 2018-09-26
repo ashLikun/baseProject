@@ -34,11 +34,8 @@ android {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
         }
-        manifestPlaceholders = [
-                JPUSH_PKGNAME: applicationId,
-                JPUSH_APPKEY : sdk.JPUSH_APPKEY,
-                JPUSH_CHANNEL: sdk.JPUSH_CHANNEL
-        ]
+        //向清单文件注入参数
+        manifestPlaceholders = sdk
     }
     dexOptions {
         javaMaxHeapSize "4g"

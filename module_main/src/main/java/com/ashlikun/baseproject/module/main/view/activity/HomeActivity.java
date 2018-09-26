@@ -9,16 +9,16 @@ import android.view.MotionEvent;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.ashlikun.adapter.SectionsPagerAdapter;
 import com.ashlikun.baseproject.libcore.libarouter.constant.RouterPath;
 import com.ashlikun.baseproject.module.main.R;
-import com.ashlikun.baseproject.module.main.view.fragment.HomeFragment;
 import com.ashlikun.bottomnavigation.AHBottomNavigation;
 import com.ashlikun.bottomnavigation.AHBottomNavigationItem;
 import com.ashlikun.core.activity.BaseActivity;
 import com.ashlikun.utils.ui.ActivityManager;
 import com.ashlikun.utils.ui.SuperToast;
 import com.ashlikun.utils.ui.ToastUtils;
+import com.ashlikun.xviewpager.fragment.FragmentPagerAdapter;
+import com.ashlikun.xviewpager.fragment.FragmentPagerItem;
 import com.ashlikun.xviewpager.view.NestViewPager;
 
 import java.util.ArrayList;
@@ -102,11 +102,12 @@ public class HomeActivity extends BaseActivity
         bottomNavigationBar.setCurrentItem(0, false);
         bottomNavigationBar.setForceTint(true);
         bottomNavigationBar.setOnTabSelectedListener(this);
-        fragmentList.add(new HomeFragment());
-        fragmentList.add(new HomeFragment());
-        fragmentList.add(new HomeFragment());
-        SectionsPagerAdapter mAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), fragmentList);
-        viewPager.setAdapter(mAdapter);
+        FragmentPagerAdapter adapter = FragmentPagerAdapter.Builder.get(getSupportFragmentManager())
+                .addItem(FragmentPagerItem.get(RouterPath.FRAGMENT_HOME))
+                .addItem(FragmentPagerItem.get(RouterPath.FRAGMENT_HOME))
+                .addItem(FragmentPagerItem.get(RouterPath.FRAGMENT_HOME))
+                .build();
+        viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(this);
 
 

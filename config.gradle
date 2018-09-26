@@ -1,7 +1,7 @@
 ext {
 
     superVersion = "27.1.1"
-    frameVersion = "2.3.9"
+    frameVersion = "2.4.0"
     android = [
             applicationId    : "com.ashlikun.yoohfit",
             compileSdkVersion: 27,
@@ -44,7 +44,7 @@ ext {
             arouterapi             : "com.alibaba:arouter-api:+",
             aroutercompiler        : "com.alibaba:arouter-compiler:+",
             //6.0权限管理
-            permissionsdispatcher  : "com.github.hotchemi:permissionsdispatcher:3.1.0",
+            permissionsdispatcher  : "com.github.hotchemi:permissionsdispatcher:4.0.0-alpha1",
             //权限插件
             permissionprocessor    : "com.github.hotchemi:permissionsdispatcher-processor:3.1.0",
             //简单的PopupWindow
@@ -60,7 +60,7 @@ ext {
             //封装的viewpager，banner，启动页
             XViewPager             : "com.github.ashLikun:XViewPager:1.1.0",
             //公共的工具
-            CommonUtils            : "com.github.ashLikun:CommonUtils:1.5.9",
+            CommonUtils            : "com.github.ashLikun:CommonUtils:1.6.3",
             //公共的Adapter
             CommonAdapter          : "com.github.ashLikun.CommonAdapter:adapter:1.8.4",
             //阿里的vlayout
@@ -87,7 +87,7 @@ ext {
             rxandroid              : "io.reactivex.rxjava2:rxandroid:2.0.1",
             rxjava                 : "io.reactivex.rxjava2:rxjava:x.y.z",
             //okhttp
-            okhttp                 : "com.squareup.okhttp3:okhttp:3.9.1",
+            okhttp                 : "com.squareup.okhttp3:okhttp:3.11.0",
             gson                   : "com.google.code.gson:gson:2.8.5",
             //基于Okhttp封装的
             OkHttpUtils            : "com.github.ashLikun:OkHttpUtils:1.5.6",
@@ -112,7 +112,9 @@ ext {
             VerificationCodeInput  : "com.github.ashLikun:VerifyCodeView:0.0.1",
             //评分控件
             MaterialRatingBar      : "com.github.ashLikun:MaterialRatingBar:1.0.1",
-            CalendarView           : "com.github.ashLikun:CalendarView:1.0.6"
+            CalendarView           : "com.github.ashLikun:CalendarView:1.0.6",
+            //微信分享，登录sdk
+            wechat                 : "com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+"
     ]
 
 

@@ -12,6 +12,8 @@ android {
                 arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
         }
+        //向清单文件注入参数
+        manifestPlaceholders = sdk
     }
 
     buildTypes {

@@ -42,7 +42,7 @@ public class AmendPasswordPresenter extends BasePresenter<IBLoginView.IAmendPass
                 super.onSuccess(result);
                 if (result.isSucceed()) {
                     SuperToast.showInfoMessage(result.getMessage());
-                    mvpView.finish();
+                    getView().finish();
                 } else {
                     SuperToast.showErrorMessage(result.getMessage());
                 }

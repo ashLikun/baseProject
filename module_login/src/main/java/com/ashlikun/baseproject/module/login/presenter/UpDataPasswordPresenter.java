@@ -45,7 +45,7 @@ public class UpDataPasswordPresenter extends BasePresenter<IBLoginView.IUpDataPa
         }
         HttpCallBack.Buider buider = HttpCallBack.Buider.get(this)
                 .setShowLoadding(false)
-                .setLoadSwitchService(mvpView.getSwitchService());
+                .setLoadSwitchService(getView().getSwitchService());
         HttpCallBack httpCallBack = new HttpCallBack<HttpResult>(buider) {
 
             @Override
@@ -54,7 +54,7 @@ public class UpDataPasswordPresenter extends BasePresenter<IBLoginView.IUpDataPa
 
                 if (result.isSucceed()) {
                     SuperToast.showInfoMessage(result.getMessage());
-                    mvpView.finish();
+                    getView().finish();
                 } else {
                     SuperToast.showErrorMessage(result.getMessage());
                 }

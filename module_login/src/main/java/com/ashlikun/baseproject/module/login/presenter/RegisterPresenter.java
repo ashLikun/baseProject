@@ -31,7 +31,7 @@ public class RegisterPresenter extends BasePresenter<IBLoginView.IRegisterView> 
                 super.onSuccess(result, false);
                 if (result.isSucceed() && result.getData() != null) {
                     result.getData().save();
-                    mvpView.receiverUserData(result.getData());
+                    getView().receiverUserData(result.getData());
                     SuperToast.showInfoMessage(result.getMessage());
                 } else {
                     SuperToast.showWarningMessage(result.getMessage());
@@ -62,7 +62,7 @@ public class RegisterPresenter extends BasePresenter<IBLoginView.IRegisterView> 
     }
 
     public void onClickView(View view) {
-        if (mvpView.checkData()) {
+        if (getView().checkData()) {
             if (!StringUtils.isEquals(password, password2)) {
                 SuperToast.showWarningMessage(AppUtils.getApp().getResources().getString(R.string.login_inputCheckHint));
             } else {

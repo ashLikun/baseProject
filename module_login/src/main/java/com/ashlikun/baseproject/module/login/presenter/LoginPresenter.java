@@ -40,7 +40,7 @@ public class LoginPresenter extends BasePresenter<IBLoginView.IloginView> {
                 super.onSuccess(result);
                 if (result.isSucceed() && result.getData() != null) {
                     result.getData().save();
-                    mvpView.login(UserData.getUserData());
+                    getView().login(UserData.getUserData());
                 } else {
                     SuperToast.showErrorMessage(result.getMessage());
                 }
@@ -51,7 +51,7 @@ public class LoginPresenter extends BasePresenter<IBLoginView.IloginView> {
 
 
     public void onLoginClick(View v) {
-        if (mvpView.checkData()) {
+        if (getView().checkData()) {
             login();
         }
     }
