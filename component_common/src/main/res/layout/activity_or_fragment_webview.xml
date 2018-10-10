@@ -8,12 +8,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.ashlikun.supertoobar.SupperToolBar
+        <com.ashlikun.supertoobar.SuperToolBar
             android:id="@+id/toolbar"
-            style="@style/SupperToolBar.White"
+            style="@style/SuperToolBar.White"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|enterAlways"></com.ashlikun.supertoobar.SupperToolBar>
+            app:layout_scrollFlags="scroll|enterAlways"></com.ashlikun.supertoobar.SuperToolBar>
 
     </android.support.design.widget.AppBarLayout>
 

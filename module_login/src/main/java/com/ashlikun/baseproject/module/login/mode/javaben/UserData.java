@@ -7,7 +7,9 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.ashlikun.baseproject.libcore.libarouter.constant.RouterPath;
+import com.ashlikun.common.EvenBusKey;
 import com.ashlikun.common.utils.jump.RouterJump;
+import com.ashlikun.livedatabus.EventBus;
 import com.ashlikun.orm.LiteOrmUtil;
 import com.ashlikun.orm.db.annotation.Column;
 import com.ashlikun.orm.db.annotation.Ignore;
@@ -19,7 +21,6 @@ import com.ashlikun.orm.db.enums.AssignType;
 import com.ashlikun.orm.db.model.ColumnsValue;
 import com.ashlikun.orm.db.model.ConflictAlgorithm;
 import com.ashlikun.utils.other.StringUtils;
-import com.ashlikun.utils.ui.ActivityManager;
 import com.ashlikun.utils.ui.SuperToast;
 import com.google.gson.annotations.SerializedName;
 
@@ -103,11 +104,10 @@ public class UserData {
     public static boolean exitLogin(Context context) {
         //清除其他登录的用户
         boolean res = exit();
-        ActivityManager.getInstance().exitAllActivity();
         /**
          * 发送退出广播
          */
-        //EventBus.getDefault().post(Global.EXIT_LOGIN);
+        EventBus.get(EvenBusKey.EXIT_LOGIN).post();
         RouterJump.startLogin();
         return res;
     }
@@ -159,7 +159,7 @@ public class UserData {
             LiteOrmUtil.get().save(this);
             UserData.userData = this;
             //发送通知
-            //EventBus.getDefault().post(userData, Global.EVENBUS_USERDATA_CHANG);
+            EventBus.get(EvenBusKey.LOGIN).post();
             return true;
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,10 +1,12 @@
 package com.ashlikun.common.utils.jump;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.ashlikun.baseproject.libcore.libarouter.constant.RouterKey;
 import com.ashlikun.baseproject.libcore.libarouter.constant.RouterPath;
+import com.ashlikun.utils.ui.ActivityManager;
 
 /**
  * 作者　　: 李坤
@@ -14,20 +16,26 @@ import com.ashlikun.baseproject.libcore.libarouter.constant.RouterPath;
  * 功能介绍：路由跳转的工具类
  */
 public class RouterJump {
-    public static void startHome(int index, String canshu) {
-        Bundle bundle = new Bundle();
-        bundle.putInt("index", index);
-        bundle.putString("name", canshu);
-        ARouter.getInstance().build(RouterPath.HOME)
-                .with(bundle)
-                .withFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
-                .withFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                .navigation();
+    public static Activity topActivity() {
+        return ActivityManager.getInstance().currentActivity();
     }
 
-    public static void startTest() {
-        ARouter.getInstance().build(RouterPath.TEST)
-                .navigation();
+    public static void startHome() {
+        startHome(-1);
+    }
+
+    /**
+     * 启动首页，如果已经启动会清空上面的activity
+     *
+     * @param index -1:默认页
+     */
+    public static void startHome(int index) {
+        ARouter.getInstance().build(RouterPath.HOME)
+                .withInt(RouterKey.FLAG_INDEX, index)
+                .withFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                .withFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                .greenChannel()
+                .navigation(topActivity());
     }
 
     /**
@@ -35,6 +43,7 @@ public class RouterJump {
      */
     public static void startLogin() {
         ARouter.getInstance().build(RouterPath.LOGIN)
-                .navigation();
+                .greenChannel()
+                .navigation(topActivity());
     }
 }

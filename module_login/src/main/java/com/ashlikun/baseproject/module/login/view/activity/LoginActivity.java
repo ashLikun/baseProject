@@ -1,18 +1,18 @@
 package com.ashlikun.baseproject.module.login.view.activity;
 
-import android.content.Intent;
 import android.view.View;
 
-import com.ashlikun.core.activity.BaseMvpActivity;
-import com.ashlikun.core.factory.Presenter;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
-
 import com.ashlikun.baseproject.libcore.libarouter.constant.RouterPath;
+import com.ashlikun.baseproject.libcore.libarouter.interceptor.LoginInterceptor;
 import com.ashlikun.baseproject.module.login.R;
 import com.ashlikun.baseproject.module.login.iview.IBLoginView;
 import com.ashlikun.baseproject.module.login.mode.javaben.UserData;
 import com.ashlikun.baseproject.module.login.presenter.LoginPresenter;
+import com.ashlikun.common.utils.jump.RouterJump;
+import com.ashlikun.core.activity.BaseMvpActivity;
+import com.ashlikun.core.factory.Presenter;
 
 
 /**
@@ -64,9 +64,14 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter>
     @Override
     public void login(UserData data) {
         if (UserData.isLogin()) {
-            ARouter.getInstance().build(RouterPath.HOME)
-                    .withFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
-                    .navigation(this);
+            //登录拦截器是否有任务挂起
+            if (LoginInterceptor.isHaveRun()) {
+                LoginInterceptor.run();
+            } else {
+                //没有就跳转首页
+                RouterJump.startHome();
+            }
+            finish();
         }
     }
 

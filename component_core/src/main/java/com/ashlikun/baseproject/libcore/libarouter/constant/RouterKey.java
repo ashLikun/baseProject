@@ -12,6 +12,13 @@ public interface RouterKey {
      * Intent  Flag   int
      *******************************************************************************************/
     String FLAG_TYPE = "FLAG_TYPE";
+    String FLAG_ID = "FLAG_ID";
+    String FLAG_INDEX = "FLAG_INDEX";
+    String FLAG_POSITION = "FLAG_POSITION";
+    /**
+     * 规格id
+     */
+    String FLAG_SPEC_ID = "FLAG_SPEC_ID";
     /********************************************************************************************
      * Intent  Flag   boolean
      *********************************************************************************************/
@@ -20,9 +27,13 @@ public interface RouterKey {
      * Intent  Flag   String
      *******************************************************************************************/
     String FLAG_TITLE = "FLAG_TITLE";
-    String FLAG_URL = "FLAG_TITLE";
+    String FLAG_URL = "FLAG_URL";
+    String FLAG_URL_DATA = "FLAG_URL_DATA";
+    String FLAG_OPEN_ID = "FLAG_OPEN_ID";
+    String FLAG_ACCESS_TOKEN = "FLAG_ACCESS_TOKEN";
 
     /********************************************************************************************
      * Intent Flag   object
      *******************************************************************************************/
+    String FLAG_DATA = "FLAG_DATA";
 }
