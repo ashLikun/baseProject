@@ -1,4 +1,4 @@
-package com.ashlikun.baseproject.module.login.mode.javaben;
+package com.ashlikun.baseproject.module.login.mode.javabean;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

@@ -7,7 +7,7 @@ import com.ashlikun.okhttputils.http.response.HttpResult;
 import com.ashlikun.baseproject.libcore.utils.http.HttpCallBack;
 import com.ashlikun.baseproject.module.login.iview.IBLoginView;
 import com.ashlikun.baseproject.module.login.mode.ApiLogin;
-import com.ashlikun.baseproject.module.login.mode.javaben.UserData;
+import com.ashlikun.baseproject.module.login.mode.javabean.UserData;
 
 
 import com.ashlikun.utils.ui.SuperToast;

@@ -1,6 +1,6 @@
 package com.ashlikun.baseproject.module.login.iview;
 
-import com.ashlikun.baseproject.module.login.mode.javaben.UserData;
+import com.ashlikun.baseproject.module.login.mode.javabean.UserData;
 import com.ashlikun.core.iview.IBaseView;
 import com.ashlikun.core.iview.ICheckView;
 
