@@ -108,15 +108,25 @@
 -keep class * implements android.os.Parcelable {
   public static final android.os.Parcelable$Creator *;
 }
-# Serializable 不被混淆
--keepnames class * implements java.io.Serializable
+# 保留Serializable序列化的类不被混淆
+-keepclassmembers class * implements java.io.Serializable {
+    static final long serialVersionUID;
+    private static final java.io.ObjectStreamField[] serialPersistentFields;
+    !static !transient <fields>;
+    !private <fields>;
+    !private <methods>;
+    private void writeObject(java.io.ObjectOutputStream);
+    private void readObject(java.io.ObjectInputStream);
+    java.lang.Object writeReplace();
+    java.lang.Object readResolve();
+}
 #排除所有注解类
 -keep class * extends java.lang.annotation.Annotation { *; }
 -keep interface * extends java.lang.annotation.Annotation { *; }
 -keepattributes SourceFile,LineNumberTable
 
 #避免混淆泛型 如果混淆报错建议关掉
-#-keepattributes Signature
+-keepattributes Signature
 
 #--------------------------------------------默认保留区 end--------------------------------------------------#
 
@@ -147,9 +157,11 @@
 #-----------------------------------------定制区-------------------------------------------#
 #-----------------------------------------1:实体类 start-------------------------------------------#
 
--keep class com.ashlikun.baseproject.module.login.mode.javabean.** { *; }
--keep class com.ashlikun.baseproject.module.main.mode.javabean.** { *; }
--keep class com.ashlikun.baseproject.module.other.mode.javabean.** { *; }
+-keep class com.ashlikun.common.mode.javabean.** { *; }
+-keep class com.ashlikun.yoohfit.libcore.javabean.** { *; }
+-keep class com.ashlikun.yoohfit.module.login.mode.javabean.** { *; }
+-keep class com.ashlikun.yoohfit.module.main.mode.javabean.** { *; }
+-keep class com.ashlikun.yoohfit.module.other.mode.javabean.** { *; }
 
 
 #-----------------------------------------1:实体类 end-------------------------------------------#
@@ -157,13 +169,20 @@
 
 #-----------------------------------------2:第三方库 start-------------------------------------------#
 #okhttp
-
+-keep class okhttp3.** {*; }
+-keep class okio.**{*;}
+-dontwarn com.squareup.okhttp3.**
+-dontwarn okio.**
 -keepattributes Signature
 -keepattributes *Annotation*
--keep class com.squareup.okhttp.** { *; }
--keep interface com.squareup.okhttp.** { *; }
--dontwarn com.squareup.okhttp.**
-
+# JSR 305 annotations are for embedding nullability information.
+-dontwarn javax.annotation.**
+# A resource is loaded with a relative path so the package of this class must be preserved.
+-keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
+# Animal Sniffer compileOnly dependency to ensure APIs are compatible with older versions of Java.
+-dontwarn org.codehaus.mojo.animal_sniffer.*
+# OkHttp platform used only on JVM and when Conscrypt dependency is available.
+-dontwarn okhttp3.internal.platform.ConscryptPlatform
 
 #retrofit
 -dontwarn rx.**
@@ -208,7 +227,17 @@
 }
 #alibaba的路由模式
 -keep public class com.alibaba.android.arouter.routes.**{*;}
+-keep public class com.alibaba.android.arouter.facade.**{*;}
 -keep class * implements com.alibaba.android.arouter.facade.template.ISyringe{*;}
+# 使用 @Autowired 的字段不混淆
+-keepnames class * {
+    @com.alibaba.android.arouter.facade.annotation.Autowired <fields>;
+}
+# 如果使用了 byType 的方式获取 Service，需添加下面规则，保护接口
+ -keep interface * implements com.alibaba.android.arouter.facade.template.IProvider
+
+# 如果使用了 单类注入，即不定义接口实现 IProvider，需添加下面规则，保护实现
+ -keep class * implements com.alibaba.android.arouter.facade.template.IProvider
 #EventBus3.0
 -keepattributes *Annotation*
 -keepclassmembers class ** {
@@ -225,10 +254,23 @@
 #-dontwarn org.apache.log4j.**
 #-keep class  org.apache.log4j.** { *;}
 
-#百度地图
--keep class com.baidu.** {*;}
--keep class vi.com.** {*;}
--dontwarn com.baidu.**
+#高德地图
+#3D 地图 V5.0.0之后：
+-keep   class com.amap.api.maps.**{*;}
+-keep   class com.autonavi.**{*;}
+-keep   class com.amap.api.trace.**{*;}
+#定位
+-keep class com.amap.api.location.**{*;}
+-keep class com.amap.api.fence.**{*;}
+-keep class com.autonavi.aps.amapapi.model.**{*;}
+#搜索
+-keep   class com.amap.api.services.**{*;}
+#2D地图
+-keep class com.amap.api.maps2d.**{*;}
+-keep class com.amap.api.mapcore2d.**{*;}
+#导航
+-keep class com.amap.api.navi.**{*;}
+-keep class com.autonavi.**{*;}
 
 #友盟统计
 -keepclassmembers class * {
@@ -241,6 +283,33 @@
 -keep class org.apache.http.** { *; }
 -dontwarn org.apache.http.**
 -dontwarn android.net.**
+#EasyPay
+-dontwarn com.ashlikun.easypay.**
+#微信
+-keep class com.tencent.mm.opensdk.** {*;}
+-keep class com.tencent.wxop.** {*;}
+-keep class com.tencent.mm.sdk.** {*;}
+#支付宝
+-keep class com.alipay.android.app.IAlixPay{*;}
+-keep class com.alipay.android.app.IAlixPay$Stub{*;}
+-keep class com.alipay.android.app.IRemoteServiceCallback{*;}
+-keep class com.alipay.android.app.IRemoteServiceCallback$Stub{*;}
+-keep class com.alipay.sdk.app.PayTask{ public *;}
+-keep class com.alipay.sdk.app.AuthTask{ public *;}
+-keep class com.alipay.sdk.app.H5PayCallback {
+    <fields>;
+    <methods>;
+}
+-keep class com.alipay.android.phone.mrpc.core.** { *; }
+-keep class com.alipay.apmobilesecuritysdk.** { *; }
+-keep class com.alipay.mobile.framework.service.annotation.** { *; }
+-keep class com.alipay.mobilesecuritysdk.face.** { *; }
+-keep class com.alipay.tscenter.biz.rpc.** { *; }
+-keep class org.json.alipay.** { *; }
+-keep class com.alipay.tscenter.** { *; }
+-keep class com.ta.utdid2.** { *;}
+-keep class com.ut.device.** { *;}
+
 #-----------------------------------------2:第三方库 end-------------------------------------------#
 
 
@@ -252,11 +321,13 @@
 
 
 #-----------------------------------------4:反射相关的类和方法 start-------------------------------------------#
-#-keepclasseswithmembers class com.ashlikun.adapter.recyclerview.BaseAdapter {
-#        private com.ashlikun.adapter.recyclerview.BaseAdapter footerSize;
-#        private com.ashlikun.adapter.recyclerview.BaseAdapter headerSize;
-#}
--keep public class * extends com.ashlikun.adapter.recyclerview.BaseAdapter {*;}
+#保证CommonAdapter的footerSize和headerSize字段不被混肴
+#某一变量不混淆
+-keepclasseswithmembers class com.ashlikun.adapter.recyclerview.BaseAdapter {
+    private int footerSize;
+    private int  headerSize;
+}
+#-keep public class * extends com.ashlikun.adapter.recyclerview.BaseAdapter {*;}
 #-----------------------------------------4:反射相关的类和方法 end-------------------------------------------#
 
 

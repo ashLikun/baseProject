@@ -1,4 +1,4 @@
-package com.ashlikun.baseproject.module.main.mode.javaben;
+package com.ashlikun.baseproject.module.main.mode.javabean;
 
 /**
  * 作者　　: 李坤

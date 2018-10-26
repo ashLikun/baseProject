@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--微信登录微信支付,微信分享-->
+    <style name="AppTheme.Wx">
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/LookImage</item>
+    </style>
+
+    <!--照片查看-->
+    <style name="AppTheme.LookImage">
+        <item name="android:windowBackground">@color/translucent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/LookImage</item>
+    </style>
+
+    <style name="LookImage" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/mis_anim_fragment_lookphotp_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/mis_anim_fragment_lookphotp_out</item>
+        <item name="android:activityOpenExitAnimation">@null</item>
+        <item name="android:activityCloseEnterAnimation">@null</item>
+    </style>
+</resources>

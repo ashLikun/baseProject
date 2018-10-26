@@ -91,7 +91,7 @@ public class WelcomeActivity extends BaseActivity {
                 .subscribe(stepCode -> {
                     //1跳转登陆或者首页，2：不跳转
                     if (stepCode == 1) {
-                        RouterJump.startHome(0, "");
+                        RouterJump.startHome(0);
                         finish();
                     }
                 });

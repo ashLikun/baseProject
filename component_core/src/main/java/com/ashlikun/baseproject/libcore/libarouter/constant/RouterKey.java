@@ -12,6 +12,8 @@ public interface RouterKey {
      * Intent  Flag   int
      *******************************************************************************************/
     String FLAG_TYPE = "FLAG_TYPE";
+    String FLAG_ID = "FLAG_ID";
+    String FLAG_INDEX = "FLAG_INDEX";
     String FLAG_POSITION = "FLAG_POSITION";
     /********************************************************************************************
      * Intent  Flag   boolean
@@ -26,6 +28,10 @@ public interface RouterKey {
     /********************************************************************************************
      * Intent Flag   object
      *******************************************************************************************/
-
+    String FLAG_OPEN_ID = "FLAG_OPEN_ID";
+    String FLAG_ACCESS_TOKEN = "FLAG_ACCESS_TOKEN";
+    /********************************************************************************************
+     * Intent Flag   object
+     *******************************************************************************************/
     String FLAG_DATA = "FLAG_DATA";
 }

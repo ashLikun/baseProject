@@ -20,7 +20,20 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application>
+        <meta-data
+            android:name="${MAP_NAME}"
+            android:value="${MAP_KEY}"></meta-data>
 
+        <activity
+            android:name=".view.ImageLockActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.LookImage" />
+        <activity
+            android:name=".view.H5Activity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.OtherTheme" />
     </application>
 
 </manifest>

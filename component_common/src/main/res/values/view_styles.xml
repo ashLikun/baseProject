@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+   <!-- <style name="MyRatingBar.Show.Gray" parent="Widget.MaterialRatingBar.RatingBar.Indicator.Small">
+        <item name="android:minHeight">16dp</item>
+        <item name="android:maxHeight">16dp</item>
+        <item name="android:numStars">5</item>
+        <item name="android:stepSize">0.1</item>
+        <item name="mrb_background">@mipmap/icon_favor_gray</item>
+        <item name="mrb_progress">@mipmap/icon_favor_score</item>
+    </style>
+
+    &lt;!&ndash;与用户交互&ndash;&gt;
+    <style name="MyRatingBar.Input.Gray" parent="Widget.MaterialRatingBar.RatingBar">
+        <item name="android:minHeight">36dp</item>
+        <item name="android:maxHeight">36dp</item>
+        <item name="android:numStars">5</item>
+        <item name="android:stepSize">1</item>
+        <item name="android:rating">0</item>
+        <item name="mrb_background">@mipmap/icon_favor_gray</item>
+        <item name="mrb_progress">@mipmap/icon_favor_score</item>
+    </style>-->
+
+    <style name="FlatButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingLeft">@dimen/dp_10</item>
+        <item name="android:paddingRight">@dimen/dp_10</item>
+        <item name="android:paddingTop">@dimen/dp_6</item>
+        <item name="android:paddingBottom">@dimen/dp_6</item>
+
+    </style>
+
+    <style name="FlatButton.Main">
+        <item name="android:textColor">@color/white</item>
+        <item name="colorEnable">@color/gray_dd</item>
+        <item name="colorPressed">@color/gray_dd</item>
+        <item name="colorNormal">@color/colorPrimary</item>
+        <item name="cornerRadius">@dimen/dp_4</item>
+    </style>
+
+    <style name="FlatButton.Order">
+        <item name="android:textSize">@dimen/udp_28</item>
+        <item name="strokeWidth">@dimen/dp_1</item>
+        <item name="cornerRadius">@dimen/dp_20</item>
+        <item name="android:paddingLeft">@dimen/udp_30</item>
+        <item name="android:paddingRight">@dimen/udp_30</item>
+        <item name="android:paddingTop">@dimen/dp_5</item>
+        <item name="android:paddingBottom">@dimen/dp_5</item>
+    </style>
+
+    <style name="FlatButton.Order.Cancel">
+        <item name="android:textColor">@color/text_color</item>
+        <item name="strokeColor">@color/text_color</item>
+    </style>
+
+    <style name="FlatButton.Order.Main">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="strokeColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="AnimCheckBox.Main">
+        <item name="android:layout_width">@dimen/dp_40</item>
+        <item name="ab_circleColor">@color/colorPrimary</item>
+        <item name="ab_hookColor">@color/white</item>
+        <item name="ab_noSelectStrokeColor">@color/gray_99</item>
+        <item name="ab_selectStrokeColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="Notification">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/bottom_navigation_notification_height</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginLeft">@dimen/bottom_navigation_notification_margin_left
+        </item>
+        <item name="android:layout_marginTop">
+            @dimen/bottom_navigation_notification_margin_top_classic
+        </item>
+        <item name="android:background">@drawable/notification_background</item>
+        <item name="elevation">@dimen/bottom_navigation_notification_elevation</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minWidth">@dimen/bottom_navigation_notification_width</item>
+        <item name="android:paddingLeft">@dimen/bottom_navigation_notification_padding</item>
+        <item name="android:paddingRight">@dimen/bottom_navigation_notification_padding</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/bottom_navigation_notification_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+</resources>

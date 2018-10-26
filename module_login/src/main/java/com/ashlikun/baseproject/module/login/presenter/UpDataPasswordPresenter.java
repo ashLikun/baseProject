@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.ashlikun.baseproject.module.login.iview.IBLoginView;
 import com.ashlikun.core.BasePresenter;
-import com.ashlikun.baseproject.module.login.mode.javaben.UserData;
+import com.ashlikun.baseproject.module.login.mode.javabean.UserData;
 import com.ashlikun.baseproject.libcore.utils.http.HttpCallBack;
 import com.ashlikun.okhttputils.http.response.HttpResult;
 import com.ashlikun.utils.other.StringUtils;
