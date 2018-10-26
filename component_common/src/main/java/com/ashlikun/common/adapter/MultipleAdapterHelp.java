@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 
 import com.alibaba.android.vlayout.VirtualLayoutManager;
-import com.ashlikun.adapter.recyclerview.multiltem.MultipleAdapter;
+import com.ashlikun.adapter.recyclerview.vlayout.MultipleAdapter;
 
 /**
  * 作者　　: 李坤

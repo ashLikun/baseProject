@@ -211,7 +211,12 @@ public abstract class HttpCallBack<ResultType> extends AbsCallback<ResultType> {
      */
     @Override
     public boolean onSuccessHandelCode(ResultType responseBody) {
-        return HttpManager.handelResult(responseBody);
+        boolean res = HttpManager.handelResult(responseBody);
+        if (!res) {
+            //如果code全局处理的时候错误了，那么是不会走success的，这里就得自己处理UI设置为错误状态
+            onSuccess(responseBody, true);
+        }
+        return res;
     }
 
 

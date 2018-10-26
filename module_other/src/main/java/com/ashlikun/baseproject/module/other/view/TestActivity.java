@@ -3,10 +3,10 @@ package com.ashlikun.baseproject.module.other.view;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.ashlikun.adapter.recyclerview.multiltem.MultipleAdapter;
+import com.ashlikun.adapter.recyclerview.vlayout.MultipleAdapter;
+import com.ashlikun.baseproject.libcore.libarouter.constant.RouterPath;
 import com.ashlikun.baseproject.module.other.R;
 import com.ashlikun.core.activity.BaseActivity;
-import com.ashlikun.baseproject.libcore.libarouter.constant.RouterPath;
 
 
 /**

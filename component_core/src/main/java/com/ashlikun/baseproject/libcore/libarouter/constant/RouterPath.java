@@ -16,9 +16,10 @@ public interface RouterPath {
      *                                           activity的
      ********************************************************************************************/
     String WELCOME = "/other/activity/welcome";
-    String WEBVIEW = "/other/activity/webview";
     String TEST = "/test/activity/main";
     String HOME = "/home/activity/main";
+    String IMAGE_LOCK = "/comment/activity/image_lock";
+    String ACTIVITY_H5 = "/comment/activity/h5";
     /*************************************登录模块开始*******************************************/
     String LOGIN = "/login/activity/main";
     String AMEND_PASSWORD = "/login/activity/amend_password";

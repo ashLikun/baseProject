@@ -77,9 +77,6 @@ dependencies {
     //事件总线
     api libs.EventBus
 
-    //    //图片GridView
-
-    //    implementation 'com.github.ashLikun:ImageGridView:0.0.4'
 
     //数据库
     api libs.LiteOrm
@@ -92,6 +89,9 @@ dependencies {
 
     //公共的工具
     api libs.CommonUtils
+
+    //webview封装
+    api libs.XWebView
 
     //公共的Adapter
     api libs.CommonAdapter

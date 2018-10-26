@@ -1,7 +1,7 @@
 ext {
 
     superVersion = "27.1.1"
-    frameVersion = "2.4.0"
+    frameVersion = "2.5.4"
     android = [
             applicationId    : "com.ashlikun.yoohfit",
             compileSdkVersion: 27,
@@ -37,9 +37,12 @@ ext {
             design                 : "com.android.support:design:$superVersion",
             supportV4              : "com.android.support:support-v4:$superVersion",
             appcompat              : "com.android.support:appcompat-v7:$superVersion",
+            cardview               : "com.android.support:cardview-v7:$superVersion",
             //基本架构
-            CustomMvp              : "com.github.ashLikun:CustomMvp:1.4.1",
+            CustomMvp              : "com.github.ashLikun:CustomMvp:1.4.4",
             multidex               : "com.android.support:multidex:1.0.2",
+            //webview封装
+            XWebView               : "com.github.ashLikun.XWebView:core:1.0.0",
             //alibaba的路由框架
             arouterapi             : "com.alibaba:arouter-api:+",
             aroutercompiler        : "com.alibaba:arouter-compiler:+",
@@ -54,25 +57,25 @@ ext {
             //数据库
             LiteOrm                : "com.github.ashLikun:LiteOrm:1.0.5",
             //封装的RecycleView
-            XRecycleView           : "com.github.ashLikun:XRecycleView:1.5.7",
+            XRecycleView           : "com.github.ashLikun:XRecycleView:1.6.2",
             //自定义的下拉刷新
-            RefreshLayout          : "com.github.ashLikun:RefreshLayout:1.2.3",
+            RefreshLayout          : "com.github.ashLikun:RefreshLayout:1.2.4",
             //封装的viewpager，banner，启动页
-            XViewPager             : "com.github.ashLikun:XViewPager:1.1.0",
+            XViewPager             : "com.github.ashLikun:XViewPager:1.1.2",
             //公共的工具
-            CommonUtils            : "com.github.ashLikun:CommonUtils:1.6.3",
+            CommonUtils            : "com.github.ashLikun:CommonUtils:1.7.3",
             //公共的Adapter
-            CommonAdapter          : "com.github.ashLikun.CommonAdapter:adapter:1.8.9",
+            CommonAdapter          : "com.github.ashLikun.CommonAdapter:adapter:2.0.1",
             //阿里的vlayout
-            vlayout                : "com.alibaba.android:vlayout:1.2.8@aar",
+            vlayout                : "com.alibaba.android:vlayout:1.2.18@aar",
             //不同type的json解析,依赖于gson
             MultiTypeGson          : "com.github.ashLikun:MultiTypeGson:1.0.3",
             //习惯的对话框
-            CustomDialog           : "com.github.ashLikun:CustomDialog:1.1.7",
+            CustomDialog           : "com.github.ashLikun:CustomDialog:1.1.8",
             //布局切换
-            LoadSwitch             : "com.github.ashLikun:LoadSwitch:1.2.3",
+            LoadSwitch             : "com.github.ashLikun:LoadSwitch:1.2.4",
             //兼容的View
-            CompatView             : "com.github.ashLikun:CompatView:1.1.1",
+            CompatView             : "com.github.ashLikun:CompatView:1.1.6",
             //错误捕获
             AppCrashDispose        : "com.github.ashLikun:AppCrashDispose:0.0.4",
             //app内存溢出捕获
@@ -90,7 +93,7 @@ ext {
             okhttp                 : "com.squareup.okhttp3:okhttp:3.11.0",
             gson                   : "com.google.code.gson:gson:2.8.5",
             //基于Okhttp封装的
-            OkHttpUtils            : "com.github.ashLikun:OkHttpUtils:1.5.6",
+            OkHttpUtils            : "com.github.ashLikun:OkHttpUtils:1.5.8",
             //图片加载
             glide                  : "com.github.bumptech.glide:glide:4.5.0",
             glideCompiler          : "com.github.bumptech.glide:compiler:4.5.0",
@@ -99,22 +102,28 @@ ext {
             //md风格对话框
             materialDialogs        : "com.afollestad.material-dialogs:core:0.9.6.0",
             //Android官方流布局
-            flexbox                : "com.google.android:flexbox:1.1.0-beta1",
+            flexbox                : "com.google.android:flexbox:0.3.1",
             //图片查看
             PhotoView              : "com.github.ashLikun:PhotoView:0.0.8",
             //照片处理
-            PhotoHander            : "com.github.ashLikun:PhotoHander:1.3.2",
+            PhotoHander            : "com.github.ashLikun:PhotoHander:1.3.3",
             //阿里的vlayout
-            vlayout                : "com.alibaba.android:vlayout:1.2.18@aar",
+            vlayout                : "com.alibaba.android:vlayout:1.2.16@aar",
             //不同type的json解析,依赖于gson
             multiTypeGson          : "com.github.ashLikun:MultiTypeGson:1.0.5",
             //输入验证码
-            VerificationCodeInput  : "com.github.ashLikun:VerifyCodeView:0.0.1",
+            VerificationCodeInput  : "com.github.ashLikun:VerifyCodeView:0.0.2",
             //评分控件
             MaterialRatingBar      : "com.github.ashLikun:MaterialRatingBar:1.0.1",
-            CalendarView           : "com.github.ashLikun:CalendarView:1.0.6",
+            CalendarView           : "com.github.ashLikun:CalendarView:1.0.8",
             //微信分享，登录sdk
-            wechat                 : "com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+"
+            wechat                 : "com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+",
+            //扫码
+            ZxingUtils             : "com.github.ashLikun:ZxingUtils:1.0.4",
+            ZxingCore              : "com.google.zxing:core:3.3.0",
+            EasyPay                : "com.github.ashLikun:EasyPay:1.2.1",
+            //自动缩放字体大小
+            AutofitTextview        : "me.grantland:autofittextview:+"
     ]
 
 
