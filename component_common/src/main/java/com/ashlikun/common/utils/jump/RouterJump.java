@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.ashlikun.baseproject.libcore.libarouter.constant.RouterKey;
-import com.ashlikun.baseproject.libcore.libarouter.constant.RouterPath;
+import com.ashlikun.baseproject.libcore.constant.RouterKey;
+import com.ashlikun.baseproject.libcore.constant.RouterPath;
 import com.ashlikun.utils.ui.ActivityManager;
 
 /**

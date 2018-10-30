@@ -10,8 +10,8 @@ import android.webkit.WebView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.ashlikun.common.R;
-import com.ashlikun.baseproject.libcore.libarouter.constant.RouterKey;
-import com.ashlikun.baseproject.libcore.libarouter.constant.RouterPath;
+import com.ashlikun.baseproject.libcore.constant.RouterKey;
+import com.ashlikun.baseproject.libcore.constant.RouterPath;
 import com.ashlikun.core.activity.BaseActivity;
 import com.ashlikun.xwebview.XWeb;
 import com.ashlikun.xwebview.websetting.AbsXWebSettings;

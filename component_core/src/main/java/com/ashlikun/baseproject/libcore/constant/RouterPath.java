@@ -1,4 +1,4 @@
-package com.ashlikun.baseproject.libcore.libarouter.constant;
+package com.ashlikun.baseproject.libcore.constant;
 
 /**
  * 作者　　: 李坤

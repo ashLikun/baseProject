@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.ashlikun.baseproject.libcore.libarouter.constant.RouterPath;
+import com.ashlikun.baseproject.libcore.constant.RouterPath;
 import com.ashlikun.common.EvenBusKey;
 import com.ashlikun.common.utils.jump.RouterJump;
 import com.ashlikun.livedatabus.EventBus;

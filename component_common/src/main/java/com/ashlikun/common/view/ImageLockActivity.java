@@ -8,8 +8,8 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.ashlikun.baseproject.libcore.libarouter.constant.RouterKey;
-import com.ashlikun.baseproject.libcore.libarouter.constant.RouterPath;
+import com.ashlikun.baseproject.libcore.constant.RouterKey;
+import com.ashlikun.baseproject.libcore.constant.RouterPath;
 import com.ashlikun.common.R;
 import com.ashlikun.common.mode.javabean.ImageData;
 import com.ashlikun.core.activity.BaseActivity;

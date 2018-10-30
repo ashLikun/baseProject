@@ -8,8 +8,8 @@ import android.view.MotionEvent;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage;
-import com.ashlikun.baseproject.libcore.libarouter.constant.RouterKey;
-import com.ashlikun.baseproject.libcore.libarouter.constant.RouterPath;
+import com.ashlikun.baseproject.libcore.constant.RouterKey;
+import com.ashlikun.baseproject.libcore.constant.RouterPath;
 import com.ashlikun.baseproject.module.main.R;
 import com.ashlikun.bottomnavigation.AHBottomNavigation;
 import com.ashlikun.bottomnavigation.AHBottomNavigationItem;

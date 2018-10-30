@@ -8,7 +8,7 @@ import com.alibaba.android.arouter.facade.callback.InterceptorCallback;
 import com.alibaba.android.arouter.facade.template.IInterceptor;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage;
-import com.ashlikun.baseproject.libcore.libarouter.constant.RouterPath;
+import com.ashlikun.baseproject.libcore.constant.RouterPath;
 
 /**
  * 作者　　: 李坤

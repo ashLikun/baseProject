@@ -1,7 +1,7 @@
 package com.ashlikun.baseproject.module.main.view.fragment;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.ashlikun.baseproject.libcore.libarouter.constant.RouterPath;
+import com.ashlikun.baseproject.libcore.constant.RouterPath;
 import com.ashlikun.baseproject.module.main.R;
 import com.ashlikun.baseproject.module.main.iview.IBHomeView;
 import com.ashlikun.baseproject.module.main.presenter.HomePresenter;
