@@ -1,10 +1,36 @@
 <resources>
 
-    <style name="AppTheme" parent="BaseTheme">
+    <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:buttonStyle">?android:attr/selectableItemBackground</item>
+        <item name="android:windowBackground">@color/activity_backgound</item>
+        <!--<item name="android:requiresFadingEdge">vertical</item>-->
+        <item name="android:listSelector">@color/translucent</item>
+        <item name="android:textCursorDrawable">@drawable/edittext_cursor_main_color</item>
+        <item name="android:textColorPrimary">@color/text_color</item>
+        <!--<item name="android:requiresFadingEdge">vertical</item>-->
+        <item name="colorError">@color/design_textinput_error_color_light</item>
+
+
+        <item name="SwipeRefreshLayout_Color1">@color/colorPrimary</item>
+        <item name="SwipeRefreshLayout_Color2">@color/colorPrimary</item>
+        <item name="SwipeRefreshLayout_Color3">@color/colorPrimary</item>
+        <item name="SwipeRefreshLayout_Color4">@color/colorPrimary</item>
+
         <item name="md_negative_color">@color/text_color</item>
         <item name="md_content_color">@color/black_33</item>
         <item name="md_positive_color">@color/colorPrimary</item>
+
     </style>
 
-
+    <style name="AppTheme.PhotoHander">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:windowAnimationStyle">@style/OtherAnimation</item>
+    </style>
 </resources>

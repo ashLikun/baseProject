@@ -3,19 +3,21 @@ package com.ashlikun.baseproject.module.main.view.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.MotionEvent;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.ashlikun.baseproject.libcore.libarouter.RouterManage;
 import com.ashlikun.baseproject.libcore.constant.RouterKey;
 import com.ashlikun.baseproject.libcore.constant.RouterPath;
+import com.ashlikun.baseproject.libcore.libarouter.RouterManage;
 import com.ashlikun.baseproject.module.main.R;
 import com.ashlikun.bottomnavigation.AHBottomNavigation;
 import com.ashlikun.bottomnavigation.AHBottomNavigationItem;
 import com.ashlikun.common.EvenBusKey;
 import com.ashlikun.common.utils.jump.RouterJump;
 import com.ashlikun.core.activity.BaseActivity;
+import com.ashlikun.core.listener.OnDispatcherMessage;
 import com.ashlikun.livedatabus.EventBus;
 import com.ashlikun.utils.ui.ActivityManager;
 import com.ashlikun.utils.ui.SuperToast;
@@ -23,6 +25,8 @@ import com.ashlikun.utils.ui.ToastUtils;
 import com.ashlikun.xviewpager.fragment.FragmentPagerAdapter;
 import com.ashlikun.xviewpager.fragment.FragmentPagerItem;
 import com.ashlikun.xviewpager.view.NestViewPager;
+
+import java.util.List;
 
 
 /**
@@ -34,8 +38,7 @@ import com.ashlikun.xviewpager.view.NestViewPager;
  */
 @Route(path = RouterPath.HOME)
 public class HomeActivity extends BaseActivity
-        implements AHBottomNavigation.OnTabSelectedListener
-        , ViewPager.OnPageChangeListener {
+        implements AHBottomNavigation.OnTabSelectedListener {
     private long exitTime = 0;
     private NestViewPager viewPager;
     private AHBottomNavigation bottomNavigationBar;
@@ -52,6 +55,7 @@ public class HomeActivity extends BaseActivity
 
     public int index = 0;
     public int cachePosition = -1;
+    FragmentPagerAdapter adapter;
 
     @Override
     public void parseIntent(Intent intent) {
@@ -108,17 +112,24 @@ public class HomeActivity extends BaseActivity
                 R.mipmap.app_logo, R.mipmap.app_logo).builder());
 
         bottomNavigationBar.setDefaultBackgroundColor(getResources().getColor(R.color.white));
-        bottomNavigationBar.setCurrentItem(0, false);
-        bottomNavigationBar.setForceTint(true);
-        bottomNavigationBar.setOnTabSelectedListener(this);
-        FragmentPagerAdapter adapter = FragmentPagerAdapter.Builder.get(getSupportFragmentManager())
+        bottomNavigationBar.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
+        bottomNavigationBar.setupWithViewPager(viewPager);
+        bottomNavigationBar.addOnTabSelectedListener(this);
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        if (fragments != null && fragments.size() != 0) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            for (int i = 0; i < fragments.size(); i++) {
+                ft.remove(fragments.get(i));
+            }
+            ft.commit();
+        }
+        adapter = FragmentPagerAdapter.Builder.get(getSupportFragmentManager())
                 .addItem(FragmentPagerItem.get(RouterPath.FRAGMENT_HOME))
                 .addItem(FragmentPagerItem.get(RouterPath.FRAGMENT_HOME))
                 .addItem(FragmentPagerItem.get(RouterPath.FRAGMENT_HOME))
                 .build();
         viewPager.setOffscreenPageLimit(adapter.getCount());
         viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(this);
         //登录之后可以左右滑动
         viewPager.setCanSlide(RouterManage.getLogin().isLogin());
         //监听登录成功的通知
@@ -148,22 +159,15 @@ public class HomeActivity extends BaseActivity
     }
 
     @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        bottomNavigationBar.setCurrentItem(position, false);
-    }
-
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-    }
-
-    @Override
     public boolean onTabSelected(int position, boolean wasSelected) {
+        if (!wasSelected) {
+            return onTabChang(position);
+        } else {
+            return true;
+        }
+    }
+
+    private boolean onTabChang(int position) {
         //限制登录
         if (position == 2 || position == 3) {
             if (!RouterManage.getLogin().isLogin()) {
@@ -172,13 +176,16 @@ public class HomeActivity extends BaseActivity
                 return false;
             }
         }
-        viewPager.setCurrentItem(position, false);
-//        if (position != 0) {
-//            statusBar.setStatusBarColor(getStatusBarColor());
-//            statusBar.setStatusDarkColor();
-//        } else {
-//            statusBar.translucentStatusBar();
-//        }
+        if (position == 0) {
+            statusBar.translucentStatusBar();
+            Fragment fragment = adapter.getCurrentFragment();
+            if (fragment instanceof OnDispatcherMessage) {
+                //首页自己更改状态栏
+                ((OnDispatcherMessage) fragment).onDispatcherMessage(1, null);
+            }
+        } else {
+            statusBar.setStatusBarColor(getStatusBarColor());
+        }
         return true;
     }
 

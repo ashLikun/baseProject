@@ -69,14 +69,12 @@ public class ImageLockActivity extends BaseActivity
         return scaleFinishView;
     }
 
-    @Override
-    public void onFinishSwipe() {
-        finish();
-    }
 
     @Override
-    public void onOverSwipe() {
-
+    public void onOverSwipe(boolean isFinish) {
+        if (isFinish) {
+            finish();
+        }
     }
 
     @Override
