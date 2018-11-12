@@ -16,6 +16,7 @@ public interface RouterPath {
      *                                           activity的
      ********************************************************************************************/
     String WELCOME = "/other/activity/welcome";
+    String LAUNCH = "/other/activity/launch";
     String TEST = "/test/activity/main";
     String HOME = "/home/activity/main";
     String IMAGE_LOCK = "/comment/activity/image_lock";

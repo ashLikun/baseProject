@@ -29,4 +29,6 @@ public interface ILoginService extends IProvider {
     void exitLogin(Activity activity);
 
     void exit();
+
+    String getUserId();
 }

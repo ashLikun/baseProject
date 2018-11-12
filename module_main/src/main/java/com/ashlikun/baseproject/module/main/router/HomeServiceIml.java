@@ -5,6 +5,8 @@ import android.content.Context;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.ashlikun.baseproject.libcore.constant.RouterPath;
 import com.ashlikun.baseproject.libcore.libarouter.service.IHomeService;
+import com.ashlikun.baseproject.module.main.view.activity.HomeActivity;
+import com.ashlikun.utils.ui.ActivityManager;
 
 /**
  * 作者　　: 李坤
@@ -23,6 +25,15 @@ public class HomeServiceIml implements IHomeService {
         mContext = context;
     }
 
+    /**
+     * 首页是否启动
+     *
+     * @return
+     */
+    @Override
+    public boolean isHomeStart() {
+        return ActivityManager.getInstance().getTagActivity(HomeActivity.class) != null;
+    }
 
 
 }

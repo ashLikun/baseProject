@@ -21,6 +21,10 @@ public interface EvenBusKey {
      */
     String EVENBUS_USERDATA_CHANG = "EVENBUS_USERDATA_CHANG";
     /**
+     * jpush保存
+     */
+    String EVENBUS_JPUSH_RECEIVER_SAVE = "JEVENBUS_PUSH_RECEIVER_SAVE";
+    /**
      * 定位成功数据 LatLng
      */
     String EVENTBUS_LOCATION_SUCCESS = "EVENTBUS_LOCATION";

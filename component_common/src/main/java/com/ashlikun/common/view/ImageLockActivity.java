@@ -27,6 +27,7 @@ import java.util.ArrayList;
  * 邮箱　　：496546144@qq.com
  * <p>
  * 功能介绍：查看图片的activity
+ * 前一个页面请调用 statusBar.setFitsSystemWindows()保证页面不抖动
  */
 @Route(path = RouterPath.IMAGE_LOCK)
 public class ImageLockActivity extends BaseActivity

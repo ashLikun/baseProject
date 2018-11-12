@@ -43,6 +43,14 @@ public class LoginServiceIml implements ILoginService {
     }
 
     @Override
+    public String getUserId() {
+        if (UserData.getUserData() != null) {
+            return UserData.getUserData().getId();
+        }
+        return "";
+    }
+
+    @Override
     public void init(Context context) {
         this.context = context;
     }

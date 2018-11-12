@@ -10,4 +10,10 @@ import com.alibaba.android.arouter.facade.template.IProvider;
  * 功能介绍：首页模块的服务
  */
 public interface IHomeService extends IProvider {
+    /**
+     * 首页是否启动
+     *
+     * @return
+     */
+    boolean isHomeStart();
 }

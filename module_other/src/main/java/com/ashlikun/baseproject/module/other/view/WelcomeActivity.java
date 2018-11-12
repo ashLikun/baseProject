@@ -14,13 +14,15 @@ import android.widget.ImageView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.ashlikun.baseproject.libcore.constant.RouterPath;
+import com.ashlikun.baseproject.libcore.libarouter.RouterManage;
 import com.ashlikun.baseproject.module.other.BuildConfig;
 import com.ashlikun.baseproject.module.other.R;
-import com.ashlikun.core.activity.BaseActivity;
-import com.ashlikun.baseproject.libcore.libarouter.RouterManage;
-import com.ashlikun.baseproject.libcore.constant.RouterPath;
+import com.ashlikun.common.utils.jump.PullJumpManage;
 import com.ashlikun.common.utils.jump.RouterJump;
+import com.ashlikun.core.activity.BaseActivity;
 import com.ashlikun.utils.other.SharedPreUtils;
+import com.ashlikun.utils.ui.ActivityManager;
 import com.ashlikun.utils.ui.SuperToast;
 import com.ashlikun.utils.ui.UiUtils;
 import com.romainpiel.shimmer.Shimmer;
@@ -48,7 +50,7 @@ import permissions.dispatcher.RuntimePermissions;
 @RuntimePermissions
 @Route(path = RouterPath.WELCOME)
 public class WelcomeActivity extends BaseActivity {
-    private int time = 3000;
+    private int time = 2000;
 
     ImageView imageView;
     ShimmerTextView text;
@@ -85,15 +87,16 @@ public class WelcomeActivity extends BaseActivity {
         initViewOnPermiss();
         Observable.timer(time, TimeUnit.MILLISECONDS)
                 .map(aLong -> checkIsFirst())
-                .map(aLong -> getServiceUser())
+                .map(isFirst -> isFirst ? 2 : getServiceUser())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(stepCode -> {
-                    //1跳转登陆或者首页，2：不跳转
                     if (stepCode == 1) {
                         RouterJump.startHome(0);
-                        finish();
+                    } else if (stepCode == 2) {
+                        RouterJump.startLaunch();
                     }
+                    finish();
                 });
         checkIsFirst();
     }
@@ -185,9 +188,15 @@ public class WelcomeActivity extends BaseActivity {
 
     @Override
     public void parseIntent(Intent intent) {
-
+        PullJumpManage.save(intent);
+        //如果首页已经启动了，那么久不用启动首页
+        if (RouterManage.getHome().isHomeStart()) {
+            //这里是为了后续跳转使用的topactivity用的是以前的Activity栈，防止返回后回到微信或者浏览器
+            ActivityManager.getInstance().exitActivity(this);
+            //处理拉起App数据
+            PullJumpManage.handleCachePush(this);
+        }
     }
-
 
     private boolean checkIsFirst() {
         if (SharedPreUtils.getInt(this, "Run", "VersionCode") != BuildConfig.VERSION_CODE) {

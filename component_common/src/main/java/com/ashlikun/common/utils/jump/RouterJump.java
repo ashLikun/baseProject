@@ -6,7 +6,11 @@ import android.content.Intent;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.ashlikun.baseproject.libcore.constant.RouterKey;
 import com.ashlikun.baseproject.libcore.constant.RouterPath;
+import com.ashlikun.common.mode.javabean.ImageData;
 import com.ashlikun.utils.ui.ActivityManager;
+import com.ashlikun.utils.ui.SuperToast;
+
+import java.util.ArrayList;
 
 /**
  * 作者　　: 李坤
@@ -18,6 +22,15 @@ import com.ashlikun.utils.ui.ActivityManager;
 public class RouterJump {
     public static Activity topActivity() {
         return ActivityManager.getInstance().currentActivity();
+    }
+
+    /**
+     * 启动引导页
+     */
+    public static void startLaunch() {
+        ARouter.getInstance().build(RouterPath.LAUNCH)
+                .greenChannel()
+                .navigation(topActivity());
     }
 
     public static void startHome() {
@@ -43,6 +56,22 @@ public class RouterJump {
      */
     public static void startLogin() {
         ARouter.getInstance().build(RouterPath.LOGIN)
+                .greenChannel()
+                .navigation(topActivity());
+    }
+
+    /**
+     * 查看大图
+     * 前一个页面请调用 statusBar.setFitsSystemWindows()保证页面不抖动
+     */
+    public static void startLockImage(int position, ArrayList<ImageData> listDatas) {
+        if (listDatas == null || listDatas.isEmpty()) {
+            SuperToast.showErrorMessage("没有对应的图片");
+            return;
+        }
+        ARouter.getInstance().build(RouterPath.IMAGE_LOCK)
+                .withParcelableArrayList(RouterKey.FLAG_DATA, listDatas)
+                .withInt(RouterKey.FLAG_POSITION, position)
                 .greenChannel()
                 .navigation(topActivity());
     }

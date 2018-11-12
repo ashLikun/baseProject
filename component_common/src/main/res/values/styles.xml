@@ -12,6 +12,7 @@
     <style name="AppTheme.LookImage">
         <item name="android:windowBackground">@color/translucent</item>
         <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowFullscreen">true</item>
         <item name="android:windowAnimationStyle">@style/LookImage</item>
     </style>
 

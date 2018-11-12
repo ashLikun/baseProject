@@ -8,6 +8,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.ashlikun.baseproject.libcore.constant.RouterPath;
 import com.ashlikun.common.EvenBusKey;
+import com.ashlikun.common.utils.jpush.JpushUtils;
 import com.ashlikun.common.utils.jump.RouterJump;
 import com.ashlikun.livedatabus.EventBus;
 import com.ashlikun.orm.LiteOrmUtil;
@@ -24,6 +25,8 @@ import com.ashlikun.utils.other.StringUtils;
 import com.ashlikun.utils.ui.SuperToast;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * @author　　: 李坤
  * 创建时间: 2018/7/18 13:14
@@ -37,23 +40,28 @@ public class UserData {
     //用户对象
     @Ignore
     public static UserData userData;
-
-
     @PrimaryKey(AssignType.BY_MYSELF)
     //用户id
     @SerializedName("id")
-    private int userId;
+    private String userId;
+    private String user_name;
     @Column("token")
     private String token;
 
-    //是否是当前登录的用户（这样就不用sb保存用户ID）
+    /**
+     * 是否是当前登录的用户（这样就不用sb保存用户ID）
+     */
     @Column("isLogin")
     private boolean isLogin;
 
 
     public static UserData getDbUserData() {
         try {
-            userData = LiteOrmUtil.get().query(QueryBuilder.create(UserData.class).where("isLogin=?", true).limit(0, 1)).get(0);
+            List<UserData> list = LiteOrmUtil.get().query(QueryBuilder.create(UserData.class).where("isLogin=?", true).limit(0, 1));
+            if (list == null || list.isEmpty()) {
+                return null;
+            }
+            userData = list.get(0);
             return userData;
         } catch (Exception e) {
             e.printStackTrace();
@@ -108,7 +116,7 @@ public class UserData {
          * 发送退出广播
          */
         EventBus.get(EvenBusKey.EXIT_LOGIN).post();
-        RouterJump.startLogin();
+        RouterJump.startHome(0);
         return res;
     }
 
@@ -118,6 +126,8 @@ public class UserData {
         userData = null;
         if (res <= 0) {
             return false;
+        } else {
+            JpushUtils.deleteAlias();
         }
         return true;
     }
@@ -160,6 +170,8 @@ public class UserData {
             UserData.userData = this;
             //发送通知
             EventBus.get(EvenBusKey.LOGIN).post();
+            //设置推送别名
+            JpushUtils.setAlias();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -167,11 +179,11 @@ public class UserData {
         }
     }
 
-    public int getId() {
-        return userId;
+    public String getId() {
+        return StringUtils.dataFilter(userId, "");
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.userId = id;
     }
 
