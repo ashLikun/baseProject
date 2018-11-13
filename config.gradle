@@ -34,7 +34,7 @@ ext {
             MAP_KEY     : "03c6da12f537654eac8f71ea54f2f41c"
     ]
     dependencies = [
-            //kotlin               : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+            kotlin                 : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
             design                 : "com.android.support:design:$superVersion",
             supportV4              : "com.android.support:support-v4:$superVersion",
             appcompat              : "com.android.support:appcompat-v7:$superVersion",
@@ -67,6 +67,8 @@ ext {
             CommonUtils            : "com.github.ashLikun:CommonUtils:1.7.6",
             //公共的Adapter
             CommonAdapter          : "com.github.ashLikun.CommonAdapter:adapter:2.0.1",
+            //TabLayout
+            XTabLayout          : "com.github.ashLikun:XTabLayout:1.0.0",
             //阿里的vlayout
             vlayout                : "com.alibaba.android:vlayout:1.2.18@aar",
             //不同type的json解析,依赖于gson

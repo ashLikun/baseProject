@@ -1,6 +1,6 @@
 package com.ashlikun.baseproject.module.other.mode;
 
-import com.ashlikun.baseproject.libcore.utils.http.BaseApiService;
+import com.ashlikun.yoohfit.libcore.utils.http.BaseApiService;
 
 /**
  * 作者　　: 李坤

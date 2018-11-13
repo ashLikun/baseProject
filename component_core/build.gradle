@@ -40,6 +40,7 @@ dependencies {
     //权限插件
     annotationProcessor libs.permissionprocessor
     annotationProcessor libs.glideCompiler
+    //api libs.kotlin
     api libs.design
 
     //api
@@ -77,7 +78,6 @@ dependencies {
     //事件总线
     api libs.EventBus
 
-
     //数据库
     api libs.LiteOrm
 
@@ -95,6 +95,9 @@ dependencies {
 
     //公共的Adapter
     api libs.CommonAdapter
+
+    //TabLayout
+    api libs.XTabLayout
 
     //阿里的vlayout
     api(libs.vlayout) {

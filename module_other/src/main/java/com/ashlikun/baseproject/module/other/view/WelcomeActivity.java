@@ -209,7 +209,7 @@ public class WelcomeActivity extends BaseActivity {
 //            finish();
         } else {
         }
-        return true;
+        return false;
     }
 
     @Override
