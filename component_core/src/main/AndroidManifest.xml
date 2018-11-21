@@ -1,12 +1,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ashlikun.baseproject.libcore">
 
-    <application android:theme="@style/AppTheme">
+    <application>
         <activity
             android:name="com.ashlikun.photo_hander.PhotoHanderActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.OtherTheme"></activity>
+            android:theme="@style/AppTheme.PhotoHander"></activity>
+        <activity
+            android:name="com.ashlikun.photo_hander.crop.CropImageActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.PhotoHander"></activity>
     </application>
 
 </manifest>

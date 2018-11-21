@@ -1,4 +1,11 @@
 apply plugin: 'com.android.library'
+// 使用Kotlin插件
+apply plugin: 'kotlin-android'
+// 使用Kotlin Android扩展插件
+apply plugin: 'kotlin-android-extensions'
+//kapt插件
+apply plugin: 'kotlin-kapt'
+
 def config = rootProject.ext.android // 工程配置
 def libs = rootProject.ext.dependencies // 库依赖
 android {
@@ -9,9 +16,9 @@ android {
         targetSdkVersion config.targetSdkVersion
         versionCode config.versionCode
         versionName config.versionName
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [AROUTER_MODULE_NAME: project.getName()]
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
             }
         }
     }
@@ -32,15 +39,23 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    /**
+     * aar文件的编译
+     */
+    repositories {
+        flatDir {
+            dirs 'libs', '../app/libsAndAar'
+        }
+    }
 }
 
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
-    annotationProcessor libs.aroutercompiler
+    kapt libs.aroutercompiler
     //权限插件
-    annotationProcessor libs.permissionprocessor
-    annotationProcessor libs.glideCompiler
-    //api libs.kotlin
+    kapt libs.permissionprocessor
+    kapt libs.glideCompiler
+    api libs.kotlin
     api libs.design
 
     //api
@@ -155,3 +170,4 @@ dependencies {
     //照片处理
     api libs.PhotoHander
 }
+

@@ -11,7 +11,7 @@
         android:layout_height="@dimen/dp_25" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/titleView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -20,7 +20,7 @@
         android:textSize="@dimen/dp_16" />
 
     <TextView
-        android:id="@+id/subTitle"
+        android:id="@+id/subTitleView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"

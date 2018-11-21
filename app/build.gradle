@@ -1,4 +1,11 @@
 apply plugin: 'com.android.application'
+// 使用Kotlin插件
+apply plugin: 'kotlin-android'
+// 使用Kotlin Android扩展插件
+apply plugin: 'kotlin-android-extensions'
+//kapt插件
+apply plugin: 'kotlin-kapt'
+
 def config = rootProject.ext.android // 工程配置
 def sdk = rootProject.ext.sdk // SDK配置
 def libs = rootProject.ext.dependencies // 库依赖
@@ -29,9 +36,9 @@ android {
             abiFilters "armeabi-v7a", "arm64-v8a", "x86"
         }
         multiDexEnabled true
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [AROUTER_MODULE_NAME: project.getName()]
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
             }
         }
         //向清单文件注入参数
@@ -107,7 +114,7 @@ android {
      */
     repositories {
         flatDir {
-            dirs 'libs'
+            dirs 'libs', '../app/libsAndAar'
         }
     }
     lintOptions {
@@ -129,10 +136,10 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //公共组件
     implementation project(':component_common')
-    annotationProcessor libs.aroutercompiler
+    kapt libs.aroutercompiler
     //权限插件
-    annotationProcessor libs.permissionprocessor
-    annotationProcessor libs.glideCompiler
+    kapt libs.permissionprocessor
+    kapt libs.glideCompiler
     //主模块
     if (!moudles.main.isRun) {
         implementation project(':module_main')
@@ -146,6 +153,9 @@ dependencies {
         implementation project(':module_other')
     }
 
+}
+repositories {
+    mavenCentral()
 }
 
 /**

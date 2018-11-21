@@ -1,4 +1,11 @@
 apply plugin: 'com.android.library'
+// 使用Kotlin插件
+apply plugin: 'kotlin-android'
+// 使用Kotlin Android扩展插件
+apply plugin: 'kotlin-android-extensions'
+//kapt插件
+apply plugin: 'kotlin-kapt'
+
 def config = rootProject.ext.android // 工程配置
 def libs = rootProject.ext.dependencies // 库依赖
 android {
@@ -7,9 +14,9 @@ android {
         minSdkVersion config.minSdkVersion
         targetSdkVersion config.targetSdkVersion
 
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [AROUTER_MODULE_NAME: project.getName()]
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
             }
         }
         //向清单文件注入参数
@@ -32,6 +39,14 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    /**
+     * aar文件的编译
+     */
+    repositories {
+        flatDir {
+            dirs 'libs', '../app/libsAndAar'
+        }
+    }
 }
 
 dependencies {
@@ -40,10 +55,10 @@ dependencies {
     implementation libs.arouterapi
     //公共模块引用核心模块，其他模块只需引用本模块就可以
     api project(':component_core')
-    annotationProcessor libs.aroutercompiler
-}
-repositories {
-    mavenCentral()
+    kapt libs.aroutercompiler
+    //权限插件
+    kapt libs.permissionprocessor
+    kapt libs.glideCompiler
 }
 
 

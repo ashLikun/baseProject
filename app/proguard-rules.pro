@@ -158,10 +158,10 @@
 #-----------------------------------------1:实体类 start-------------------------------------------#
 
 -keep class com.ashlikun.common.mode.javabean.** { *; }
--keep class com.ashlikun.yoohfit.libcore.javabean.** { *; }
--keep class com.ashlikun.yoohfit.module.login.mode.javabean.** { *; }
--keep class com.ashlikun.yoohfit.module.main.mode.javabean.** { *; }
--keep class com.ashlikun.yoohfit.module.other.mode.javabean.** { *; }
+-keep class com.ashlikun.baseproject.libcore.javabean.** { *; }
+-keep class com.ashlikun.baseproject.module.login.mode.javabean.** { *; }
+-keep class com.ashlikun.baseproject.module.main.mode.javabean.** { *; }
+-keep class com.ashlikun.baseproject.module.other.mode.javabean.** { *; }
 
 
 #-----------------------------------------1:实体类 end-------------------------------------------#

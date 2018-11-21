@@ -13,7 +13,7 @@
         android:padding="20dp">
 
         <TextView
-            android:id="@+id/tv_status"
+            android:id="@+id/tvStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -76,7 +76,7 @@
         android:padding="20dp">
 
         <TextView
-            android:id="@+id/tv_status1"
+            android:id="@+id/tvStatus1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"

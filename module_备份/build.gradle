@@ -4,6 +4,13 @@ if (currentModule.isRun) {
 } else {
     apply plugin: 'com.android.library'
 }
+// 使用Kotlin插件
+apply plugin: 'kotlin-android'
+// 使用Kotlin Android扩展插件
+apply plugin: 'kotlin-android-extensions'
+//kapt插件
+apply plugin: 'kotlin-kapt'
+
 def config = rootProject.ext.android // 工程配置
 def libs = rootProject.ext.dependencies // 库依赖
 android {
@@ -20,9 +27,9 @@ android {
         versionCode config.versionCode
         versionName config.versionName
         multiDexEnabled true
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [moduleName: project.getName()]
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
             }
         }
         //强制前缀，防止组件之间名称重复而替换
@@ -65,19 +72,23 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    /**
+     * aar文件的编译
+     */
+    repositories {
+        flatDir {
+            dirs 'libs', '../app/libsAndAar'
+        }
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':component_common')
-    annotationProcessor libs.aroutercompiler
+    kapt libs.aroutercompiler
     //权限插件
-    annotationProcessor libs.permissionprocessor
-    annotationProcessor libs.glideCompiler
+    kapt libs.permissionprocessor
+    kapt libs.glideCompiler
 }
-repositories {
-    mavenCentral()
-}
-
 
