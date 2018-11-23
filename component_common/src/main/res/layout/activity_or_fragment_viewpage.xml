@@ -18,7 +18,7 @@
 
         </com.ashlikun.supertoobar.SuperToolBar>
 
-        <android.support.design.widget.TabLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        <com.ashlikun.xtablayout.XTabLayout xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

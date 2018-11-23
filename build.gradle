@@ -22,7 +22,14 @@ allprojects {
         maven {
             url "https://jitpack.io"
         }
+        /**
+         * aar文件的编译
+         */
+        flatDir {
+            dirs 'libs', '../app/libsAndAar'
+        }
     }
+
 }
 
 task clean(type: Delete) {

@@ -108,15 +108,6 @@ android {
             }
         }
     }
-
-    /**
-     * aar文件的编译
-     */
-    repositories {
-        flatDir {
-            dirs 'libs', '../app/libsAndAar'
-        }
-    }
     lintOptions {
         checkReleaseBuilds true
         abortOnError true

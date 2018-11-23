@@ -73,14 +73,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    /**
-     * aar文件的编译
-     */
-    repositories {
-        flatDir {
-            dirs 'libs', '../app/libsAndAar'
-        }
-    }
+
 }
 
 dependencies {

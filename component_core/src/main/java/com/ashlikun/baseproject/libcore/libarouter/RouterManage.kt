@@ -6,6 +6,7 @@ import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.launcher.ARouter
 import com.ashlikun.baseproject.libcore.libarouter.service.IHomeService
 import com.ashlikun.baseproject.libcore.libarouter.service.ILoginService
+import com.ashlikun.photo_hander.PhotoHanderActivity
 
 /**
  * 作者　　: 李坤
@@ -30,6 +31,7 @@ class RouterManage private constructor() {
 
         @JvmStatic
         fun get(): RouterManage {
+            PhotoHanderActivity
             return instance
         }
 

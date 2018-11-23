@@ -39,14 +39,6 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    /**
-     * aar文件的编译
-     */
-    repositories {
-        flatDir {
-            dirs 'libs', '../app/libsAndAar'
-        }
-    }
 }
 
 dependencies {
@@ -112,7 +104,9 @@ dependencies {
     api libs.CommonAdapter
 
     //TabLayout
-    api libs.XTabLayout
+    api (libs.XTabLayout) {
+        exclude group: 'com.android.support'
+    }
 
     //阿里的vlayout
     api(libs.vlayout) {

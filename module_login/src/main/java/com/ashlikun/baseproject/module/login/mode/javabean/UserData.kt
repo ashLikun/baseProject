@@ -4,6 +4,7 @@ import android.content.Context
 import com.afollestad.materialdialogs.MaterialDialog
 import com.alibaba.android.arouter.launcher.ARouter
 import com.ashlikun.baseproject.libcore.constant.RouterPath
+import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 import com.ashlikun.common.EvenBusKey
 import com.ashlikun.common.utils.jpush.JpushUtils
 import com.ashlikun.common.utils.jump.RouterJump
@@ -131,7 +132,7 @@ class UserData {
             if (isInLogin()) {
                 return true
             } else {
-                activity?.let {
+               activity?.let {
                     if (showToast) {
                         SuperToast.get("您未登录，请先登录").info()
                     }
