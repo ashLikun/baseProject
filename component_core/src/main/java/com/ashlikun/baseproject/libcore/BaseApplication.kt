@@ -6,7 +6,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.support.multidex.MultiDexApplication
 import android.view.Gravity
-import com.ashlikun.appcrash.config.CaocConfig
+import com.ashlikun.appcrash.AppCrashConfig
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 import com.ashlikun.baseproject.libcore.utils.CacheUtils
 import com.ashlikun.baseproject.libcore.utils.http.HttpManager
@@ -69,7 +69,8 @@ open class BaseApplication : MultiDexApplication() {
         AppUtils.init(this)
         AppUtils.setDebug(BuildConfig.DEBUG)
         //异常捕获
-        CaocConfig.Builder.create()
+        AppCrashConfig.Builder.create(this)
+                .isDebug(BuildConfig.DEBUG)
                 .apply()
         //数据库
         LiteOrmUtil.init(this)
