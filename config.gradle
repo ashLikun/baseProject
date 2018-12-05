@@ -73,7 +73,7 @@ ext {
             //阿里的vlayout
             vlayout                : "com.alibaba.android:vlayout:1.2.18@aar",
             //不同type的json解析,依赖于gson
-            MultiTypeGson          : "com.github.ashLikun:MultiTypeGson:1.0.5",
+            MultiTypeGson          : "com.github.ashLikun:MultiTypeGson:1.0.3",
             //习惯的对话框
             CustomDialog           : "com.github.ashLikun:CustomDialog:1.1.8",
             //圆形的进度条
@@ -115,6 +115,8 @@ ext {
             PhotoHander            : "com.github.ashLikun:PhotoHander:1.3.6",
             //阿里的vlayout
             vlayout                : "com.alibaba.android:vlayout:1.2.16@aar",
+            //不同type的json解析,依赖于gson
+            multiTypeGson          : "com.github.ashLikun:MultiTypeGson:1.0.5",
             //输入验证码
             VerificationCodeInput  : "com.github.ashLikun:VerifyCodeView:0.0.2",
             //评分控件

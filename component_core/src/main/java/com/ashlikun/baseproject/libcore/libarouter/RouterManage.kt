@@ -31,7 +31,6 @@ class RouterManage private constructor() {
 
         @JvmStatic
         fun get(): RouterManage {
-            PhotoHanderActivity
             return instance
         }
 
