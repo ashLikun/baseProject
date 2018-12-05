@@ -4,7 +4,6 @@ import android.content.Context
 import com.afollestad.materialdialogs.MaterialDialog
 import com.alibaba.android.arouter.launcher.ARouter
 import com.ashlikun.baseproject.libcore.constant.RouterPath
-import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 import com.ashlikun.common.EvenBusKey
 import com.ashlikun.common.utils.jpush.JpushUtils
 import com.ashlikun.common.utils.jump.RouterJump
@@ -64,7 +63,7 @@ class UserData {
         try {
             //清除其他登录的用户
             if (getDbUserData() != null) {
-                LiteOrmUtil.get().update(WhereBuilder.create(UserData::class.java).where("isLogin=?", true), ColumnsValue(arrayOf("isLogin"),
+                LiteOrmUtil.get().update(WhereBuilder.create(UserData::class.java).where("isLogin = ?", true), ColumnsValue(arrayOf("isLogin"),
                         arrayOf(false)), ConflictAlgorithm.None)
             }
             //设置数据库当前登录的用户
@@ -97,7 +96,7 @@ class UserData {
         fun getDbUserData(): UserData? {
             try {
                 val list = LiteOrmUtil.get().query(
-                        QueryBuilder.create(UserData::class.java).where("isLogin=?", true)
+                        QueryBuilder(UserData::class.java).where("isLogin=?", true)
                                 .limit(0, 1))
                 if (list == null || list.isEmpty()) {
                     return null
@@ -132,7 +131,7 @@ class UserData {
             if (isInLogin()) {
                 return true
             } else {
-               activity?.let {
+                activity?.let {
                     if (showToast) {
                         SuperToast.get("您未登录，请先登录").info()
                     }

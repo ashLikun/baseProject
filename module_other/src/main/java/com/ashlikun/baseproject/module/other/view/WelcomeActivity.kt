@@ -145,7 +145,7 @@ class WelcomeActivity : BaseActivity() {
     override fun parseIntent(intent: Intent?) {
         PullJumpManage.save(intent)
         //如果首页已经启动了，那么久不用启动首页
-        if (RouterManage.getHome()?.isHomeStart() == true) {
+        if (RouterManage.getHome().isHomeStart()) {
             //这里是为了后续跳转使用的topactivity用的是以前的Activity栈，防止返回后回到微信或者浏览器
             ActivityManager.getInstance().exitActivity(this)
             //处理拉起App数据

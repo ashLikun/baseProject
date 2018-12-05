@@ -3,14 +3,12 @@ package com.ashlikun.baseproject.module.main.view.activity
 import android.arch.lifecycle.Observer
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.libcore.constant.RouterKey
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 import com.ashlikun.baseproject.module.main.R
-import com.ashlikun.baseproject.module.main.R.id.bottomNavigationBar
 import com.ashlikun.bottomnavigation.AHBottomNavigation
 import com.ashlikun.bottomnavigation.AHBottomNavigationItem
 import com.ashlikun.common.EvenBusKey
@@ -41,11 +39,9 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
     var index = 0
     var cachePosition = -1
     var adapter: FragmentPagerAdapter? = null
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun parseIntent(intent: Intent?) {
+        ActivityManager.getInstance().currentActivity()
         intent?.run {
             index = getIntExtra(RouterKey.FLAG_INDEX, -1)
         }

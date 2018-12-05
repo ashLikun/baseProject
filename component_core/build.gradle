@@ -115,6 +115,8 @@ dependencies {
     api libs.MultiTypeGson
     //习惯的对话框
     api libs.CustomDialog
+    //圆形的进度条
+    api libs.CircleProgressView
 
     //布局切换
     api libs.LoadSwitch

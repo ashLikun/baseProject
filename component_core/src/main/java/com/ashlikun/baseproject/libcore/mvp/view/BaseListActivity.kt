@@ -9,6 +9,7 @@ import com.ashlikun.core.R
 import com.ashlikun.core.activity.BaseMvpActivity
 import com.ashlikun.loadswitch.OnLoadSwitchClick
 import com.ashlikun.xrecycleview.SuperRecyclerView
+import com.ashlikun.xrecycleview.divider.HorizontalDividerItemDecoration
 import com.ashlikun.xrecycleview.listener.RecycleViewSwipeListener
 
 /**

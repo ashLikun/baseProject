@@ -1,9 +1,11 @@
 package com.ashlikun.baseproject.libcore.utils.http
 
+import android.os.Looper
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 import com.ashlikun.utils.AppUtils
 import com.ashlikun.utils.other.DeviceUtil
 import com.ashlikun.utils.other.StringUtils
+import com.ashlikun.wheelview3d.LoopView
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.net.URLEncoder
@@ -106,8 +108,6 @@ class MarvelSigningInterceptor : Interceptor {
         //                    .method(oldRequest.method(), requestBody)
         //                    .build();
         //            return chain.proceed(newRequest);
-
-
         //请求头不能包含中文
         val newRequest = oldRequest.newBuilder()
                 .addHeader("token", RouterManage.getLogin().getToken())
