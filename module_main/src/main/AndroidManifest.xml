@@ -9,26 +9,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.MainTheme"
             android:windowSoftInputMode="stateHidden|adjustPan" />
-        <activity
-            android:name=".imp.TestActivity"
-            android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.OtherTheme" />
-        <activity
-            android:name="com.ashlikun.baseproject.module.imp.TestActivity"
-            android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.OtherTheme" />
-        <activity
-            android:name=".imp.TestAAAActivity"
-            android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.OtherTheme" />
-        <activity
-            android:name=".imp.MainActivity"
-            android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.OtherTheme"></activity>
     </application>
 
 </manifest>

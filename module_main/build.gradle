@@ -83,5 +83,3 @@ dependencies {
     kapt libs.permissionprocessor
     kapt libs.glideCompiler
 }
-
-
