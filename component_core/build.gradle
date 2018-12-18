@@ -103,7 +103,7 @@ dependencies {
     api libs.CommonAdapter
 
     //TabLayout
-    api (libs.XTabLayout) {
+    api(libs.XTabLayout) {
         exclude group: 'com.android.support'
     }
 
@@ -155,7 +155,6 @@ dependencies {
     api(libs.materialDialogs) {
         exclude group: 'com.android.support'
     }
-
     //Android官方流布局
     api libs.flexbox
 
