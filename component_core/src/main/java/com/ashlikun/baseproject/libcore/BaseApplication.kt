@@ -78,7 +78,7 @@ open class BaseApplication : MultiDexApplication() {
         LiteOrmUtil.setIsDebug(BuildConfig.DEBUG)
         //glide图片库
         GlideUtils.setBaseUrl(HttpManager.BASE_URL)
-        GlideUtils.setDebug(BuildConfig.DEBUG)
+        GlideUtils.setDEBUG(BuildConfig.DEBUG)
         //toast库
         SuperToast.setGravity(Gravity.CENTER)
     }
@@ -118,7 +118,6 @@ open class BaseApplication : MultiDexApplication() {
         }
 
         override fun onActivityStarted(activity: Activity) {
-
         }
 
         override fun onActivityResumed(activity: Activity) {}

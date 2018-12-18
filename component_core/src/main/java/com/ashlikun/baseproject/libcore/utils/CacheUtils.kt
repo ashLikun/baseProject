@@ -1,9 +1,7 @@
 package com.ashlikun.baseproject.libcore.utils
 
 import android.os.Environment
-
 import com.ashlikun.utils.AppUtils
-
 import java.io.File
 
 /**
@@ -23,6 +21,8 @@ object CacheUtils {
     var appSDCachePath: String = ""
     //appsd卡文件路径
     var appSDFilePath: String = ""
+    //app sd卡路径
+    var appSDPath: String = ""
 
     /**
      * @param rootName 跟目录名称，一般为app名称
@@ -34,12 +34,16 @@ object CacheUtils {
         appFilePath = AppUtils.getApp().filesDir.path + fileStr
         appSDCachePath = Environment.getExternalStorageDirectory().path + cacheStr
         appSDFilePath = Environment.getExternalStorageDirectory().path + fileStr
+        appSDPath = Environment.getExternalStorageDirectory().path + "/$rootName"
 
         val file = File(appSDCachePath)
         if (file.exists() || file.mkdirs()) {
         }
         val file2 = File(appSDFilePath)
         if (file2.exists() || file2.mkdirs()) {
+        }
+        val file3 = File(appSDPath)
+        if (file3.exists() || file3.mkdirs()) {
         }
     }
 }

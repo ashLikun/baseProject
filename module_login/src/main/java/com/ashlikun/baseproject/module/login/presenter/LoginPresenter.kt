@@ -2,6 +2,7 @@ package com.ashlikun.baseproject.module.login.presenter
 
 
 import android.os.Bundle
+import android.support.v4.content.FileProvider
 import com.ashlikun.baseproject.libcore.utils.http.HttpCallBack
 import com.ashlikun.baseproject.module.login.iview.IBLoginView
 import com.ashlikun.baseproject.module.login.mode.ApiLogin
