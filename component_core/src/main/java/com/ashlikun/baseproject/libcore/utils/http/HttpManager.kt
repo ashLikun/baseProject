@@ -3,6 +3,7 @@ package com.ashlikun.baseproject.libcore.utils.http
 import android.app.Activity
 import android.os.Looper
 import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.callbacks.onDismiss
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 import com.ashlikun.baseproject.libcore.utils.CacheUtils
 import com.ashlikun.okhttputils.http.OkHttpUtils
@@ -123,16 +124,15 @@ class HttpManager private constructor() {
                 return
             }
             IS_LOGIN_OUT_DIALOG_SHOW = true
-            MaterialDialog.Builder(activity)
+            MaterialDialog(activity)
                     .cancelable(false)
-                    .content("你的账号登陆异常，请重新登陆")
-                    .positiveText("知道了")
-                    .onPositive { _, _ ->
-                        RouterManage.getLogin().exitLogin(activity)
+                    .onDismiss { IS_LOGIN_OUT_DIALOG_SHOW = false }
+                    .show {
+                        message(text = "你的账号登陆异常，请重新登陆")
+                        positiveButton(text = "知道了") {
+                            RouterManage.getLogin().exitLogin(activity)
+                        }
                     }
-                    .dismissListener { IS_LOGIN_OUT_DIALOG_SHOW = false }
-                    .build().show()
-
         }
     }
 

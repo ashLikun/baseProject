@@ -73,7 +73,6 @@ dependencies {
     api 'com.github.ashLikun.frame:scaleimageview:' + rootProject.ext.frameVersion
     api 'com.github.ashLikun.frame:wheelview3d:' + rootProject.ext.frameVersion
     api 'com.github.ashLikun.frame:badgeview:' + rootProject.ext.frameVersion
-    api 'com.github.ashLikun.frame:baseresource:' + rootProject.ext.frameVersion
     api 'com.github.ashLikun.frame:animcheckbox:' + rootProject.ext.frameVersion
     api 'com.github.ashLikun.frame:pathanim:' + rootProject.ext.frameVersion
     api 'com.github.ashLikun.frame:glideutils:' + rootProject.ext.frameVersion

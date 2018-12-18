@@ -106,13 +106,17 @@ class WelcomeActivity : BaseActivity() {
 
     @OnShowRationale(Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
     internal fun showRationaleForCamera(request: PermissionRequest) {
-        MaterialDialog.Builder(this)
-                .content(R.string.other_permission_rationale)
+        MaterialDialog(this)
                 .cancelable(false)
-                .positiveText("确定")
-                .onPositive { dialog, which -> request.proceed() }
-                .onNegative { dialog, which -> request.cancel() }
-                .show()
+                .show {
+                    message(R.string.other_permission_rationale)
+                    positiveButton(text = "确定") {
+                        request.proceed()
+                    }
+                    negativeButton {
+                        request.cancel()
+                    }
+                }
 
     }
 

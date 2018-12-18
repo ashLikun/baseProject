@@ -13,19 +13,15 @@
         <item name="android:listSelector">@color/translucent</item>
         <item name="android:textCursorDrawable">@drawable/edittext_cursor_main_color</item>
         <item name="android:textColorPrimary">@color/text_color</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textSize">@dimen/dp_14</item>
         <!--<item name="android:requiresFadingEdge">vertical</item>-->
         <item name="colorError">@color/design_textinput_error_color_light</item>
-
 
         <item name="SwipeRefreshLayout_Color1">@color/colorPrimary</item>
         <item name="SwipeRefreshLayout_Color2">@color/colorPrimary</item>
         <item name="SwipeRefreshLayout_Color3">@color/colorPrimary</item>
         <item name="SwipeRefreshLayout_Color4">@color/colorPrimary</item>
-
-        <item name="md_negative_color">@color/text_color</item>
-        <item name="md_content_color">@color/black_33</item>
-        <item name="md_positive_color">@color/colorPrimary</item>
-
     </style>
 
     <style name="AppTheme.PhotoHander">

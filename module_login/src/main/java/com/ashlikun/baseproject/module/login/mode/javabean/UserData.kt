@@ -174,15 +174,16 @@ class UserData {
          * 退出登录,对话框
          */
         fun exit(context: Context) {
-            val dialog = MaterialDialog.Builder(context)
-                    .title("提示")
-                    .content("确定退出当前账户吗？")
-                    .positiveText("残忍退出")
-                    .negativeText("继续使用")
-                    .onPositive { _, _ -> exitLogin(context) }
-                    .build()
-
-            dialog.show()
+            MaterialDialog(context)
+                    .cancelable(false)
+                    .show {
+                        title(text = "提示")
+                        message(text = "确定退出当前账户吗？")
+                        positiveButton(text = "残忍退出") {
+                            exitLogin(context)
+                        }
+                        negativeButton(text = "继续使用")
+                    }
         }
     }
 
