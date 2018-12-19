@@ -8,9 +8,9 @@ package com.ashlikun.baseproject.libcore.javabean
  *
  * 功能介绍：轮播图的实体类
  */
-class BannerAdData {
-    var id = 0
-    var content_id = 0
-    var content_type = 0
-    var imgUrl: String? = null
+data class BannerAdData(var id: Int = 0,
+                        var content_id: Int = 0,
+                        var content_type: Int = 0,
+                        var imgUrl: String = "") {
+
 }

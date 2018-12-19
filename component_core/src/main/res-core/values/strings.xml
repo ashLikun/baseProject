@@ -1,0 +1,3 @@
+<resources>
+    <string name="login_error">你的账号登陆异常，请重新登陆</string>
+</resources>

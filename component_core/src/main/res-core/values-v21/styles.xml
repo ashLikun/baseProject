@@ -1,0 +1,7 @@
+<resources>
+    <style name="AppTheme.PhotoHander">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:windowAnimationStyle">@style/OtherAnimation</item>
+    </style>
+</resources>

@@ -128,7 +128,7 @@ class HttpManager private constructor() {
                     .cancelable(false)
                     .onDismiss { IS_LOGIN_OUT_DIALOG_SHOW = false }
                     .show {
-                        message(text = "你的账号登陆异常，请重新登陆")
+                        message(text = "")
                         positiveButton(text = "知道了") {
                             RouterManage.getLogin().exitLogin(activity)
                         }

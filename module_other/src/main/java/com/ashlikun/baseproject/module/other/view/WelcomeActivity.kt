@@ -110,7 +110,7 @@ class WelcomeActivity : BaseActivity() {
                 .cancelable(false)
                 .show {
                     message(R.string.other_permission_rationale)
-                    positiveButton(text = "确定") {
+                    positiveButton {
                         request.proceed()
                     }
                     negativeButton {

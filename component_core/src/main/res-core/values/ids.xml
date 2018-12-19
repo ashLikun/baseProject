@@ -1,0 +1,5 @@
+<resources>
+    <!--ids-->
+    <item name="toolbar" type="id" />
+    <item name="switchRoot" type="id" />
+</resources>

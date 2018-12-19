@@ -1,0 +1,74 @@
+<resources>
+
+    <style name="AppTheme" parent="BaseTheme"></style>
+
+    <!--背景颜色白色-->
+    <style name="AppTheme.OtherTheme.White">
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <!--style-->
+    <attr name="SwipeRefreshLayout_Color1" format="color"></attr>
+    <attr name="SwipeRefreshLayout_Color2" format="color"></attr>
+    <attr name="SwipeRefreshLayout_Color3" format="color"></attr>
+    <attr name="SwipeRefreshLayout_Color4" format="color"></attr>
+
+    <style name="OtherAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/activity_open_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/activity_open_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/activity_colse_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/activity_colse_exit</item>
+    </style>
+
+    <!--当我们从 A1 启动 A2 时，A1 从屏幕上消失，这个动画叫做 android:activityOpenExitAnimation-->
+    <!--当我们从 A1 启动 A2 时，A2 出现在屏幕上，这个动画叫做 android:activityOpenEnterAnimation-->
+    <!--当我们从 A2 退出回到 A1 时，A2 从屏幕上消失，这个叫做 android:activityCloseExitAnimation-->
+    <!--当我们从 A2 退出回到 A1 时，A1 出现在屏幕上，这个叫做 android:activityCloseEnterAnimation-->
+    <style name="MainAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@null</item>
+        <item name="android:activityOpenExitAnimation">@null</item>
+        <item name="android:activityCloseEnterAnimation">@null</item>
+        <item name="android:activityCloseExitAnimation">@anim/activity_colse_exit</item>
+    </style>
+
+    <style name="AnimationPreview" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/popupwindow_animation_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/popupwindow_animation_out</item>
+        <item name="android:activityOpenExitAnimation">@null</item>
+        <item name="android:activityCloseEnterAnimation">@null</item>
+    </style>
+
+    <style name="PopwindowAnimScreen" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/popupwindow_animation_in</item>
+        <item name="android:windowExitAnimation">@anim/popupwindow_animation_out</item>
+    </style>
+
+    <style name="AppTheme.MainTheme">
+        <item name="android:windowAnimationStyle">@style/MainAnimation</item>
+    </style>
+
+
+    <style name="AppTheme.OtherTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/OtherAnimation</item>
+    </style>
+
+    <style name="AppTheme.PhotoHander">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/OtherAnimation</item>
+    </style>
+
+    <style name="AppTheme.Fullscreen">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="AppTheme.Translucent">
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="AppTheme.PhotoBrowse">
+        <item name="android:windowBackground">@color/photo_browse</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/AnimationPreview</item>
+    </style>
+</resources>

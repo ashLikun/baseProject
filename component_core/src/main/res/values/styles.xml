@@ -1,11 +1,5 @@
 <resources>
 
-    <style name="AppTheme" parent="BaseTheme"></style>
-
-    <!--背景颜色白色-->
-    <style name="AppTheme.OtherTheme.White">
-        <item name="android:windowBackground">@color/white</item>
-    </style>
 
     <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -27,32 +21,4 @@
         <item name="SwipeRefreshLayout_Color4">@color/colorPrimary</item>
     </style>
 
-    <style name="AppTheme.MainTheme">
-        <item name="android:windowAnimationStyle">@style/MainAnimation</item>
-    </style>
-
-
-    <style name="AppTheme.OtherTheme">
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowAnimationStyle">@style/OtherAnimation</item>
-    </style>
-
-    <style name="AppTheme.PhotoHander">
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowAnimationStyle">@style/OtherAnimation</item>
-    </style>
-
-    <style name="AppTheme.Fullscreen">
-        <item name="android:windowFullscreen">true</item>
-    </style>
-
-    <style name="AppTheme.Translucent">
-        <item name="android:windowIsTranslucent">true</item>
-    </style>
-
-    <style name="AppTheme.PhotoBrowse">
-        <item name="android:windowBackground">@color/photo_browse</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowAnimationStyle">@style/AnimationPreview</item>
-    </style>
 </resources>
