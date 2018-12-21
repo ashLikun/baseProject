@@ -37,7 +37,6 @@ class DownLoadActivity : AppCompatActivity(), View.OnClickListener, DownloadTask
         super.onCreate(savedInstanceState)
         setContentView(R.layout.other_activity_download)
         initView()
-
     }
 
     private fun initView() {
