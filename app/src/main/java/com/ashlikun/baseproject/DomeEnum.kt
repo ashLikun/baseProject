@@ -2,8 +2,6 @@ package com.ashlikun.baseproject
 
 import android.support.annotation.IntDef
 
-import java.lang.annotation.Retention
-import java.lang.annotation.RetentionPolicy
 
 /**
  * 作者　　: 李坤
@@ -20,7 +18,7 @@ object DomeEnum {
     const val AUTH_YES = 2
 
     @IntDef(value = [AUTH_NO, AUTH_ING, AUTH_YES])
-    @Retention(RetentionPolicy.SOURCE)
+    @Retention(AnnotationRetention.SOURCE)
     annotation class Code
 
     fun getValue(@Code code: Int): CharSequence {

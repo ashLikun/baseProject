@@ -1,13 +1,14 @@
 package com.ashlikun.baseproject.module.login.presenter
 
 import android.os.Bundle
-import com.ashlikun.baseproject.libcore.utils.http.HttpCallBack
 import com.ashlikun.baseproject.module.login.iview.IBLoginView
 import com.ashlikun.baseproject.module.login.mode.javabean.UserData
 import com.ashlikun.core.BasePresenter
 import com.ashlikun.okhttputils.http.response.HttpResult
 import com.ashlikun.utils.other.StringUtils
 import com.ashlikun.utils.ui.SuperToast
+import com.lingyun.client.libcore.utils.http.HttpCallBack
+import com.lingyun.client.libcore.utils.http.HttpCallbackHandle
 
 /**
  * 作者　　: 李坤
@@ -42,7 +43,7 @@ class UpDataPasswordPresenter : BasePresenter<IBLoginView.IUpDataPasswordView>()
             SuperToast.showWarningMessage("两次密码不一致")
             return
         }
-        val buider = HttpCallBack.Buider[this]
+        val buider = HttpCallbackHandle[this]
                 .setShowLoadding(false)
                 .setLoadSwitchService(view.switchService)
         val callBack = object : HttpCallBack<HttpResult<*>>(buider) {

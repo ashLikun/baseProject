@@ -1,11 +1,9 @@
-package com.ashlikun.baseproject.libcore.utils.http
+package com.lingyun.client.libcore.utils.http
 
-import android.os.Looper
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 import com.ashlikun.utils.AppUtils
 import com.ashlikun.utils.other.DeviceUtil
 import com.ashlikun.utils.other.StringUtils
-import com.ashlikun.wheelview3d.LoopView
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.net.URLEncoder
@@ -110,9 +108,9 @@ class MarvelSigningInterceptor : Interceptor {
         //            return chain.proceed(newRequest);
         //请求头不能包含中文
         val newRequest = oldRequest.newBuilder()
+                .addHeader("userid", RouterManage.getLogin().getUserId())
                 .addHeader("token", RouterManage.getLogin().getToken())
-                .addHeader("os", "android:" + DeviceUtil.getSystemVersion())
-                .addHeader("user_id", RouterManage.getLogin().getUserId())
+                .addHeader("os", "android" + DeviceUtil.getSystemVersion())
                 .addHeader("osVersion", URLEncoder.encode(StringUtils.dataFilter(DeviceUtil.getSystemModel(), DeviceUtil.getDeviceBrand()), "utf-8"))
                 .addHeader("devid", DeviceUtil.getDeviceId(AppUtils.getApp()))
                 .addHeader("appVersion", URLEncoder.encode(AppUtils.getVersionName().trim { it <= ' ' }, "utf-8"))

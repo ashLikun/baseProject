@@ -58,21 +58,19 @@ ext {
             //数据库
             LiteOrm                : "com.github.ashLikun:LiteOrm:1.0.5",
             //封装的RecycleView
-            XRecycleView           : "com.github.ashLikun:XRecycleView:1.6.3",
+            XRecycleView           : "com.github.ashLikun:XRecycleView:1.6.4",
             //自定义的下拉刷新
             RefreshLayout          : "com.github.ashLikun:RefreshLayout:1.2.4",
             //封装的viewpager，banner，启动页
-            XViewPager             : "com.github.ashLikun:XViewPager:1.1.4",
+            XViewPager             : "com.github.ashLikun:XViewPager:1.1.3",
             //公共的工具
-            CommonUtils            : "com.github.ashLikun:CommonUtils:1.8.4",
+            CommonUtils            : "com.github.ashLikun:CommonUtils:1.9.0",
             //公共的Adapter
             CommonAdapter          : "com.github.ashLikun.CommonAdapter:adapter:2.0.4",
             //TabLayout
             XTabLayout             : "com.github.ashLikun:XTabLayout:1.0.4",
             //阿里的vlayout
             vlayout                : "com.alibaba.android:vlayout:1.2.18@aar",
-            //不同type的json解析,依赖于gson
-            MultiTypeGson          : "com.github.ashLikun:MultiTypeGson:1.0.5",
             //习惯的对话框
             CustomDialog           : "com.github.ashLikun:CustomDialog:1.1.8",
             //圆形的进度条
@@ -92,13 +90,15 @@ ext {
             //导航tab
             BottomNavigation       : "com.github.ashLikun:BottomNavigation:2.1.5",
             //rxjava
-            rxandroid              : "io.reactivex.rxjava2:rxandroid:2.1.0",
-            rxjava                 : "io.reactivex.rxjava2:rxjava:2.x.x",
+            rxandroid              : "io.reactivex.rxjava2:rxandroid:2.0.1",
+            rxjava                 : "io.reactivex.rxjava2:rxjava:x.y.z",
             //okhttp
             okhttp                 : "com.squareup.okhttp3:okhttp:3.12.0",
             gson                   : "com.google.code.gson:gson:2.8.5",
+            //不同type的json解析,依赖于gson
+            MultiTypeGson          : "com.github.ashLikun:MultiTypeGson:1.1.1",
             //基于Okhttp封装的
-            OkHttpUtils            : "com.github.ashLikun:OkHttpUtils:1.5.8",
+            OkHttpUtils            : "com.github.ashLikun:OkHttpUtils:1.6.2",
             //图片加载
             glide                  : "com.github.bumptech.glide:glide:4.8.0",
             glideCompiler          : "com.github.bumptech.glide:compiler:4.8.0",
@@ -107,13 +107,13 @@ ext {
             //md风格对话框
             materialDialogs        : "com.github.ashLikun.material-dialogs:input:0.0.1",
             //Android官方流布局
-            flexbox                : "com.google.android:flexbox:1.1.0",
+            flexbox                : "com.google.android:flexbox:0.3.1",
             //图片查看
             PhotoView              : "com.github.ashLikun:PhotoView:1.0.0",
             //照片处理
             PhotoHander            : "com.github.ashLikun:PhotoHander:1.3.7",
-            //不同type的json解析,依赖于gson
-            MultiTypeGson          : "com.github.ashLikun:MultiTypeGson:1.0.5",
+            //阿里的vlayout
+            vlayout                : "com.alibaba.android:vlayout:1.2.16@aar",
             //输入验证码
             VerificationCodeInput  : "com.github.ashLikun:VerifyCodeView:0.0.2",
             //评分控件
@@ -122,7 +122,7 @@ ext {
             //微信分享，登录sdk
             wechat                 : "com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+",
             //扫码
-            ZxingUtils             : "com.github.ashLikun:ZxingUtils:1.0.5",
+            ZxingUtils             : "com.github.ashLikun:ZxingUtils:1.0.4",
             ZxingCore              : "com.google.zxing:core:3.3.0",
             EasyPay                : "com.github.ashLikun:EasyPay:1.2.3",
             //自动缩放字体大小

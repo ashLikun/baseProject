@@ -2,6 +2,8 @@ package com.ashlikun.common.mode.javabean
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.ashlikun.gson.StringNullAdapter
+import com.google.gson.annotations.SerializedName
 
 /**
  * 作者　　: 李坤
@@ -11,36 +13,35 @@ import android.os.Parcelable
  *
  * 功能介绍：图片数据
  */
-class ImageData : Parcelable {
-
+class ImageData() : Parcelable {
     /**
      * 图片ID
      */
-    var image_id: Int = 0
+    var id: Int = 0
     /**
      * 图片地址
      */
-    var img_url: String? = null
+    var image: String = StringNullAdapter.NULL
     /**
      * 缩略图地址
      */
-    var thumb_img_url: String? = null
+    @SerializedName("thumb_image")
+    var thumbImage: String = StringNullAdapter.NULL
+
+    constructor(parcel: Parcel) : this() {
+        id = parcel.readInt()
+        image = parcel.readString()
+        thumbImage = parcel.readString()
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(id)
+        parcel.writeString(image)
+        parcel.writeString(thumbImage)
+    }
 
     override fun describeContents(): Int {
         return 0
-    }
-
-    override fun writeToParcel(dest: Parcel, flags: Int) {
-        dest.writeInt(this.image_id)
-        dest.writeString(this.img_url)
-        dest.writeString(this.thumb_img_url)
-    }
-
-
-    protected constructor(`in`: Parcel) {
-        this.image_id = `in`.readInt()
-        this.img_url = `in`.readString()
-        this.thumb_img_url = `in`.readString()
     }
 
     companion object CREATOR : Parcelable.Creator<ImageData> {
@@ -53,5 +54,6 @@ class ImageData : Parcelable {
         }
     }
 
-
 }
+
+

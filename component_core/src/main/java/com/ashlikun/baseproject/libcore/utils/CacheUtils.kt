@@ -13,37 +13,39 @@ import java.io.File
  * 功能介绍：
  */
 object CacheUtils {
+    var rootName = ""
     //app缓存路径，内部
-    var appCachePath: String = ""
+    val appCachePath: String by lazy {
+        check("${AppUtils.getApp().cacheDir.path}/$rootName/cache")
+    }
     //app文件路径，内部
-    var appFilePath: String = ""
+    val appFilePath: String by lazy {
+        check("${AppUtils.getApp().filesDir.path}/$rootName/file")
+    }
     //appsd卡缓存路径
-    var appSDCachePath: String = ""
+    val appSDCachePath: String by lazy {
+        check("${Environment.getExternalStorageDirectory().path}/$rootName/cache")
+    }
     //appsd卡文件路径
-    var appSDFilePath: String = ""
+    val appSDFilePath: String by lazy {
+        check("${Environment.getExternalStorageDirectory().path}/$rootName/file")
+    }
     //app sd卡路径
-    var appSDPath: String = ""
+    val appSDPath: String by lazy {
+        check("${Environment.getExternalStorageDirectory().path}/$rootName")
+    }
+
+    fun check(path: String): String {
+        val file = File(path)
+        if (file.exists() || file.mkdirs()) {
+        }
+        return path
+    }
 
     /**
      * @param rootName 跟目录名称，一般为app名称
      */
     fun init(rootName: String) {
-        val cacheStr = "/$rootName/cache"
-        val fileStr = "/$rootName/file"
-        appCachePath = AppUtils.getApp().cacheDir.path + cacheStr
-        appFilePath = AppUtils.getApp().filesDir.path + fileStr
-        appSDCachePath = Environment.getExternalStorageDirectory().path + cacheStr
-        appSDFilePath = Environment.getExternalStorageDirectory().path + fileStr
-        appSDPath = Environment.getExternalStorageDirectory().path + "/$rootName"
-
-        val file = File(appSDCachePath)
-        if (file.exists() || file.mkdirs()) {
-        }
-        val file2 = File(appSDFilePath)
-        if (file2.exists() || file2.mkdirs()) {
-        }
-        val file3 = File(appSDPath)
-        if (file3.exists() || file3.mkdirs()) {
-        }
+        CacheUtils.rootName = rootName
     }
 }

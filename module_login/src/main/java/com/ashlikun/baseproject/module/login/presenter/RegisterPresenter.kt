@@ -1,12 +1,13 @@
 package com.ashlikun.baseproject.module.login.presenter
 
-import com.ashlikun.baseproject.libcore.utils.http.HttpCallBack
 import com.ashlikun.baseproject.module.login.iview.IBLoginView
 import com.ashlikun.baseproject.module.login.mode.ApiLogin
 import com.ashlikun.baseproject.module.login.mode.javabean.UserData
 import com.ashlikun.core.BasePresenter
 import com.ashlikun.okhttputils.http.response.HttpResult
 import com.ashlikun.utils.ui.SuperToast
+import com.lingyun.client.libcore.utils.http.HttpCallBack
+import com.lingyun.client.libcore.utils.http.HttpCallbackHandle
 
 /**
  * @author　　: 李坤
@@ -25,7 +26,7 @@ class RegisterPresenter : BasePresenter<IBLoginView.IRegisterView>() {
     var registerType = 1
 
     fun goRegister() {
-        val buider = HttpCallBack.Buider[this]
+        val buider = HttpCallbackHandle[this]
         val callBack = object : HttpCallBack<HttpResult<UserData>>(buider) {
             override fun onSuccess(result: HttpResult<UserData>) {
                 super.onSuccess(result, false)
@@ -42,7 +43,7 @@ class RegisterPresenter : BasePresenter<IBLoginView.IRegisterView>() {
     }
 
     fun sendMsg() {
-        val buider = HttpCallBack.Buider[this]
+        val buider = HttpCallbackHandle[this]
         val callBack = object : HttpCallBack<HttpResult<*>>(buider) {
             override fun onSuccess(result: HttpResult<*>) {
                 super.onSuccess(result)

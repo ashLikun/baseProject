@@ -1,13 +1,14 @@
 package com.ashlikun.baseproject.module.login.presenter
 
 import android.os.Bundle
-import com.ashlikun.baseproject.libcore.utils.http.HttpCallBack
 import com.ashlikun.baseproject.module.login.iview.IBLoginView
 import com.ashlikun.baseproject.module.login.mode.ApiLogin
 import com.ashlikun.core.BasePresenter
 import com.ashlikun.okhttputils.http.response.HttpResult
 import com.ashlikun.utils.other.StringUtils
 import com.ashlikun.utils.ui.SuperToast
+import com.lingyun.client.libcore.utils.http.HttpCallBack
+import com.lingyun.client.libcore.utils.http.HttpCallbackHandle
 
 /**
  * @author　　: 李坤
@@ -39,7 +40,7 @@ class AmendPasswordPresenter : BasePresenter<IBLoginView.IAmendPasswordView>() {
             SuperToast.showWarningMessage("两次密码不一致")
             return
         }
-        val buider = HttpCallBack.Buider[this]
+        val buider = HttpCallbackHandle[this]
         val callBack = object : HttpCallBack<HttpResult<*>>(buider) {
             override fun onSuccess(result: HttpResult<*>) {
                 super.onSuccess(result)
@@ -56,7 +57,7 @@ class AmendPasswordPresenter : BasePresenter<IBLoginView.IAmendPasswordView>() {
 
 
     fun sendMsg() {
-        val buider = HttpCallBack.Buider[this]
+        val buider = HttpCallbackHandle[this]
         val callBack = object : HttpCallBack<HttpResult<*>>(buider) {
             override fun onSuccess(result: HttpResult<*>) {
                 super.onSuccess(result)

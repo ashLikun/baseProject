@@ -1,4 +1,4 @@
-package com.ashlikun.baseproject.libcore.utils.http
+package com.lingyun.client.libcore.utils.http
 
 import android.app.Activity
 import android.os.Looper
@@ -41,8 +41,8 @@ class HttpManager private constructor() {
     }
 
     companion object {
-        const val BASE_URL = "http://ym.o6o6o.com"
-        const val BASE_PATH = "/tools/apptool.ashx"
+        const val BASE_URL = "http://ly.o6o6o.com"
+        const val BASE_PATH = "/tools/yapp_tool.ashx"
         /**
          * 退出对话框是否显示,防止多次显示
          */
