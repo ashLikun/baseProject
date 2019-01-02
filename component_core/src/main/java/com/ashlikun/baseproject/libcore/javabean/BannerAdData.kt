@@ -1,4 +1,4 @@
-package com.ashlikun.baseproject.libcore.javabean
+package com.lingyun.client.libcore.javabean
 
 /**
  * 作者　　: 李坤
@@ -8,9 +8,10 @@ package com.ashlikun.baseproject.libcore.javabean
  *
  * 功能介绍：轮播图的实体类
  */
-data class BannerAdData(var id: Int = 0,
-                        var content_id: Int = 0,
-                        var content_type: Int = 0,
-                        var imgUrl: String = "") {
+class BannerAdData {
+    var id: Int = 0
+    var content_id: Int = 0
+    var content_type: Int = 0
+    var imgUrl: String = ""
 
 }

@@ -1,4 +1,4 @@
-package com.ashlikun.baseproject.libcore.javabean
+package com.lingyun.client.libcore.javabean
 
 /**
  * @author　　: 李坤
@@ -9,7 +9,8 @@ package com.ashlikun.baseproject.libcore.javabean
  * 功能介绍：键值对的类
  */
 
-data class KeyAndValus(var key: Int = 0,
-                       var keyStr: String = "",
-                       var valus: String = "") {
+class KeyAndValus {
+    var key: Int = 0
+    var keyStr: String = ""
+    var valus: String = ""
 }

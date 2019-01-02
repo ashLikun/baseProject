@@ -1,4 +1,4 @@
-package com.ashlikun.baseproject.libcore.javabean
+package com.lingyun.client.libcore.javabean
 
 import com.ashlikun.okhttputils.http.response.HttpResult
 import com.ashlikun.xrecycleview.PageHelp
@@ -13,13 +13,13 @@ import com.ashlikun.xrecycleview.PageHelp
  */
 class HttpPageResult<T> : HttpResult<T>() {
     /**
-     * 服务器数据的第几页
+     * 当前是服务器数据的第几页
      */
     var currentPage = 1
     /**
      * 一共多少页
      */
-    var recordPage = 0
+    var recordPage = -1
 
     /**
      * 设置分页数据

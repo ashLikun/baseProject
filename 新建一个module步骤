@@ -3,6 +3,7 @@
 3:每个module都有2个清单文件（单独运行的时候有一个）
 4:每个module都有...debug/ModuleDebugApp---->负责单独运行时候的app，还要在空壳app -> onCreate的super之前初始化ModuleApp
 5:每个module都有...module名字/ModuleApp ---->负责全局打包运行的时候app（本模块）初始化
-6:配置好gradle
+6:配置好gradle   1:新建的模块gradle第一行module名称     2：app gradle里面加上依赖    3:settings.gradle加上本模块
 7:填写好说明文档
-8：在app的application添加...module名字/ModuleApp。
+8：在app的application(MyApp)添加...module名字/ModuleApp。
+9:添加javabean混淆

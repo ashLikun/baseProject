@@ -13,28 +13,24 @@ import com.ashlikun.baseproject.libcore.IApplication
  * 功能介绍：本模块在发布时候的Application初始化
  */
 class ModuleApp : IApplication {
-    @Override
-    fun onCreate() {
+    override fun onCreate() {
+
+    }
+
+    override fun onTerminate() {
+
+    }
+
+    override fun onLowMemory() {
+
+    }
+
+    override fun onTrimMemory(level: Int) {
 
     }
 
     @Override
-    fun onTerminate() {
-
-    }
-
-    @Override
-    fun onLowMemory() {
-
-    }
-
-    @Override
-    fun onTrimMemory(level: Int) {
-
-    }
-
-    @Override
-    fun onConfigurationChanged(newConfig: Configuration) {
+    override fun onConfigurationChanged(newConfig: Configuration) {
 
     }
 }
