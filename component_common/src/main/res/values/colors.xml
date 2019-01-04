@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#ff1094f0</color>
-    <color name="colorPrimaryDark">#ff1161f0</color>
-    <color name="colorAccent">#ff2655f0</color>
     <!--这个项目里面的颜色-->
 
     <color name="color_9b9b9b">#9b9b9b</color>

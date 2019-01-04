@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">基本项目</string>
+    <string name="my_app_name">基本项目</string>
     <string name="app_name_letter">baseproject</string>
 </resources>
