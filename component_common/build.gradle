@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 //kapt插件
 apply plugin: 'kotlin-kapt'
-
+def sdk = rootProject.ext.sdk // SDK配置
 def config = rootProject.ext.android // 工程配置
 def libs = rootProject.ext.dependencies // 库依赖
 android {
