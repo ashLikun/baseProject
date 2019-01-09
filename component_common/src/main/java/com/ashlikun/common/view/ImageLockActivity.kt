@@ -35,7 +35,9 @@ import java.util.*
  *
  *
  * 功能介绍：查看图片的activity
- * 前一个页面请调用 statusBar.setFitsSystemWindows()保证页面不抖动
+ * 前一个页面请调用
+ *  override fun isStatusTranslucent() = true
+ *  AndroidBug5497Workaround.get(this) 如果输入法有问题
  */
 @Route(path = RouterPath.IMAGE_LOCK)
 class ImageLockActivity : BaseActivity(), ViewPageHelperListener<ImageData>, ScaleFinishView.OnSwipeListener, ViewPager.OnPageChangeListener, View.OnClickListener {
