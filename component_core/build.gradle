@@ -80,7 +80,6 @@ dependencies {
     api 'com.github.ashLikun.frame:segmentcontrol:' + rootProject.ext.frameVersion
     api 'com.github.ashLikun.frame:charbar:' + rootProject.ext.frameVersion
     api 'com.github.ashLikun.frame:supertoobar:' + rootProject.ext.frameVersion
-    api 'com.github.ashLikun.frame:scaleimageview:' + rootProject.ext.frameVersion
     api 'com.github.ashLikun.frame:wheelview3d:' + rootProject.ext.frameVersion
     api 'com.github.ashLikun.frame:badgeview:' + rootProject.ext.frameVersion
     api 'com.github.ashLikun.frame:animcheckbox:' + rootProject.ext.frameVersion

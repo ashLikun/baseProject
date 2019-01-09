@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.ashlikun.circleprogress.CircleProgressView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="46dp"
+    android:layout_height="46dp"
+    android:layout_centerVertical="true"
+    app:cpv_angleAnimationDurationMillis="@integer/circle_default_angleAnimationDuration"
+    app:cpv_borderWidth="2dp"
+    app:cpv_color="@color/basedialog_load_circle_color"
+    app:cpv_sweepAnimationDurationMillis="@integer/circle_default_sweepAnimationDuration" />
+

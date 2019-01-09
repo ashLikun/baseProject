@@ -11,7 +11,9 @@
         android:layout_height="match_parent"
         android:background="@color/black"
         app:banner_canLoop="false"
-        app:banner_ratio="-1"></com.ashlikun.xviewpager.view.BannerViewPager>
+        app:banner_isOneDataOffLoopAndTurning="false"
+        app:banner_ratio="-1"
+        app:banner_turningTime="-1"></com.ashlikun.xviewpager.view.BannerViewPager>
 
     <TextView
         android:id="@+id/textView"
