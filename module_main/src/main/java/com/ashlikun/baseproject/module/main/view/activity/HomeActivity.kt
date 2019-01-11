@@ -5,13 +5,13 @@ import android.content.Context
 import android.content.Intent
 import android.support.v4.app.Fragment
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.ashlikun.baseproject.libcore.constant.EvenBusKey
 import com.ashlikun.baseproject.libcore.constant.RouterKey
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 import com.ashlikun.baseproject.module.main.R
 import com.ashlikun.bottomnavigation.AHBottomNavigation
 import com.ashlikun.bottomnavigation.AHBottomNavigationItem
-import com.ashlikun.common.EvenBusKey
 import com.ashlikun.common.utils.jump.RouterJump
 import com.ashlikun.core.activity.BaseActivity
 import com.ashlikun.core.listener.OnDispatcherMessage

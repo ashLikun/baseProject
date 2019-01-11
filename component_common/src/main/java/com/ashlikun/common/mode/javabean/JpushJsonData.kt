@@ -1,12 +1,11 @@
 package com.ashlikun.common.mode.javabean
 
 import android.content.Intent
-
+import com.ashlikun.baseproject.libcore.constant.EvenBusKey
 import com.ashlikun.baseproject.libcore.constant.SpKey
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
-import com.ashlikun.common.EvenBusKey
+import com.ashlikun.gson.GsonHelper
 import com.ashlikun.livedatabus.EventBus
-import com.ashlikun.okhttputils.json.GsonHelper
 import com.ashlikun.orm.LiteOrmUtil
 import com.ashlikun.orm.db.annotation.Ignore
 import com.ashlikun.orm.db.annotation.PrimaryKey

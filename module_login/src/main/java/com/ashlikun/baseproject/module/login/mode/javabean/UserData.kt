@@ -3,8 +3,8 @@ package com.ashlikun.baseproject.module.login.mode.javabean
 import android.content.Context
 import com.afollestad.materialdialogs.MaterialDialog
 import com.alibaba.android.arouter.launcher.ARouter
+import com.ashlikun.baseproject.libcore.constant.EvenBusKey
 import com.ashlikun.baseproject.libcore.constant.RouterPath
-import com.ashlikun.common.EvenBusKey
 import com.ashlikun.common.utils.jpush.JpushUtils
 import com.ashlikun.common.utils.jump.RouterJump
 import com.ashlikun.livedatabus.EventBus

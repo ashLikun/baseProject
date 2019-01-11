@@ -22,15 +22,7 @@ object EvenBusKey {
      */
     const val EVENBUS_USERDATA_CHANG = "EVENBUS_USERDATA_CHANG"
     /**
-     * 定位成功数据 LatLng
+     * jpush保存
      */
-    const val EVENTBUS_LOCATION_SUCCESS = "EVENTBUS_LOCATION"
-    /**
-     * 选择优惠券,数据类型 1:CouponData
-     */
-    const val EVENTBUS_SELECT_COUPON = "EVENTBUS_SELECT_COUPON"
-    /**
-     * 选择搜索的地址 1:PoiItem
-     */
-    const val EVENTBUS_SELECT_ADDRESS = "EVENTBUS_SELECT_ADDRESS"
+    const val EVENBUS_JPUSH_RECEIVER_SAVE = "JEVENBUS_PUSH_RECEIVER_SAVE"
 }
