@@ -43,7 +43,6 @@ open class BaseApplication : MultiDexApplication() {
         LoadSwitch.BASE_LOADING_LAYOUT_ID = R.layout.base_load_loading
         RouterManage.init(AppUtils.getApp(), AppUtils.isDebug())
         //activity创建管理器
-        registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
         for (a in applications) {
             a.onCreate()
         }
@@ -110,29 +109,6 @@ open class BaseApplication : MultiDexApplication() {
         super.onConfigurationChanged(newConfig)
         for (a in applications) {
             a.onConfigurationChanged(newConfig)
-        }
-    }
-
-    val activityLifecycleCallbacks = object : Application.ActivityLifecycleCallbacks {
-        override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-            ActivityManager.getInstance().pushActivity(activity)
-        }
-
-        override fun onActivityStarted(activity: Activity) {
-        }
-
-        override fun onActivityResumed(activity: Activity) {}
-
-        override fun onActivityPaused(activity: Activity) {}
-
-        override fun onActivityStopped(activity: Activity) {
-
-        }
-
-        override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
-
-        override fun onActivityDestroyed(activity: Activity) {
-            ActivityManager.getInstance().exitActivity(activity)
         }
     }
 
