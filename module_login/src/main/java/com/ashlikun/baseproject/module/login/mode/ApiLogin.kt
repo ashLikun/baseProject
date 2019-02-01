@@ -4,9 +4,9 @@ import com.ashlikun.baseproject.module.login.mode.javabean.UserData
 import com.ashlikun.okhttputils.http.ExecuteCall
 import com.ashlikun.okhttputils.http.callback.Callback
 import com.ashlikun.okhttputils.http.response.HttpResult
-import com.lingyun.client.libcore.utils.http.BaseApiService
-import com.lingyun.client.libcore.utils.http.HttpCallbackHandle
-import com.lingyun.client.libcore.utils.http.HttpRequestParam
+import com.ashlikun.baseproject.libcore.utils.http.BaseApiService
+import com.ashlikun.baseproject.libcore.utils.http.HttpCallbackHandle
+import com.ashlikun.baseproject.libcore.utils.http.HttpRequestParam
 
 /**
  * 作者　　: 李坤

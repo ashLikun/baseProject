@@ -3,8 +3,8 @@ package com.ashlikun.common.utils.jpush
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.ashlikun.common.mode.javabean.JpushJsonData
 import com.ashlikun.utils.other.LogUtils
+import com.ashlikun.common.mode.javabean.JpushJsonData
 
 /**
  * 作者　　: 李坤
@@ -23,12 +23,12 @@ class JpushMessageReceiver : BroadcastReceiver() {
 //        val action = intent.action
         val data = JpushJsonData.getJpushData(intent)
         data?.save()
-//        if (data != null && !JPushInterface.ACTION_NOTIFICATION_OPENED.equals(action)) {
+//         if (data != null && JPushInterface.ACTION_NOTIFICATION_OPENED != action) {
 //            data.save()
 //        }
-//        if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(action)) {
+//        if (JPushInterface.ACTION_NOTIFICATION_RECEIVED == action) {
 //            notifiation(context, data)
-//        } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(action)) {
+//        } else if (JPushInterface.ACTION_NOTIFICATION_OPENED == action) {
 //            notifiationOpened(context, data)
 //            JpushJsonData.addOrRemove(false)
 //        }

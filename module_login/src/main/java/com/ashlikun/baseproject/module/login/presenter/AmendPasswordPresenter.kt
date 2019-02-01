@@ -7,8 +7,8 @@ import com.ashlikun.core.BasePresenter
 import com.ashlikun.okhttputils.http.response.HttpResult
 import com.ashlikun.utils.other.StringUtils
 import com.ashlikun.utils.ui.SuperToast
-import com.lingyun.client.libcore.utils.http.HttpCallBack
-import com.lingyun.client.libcore.utils.http.HttpCallbackHandle
+import com.ashlikun.baseproject.libcore.utils.http.HttpCallBack
+import com.ashlikun.baseproject.libcore.utils.http.HttpCallbackHandle
 
 /**
  * @author　　: 李坤

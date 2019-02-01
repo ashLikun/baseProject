@@ -1,4 +1,4 @@
-package com.lingyun.client.libcore.utils.http
+package com.ashlikun.baseproject.libcore.utils.http
 
 /**
  * 作者　　: 李坤

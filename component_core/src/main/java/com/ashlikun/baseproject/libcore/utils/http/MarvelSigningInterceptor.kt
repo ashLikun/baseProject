@@ -1,4 +1,4 @@
-package com.lingyun.client.libcore.utils.http
+package com.ashlikun.baseproject.libcore.utils.http
 
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 import com.ashlikun.utils.AppUtils
@@ -110,7 +110,7 @@ class MarvelSigningInterceptor : Interceptor {
         val newRequest = oldRequest.newBuilder()
                 .addHeader("userid", RouterManage.getLogin().getUserId())
                 .addHeader("token", RouterManage.getLogin().getToken())
-                .addHeader("os", "android" + DeviceUtil.getSystemVersion())
+                .addHeader("os", "android  ${DeviceUtil.getSystemVersion()}")
                 .addHeader("osVersion", URLEncoder.encode(StringUtils.dataFilter(DeviceUtil.getSystemModel(), DeviceUtil.getDeviceBrand()), "utf-8"))
                 .addHeader("devid", DeviceUtil.getDeviceId(AppUtils.getApp()))
                 .addHeader("appVersion", URLEncoder.encode(AppUtils.getVersionName().trim { it <= ' ' }, "utf-8"))

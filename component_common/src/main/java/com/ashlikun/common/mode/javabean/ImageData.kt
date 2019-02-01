@@ -4,6 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.ashlikun.gson.StringNullAdapter
 import com.google.gson.annotations.SerializedName
+import com.ashlikun.baseproject.libcore.widget.banner.IBannerData
 
 /**
  * 作者　　: 李坤
@@ -13,7 +14,9 @@ import com.google.gson.annotations.SerializedName
  *
  * 功能介绍：图片数据
  */
-class ImageData() : Parcelable {
+class ImageData(image: String = StringNullAdapter.NULL, thumbImage: String = StringNullAdapter.NULL, id: Int = 0) : Parcelable, IBannerData {
+    override fun getImageUrl() = image
+
     /**
      * 图片ID
      */
@@ -27,6 +30,12 @@ class ImageData() : Parcelable {
      */
     @SerializedName("thumb_image")
     var thumbImage: String = StringNullAdapter.NULL
+
+    init {
+        this.image = image
+        this.id = id
+        this.thumbImage = thumbImage
+    }
 
     constructor(parcel: Parcel) : this() {
         id = parcel.readInt()
@@ -55,5 +64,3 @@ class ImageData() : Parcelable {
     }
 
 }
-
-

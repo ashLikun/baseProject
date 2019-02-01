@@ -1,4 +1,4 @@
-package com.lingyun.client.libcore.utils.http
+package com.ashlikun.baseproject.libcore.utils.http
 
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 import com.ashlikun.okhttputils.http.request.HttpRequest
@@ -14,8 +14,8 @@ import com.ashlikun.xrecycleview.PageHelp
  * 功能介绍：请求参数
  */
 
-class HttpRequestParam(action: String? = null, path: String = "yapp_tool.ashx", basePath: String = HttpManager.BASE_PATH) :
-        HttpRequest(HttpManager.BASE_URL + basePath + path) {
+class HttpRequestParam(action: String? = null, path: String = HttpManager.BASE_PATH) :
+        HttpRequest(HttpManager.BASE_URL + path) {
 
 
     init {
@@ -26,7 +26,7 @@ class HttpRequestParam(action: String? = null, path: String = "yapp_tool.ashx", 
     }
 
     companion object {
-        private const val SIGN = "lingyun"
+        private const val SIGN = "BaseProject"
 
         fun post(path: String): HttpRequestParam {
             val param = HttpRequestParam(path)
@@ -92,6 +92,10 @@ class HttpRequestParam(action: String? = null, path: String = "yapp_tool.ashx", 
     }
 
     fun addId(id: Int) {
+        addParam("id", id)
+    }
+
+    fun addId(id: String?) {
         addParam("id", id)
     }
 

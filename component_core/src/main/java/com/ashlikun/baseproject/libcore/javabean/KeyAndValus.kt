@@ -1,4 +1,4 @@
-package com.lingyun.client.libcore.javabean
+package com.ashlikun.baseproject.libcore.javabean
 
 /**
  * @author　　: 李坤

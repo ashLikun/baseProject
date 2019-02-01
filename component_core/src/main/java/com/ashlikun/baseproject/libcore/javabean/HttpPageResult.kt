@@ -1,4 +1,4 @@
-package com.lingyun.client.libcore.javabean
+package com.ashlikun.baseproject.libcore.javabean
 
 import com.ashlikun.okhttputils.http.response.HttpResult
 import com.ashlikun.xrecycleview.PageHelp

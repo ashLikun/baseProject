@@ -1,4 +1,4 @@
-package com.lingyun.client.libcore.utils.http
+package com.ashlikun.baseproject.libcore.utils.http
 
 import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.okhttputils.http.ExecuteCall
@@ -33,19 +33,19 @@ open class BaseApiService {
     /**
      * kotlin方式的请求
      */
-    fun <T> execute(param: HttpRequestParam, callbackHandle: HttpCallbackHandle,
-                    success: ((result: T) -> Unit)? = null,
-                    noSuccess: ((result: T) -> Unit)? = null,
-                    errorData: ((data: ContextData) -> Unit)? = null,
-                    error: ((error: HttpException) -> Unit)? = null,
-                    successHanderError: ((result: T) -> Boolean)? = null,
-                    successSubThread: ((result: T) -> Unit)? = null,
-                    cacheSuccess: ((entity: CacheEntity, result: T) -> Unit)? = null,
-                    successHandelCode: ((result: T) -> Boolean)? = null,
-                    completed: (() -> Unit)? = null,
-                    start: (() -> Unit)? = null
+    fun <ResultType> execute(param: HttpRequestParam, callbackHandle: HttpCallbackHandle,
+                             success: ((result: ResultType) -> Unit)? = null,
+                             noSuccess: ((result: ResultType) -> Unit)? = null,
+                             errorData: ((data: ContextData) -> Unit)? = null,
+                             error: ((error: HttpException) -> Unit)? = null,
+                             successHanderError: ((result: ResultType) -> Boolean)? = null,
+                             successSubThread: ((result: ResultType) -> Unit)? = null,
+                             cacheSuccess: ((entity: CacheEntity, result: ResultType) -> Unit)? = null,
+                             successHandelCode: ((result: ResultType) -> Boolean)? = null,
+                             completed: (() -> Unit)? = null,
+                             start: (() -> Unit)? = null
     ): ExecuteCall {
-        val callback = SimpleHttpCallback<T>(callbackHandle)
+        val callback: SimpleHttpCallback<ResultType> = SimpleHttpCallback<ResultType>(callbackHandle)
         callback.success = success
         callback.noSuccess = noSuccess
         callback.successHanderError = successHanderError

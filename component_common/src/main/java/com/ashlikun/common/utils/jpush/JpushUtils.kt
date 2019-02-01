@@ -2,12 +2,9 @@ package com.ashlikun.common.utils.jpush
 
 import android.app.Application
 import android.content.Context
-import android.content.Intent
-
-import com.alibaba.android.arouter.launcher.ARouter
-import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 import com.ashlikun.common.mode.javabean.JpushJsonData
+import com.ashlikun.common.utils.jump.RouterJump
 import com.ashlikun.utils.AppUtils
 import com.ashlikun.utils.main.ActivityUtils
 import com.ashlikun.utils.other.LogUtils
@@ -81,9 +78,7 @@ object JpushUtils {
         if (runStatus == 2) {
             //app未启动
             cacheData = data
-            ARouter.getInstance().build(RouterPath.WELCOME)
-                    .withFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-                    .navigation(context)
+            RouterJump.startApp()
         } else {
             //跳转到对应的页面
             skip(context, data)

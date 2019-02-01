@@ -1,17 +1,17 @@
-package com.lingyun.client.module.main.mode
+package com.ashlikun.baseproject.module.main.mode
 
 import com.ashlikun.okhttputils.http.ExecuteCall
 import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.okhttputils.http.response.HttpResult
 import com.ashlikun.utils.AppUtils
 import com.ashlikun.xrecycleview.PageHelp
-import com.lingyun.client.libcore.javabean.HttpPageResult
-import com.lingyun.client.libcore.utils.http.BaseApiService
-import com.lingyun.client.libcore.utils.http.HttpCallbackHandle
-import com.lingyun.client.libcore.utils.http.HttpRequestParam
-import com.lingyun.client.module.main.mode.javabean.*
-import com.lingyun.common.mode.enumm.OrderStatus
-import com.lingyun.common.mode.javabean.ImageData
+import com.ashlikun.baseproject.libcore.javabean.HttpPageResult
+import com.ashlikun.baseproject.libcore.utils.http.BaseApiService
+import com.ashlikun.baseproject.libcore.utils.http.HttpCallbackHandle
+import com.ashlikun.baseproject.libcore.utils.http.HttpRequestParam
+import com.ashlikun.baseproject.module.main.mode.javabean.*
+import com.ashlikun.common.mode.enumm.OrderStatus
+import com.ashlikun.common.mode.javabean.ImageData
 
 /**
  * 作者　　: 李坤

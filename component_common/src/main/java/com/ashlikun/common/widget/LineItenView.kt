@@ -35,6 +35,7 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
     private var bottomLineSize: Int = 0
     private var bottomLineColor = Color.parseColor("#ffcccccc")
     private var iconRes = 0
+    private var subDrawablePadding = 0
     private var title: CharSequence? = null
     private var subTitle: CharSequence? = null
 
@@ -50,6 +51,7 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         iconRes = a.getResourceId(R.styleable.LineItenView_liv_icon_res, iconRes)
         title = a.getString(R.styleable.LineItenView_liv_title)
         subTitle = a.getString(R.styleable.LineItenView_liv_sub_title)
+        subDrawablePadding = a.getDimensionPixelSize(R.styleable.LineItenView_liv_sub_title_drawable_padding, 0)
         initView(context, a)
         a.recycle()
     }
@@ -80,15 +82,20 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         }
         if (isShowArror) {
             val drawable = ResUtils.getDrawable(R.drawable.ic_arrow_right)
+            subTitleView.compoundDrawablePadding = subDrawablePadding
             DrawableUtils.createTextDraw(subTitleView, drawable)
                     .location(3)
                     .set()
+        } else {
+            subTitleView.setPadding(subTitleView.paddingLeft, subTitleView.paddingTop,
+                    subDrawablePadding, subTitleView.paddingBottom)
         }
+
         imageView.visibility = if (isShowIcon) View.VISIBLE else View.GONE
         if (!isShowIcon) {
             (titleView.layoutParams as LinearLayout.LayoutParams).setMargins(0, 0, 0, 0)
         } else {
-            (titleView.layoutParams as LinearLayout.LayoutParams).setMargins(DimensUtils.dip2px(context, 20f), 0, 0, 0)
+            (titleView.layoutParams as LinearLayout.LayoutParams).setMargins(DimensUtils.dip2px(context, 12f), 0, 0, 0)
         }
         imageView.setImageResource(iconRes)
         titleView.text = title
@@ -104,6 +111,7 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         this.subTitle = title
         subTitleView.text = title
     }
+
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)

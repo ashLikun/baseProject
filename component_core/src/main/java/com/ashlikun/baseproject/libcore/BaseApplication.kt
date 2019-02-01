@@ -8,14 +8,14 @@ import android.support.multidex.MultiDexApplication
 import android.view.Gravity
 import com.ashlikun.appcrash.AppCrashConfig
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
-import com.ashlikun.baseproject.libcore.utils.CacheUtils
-import com.ashlikun.baseproject.libcore.utils.http.HttpManager
 import com.ashlikun.glideutils.GlideUtils
 import com.ashlikun.loadswitch.LoadSwitch
 import com.ashlikun.orm.LiteOrmUtil
 import com.ashlikun.utils.AppUtils
 import com.ashlikun.utils.ui.ActivityManager
 import com.ashlikun.utils.ui.SuperToast
+import com.ashlikun.baseproject.libcore.utils.CacheUtils
+import com.ashlikun.baseproject.libcore.utils.http.HttpManager
 import com.squareup.leakcanary.LeakCanary
 import java.util.*
 
@@ -41,12 +41,13 @@ open class BaseApplication : MultiDexApplication() {
         LoadSwitch.BASE_EMPTY_LAYOUT_ID = R.layout.base_load_empty
         LoadSwitch.BASE_RETRY_LAYOUT_ID = R.layout.base_load_retry
         LoadSwitch.BASE_LOADING_LAYOUT_ID = R.layout.base_load_loading
+        RouterManage.init(AppUtils.getApp(), AppUtils.isDebug())
         //activity创建管理器
         registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
         for (a in applications) {
             a.onCreate()
         }
-        RouterManage.init(AppUtils.getApp(), AppUtils.isDebug())
+
     }
 
     /**

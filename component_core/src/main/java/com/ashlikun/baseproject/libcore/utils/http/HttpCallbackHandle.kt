@@ -1,6 +1,9 @@
-package com.lingyun.client.libcore.utils.http
+package com.ashlikun.baseproject.libcore.utils.http
 
 import android.view.View
+import com.ashlikun.baseproject.libcore.R
+import com.ashlikun.baseproject.libcore.mvp.iview.IBaseListView
+import com.ashlikun.baseproject.libcore.mvp.iview.IBaseSwipeView
 import com.ashlikun.core.BasePresenter
 import com.ashlikun.core.activity.BaseActivity
 import com.ashlikun.core.iview.IBaseView
@@ -10,9 +13,6 @@ import com.ashlikun.okhttputils.http.OkHttpUtils
 import com.ashlikun.utils.AppUtils
 import com.ashlikun.xrecycleview.RefreshLayout
 import com.ashlikun.xrecycleview.StatusChangListener
-import com.lingyun.client.libcore.R
-import com.lingyun.client.libcore.mvp.iview.IBaseListView
-import com.lingyun.client.libcore.mvp.iview.IBaseSwipeView
 
 /**
  * 作者　　: 李坤
@@ -88,7 +88,7 @@ class HttpCallbackHandle private constructor() {
      *
      * 方法功能：设置View的使能
      */
-    fun setEnableView(enable: Boolean) {
+    fun goSetEnableView(enable: Boolean) {
         enableView?.forEach { it.isEnabled = enable }
     }
 

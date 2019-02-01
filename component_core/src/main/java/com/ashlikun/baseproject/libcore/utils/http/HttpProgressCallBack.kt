@@ -1,4 +1,4 @@
-package com.lingyun.client.libcore.utils.http
+package com.ashlikun.baseproject.libcore.utils.http
 
 import com.ashlikun.core.iview.IProgressView
 import com.ashlikun.okhttputils.http.callback.ProgressCallBack

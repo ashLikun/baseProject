@@ -12,7 +12,6 @@ import com.ashlikun.baseproject.libcore.constant.RouterKey
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.circleprogress.CircleProgressView
 import com.ashlikun.common.R
-import com.ashlikun.common.mode.javabean.ImageData
 import com.ashlikun.core.activity.BaseActivity
 import com.ashlikun.glideutils.GlideLoad
 import com.ashlikun.photoview.PhotoView
@@ -25,6 +24,7 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.ashlikun.common.mode.javabean.ImageData
 import kotlinx.android.synthetic.main.activity_image_lock.*
 import java.util.*
 

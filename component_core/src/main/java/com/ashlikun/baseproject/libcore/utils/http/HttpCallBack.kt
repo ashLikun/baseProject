@@ -1,6 +1,5 @@
-package com.lingyun.client.libcore.utils.http
+package com.ashlikun.baseproject.libcore.utils.http
 
-import com.ashlikun.baseproject.libcore.R
 import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.okhttputils.http.HttpException
 import com.ashlikun.okhttputils.http.callback.AbsCallback
@@ -8,7 +7,7 @@ import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.utils.other.LogUtils
 import com.ashlikun.utils.other.MainHandle
 import com.ashlikun.utils.ui.SuperToast
-import com.lingyun.client.libcore.R
+import com.ashlikun.baseproject.libcore.R
 
 /**
  * @author　　: 李坤
@@ -19,7 +18,8 @@ import com.lingyun.client.libcore.R
  * 功能介绍：http请求的回调
  */
 
-open class HttpCallBack<ResultType> constructor(private val buider: HttpCallbackHandle = HttpCallbackHandle.get()) : AbsCallback<ResultType>() {
+open class HttpCallBack<ResultType> constructor(private val buider: HttpCallbackHandle = HttpCallbackHandle.get())
+    : AbsCallback<ResultType>() {
     /**
      * 作者　　: 李坤
      * 创建时间: 2017/7/3 13:40
@@ -28,7 +28,7 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
      * 方法功能：请求开始
      */
     override fun onStart() {
-        buider.setEnableView(false)
+        buider.goSetEnableView(false)
         if (buider.swipeRefreshLayout?.isRefreshing == true) {
             return
         }
@@ -48,7 +48,7 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
      */
     override fun onCompleted() {
         LogUtils.e("onCompleted")
-        buider.setEnableView(true)
+        buider.goSetEnableView(true)
         dismissUi()
     }
 
@@ -114,9 +114,9 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
         data.resId = R.drawable.material_service_error
         buider.run {
             if (baseActivity != null) {
-                SuperToast.showErrorMessage("$data.title(错误码:)${data.errCode}")
+                SuperToast.showErrorMessage("${data.title}(错误码:)${data.errCode}")
             } else if (basePresenter?.view != null) {
-                SuperToast.showErrorMessage("$data.title(错误码:)${data.errCode}")
+                SuperToast.showErrorMessage("${data.title}(错误码:)${data.errCode}")
             }
             statusChangListener?.failure()
             if (loadSwitchService != null && isFirstRequest()) {

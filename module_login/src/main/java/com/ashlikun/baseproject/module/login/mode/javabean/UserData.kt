@@ -62,7 +62,7 @@ class UserData {
     fun save(): Boolean {
         try {
             //清除其他登录的用户
-            if (getDbUserData() != null) {
+            if (userData != null) {
                 LiteOrmUtil.get().update(WhereBuilder.create(UserData::class.java).where("isLogin = ?", true), ColumnsValue(arrayOf("isLogin"),
                         arrayOf(false)), ConflictAlgorithm.None)
             }
@@ -87,28 +87,24 @@ class UserData {
         /**
          * 用户对象
          */
-        private var userData: UserData? = null
+        var userData: UserData? = null
+            get() = if (field == null) try {
 
-        fun getUserData(): UserData? {
-            return if (userData == null) getDbUserData() else userData
-        }
-
-        fun getDbUserData(): UserData? {
-            try {
                 val list = LiteOrmUtil.get().query(
                         QueryBuilder(UserData::class.java).where("isLogin=?", true)
                                 .limit(0, 1))
                 if (list == null || list.isEmpty()) {
-                    return null
+                    null
+                } else {
+                    field = list[0]
+                    field
                 }
-                userData = list[0]
-                return userData
             } catch (e: Exception) {
                 e.printStackTrace()
-                return null
+                null
+            } else {
+                field
             }
-        }
-
 
         /**
          * 作者　　: 李坤
@@ -123,7 +119,7 @@ class UserData {
         @JvmOverloads
         fun isLogin(activity: Context? = null, showToast: Boolean = true): Boolean {
             fun isInLogin(): Boolean {
-                getUserData()?.run {
+                userData?.run {
                     return this.isLogin
                 }
                 return false

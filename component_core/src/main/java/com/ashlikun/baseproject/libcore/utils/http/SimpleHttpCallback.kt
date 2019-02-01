@@ -1,9 +1,10 @@
-package com.lingyun.client.libcore.utils.http
+package com.ashlikun.baseproject.libcore.utils.http
 
 import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.okhttputils.http.HttpException
 import com.ashlikun.okhttputils.http.cache.CacheEntity
 import com.ashlikun.okhttputils.http.response.HttpResponse
+import com.ashlikun.okhttputils.http.response.HttpResult
 import com.ashlikun.utils.ui.SuperToast
 
 /**
@@ -13,44 +14,54 @@ import com.ashlikun.utils.ui.SuperToast
  *
  * 功能介绍：实现HttpCallBack
  */
-class SimpleHttpCallback<ResultType>(private val buider: HttpCallbackHandle = HttpCallbackHandle.get())
-    : HttpCallBack<ResultType>(buider) {
-    var success: ((result: ResultType) -> Unit)? = null
+open class SimpleHttpCallback<T> constructor(buider: HttpCallbackHandle = HttpCallbackHandle.get())
+    : HttpCallBack<T>(buider) {
+    var success: ((result: T) -> Unit)? = null
     /**
      * 接口成功了但是code错误
      */
-    var noSuccess: ((result: ResultType) -> Unit)? = null
+    var noSuccess: ((result: T) -> Unit)? = null
     /**
      * 成功后的ui处理
      * @return 是否对错误信息处理
      */
-    var successHanderError: ((result: ResultType) -> Boolean)? = null
+    var successHanderError: ((result: T) -> Boolean)? = null
     /**
      * 子线程执行,对结果进一步处理
      */
-    var successSubThread: ((result: ResultType) -> Unit)? = null
+    var successSubThread: ((result: T) -> Unit)? = null
     /**
      * 缓存返回成功
      */
-    var cacheSuccess: ((entity: CacheEntity, result: ResultType) -> Unit)? = null
+    var cacheSuccess: ((entity: CacheEntity, result: T) -> Unit)? = null
     /**
      * 成功后处理code
      */
-    var successHandelCode: ((result: ResultType) -> Boolean)? = null
+    var successHandelCode: ((result: T) -> Boolean)? = null
     var completed: (() -> Unit)? = null
     var start: (() -> Unit)? = null
     var error: ((error: HttpException) -> Unit)? = null
     var errorData: ((data: ContextData) -> Unit)? = null
 
-    override fun onSuccess(result: ResultType) {
+    override fun onSuccess(result: T) {
         super.onSuccess(result)
         if (result is HttpResponse) {
-            if (result.isSucceed) {
-                success?.invoke(result)
-            } else if (noSuccess == null) {
-                SuperToast.showErrorMessage(result.getMessage())
-            } else {
-                noSuccess?.invoke(result)
+            when {
+                result.isSucceed ->
+                    if (result is HttpResult<*>) {
+                        if ((result as HttpResult<*>).data != null) {
+                            success?.invoke(result)
+                        } else if (noSuccess == null) {
+                            SuperToast.showErrorMessage("数据错误!")
+                        } else {
+                            noSuccess?.invoke(result)
+                        }
+                    } else {
+                        success?.invoke(result)
+                    }
+
+                noSuccess == null -> SuperToast.showErrorMessage(result.getMessage())
+                else -> noSuccess?.invoke(result)
             }
         } else {
             success?.invoke(result)
@@ -58,23 +69,23 @@ class SimpleHttpCallback<ResultType>(private val buider: HttpCallbackHandle = Ht
 
     }
 
-    override fun onSuccess(result: ResultType, isHanderError: Boolean) {
+    override fun onSuccess(result: T, isHanderError: Boolean) {
         if (successHanderError?.invoke(result) != false) {
             super.onSuccess(result, isHanderError)
         }
     }
 
-    override fun onSuccessSubThread(result: ResultType) {
+    override fun onSuccessSubThread(result: T) {
         super.onSuccessSubThread(result)
         successSubThread?.invoke(result)
     }
 
-    override fun onCacheSuccess(entity: CacheEntity, result: ResultType) {
+    override fun onCacheSuccess(entity: CacheEntity, result: T) {
         super.onCacheSuccess(entity, result)
         cacheSuccess?.invoke(entity, result)
     }
 
-    override fun onSuccessHandelCode(result: ResultType): Boolean {
+    override fun onSuccessHandelCode(result: T): Boolean {
         return successHandelCode?.invoke(result) != false && super.onSuccessHandelCode(result)
     }
 

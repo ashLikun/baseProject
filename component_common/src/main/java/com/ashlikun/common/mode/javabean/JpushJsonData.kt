@@ -1,19 +1,11 @@
 package com.ashlikun.common.mode.javabean
 
 import android.content.Intent
-import com.ashlikun.baseproject.libcore.constant.EvenBusKey
-import com.ashlikun.baseproject.libcore.constant.SpKey
-import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 import com.ashlikun.gson.GsonHelper
-import com.ashlikun.livedatabus.EventBus
-import com.ashlikun.orm.LiteOrmUtil
 import com.ashlikun.orm.db.annotation.Ignore
 import com.ashlikun.orm.db.annotation.PrimaryKey
 import com.ashlikun.orm.db.annotation.Table
-import com.ashlikun.orm.db.assit.QueryBuilder
 import com.ashlikun.orm.db.enums.AssignType
-import com.ashlikun.utils.AppUtils
-import com.ashlikun.utils.other.SharedPreUtils
 import com.google.gson.JsonSyntaxException
 
 /**
@@ -73,20 +65,20 @@ class JpushJsonData {
      * 保存最新的数据
      */
     fun save() {
-        RouterManage.getLogin().run {
-            if (isLogin()) {
-                userId = getUserId()
-                LiteOrmUtil.get().save(this)
-                addOrRemove(true)
-                EventBus.get(EvenBusKey.EVENBUS_JPUSH_RECEIVER_SAVE).post(this)
-            }
-        }
+//        RouterManage.getLogin().run {
+//            if (isLogin()) {
+//                userId = getUserId()
+//                LiteOrmUtil.get().save(this)
+//                addOrRemove(true)
+//                EventBus.get(EvenBusKey.EVENBUS_JPUSH_RECEIVER_SAVE).post(this)
+//            }
+//        }
     }
 
     companion object {
 
         fun getJpushData(intent: Intent): JpushJsonData? {
-            val action = intent.action
+//            val action = intent.action
 //            val bundle = intent.extras
 //            val EXTRA_EXTRA = bundle!!.getString(JPushInterface.EXTRA_EXTRA)
 //            val EXTRA_MSG_ID = bundle.getString(JPushInterface.EXTRA_MSG_ID)
@@ -94,24 +86,24 @@ class JpushJsonData {
 //                return null
 //            }
 //            val extra = JpushJsonData.jsonParse(EXTRA_EXTRA)
-//            extra.msgId = EXTRA_MSG_ID
+//            extra?.msgId = EXTRA_MSG_ID
 //            // extra.contentType = bundle.getString(JPushInterface.EXTRA_CONTENT_TYPE);
 //            //自定义消息
-//            if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(action)) {
+//            if (JPushInterface.ACTION_MESSAGE_RECEIVED == action) {
 //                //   extra.title = bundle.getString(JPushInterface.EXTRA_TITLE);
 //                //  extra.message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
-//            } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(action) || JPushInterface.ACTION_NOTIFICATION_OPENED.equals(action)) {
-//                extra.title = bundle.getString(JPushInterface.EXTRA_NOTIFICATION_TITLE)
+//            } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED == action || JPushInterface.ACTION_NOTIFICATION_OPENED.equals(action)) {
+//                extra?.title = bundle.getString(JPushInterface.EXTRA_NOTIFICATION_TITLE)
 //                // extra.message = bundle.getString(JPushInterface.EXTRA_ALERT);
-//                extra.notificationID = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID, 0)
+//                extra?.notificationID = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID, 0)
 //            }
-            return JpushJsonData.jsonParse(action)
+            return JpushJsonData.jsonParse("")
         }
 
         fun jsonParse(str: String): JpushJsonData? {
             var data: JpushJsonData? = null
             try {
-                data = GsonHelper.getGson().fromJson(str, JpushJsonData::class.java)
+                data = GsonHelper.getGsonNotNull().fromJson(str, JpushJsonData::class.java)
             } catch (e: JsonSyntaxException) {
                 e.printStackTrace()
             }
@@ -125,28 +117,28 @@ class JpushJsonData {
          * @param isAdd
          */
         fun addOrRemove(isAdd: Boolean) {
-            if (isAdd) {
-                SharedPreUtils.setKeyAndValue(AppUtils.getApp(), SpKey.JPUSH_NUMBER,
-                        SharedPreUtils.getInt(AppUtils.getApp(), SpKey.JPUSH_NUMBER) + 1)
-            } else {
-                val number = SharedPreUtils.getInt(AppUtils.getApp(), SpKey.JPUSH_NUMBER) - 1
-                SharedPreUtils.setKeyAndValue(AppUtils.getApp(), SpKey.JPUSH_NUMBER,
-                        Math.max(number, 0))
-            }
-            EventBus.get(EvenBusKey.EVENBUS_JPUSH_RECEIVER_SAVE).post(JpushJsonData())
+//            if (isAdd) {
+//                SharedPreUtils.setKeyAndValue(AppUtils.getApp(), SpKey.JPUSH_NUMBER,
+//                        SharedPreUtils.getInt(AppUtils.getApp(), SpKey.JPUSH_NUMBER) + 1)
+//            } else {
+//                val number = SharedPreUtils.getInt(AppUtils.getApp(), SpKey.JPUSH_NUMBER) - 1
+//                SharedPreUtils.setKeyAndValue(AppUtils.getApp(), SpKey.JPUSH_NUMBER,
+//                        Math.max(number, 0))
+//            }
+//            EventBus.get(EvenBusKey.EVENBUS_JPUSH_RECEIVER_SAVE).post(JpushJsonData())
         }
 
         /**
          * 清空数据
          */
         fun delete() {
-            RouterManage.getLogin().run {
-                if (isLogin()) {
-                    LiteOrmUtil.get().delete(JpushJsonData::class.java)
-                    SharedPreUtils.setKeyAndValue(AppUtils.getApp(), SpKey.JPUSH_NUMBER, 0)
-                    EventBus.get(EvenBusKey.EVENBUS_JPUSH_RECEIVER_SAVE).post(JpushJsonData())
-                }
-            }
+//            RouterManage.getLogin().run {
+//                if (isLogin()) {
+//                    LiteOrmUtil.get().delete(JpushJsonData::class.java)
+//                    SharedPreUtils.setKeyAndValue(AppUtils.getApp(), SpKey.JPUSH_NUMBER, 0)
+//                    EventBus.get(EvenBusKey.EVENBUS_JPUSH_RECEIVER_SAVE).post(JpushJsonData())
+//                }
+//            }
         }
 
         /**
@@ -155,16 +147,16 @@ class JpushJsonData {
          * @return
          */
         fun getNewestData(): JpushJsonData? {
-            RouterManage.getLogin().run {
-                if (isLogin()) {
-                    try {
-                        return LiteOrmUtil.get().query(QueryBuilder.create(JpushJsonData::class.java)
-                                .whereEquals("userId", getUserId())
-                                .appendOrderAscBy("pushTime"))[0]
-                    } catch (e: Exception) {
-                    }
-                }
-            }
+//            RouterManage.getLogin().run {
+//                if (isLogin()) {
+//                    try {
+//                        return LiteOrmUtil.get().query(QueryBuilder.create(JpushJsonData::class.java)
+//                                .whereEquals("userId", getUserId())
+//                                .appendOrderAscBy("pushTime"))[0]
+//                    } catch (e: Exception) {
+//                    }
+//                }
+//            }
             return null
         }
     }

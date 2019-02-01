@@ -22,7 +22,14 @@ object RouterJump {
     fun topActivity(): Activity {
         return ActivityManager.getInstance().currentActivity()
     }
-
+    /**
+     * 启动App
+     */
+    fun startApp() {
+        ARouter.getInstance().build(RouterPath.WELCOME)
+                .withFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                .navigation()
+    }
     /**
      * 启动引导页
      */

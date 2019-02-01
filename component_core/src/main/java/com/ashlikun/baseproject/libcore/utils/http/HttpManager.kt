@@ -1,11 +1,10 @@
-package com.lingyun.client.libcore.utils.http
+package com.ashlikun.baseproject.libcore.utils.http
 
 import android.app.Activity
 import android.os.Looper
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.callbacks.onDismiss
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
-import com.ashlikun.baseproject.libcore.utils.CacheUtils
 import com.ashlikun.okhttputils.http.OkHttpUtils
 import com.ashlikun.okhttputils.http.response.HttpCode
 import com.ashlikun.okhttputils.http.response.HttpResponse
@@ -13,6 +12,7 @@ import com.ashlikun.utils.other.MainHandle
 import com.ashlikun.utils.other.file.FileUtils
 import com.ashlikun.utils.ui.ActivityManager
 import com.ashlikun.utils.ui.SuperToast
+import com.ashlikun.baseproject.libcore.utils.CacheUtils
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import java.io.File
@@ -26,8 +26,30 @@ import java.util.concurrent.TimeUnit
  * 功能介绍：项目的http管理
  */
 class HttpManager private constructor() {
+    init {
+        OkHttpUtils.init(getOkHttpClientBuilder().build())
+    }
+
     fun getCacheDir(): File {
         return File(CacheUtils.appCachePath, "HttpCache")
+    }
+
+    fun getOkHttpClientBuilder(): OkHttpClient.Builder {
+        //1：手动创建一个OkHttpClient并设置超时时间
+        val builder = OkHttpClient.Builder()
+        builder.retryOnConnectionFailure(true)//链接失败重新链接
+        builder.connectTimeout(OkHttpUtils.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS)//链接超时
+        builder.readTimeout(OkHttpUtils.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS)//读取超时
+        builder.writeTimeout(OkHttpUtils.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS)//写入超时
+        //设置缓存目录
+        val cacheDirectory = getCacheDir()
+        //50M缓存
+        val cache = Cache(cacheDirectory, (50 * 1024 * 1024).toLong())
+        //设置缓存
+        builder.cache(cache)
+        //公共拦截器
+        builder.addInterceptor(MarvelSigningInterceptor())
+        return builder
     }
 
     fun getCacheSize(): Double {
@@ -44,12 +66,16 @@ class HttpManager private constructor() {
         const val BASE_URL = "http://ly.o6o6o.com"
         const val BASE_PATH = "/tools/yapp_tool.ashx"
         /**
+         * 上传图片的地址
+         */
+        const val API_IMAGE_UPLOAD = "$BASE_URL/tools/chat_img.ashx"
+        /**
          * 退出对话框是否显示,防止多次显示
          */
         private var IS_LOGIN_OUT_DIALOG_SHOW = false
 
         private val INSTANCE by lazy {
-            OkHttpUtils.init(getOkHttpClientBuilder().build())
+
             HttpManager()
         }
 
@@ -58,23 +84,6 @@ class HttpManager private constructor() {
             return INSTANCE
         }
 
-        private fun getOkHttpClientBuilder(): OkHttpClient.Builder {
-            //1：手动创建一个OkHttpClient并设置超时时间
-            val builder = OkHttpClient.Builder()
-            builder.retryOnConnectionFailure(true)//链接失败重新链接
-            builder.connectTimeout(OkHttpUtils.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS)//链接超时
-            builder.readTimeout(OkHttpUtils.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS)//读取超时
-            builder.writeTimeout(OkHttpUtils.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS)//写入超时
-            //设置缓存目录
-            val cacheDirectory = INSTANCE.getCacheDir()
-            //50M缓存
-            val cache = Cache(cacheDirectory, (50 * 1024 * 1024).toLong())
-            //设置缓存
-            builder.cache(cache)
-            //公共拦截器
-            builder.addInterceptor(MarvelSigningInterceptor())
-            return builder
-        }
 
         /**
          * 处理成功后的数据code
@@ -95,17 +104,23 @@ class HttpManager private constructor() {
             response?.let {
                 when {
                     response.isSucceed -> return true
-                    response.getCode() == HttpCode.TOKEN_ERROR -> {
+
+                    response.code == HttpCode.TOKEN_ERROR -> {
+
                         RouterManage.getLogin().exit()
                         val activity = ActivityManager.getForegroundActivity()
                         if (activity != null && !activity.isFinishing) {
                             if (Looper.getMainLooper() != Looper.myLooper()) {
-                                MainHandle.get().post { showTokenErrorDialog(activity) }
+                                MainHandle.get().post { showTokenErrorDialog(activity, response.getMessage(), response.code) }
                             } else {
-                                showTokenErrorDialog(activity)
+                                showTokenErrorDialog(activity, response.getMessage(), response.code)
                             }
                         } else {
-                            SuperToast.get("你的账号登陆异常，请重新登陆").error()
+                            SuperToast.get(response.getMessage()).error()
+                            if (response.getCode() == HttpCode.TOKEN_ERROR) {
+                                RouterManage.getLogin().exitLogin(activity)
+                                RouterManage.getLogin().startLogin()
+                            }
                         }
                         return false
                     }
@@ -119,7 +134,7 @@ class HttpManager private constructor() {
             return true
         }
 
-        private fun showTokenErrorDialog(activity: Activity) {
+        public fun showTokenErrorDialog(activity: Activity, message: String, code: Int) {
             if (IS_LOGIN_OUT_DIALOG_SHOW) {
                 return
             }
@@ -128,9 +143,12 @@ class HttpManager private constructor() {
                     .cancelable(false)
                     .onDismiss { IS_LOGIN_OUT_DIALOG_SHOW = false }
                     .show {
-                        message(text = "")
+                        message(text = message)
                         positiveButton(text = "知道了") {
-                            RouterManage.getLogin().exitLogin(activity)
+                            if (code == HttpCode.TOKEN_ERROR) {
+                                RouterManage.getLogin().exitLogin(activity)
+                                RouterManage.getLogin().startLogin()
+                            }
                         }
                     }
         }

@@ -5,7 +5,7 @@ import android.os.Bundle
 import com.ashlikun.baseproject.module.login.iview.IBLoginView
 import com.ashlikun.baseproject.module.login.mode.ApiLogin
 import com.ashlikun.core.BasePresenter
-import com.lingyun.client.libcore.utils.http.HttpCallbackHandle
+import com.ashlikun.baseproject.libcore.utils.http.HttpCallbackHandle
 
 /**
  * @author　　: 李坤

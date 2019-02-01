@@ -62,10 +62,13 @@
 
     <style name="AnimCheckBox.Main">
         <item name="android:layout_width">@dimen/dp_40</item>
-        <item name="ab_circleColor">@color/colorPrimary</item>
-        <item name="ab_hookColor">@color/white</item>
+        <item name="ab_circleColor">@color/white</item>
+        <item name="ab_hookColor">@color/colorPrimary</item>
         <item name="ab_noSelectStrokeColor">@color/gray_99</item>
         <item name="ab_selectStrokeColor">@color/colorPrimary</item>
+        <item name="ab_strokeWidth">1.5dp</item>
+        <item name="android:padding">11dp</item>
+        <item name="ab_isCircle">false</item>
     </style>
 
     <style name="Notification">
@@ -89,10 +92,10 @@
     </style>
 
     <style name="SuperToolBar.Main">
-        <item name="stb_backImgColor">@color/colorPrimary</item>
         <item name="stb_actionTextColor">#ffffff</item>
         <item name="stb_titleColor">#ffffff</item>
-        <item name="android:background">#000000</item>
+        <item name="stb_bottonLineHeight">0dp</item>
+        <item name="android:background">@color/colorPrimary</item>
     </style>
 
 </resources>

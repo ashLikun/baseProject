@@ -7,6 +7,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.libarouter.service.ILoginService
 import com.ashlikun.baseproject.module.login.mode.javabean.UserData
+import com.ashlikun.common.utils.jump.RouterJump
 
 /**
  * 作者　　: 李坤
@@ -18,6 +19,11 @@ import com.ashlikun.baseproject.module.login.mode.javabean.UserData
  */
 @Route(path = RouterPath.SERVICE_LOGIN)
 class LoginServiceIml : ILoginService {
+    override fun startLogin() {
+        RouterJump.startLogin()
+    }
+
+    override fun getUserName(): String = UserData.userData?.userName ?: ""
     internal var context: Context? = null
     override fun init(context: Context) {
         this.context = context
@@ -28,7 +34,7 @@ class LoginServiceIml : ILoginService {
     }
 
     override fun getToken(): String {
-        return UserData.getUserData()?.token ?: ""
+        return UserData.userData?.token ?: ""
     }
 
     override fun exitLogin(activity: Activity) {
@@ -39,8 +45,12 @@ class LoginServiceIml : ILoginService {
         UserData.exit()
     }
 
+    override fun exitShowDialog(activity: Activity) {
+        UserData.exit(activity)
+    }
+
     override fun getUserId(): String {
-        return UserData.getUserData()?.id ?: ""
+        return UserData.userData?.id ?: ""
     }
 
 
