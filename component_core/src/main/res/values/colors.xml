@@ -4,8 +4,8 @@
     <color name="colorPrimaryDark">#ff1e82d2</color>
     <color name="colorAccent">#ff1e82d2</color>
     <color name="status_color">#ff1e82d2</color>
-    <!--//加载对话框圆圈颜色-->
     <color name="basedialog_load_circle_color">#ff1e82d2</color>
-    <!--//布局切换圆圈颜色-->
     <color name="load_and_retry_circle_color">#ff1e82d2</color>
+    <color name="color_38A6FF">#ff38A6FF</color>
+
 </resources>

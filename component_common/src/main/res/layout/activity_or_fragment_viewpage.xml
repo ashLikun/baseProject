@@ -11,7 +11,7 @@
 
         <com.ashlikun.supertoobar.SuperToolBar
             android:id="@+id/toolbar"
-            style="@style/SuperToolBar.White"
+            style="@style/SuperToolBar.Main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|enterAlways">

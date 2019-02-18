@@ -1,6 +1,7 @@
 <resources>
     <!--dp大小-->
     <dimen name="dp_0_7">0.7dp</dimen>
+    <dimen name="dp_0_8">0.8dp</dimen>
     <dimen name="dp_0_3">0.3dp</dimen>
     <dimen name="dp_0_2">0.2dp</dimen>
     <dimen name="px_1">1px</dimen>
