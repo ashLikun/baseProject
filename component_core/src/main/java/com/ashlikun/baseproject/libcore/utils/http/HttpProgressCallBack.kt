@@ -1,6 +1,5 @@
 package com.ashlikun.baseproject.libcore.utils.http
 
-import com.ashlikun.core.iview.IProgressView
 import com.ashlikun.okhttputils.http.callback.ProgressCallBack
 import com.ashlikun.utils.other.LogUtils
 
@@ -31,11 +30,7 @@ abstract class HttpProgressCallBack<ResultType>(private val buider: HttpCallback
         super.dismissUi()
         buider.run {
             if (isShowProgress) {
-                if (baseActivity != null && baseActivity is IProgressView) {
-                    (baseActivity as IProgressView).dismissProgressDialog()
-                } else if (basePresenter?.view is IProgressView) {
-                    (basePresenter?.view as IProgressView).dismissProgressDialog()
-                }
+
             }
         }
         LogUtils.e("dismissUi")
@@ -55,12 +50,9 @@ abstract class HttpProgressCallBack<ResultType>(private val buider: HttpCallback
         buider.run {
             if (isShowProgress) {
                 val percentage = (progress * 100.0 / total).toInt()
-                if (baseActivity is IProgressView) {
-                    (baseActivity as IProgressView).upLoading(percentage, done, isUpdate, isCompress)
-                } else if (basePresenter?.view is IProgressView) {
-                    (basePresenter?.view as IProgressView).upLoading(percentage, done, isUpdate, isCompress)
-                }
+
             }
         }
     }
 }
+

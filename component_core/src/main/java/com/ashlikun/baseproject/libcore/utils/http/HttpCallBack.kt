@@ -58,7 +58,7 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
     open fun dismissUi() {
         buider.run {
             swipeRefreshLayout?.isRefreshing = false
-            val isNoRun = basePresenter?.view == null && baseActivity == null
+            val isNoRun = basePresenter?.view == null && context == null
             if (isNoRun) {
                 return
             }
@@ -113,11 +113,7 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
         }
         data.resId = R.drawable.material_service_error
         buider.run {
-            if (baseActivity != null) {
-                SuperToast.showErrorMessage("${data.title}(错误码:)${data.errCode}")
-            } else if (basePresenter?.view != null) {
-                SuperToast.showErrorMessage("${data.title}(错误码:)${data.errCode}")
-            }
+            SuperToast.showErrorMessage("${data.title}(错误码:)${data.errCode}")
             statusChangListener?.failure()
             if (loadSwitchService != null && isFirstRequest()) {
                 loadSwitchService?.showRetry(data)

@@ -1,16 +1,21 @@
 package com.ashlikun.baseproject.libcore.utils.http
 
+import android.app.Activity
+import android.content.Context
+import android.support.v4.app.Fragment
 import android.view.View
 import com.ashlikun.baseproject.libcore.R
 import com.ashlikun.baseproject.libcore.mvp.iview.IBaseListView
 import com.ashlikun.baseproject.libcore.mvp.iview.IBaseSwipeView
 import com.ashlikun.core.BasePresenter
-import com.ashlikun.core.activity.BaseActivity
 import com.ashlikun.core.iview.IBaseView
+import com.ashlikun.customdialog.LoadDialog
 import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.loadswitch.LoadSwitchService
 import com.ashlikun.okhttputils.http.OkHttpUtils
 import com.ashlikun.utils.AppUtils
+import com.ashlikun.utils.other.StringUtils
+import com.ashlikun.utils.ui.ResUtils
 import com.ashlikun.xrecycleview.RefreshLayout
 import com.ashlikun.xrecycleview.StatusChangListener
 
@@ -25,6 +30,7 @@ import com.ashlikun.xrecycleview.StatusChangListener
  * 3生命周期
  * 4失效view
  */
+
 class HttpCallbackHandle private constructor() {
     /**
      * 对话框提示的文本  空就不显示对话框
@@ -64,7 +70,11 @@ class HttpCallbackHandle private constructor() {
      * tag类
      */
     internal var basePresenter: BasePresenter<*>? = null
-    internal var baseActivity: BaseActivity? = null
+    internal var context: Context? = null
+    /**
+     * 加载框
+     */
+    internal var loadDialog: LoadDialog? = null
 
     /**
      * 在当前页面是否第一次请求
@@ -73,13 +83,13 @@ class HttpCallbackHandle private constructor() {
      */
     fun isFirstRequest() = count() <= 1
 
-    fun getTag() = baseActivity ?: basePresenter
+    fun getTag() = context ?: basePresenter
 
     /**
      * 统计同一个tag的请求数量
      */
     fun count(): Long {
-        return OkHttpUtils.getInstance().countRequest(baseActivity, basePresenter)
+        return OkHttpUtils.getInstance().countRequest(context, basePresenter)
     }
 
     /**
@@ -141,13 +151,13 @@ class HttpCallbackHandle private constructor() {
         return this
     }
 
-    fun setBasePresenter(basePresenter: BasePresenter<*>): HttpCallbackHandle {
+    fun setPresenter(basePresenter: BasePresenter<*>): HttpCallbackHandle {
         this.basePresenter = basePresenter
         return this
     }
 
-    fun setBaseActivity(baseActivity: BaseActivity): HttpCallbackHandle {
-        this.baseActivity = baseActivity
+    fun setContext(context: Context): HttpCallbackHandle {
+        this.context = context
         return this
     }
 
@@ -207,24 +217,36 @@ class HttpCallbackHandle private constructor() {
 
     fun showDialog() {
         if (isShowLoadding) {
-            if (baseActivity != null) {
-                baseActivity?.showProgress(hint, isCancelable)
-            } else {
-                basePresenter?.view?.showProgress(hint, isCancelable)
+            if (getActivity()?.isFinishing == false) {
+                if (loadDialog == null) {
+                    loadDialog = LoadDialog(getActivity())
+                }
+                loadDialog?.run {
+                    setContent(StringUtils.dataFilter(hint, (ResUtils.getString(R.string.loadding))))
+                    setCancelable(isCancelable)
+                    try {
+                        show()
+                    } catch (e: Exception) {
+                    }
+                }
             }
         }
     }
+
 
     fun showLoading() {
         loadSwitchService?.showLoading(ContextData(hint))
     }
 
     fun hintProgress() {
-        if (baseActivity != null) {
-            baseActivity?.hintProgress()
-        } else {
-            basePresenter?.view?.hintProgress()
-        }
+        loadDialog?.dismiss()
+    }
+
+    private fun getActivity(): Activity? = when {
+        context != null && context is Activity -> context as Activity
+        (basePresenter?.view != null && basePresenter?.view is Activity) -> basePresenter?.view as Activity
+        (basePresenter?.view != null && basePresenter?.view is Fragment) -> (basePresenter?.view as Fragment).activity
+        else -> null
     }
 
     companion object {
@@ -235,9 +257,9 @@ class HttpCallbackHandle private constructor() {
             return buider
         }
 
-        operator fun get(baseActivity: BaseActivity): HttpCallbackHandle {
+        operator fun get(context: Context): HttpCallbackHandle {
             val buider = get()
-            buider.baseActivity = baseActivity
+            buider.context = context
             return buider
         }
 
