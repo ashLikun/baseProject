@@ -68,7 +68,7 @@ ext {
             //封装的viewpager，banner，启动页
             XViewPager             : "com.github.ashLikun:XViewPager:1.4.1",
             //公共的工具
-            CommonUtils            : "com.github.ashLikun:CommonUtils:1.9.5",
+            CommonUtils            : "com.github.ashLikun:CommonUtils:1.9.7",
             //公共的Adapter
             CommonAdapter          : "com.github.ashLikun.CommonAdapter:adapter:2.0.5",
             //TabLayout exclude group: 'com.android.support'
@@ -76,7 +76,7 @@ ext {
             //阿里的vlayout
             vlayout                : "com.alibaba.android:vlayout:1.2.18@aar",
             //习惯的对话框
-            CustomDialog           : "com.github.ashLikun:CustomDialog:1.1.8",
+            CustomDialog           : "com.github.ashLikun:CustomDialog:1.1.9",
             //圆形的进度条
             CircleProgressView     : "com.github.ashLikun:CircleProgressView:1.0.1",
             //布局切换

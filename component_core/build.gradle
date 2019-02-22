@@ -60,9 +60,11 @@ dependencies {
     api libs.kotlin
     api libs.design
 
-    //api
+    //mvp
     api libs.CustomMvp
     api libs.multidex
+    //约束布局
+    api libs.ConstraintLayout
 
     //alibaba的路由框架
     api libs.arouterapi
