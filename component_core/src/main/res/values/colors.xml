@@ -5,9 +5,9 @@
     <color name="colorAccent">#ff1e82d2</color>
     <color name="status_color">#ff1e82d2</color>
     <!--加载框背景-->
-    <color name="dialog_load_back_color">#b3000000</color>
+    <color name="dialog_load_back_color">#90ffffff</color>
     <!--加载框标题-->
-    <color name="dialog_load_title_color">#ff555555</color>
+    <color name="dialog_load_title_color">#ff1e82d2</color>
     <!--加载框圆圈颜色-->
     <color name="dialog_load_circle_color">#ff1e82d2</color>
     <color name="load_and_retry_circle_color">#ff1e82d2</color>
