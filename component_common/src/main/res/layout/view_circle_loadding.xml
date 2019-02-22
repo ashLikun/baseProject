@@ -7,6 +7,6 @@
     android:layout_centerVertical="true"
     app:cpv_angleAnimationDurationMillis="@integer/circle_default_angleAnimationDuration"
     app:cpv_borderWidth="2dp"
-    app:cpv_color="@color/basedialog_load_circle_color"
+    app:cpv_color="@color/dialog_load_circle_color"
     app:cpv_sweepAnimationDurationMillis="@integer/circle_default_sweepAnimationDuration" />
 
