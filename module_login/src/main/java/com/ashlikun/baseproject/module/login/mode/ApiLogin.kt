@@ -1,12 +1,13 @@
 package com.ashlikun.baseproject.module.login.mode
 
+import com.ashlikun.baseproject.libcore.utils.http.BaseApiService
+import com.ashlikun.baseproject.libcore.utils.http.HttpCallbackHandle
+import com.ashlikun.baseproject.libcore.utils.http.HttpRequestParam
+import com.ashlikun.baseproject.libcore.utils.http.SimpleHttpCallback
 import com.ashlikun.baseproject.module.login.mode.javabean.UserData
 import com.ashlikun.okhttputils.http.ExecuteCall
 import com.ashlikun.okhttputils.http.callback.Callback
 import com.ashlikun.okhttputils.http.response.HttpResult
-import com.ashlikun.baseproject.libcore.utils.http.BaseApiService
-import com.ashlikun.baseproject.libcore.utils.http.HttpCallbackHandle
-import com.ashlikun.baseproject.libcore.utils.http.HttpRequestParam
 
 /**
  * 作者　　: 李坤
@@ -80,9 +81,12 @@ class ApiLogin private constructor() : BaseApiService() {
     /**
      *
      */
-    fun test2(telphone: String, callback: Callback<*>): ExecuteCall {
-        val p = HttpRequestParam("log.php")
-        p.addParam("username", telphone)
+    fun test(handle: HttpCallbackHandle,
+             success: (result: HttpResult<String>) -> Unit): ExecuteCall {
+        val callback = object : SimpleHttpCallback<HttpResult<String>>(handle) {}
+        callback.success = success
+
+        val p = HttpRequestParam("index")
         return execute(p, callback)
     }
 

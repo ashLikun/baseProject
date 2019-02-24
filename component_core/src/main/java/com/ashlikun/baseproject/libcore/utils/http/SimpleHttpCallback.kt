@@ -49,12 +49,10 @@ open class SimpleHttpCallback<T> constructor(buider: HttpCallbackHandle = HttpCa
             when {
                 result.isSucceed ->
                     if (result is HttpResult<*>) {
-                        if ((result as HttpResult<*>).data != null) {
-                            success?.invoke(result)
-                        } else if (noSuccess == null) {
-                            SuperToast.showErrorMessage("数据错误!")
-                        } else {
-                            noSuccess?.invoke(result)
+                        when {
+                            (result as HttpResult<*>).data != null -> success?.invoke(result)
+                            noSuccess == null -> SuperToast.showErrorMessage("数据错误!")
+                            else -> noSuccess?.invoke(result)
                         }
                     } else {
                         success?.invoke(result)

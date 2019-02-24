@@ -1,10 +1,12 @@
 package com.ashlikun.common.mode
 
+import com.ashlikun.baseproject.libcore.utils.http.BaseApiService
+import com.ashlikun.baseproject.libcore.utils.http.HttpCallbackHandle
+import com.ashlikun.baseproject.libcore.utils.http.HttpRequestParam
+import com.ashlikun.baseproject.libcore.utils.http.SimpleHttpCallback
 import com.ashlikun.okhttputils.http.ExecuteCall
 import com.ashlikun.okhttputils.http.callback.Callback
-import com.ashlikun.baseproject.libcore.utils.http.BaseApiService
-import com.ashlikun.baseproject.libcore.utils.http.HttpCallBack
-import com.ashlikun.baseproject.libcore.utils.http.HttpRequestParam
+import com.ashlikun.okhttputils.http.response.HttpResult
 
 /**
  * 作者　　: 李坤
@@ -19,22 +21,6 @@ class ApiCommon private constructor() : BaseApiService() {
     companion object {
         val api by lazy { ApiCommon() }
     }
-
-    /**
-     * 1用户获取短信验证码
-     * action:user_login_sms
-     *
-     * @param phone    手机号
-     * @param type     type=1（操作类型：1手机号登录2微信登录3更换手机号）
-     * @param callback
-     */
-    fun sendCode(phone: String, type: Int, callback: HttpCallBack<*>): ExecuteCall {
-        val p = HttpRequestParam("user_login_sms")
-        p.addParam("mobile", phone)
-        p.addParam("type", type)
-        return execute(p, callback)
-    }
-
 
     /**
      * 2用户输入手机验证码
@@ -71,9 +57,12 @@ class ApiCommon private constructor() : BaseApiService() {
     /**
      *
      */
-    fun test(telphone: String, callback: Callback<*>): ExecuteCall {
-        val p = HttpRequestParam("log.php")
-        p.addParam("username", telphone)
+    fun test(handle: HttpCallbackHandle,
+             success: (result: HttpResult<String>) -> Unit): ExecuteCall {
+        val callback = object : SimpleHttpCallback<HttpResult<String>>(handle) {}
+        callback.success = success
+
+        val p = HttpRequestParam("index")
         return execute(p, callback)
     }
 

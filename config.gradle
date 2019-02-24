@@ -2,7 +2,7 @@ ext {
 
 
     superVersion = "28.+"
-    frameVersion = "2.6.6"
+    frameVersion = "2.6.9"
     android = [
             applicationId    : "com.ashlikun.baseproject",
             compileSdkVersion: 28,
@@ -44,7 +44,7 @@ ext {
             //约束布局
             ConstraintLayout       : "com.android.support.constraint:constraint-layout:2.0.0-alpha3",
             //基本架构
-            CustomMvp              : "com.github.ashLikun:CustomMvp:1.4.8",
+            CustomMvp              : "com.github.ashLikun:CustomMvp:1.4.9",
             multidex               : "com.android.support:multidex:1.0.2",
             //webview封装
             XWebView               : "com.github.ashLikun.XWebView:core:1.0.0",

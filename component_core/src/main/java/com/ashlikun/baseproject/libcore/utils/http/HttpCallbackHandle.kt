@@ -2,7 +2,6 @@ package com.ashlikun.baseproject.libcore.utils.http
 
 import android.app.Activity
 import android.content.Context
-import android.support.v4.app.Fragment
 import android.view.View
 import com.ashlikun.baseproject.libcore.R
 import com.ashlikun.baseproject.libcore.mvp.iview.IBaseListView
@@ -14,6 +13,7 @@ import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.loadswitch.LoadSwitchService
 import com.ashlikun.okhttputils.http.OkHttpUtils
 import com.ashlikun.utils.AppUtils
+import com.ashlikun.utils.main.ActivityUtils
 import com.ashlikun.utils.other.StringUtils
 import com.ashlikun.utils.ui.ResUtils
 import com.ashlikun.xrecycleview.RefreshLayout
@@ -40,7 +40,7 @@ class HttpCallbackHandle private constructor() {
     /**
      * 失效的View
      */
-    internal var enableView: Array<out View>? = null
+    internal var enableView: Array<out View?>? = null
     /**
      * 对话框是否可以取消
      */
@@ -99,7 +99,7 @@ class HttpCallbackHandle private constructor() {
      * 方法功能：设置View的使能
      */
     fun goSetEnableView(enable: Boolean) {
-        enableView?.forEach { it.isEnabled = enable }
+        enableView?.forEach { it?.isEnabled = enable }
     }
 
 
@@ -115,7 +115,7 @@ class HttpCallbackHandle private constructor() {
     }
 
 
-    fun setEnableView(vararg view: View): HttpCallbackHandle {
+    fun setEnableView(vararg view: View?): HttpCallbackHandle {
         this.enableView = view
         return this
     }
@@ -242,11 +242,12 @@ class HttpCallbackHandle private constructor() {
         loadDialog?.dismiss()
     }
 
-    private fun getActivity(): Activity? = when {
-        context != null && context is Activity -> context as Activity
-        (basePresenter?.view != null && basePresenter?.view is Activity) -> basePresenter?.view as Activity
-        (basePresenter?.view != null && basePresenter?.view is Fragment) -> (basePresenter?.view as Fragment).activity
-        else -> null
+    private fun getActivity(): Activity? {
+        var activity: Activity? = ActivityUtils.getActivity(context)
+        if (activity == null) {
+            activity = basePresenter?.activity
+        }
+        return activity
     }
 
     companion object {
