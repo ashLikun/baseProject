@@ -2,14 +2,12 @@ package com.ashlikun.baseproject.libcore.mvp.view
 
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import com.ashlikun.adapter.recyclerview.CommonAdapter
+import com.ashlikun.adapter.recyclerview.BaseAdapter
 import com.ashlikun.adapter.recyclerview.click.OnItemClickListener
 import com.ashlikun.core.BasePresenter
-import com.ashlikun.core.R
 import com.ashlikun.core.activity.BaseMvpActivity
 import com.ashlikun.loadswitch.OnLoadSwitchClick
 import com.ashlikun.xrecycleview.SuperRecyclerView
-import com.ashlikun.xrecycleview.divider.HorizontalDividerItemDecoration
 import com.ashlikun.xrecycleview.listener.RecycleViewSwipeListener
 
 /**
@@ -21,41 +19,53 @@ import com.ashlikun.xrecycleview.listener.RecycleViewSwipeListener
  */
 abstract class BaseListActivity<P : BasePresenter<*>, D> : BaseMvpActivity<P>()
         , RecycleViewSwipeListener, OnItemClickListener<D>, OnLoadSwitchClick {
-    protected val listSwipeView by lazy { getSuperRecyclerView() }
-    protected var commonAdapter: CommonAdapter<*>? = null
+    abstract val itemDecoration: RecyclerView.ItemDecoration?
+    abstract val adapter: RecyclerView.Adapter<*>?
+    override fun baseInitView() {
+        super.baseInitView()
+        getSuperRecyclerView().run {
+            if (itemDecoration != null) {
+                recyclerView.addItemDecoration(itemDecoration!!)
+            }
+            recyclerView.layoutManager = layoutManager
+            setAdapter(adapter)
+            setOnRefreshListener(this@BaseListActivity)
+            setOnLoaddingListener(this@BaseListActivity)
+        }
+        if (adapter is BaseAdapter<*, *>) {
+            (adapter as BaseAdapter<*, *>)?.setOnItemClickListener(this)
+        }
 
+    }
+
+    abstract fun getSuperRecyclerView(): SuperRecyclerView
+    override fun getSwitchRoot() = getSuperRecyclerView()
     val layoutManager: RecyclerView.LayoutManager
         get() = LinearLayoutManager(context)
 
-    private fun getSuperRecyclerView(): SuperRecyclerView = f(R.id.switchRoot)
 
-
-    override fun baseInitView() {
-        super.baseInitView()
-        commonAdapter = getAdapter()
-        if (itemDecoration != null) {
-            listSwipeView.recyclerView.addItemDecoration(itemDecoration!!)
+    fun clearData() {
+        if (adapter is BaseAdapter<*, *>) {
+            (adapter as BaseAdapter<*, *>)?.clearData()
         }
-        listSwipeView.recyclerView.layoutManager = layoutManager
-        listSwipeView.setAdapter(commonAdapter)
-        listSwipeView.setOnRefreshListener(this)
-        listSwipeView.setOnLoaddingListener(this)
-        commonAdapter?.setOnItemClickListener(this)
     }
 
-    abstract fun getAdapter(): CommonAdapter<*>?
-    abstract val itemDecoration: RecyclerView.ItemDecoration?
-
-    fun clearData() {}
+    fun notifyChanged() {
+        if (adapter is BaseAdapter<*, *>) {
+            (adapter as BaseAdapter<*, *>)?.notifyDataSetChanged()
+        }
+    }
 
     fun clearPaging() {
-        listSwipeView.pageHelp.clear()
+        getSuperRecyclerView().pageHelp?.clear()
     }
 
-    fun getSwipeRefreshLayout() = listSwipeView.getRefreshLayout()
+    fun getSwipeRefreshLayout() = getSuperRecyclerView().getRefreshLayout()
 
 
-    fun getPageHelp() = listSwipeView.pageHelp
+    fun getPageHelp() = getSuperRecyclerView().pageHelp
 
-    fun currentPage() = listSwipeView.pageHelp.currentPage
+    fun getPageindex() = getPageHelp().currentPage
+
+    fun getPageCount() = getSuperRecyclerView().pageHelp.currentPage
 }
