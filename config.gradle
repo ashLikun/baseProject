@@ -68,7 +68,7 @@ ext {
             //封装的viewpager，banner，启动页
             XViewPager             : "com.github.ashLikun:XViewPager:1.4.1",
             //公共的工具
-            CommonUtils            : "com.github.ashLikun:CommonUtils:1.9.7",
+            CommonUtils            : "com.github.ashLikun:CommonUtils:2.0.6",
             //公共的Adapter
             CommonAdapter          : "com.github.ashLikun.CommonAdapter:adapter:2.0.5",
             //TabLayout exclude group: 'com.android.support'
@@ -126,7 +126,7 @@ ext {
             //微信分享，登录sdk
             wechat                 : "com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+",
             //扫码
-            ZxingUtils             : "com.github.ashLikun:ZxingUtils:1.0.4",
+            ZxingUtils             : "com.github.ashLikun:ZxingUtils:1.0.5",
             ZxingCore              : "com.google.zxing:core:3.3.0",
             EasyPay                : "com.github.ashLikun:EasyPay:1.2.3",
             //自动缩放字体大小
