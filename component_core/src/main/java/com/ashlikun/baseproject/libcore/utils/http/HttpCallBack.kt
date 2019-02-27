@@ -1,5 +1,6 @@
 package com.ashlikun.baseproject.libcore.utils.http
 
+import com.ashlikun.baseproject.libcore.R
 import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.okhttputils.http.HttpException
 import com.ashlikun.okhttputils.http.callback.AbsCallback
@@ -7,7 +8,8 @@ import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.utils.other.LogUtils
 import com.ashlikun.utils.other.MainHandle
 import com.ashlikun.utils.ui.SuperToast
-import com.ashlikun.baseproject.libcore.R
+import java.lang.reflect.*
+import java.lang.reflect.Array
 
 /**
  * @author　　: 李坤
@@ -192,5 +194,70 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
     }
 
     fun getTag(): Any? = buider.getTag()
+    /**
+     * 获取当前泛型内部data->list或者数组
+     */
+    protected fun getListOrArray(): Any? {
+        try {
+            var res = classToListOrArray(this::class.java.genericSuperclass)
+            return res?.newInstance()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return null
+    }
 
+    private fun classToListOrArray(superClass: Type?): Class<*>? {
+        if (superClass is ParameterizedType && superClass.actualTypeArguments?.isNullOrEmpty() == false) {
+            var type1 = superClass.actualTypeArguments[0]
+            return when {
+                isTypeToListOrArray(type1) -> getRawType(type1)
+                type1 is Class<*> -> classToListOrArray(type1.genericSuperclass)
+                else -> classToListOrArray(type1)
+            }
+        } else if (superClass is Class<*>) {
+            return classToListOrArray(superClass.genericSuperclass)
+        }
+        return null
+    }
+
+    /**
+     * 这个type类型是否是List或者数组
+     */
+    private fun isTypeToListOrArray(type: Type?): Boolean {
+        return when (type) {
+            is Class<*> -> type == List::class.java || type == Array::class.java
+            is ParameterizedType -> type.rawType == List::class.java || type.rawType == Array::class.java
+            is GenericArrayType -> true
+            is WildcardType -> isTypeToListOrArray(type.upperBounds[0])
+            else -> false
+        }
+    }
+// type不能直接实例化对象，通过type获取class的类型，然后实例化对象
+
+    protected fun getRawType(type: Type?): Class<*> {
+        when (type) {
+            is Class<*> -> return type
+            is ParameterizedType -> {
+                //防止list为null
+                if (type.rawType == List::class.java) {
+                    return ArrayList::class.java
+                }
+                val parameterizedType = type as ParameterizedType?
+                val rawType = parameterizedType!!.rawType
+                return rawType as Class<*>
+            }
+            is GenericArrayType -> {
+                val componentType = type.genericComponentType
+                return Array.newInstance(getRawType(componentType), 0).javaClass
+            }
+            is TypeVariable<*> -> return Any::class.java
+            is WildcardType -> return getRawType(type.upperBounds[0])
+            else -> {
+                val className = if (type == null) "null" else type.javaClass.name
+                throw IllegalArgumentException("Expected a Class, ParameterizedType, or GenericArrayType, but <$type> is of type $className")
+            }
+        }
+    }
 }
+

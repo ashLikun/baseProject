@@ -11,6 +11,9 @@
     <!--加载框圆圈颜色-->
     <color name="dialog_load_circle_color">#ff1e82d2</color>
     <color name="load_and_retry_circle_color">#ff1e82d2</color>
-    <color name="color_38A6FF">#ff38A6FF</color>
+    <color name="super_toast_color_info">#ff1e82d2</color>
+    <color name="super_toast_color_confirm">#CC4caf50</color>
+    <color name="super_toast_color_warning">#CCdd8500</color>
+    <color name="super_toast_color_error">#CCFF0000</color>
 
 </resources>

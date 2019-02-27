@@ -49,6 +49,9 @@ open class SimpleHttpCallback<T> constructor(buider: HttpCallbackHandle = HttpCa
             when {
                 result.isSucceed ->
                     if (result is HttpResult<*>) {
+                        if ((result as HttpResult<*>).data == null) {
+                            (result as HttpResult<*>).data = getListOrArray()
+                        }
                         when {
                             (result as HttpResult<*>).data != null -> success?.invoke(result)
                             noSuccess == null -> SuperToast.showErrorMessage("数据错误!")
@@ -66,6 +69,7 @@ open class SimpleHttpCallback<T> constructor(buider: HttpCallbackHandle = HttpCa
         }
 
     }
+
 
     override fun onSuccess(result: T, isHanderError: Boolean) {
         if (successHanderError?.invoke(result) != false) {
