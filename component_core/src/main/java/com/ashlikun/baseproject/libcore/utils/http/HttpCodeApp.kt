@@ -9,15 +9,9 @@ package com.ashlikun.baseproject.libcore.utils.http
  */
 object HttpCodeApp {
     /**
-     * 未登录（出现此状态，可跳转页面进入登录页）
+     * 没有DATA错误
      */
-    const val NO_LOGIN = 699
-    /**
-     * 未实名认证（出现此状态，可跳转页面进入实名认证页面）
-     */
-    const val NO_SHIMING = 698
-    /**
-     * 无可用客服，客户在进入聊天页面获取此状态 通知一下并返回上一页
-     */
-    const val NO_KEFU = 777
+    const val NO_DATA_ERROR = 1000
+    const val NO_DATA_ERROR_MSG = "数据错误"
+
 }

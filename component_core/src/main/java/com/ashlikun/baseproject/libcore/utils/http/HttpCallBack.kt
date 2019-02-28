@@ -110,7 +110,7 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
         LogUtils.wtf(error)
         val data = ContextData()
         with(error) {
-            data.title = message()
+            data.title = "${message()}(错误码:)${code()}"
             data.errCode = code()
         }
         data.resId = R.drawable.material_service_error
@@ -227,7 +227,13 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
     private fun isTypeToListOrArray(type: Type?): Boolean {
         return when (type) {
             is Class<*> -> type == List::class.java || type == Array::class.java
-            is ParameterizedType -> type.rawType == List::class.java || type.rawType == Array::class.java
+            is ParameterizedType -> {
+                if (type.rawType is Class<*>) {
+                    if (List::class.java.isAssignableFrom((type.rawType as Class<*>))) {
+                        true
+                    } else Array::class.java.isAssignableFrom((type.rawType as Class<*>))
+                } else type == List::class.java || type == ArrayList::class.java || type == kotlin.Array<Any>::class.java
+            }
             is GenericArrayType -> true
             is WildcardType -> isTypeToListOrArray(type.upperBounds[0])
             else -> false
@@ -240,8 +246,12 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
             is Class<*> -> return type
             is ParameterizedType -> {
                 //防止list为null
-                if (type.rawType == List::class.java) {
-                    return ArrayList::class.java
+                if (type.rawType is Class<*>) {
+                    if (List::class.java.isAssignableFrom((type.rawType as Class<*>))) {
+                        return ArrayList::class.java
+                    }
+                } else if (type == List::class.java || type == ArrayList::class.java || type == kotlin.Array<Any>::class.java) {
+                    return kotlin.Array<Any>::class.java
                 }
                 val parameterizedType = type as ParameterizedType?
                 val rawType = parameterizedType!!.rawType
@@ -260,4 +270,3 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
         }
     }
 }
-

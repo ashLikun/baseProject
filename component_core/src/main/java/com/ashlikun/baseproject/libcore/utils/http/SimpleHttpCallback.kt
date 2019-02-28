@@ -18,9 +18,12 @@ open class SimpleHttpCallback<T> constructor(buider: HttpCallbackHandle = HttpCa
     : HttpCallBack<T>(buider) {
     var success: ((result: T) -> Unit)? = null
     /**
-     * 接口成功了但是code错误
+     * 接口成功了但是code错误,或者HttpResult里面的data是null（List和数组除外）。
+     * 如果是HttpResult，就会走error回调
+     * 如果是HttpResponse,就会提示
+     * @return 是否内部回调错误方法，true：内部调用，false，自己调用
      */
-    var noSuccess: ((result: T) -> Unit)? = null
+    var noSuccess: ((result: T) -> Boolean)? = null
     /**
      * 成功后的ui处理
      * @return 是否对错误信息处理
@@ -54,14 +57,26 @@ open class SimpleHttpCallback<T> constructor(buider: HttpCallbackHandle = HttpCa
                         }
                         when {
                             (result as HttpResult<*>).data != null -> success?.invoke(result)
-                            noSuccess == null -> SuperToast.showErrorMessage("数据错误!")
-                            else -> noSuccess?.invoke(result)
+                            noSuccess == null -> onError(HttpException(HttpCodeApp.NO_DATA_ERROR, HttpCodeApp.NO_DATA_ERROR_MSG))
+                            else -> {
+                                if (noSuccess!!.invoke(result)) {
+                                    onError(HttpException(HttpCodeApp.NO_DATA_ERROR, HttpCodeApp.NO_DATA_ERROR_MSG))
+                                }
+                            }
                         }
                     } else {
                         success?.invoke(result)
                     }
 
-                noSuccess == null -> SuperToast.showErrorMessage(result.getMessage())
+                noSuccess == null ->
+                    if (result is HttpResult<*>) {
+                        if (noSuccess!!.invoke(result)) {
+                            onError(HttpException(result.code, result.message))
+                        }
+                    } else {
+                        //这种是没用data的,就提示一下
+                        SuperToast.showErrorMessage(result.getMessage())
+                    }
                 else -> noSuccess?.invoke(result)
             }
         } else {
@@ -69,7 +84,6 @@ open class SimpleHttpCallback<T> constructor(buider: HttpCallbackHandle = HttpCa
         }
 
     }
-
 
     override fun onSuccess(result: T, isHanderError: Boolean) {
         if (successHanderError?.invoke(result) != false) {

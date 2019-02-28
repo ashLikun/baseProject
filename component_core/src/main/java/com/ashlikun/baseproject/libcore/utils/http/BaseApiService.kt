@@ -35,7 +35,7 @@ open class BaseApiService {
      */
     fun <ResultType> execute(param: HttpRequestParam, callbackHandle: HttpCallbackHandle,
                              success: ((result: ResultType) -> Unit)? = null,
-                             noSuccess: ((result: ResultType) -> Unit)? = null,
+                             noSuccess: ((result: ResultType) -> Boolean)? = null,
                              errorData: ((data: ContextData) -> Unit)? = null,
                              error: ((error: HttpException) -> Unit)? = null,
                              successHanderError: ((result: ResultType) -> Boolean)? = null,
