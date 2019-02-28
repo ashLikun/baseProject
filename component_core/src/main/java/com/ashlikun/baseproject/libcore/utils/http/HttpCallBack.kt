@@ -110,12 +110,12 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
         LogUtils.wtf(error)
         val data = ContextData()
         with(error) {
-            data.title = "${message()}(错误码:)${code()}"
+            data.title = message()
             data.errCode = code()
         }
         data.resId = R.drawable.material_service_error
         buider.run {
-            SuperToast.showErrorMessage("${data.title}(错误码:)${data.errCode}")
+            SuperToast.showErrorMessage("${data.title}(错误码:${data.errCode})")
             statusChangListener?.failure()
             if (loadSwitchService != null && isFirstRequest()) {
                 loadSwitchService?.showRetry(data)
