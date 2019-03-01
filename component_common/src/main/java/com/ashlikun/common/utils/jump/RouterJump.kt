@@ -19,9 +19,10 @@ import java.util.*
  * 功能介绍：路由跳转的工具类
  */
 object RouterJump {
-    fun topActivity(): Activity {
+    fun topActivity(): Activity? {
         return ActivityManager.getInstance().currentActivity()
     }
+
     /**
      * 启动App
      */
@@ -30,6 +31,7 @@ object RouterJump {
                 .withFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
                 .navigation()
     }
+
     /**
      * 启动引导页
      */

@@ -24,7 +24,8 @@ abstract class BaseListFragment<P : BasePresenter<*>, D> : BaseMvpFragment<P>(),
     abstract val adapter: RecyclerView.Adapter<*>?
     abstract fun getListAdapter(): RecyclerView.Adapter<*>?
 
-    override fun initView() {
+    override fun baseInitView() {
+        super.baseInitView()
         getSuperRecyclerView().run {
             if (itemDecoration != null) {
                 recyclerView.addItemDecoration(itemDecoration!!)
@@ -34,7 +35,7 @@ abstract class BaseListFragment<P : BasePresenter<*>, D> : BaseMvpFragment<P>(),
             setOnRefreshListener(this@BaseListFragment)
             setOnLoaddingListener(this@BaseListFragment)
         }
-        if (adapter is BaseAdapter<*, *>) {
+        if (adapter is BaseAdapter<*, *> && this is OnItemClickListener<*>) {
             (adapter as BaseAdapter<*, *>)?.setOnItemClickListener(this)
         }
     }

@@ -35,7 +35,6 @@ open class BaseApiService {
      */
     fun <ResultType> execute(param: HttpRequestParam, callbackHandle: HttpCallbackHandle,
                              success: ((result: ResultType) -> Unit)? = null,
-                             noSuccess: ((result: ResultType) -> Boolean)? = null,
                              errorData: ((data: ContextData) -> Unit)? = null,
                              error: ((error: HttpException) -> Unit)? = null,
                              successHanderError: ((result: ResultType) -> Boolean)? = null,
@@ -47,7 +46,6 @@ open class BaseApiService {
     ): ExecuteCall {
         val callback: SimpleHttpCallback<ResultType> = SimpleHttpCallback<ResultType>(callbackHandle)
         callback.success = success
-        callback.noSuccess = noSuccess
         callback.successHanderError = successHanderError
         callback.successSubThread = successSubThread
         callback.cacheSuccess = cacheSuccess

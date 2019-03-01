@@ -5,7 +5,6 @@ import com.ashlikun.okhttputils.http.HttpException
 import com.ashlikun.okhttputils.http.cache.CacheEntity
 import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.okhttputils.http.response.HttpResult
-import com.ashlikun.utils.ui.SuperToast
 
 /**
  * 作者　　: 李坤
@@ -17,13 +16,6 @@ import com.ashlikun.utils.ui.SuperToast
 open class SimpleHttpCallback<T> constructor(buider: HttpCallbackHandle = HttpCallbackHandle.get())
     : HttpCallBack<T>(buider) {
     var success: ((result: T) -> Unit)? = null
-    /**
-     * 接口成功了但是code错误,或者HttpResult里面的data是null（List和数组除外）。
-     * 如果是HttpResult，就会走error回调
-     * 如果是HttpResponse,就会提示
-     * @return 是否内部回调错误方法，true：内部调用，false，自己调用
-     */
-    var noSuccess: ((result: T) -> Boolean)? = null
     /**
      * 成功后的ui处理
      * @return 是否对错误信息处理
@@ -48,41 +40,22 @@ open class SimpleHttpCallback<T> constructor(buider: HttpCallbackHandle = HttpCa
 
     override fun onSuccess(result: T) {
         super.onSuccess(result)
-        if (result is HttpResponse) {
+        if (result is HttpResult<*>) {
             when {
-                result.isSucceed ->
-                    if (result is HttpResult<*>) {
-                        if ((result as HttpResult<*>).data == null) {
-                            (result as HttpResult<*>).data = getListOrArray()
-                        }
-                        when {
-                            (result as HttpResult<*>).data != null -> success?.invoke(result)
-                            noSuccess == null -> onError(HttpException(HttpCodeApp.NO_DATA_ERROR, HttpCodeApp.NO_DATA_ERROR_MSG))
-                            else -> {
-                                if (noSuccess!!.invoke(result)) {
-                                    onError(HttpException(HttpCodeApp.NO_DATA_ERROR, HttpCodeApp.NO_DATA_ERROR_MSG))
-                                }
-                            }
-                        }
-                    } else {
-                        success?.invoke(result)
+                result.isSucceed -> {
+                    if ((result as HttpResult<*>).data == null) {
+                        (result as HttpResult<*>).data = getListOrArray()
                     }
-
-                noSuccess == null ->
-                    if (result is HttpResult<*>) {
-                        if (noSuccess!!.invoke(result)) {
-                            onError(HttpException(result.code, result.message))
-                        }
-                    } else {
-                        //这种是没用data的,就提示一下
-                        SuperToast.showErrorMessage(result.getMessage())
+                    when {
+                        (result as HttpResult<*>).data != null -> success?.invoke(result)
+                        else -> onError(HttpException(HttpCodeApp.NO_DATA_ERROR, HttpCodeApp.NO_DATA_ERROR_MSG))
                     }
-                else -> noSuccess?.invoke(result)
+                }
+                else -> success?.invoke(result)
             }
         } else {
             success?.invoke(result)
         }
-
     }
 
     override fun onSuccess(result: T, isHanderError: Boolean) {
