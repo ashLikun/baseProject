@@ -104,8 +104,8 @@ ext {
             //基于Okhttp封装的
             OkHttpUtils            : "com.github.ashLikun:OkHttpUtils:1.6.4",
             //图片加载
-            glide                  : "com.github.bumptech.glide:glide:4.8.0",
-            glideCompiler          : "com.github.bumptech.glide:compiler:4.8.0",
+            glide                  : "com.github.bumptech.glide:glide:4.9.0",
+            glideCompiler          : "com.github.bumptech.glide:compiler:4.9.0",
             glideTransformations   : "jp.wasabeef:glide-transformations:3.3.0",
             glidegpuimage          : "jp.co.cyberagent.android:gpuimage:2+",//2.0.2
             //md风格对话框    exclude group: 'com.android.support'
