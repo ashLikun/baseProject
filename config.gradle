@@ -115,7 +115,7 @@ ext {
             //图片查看
             PhotoView              : "com.github.ashLikun:PhotoView:1.0.0",
             //照片处理
-            PhotoHander            : "com.github.ashLikun:PhotoHander:1.3.7",
+            PhotoHander            : "com.github.ashLikun:PhotoHander:1.3.8",
             //阿里的vlayout transitive = true
             vlayout                : "com.alibaba.android:vlayout:1.2.16@aar",
             //输入验证码
