@@ -127,7 +127,8 @@ dependencies {
     api libs.CustomDialog
     //圆形的进度条
     api libs.CircleProgressView
-
+    //带圆角，边框的的ImageView
+    api libs.RoundedImageView
     //布局切换
     api libs.LoadSwitch
 

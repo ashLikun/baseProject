@@ -120,6 +120,8 @@ ext {
             vlayout                : "com.alibaba.android:vlayout:1.2.16@aar",
             //输入验证码
             VerificationCodeInput  : "com.github.ashLikun:VerifyCodeView:0.0.2",
+            //带圆角，边框的的ImageView
+            RoundedImageView       : "com.makeramen:roundedimageview:2.3.0",
             //评分控件 exclude group: 'com.android.support'
             MaterialRatingBar      : "com.github.ashLikun:MaterialRatingBar:1.0.3",
             CalendarView           : "com.github.ashLikun:CalendarView:1.0.8",
