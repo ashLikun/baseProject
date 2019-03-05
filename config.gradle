@@ -2,7 +2,7 @@ ext {
 
 
     superVersion = "28.+"
-    frameVersion = "2.7.1"
+    frameVersion = "2.7.3"
     android = [
             applicationId    : "com.ashlikun.baseproject",
             compileSdkVersion: 28,
