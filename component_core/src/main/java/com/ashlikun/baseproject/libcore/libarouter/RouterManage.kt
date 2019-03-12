@@ -1,12 +1,11 @@
 package com.ashlikun.baseproject.libcore.libarouter
 
 import android.app.Application
-
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.launcher.ARouter
+import com.ashlikun.baseproject.libcore.libarouter.service.ICommonService
 import com.ashlikun.baseproject.libcore.libarouter.service.IHomeService
 import com.ashlikun.baseproject.libcore.libarouter.service.ILoginService
-import com.ashlikun.photo_hander.PhotoHanderActivity
 
 /**
  * 作者　　: 李坤
@@ -17,6 +16,8 @@ import com.ashlikun.photo_hander.PhotoHanderActivity
  * 功能介绍：获取服务的管理器
  */
 class RouterManage private constructor() {
+    @Autowired
+    lateinit var commonService: ICommonService
     @Autowired
     lateinit var homeServic: IHomeService
     @Autowired

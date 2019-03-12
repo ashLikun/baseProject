@@ -100,6 +100,8 @@ dependencies {
 
     //封装的RecycleView
     api libs.XRecycleView
+    //自定义的下拉刷新
+    api libs.RefreshLayout
 
     ///封装的viewpager，banner，启动页
     api libs.XViewPager

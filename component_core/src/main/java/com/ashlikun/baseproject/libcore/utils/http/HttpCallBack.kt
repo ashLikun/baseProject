@@ -60,19 +60,10 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
     open fun dismissUi() {
         buider.run {
             swipeRefreshLayout?.isRefreshing = false
+
+
             val isNoRun = basePresenter?.view == null && context == null
             if (isNoRun) {
-                return
-            }
-            //如果count > 0，说明当前页面还有请求，就不销毁对话框
-            if (count() > 0) {
-                //是否等待,Okhttp内部在子线程里面执行的，这里延时1秒检测
-                //可能会一直占用内存不释放，所以这里false
-                MainHandle.get().postDelayed({
-                    if (count() <= 0) {
-                        dismissDialog()
-                    }
-                }, 1000)
                 return
             }
             dismissDialog()
@@ -83,6 +74,19 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
      * 销毁对话框
      */
     fun dismissDialog() {
+        //如果不显示对话框,就直接返回
+        if (!buider.isShowLoadding) {
+            return
+        }
+        //如果count > 0，说明当前页面还有请求，就不销毁对话框
+        if (buider.count() > 0) {
+            //是否等待,Okhttp内部在子线程里面执行的，这里延时1秒检测
+            //可能会一直占用内存不释放，所以这里false
+            MainHandle.get().postDelayed({
+                dismissDialog()
+            }, 1000)
+            return
+        }
         buider.hintProgress()
     }
 
@@ -115,7 +119,9 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
         }
         data.resId = R.drawable.material_service_error
         buider.run {
-            SuperToast.showErrorMessage("${data.title}(错误码:${data.errCode})")
+            if (isToastShow) {
+                SuperToast.showErrorMessage("${data.title}(错误码:${data.errCode})")
+            }
             statusChangListener?.failure()
             if (loadSwitchService != null && isFirstRequest()) {
                 loadSwitchService?.showRetry(data)
@@ -270,3 +276,4 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
         }
     }
 }
+

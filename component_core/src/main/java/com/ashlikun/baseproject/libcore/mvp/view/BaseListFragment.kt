@@ -2,6 +2,7 @@ package com.ashlikun.baseproject.libcore.mvp.view
 
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import com.ashlikun.adapter.recyclerview.BaseAdapter
 import com.ashlikun.adapter.recyclerview.click.OnItemClickListener
 import com.ashlikun.core.BasePresenter
@@ -19,11 +20,9 @@ import com.ashlikun.xrecycleview.listener.RecycleViewSwipeListener
  *
  * 功能介绍：封装列表的Fragment
  */
-abstract class BaseListFragment<P : BasePresenter<*>, D> : BaseMvpFragment<P>(), RecycleViewSwipeListener, OnItemClickListener<D>, OnLoadSwitchClick {
+abstract class BaseListFragment<P : BasePresenter<*>> : BaseMvpFragment<P>(), RecycleViewSwipeListener, OnLoadSwitchClick {
     abstract val itemDecoration: RecyclerView.ItemDecoration?
     abstract val adapter: RecyclerView.Adapter<*>?
-    abstract fun getListAdapter(): RecyclerView.Adapter<*>?
-
     override fun baseInitView() {
         super.baseInitView()
         getSuperRecyclerView().run {
@@ -41,7 +40,7 @@ abstract class BaseListFragment<P : BasePresenter<*>, D> : BaseMvpFragment<P>(),
     }
 
     abstract fun getSuperRecyclerView(): SuperRecyclerView
-    override fun getSwitchRoot() = getSuperRecyclerView()
+    override fun getSwitchRoot(): View = getSuperRecyclerView()
     val layoutManager: RecyclerView.LayoutManager
         get() = LinearLayoutManager(context)
 

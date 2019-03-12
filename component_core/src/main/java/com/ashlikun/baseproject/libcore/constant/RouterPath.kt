@@ -41,6 +41,7 @@ object RouterPath {
     /********************************************************************************************
      * service path
      *******************************************************************************************/
+    const val SERVICE_COMMON = "/common/service"
     const val SERVICE_HOME = "/home/service"
     const val SERVICE_LOGIN = "/login/service"
 }

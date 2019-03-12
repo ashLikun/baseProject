@@ -2,6 +2,7 @@ package com.ashlikun.baseproject.libcore.mvp.view
 
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import com.ashlikun.adapter.recyclerview.BaseAdapter
 import com.ashlikun.adapter.recyclerview.click.OnItemClickListener
 import com.ashlikun.core.BasePresenter
@@ -17,8 +18,8 @@ import com.ashlikun.xrecycleview.listener.RecycleViewSwipeListener
  *
  * 功能介绍：列表界面父类
  */
-abstract class BaseListActivity<P : BasePresenter<*>, D> : BaseMvpActivity<P>()
-        , RecycleViewSwipeListener, OnItemClickListener<D>, OnLoadSwitchClick {
+abstract class BaseListActivity<P : BasePresenter<*>> : BaseMvpActivity<P>()
+        , RecycleViewSwipeListener, OnLoadSwitchClick {
     abstract val itemDecoration: RecyclerView.ItemDecoration?
     abstract val adapter: RecyclerView.Adapter<*>?
     override fun baseInitView() {
@@ -32,14 +33,14 @@ abstract class BaseListActivity<P : BasePresenter<*>, D> : BaseMvpActivity<P>()
             setOnRefreshListener(this@BaseListActivity)
             setOnLoaddingListener(this@BaseListActivity)
         }
-        if (adapter is BaseAdapter<*, *>) {
+        if (adapter is BaseAdapter<*, *> && this is OnItemClickListener<*>) {
             (adapter as BaseAdapter<*, *>)?.setOnItemClickListener(this)
         }
 
     }
 
     abstract fun getSuperRecyclerView(): SuperRecyclerView
-    override fun getSwitchRoot() = getSuperRecyclerView()
+    override fun getSwitchRoot(): View = getSuperRecyclerView()
     val layoutManager: RecyclerView.LayoutManager
         get() = LinearLayoutManager(context)
 

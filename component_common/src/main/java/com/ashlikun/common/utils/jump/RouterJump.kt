@@ -61,6 +61,7 @@ object RouterJump {
      */
     fun startLogin() {
         ARouter.getInstance().build(RouterPath.LOGIN)
+                .withFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 .greenChannel()
                 .navigation(topActivity())
     }

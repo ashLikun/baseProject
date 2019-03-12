@@ -46,6 +46,10 @@ class HttpCallbackHandle private constructor() {
      */
     internal var isCancelable = true
     /**
+     * 是否错误的时候toast提示
+     */
+    internal var isToastShow = true
+    /**
      * 是否显示进度，进度回调才用到的
      */
     internal var isShowProgress = true
@@ -122,6 +126,14 @@ class HttpCallbackHandle private constructor() {
 
     fun setCancelable(cancelable: Boolean): HttpCallbackHandle {
         isCancelable = cancelable
+        return this
+    }
+
+    /**
+     * 错误的时候是否显示toast
+     */
+    fun isToastShow(isToastShow: Boolean): HttpCallbackHandle {
+        this.isToastShow = isToastShow
         return this
     }
 
