@@ -40,7 +40,7 @@ abstract class BaseListFragment<P : BasePresenter<*>> : BaseMvpFragment<P>(), Re
     }
 
     abstract fun getSuperRecyclerView(): SuperRecyclerView
-    override fun getSwitchRoot(): View = getSuperRecyclerView()
+    override fun getSwitchRoot(): View? = getSuperRecyclerView()
     val layoutManager: RecyclerView.LayoutManager
         get() = LinearLayoutManager(context)
 

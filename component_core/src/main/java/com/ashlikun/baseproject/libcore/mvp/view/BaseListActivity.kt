@@ -40,7 +40,7 @@ abstract class BaseListActivity<P : BasePresenter<*>> : BaseMvpActivity<P>()
     }
 
     abstract fun getSuperRecyclerView(): SuperRecyclerView
-    override fun getSwitchRoot(): View = getSuperRecyclerView()
+    override fun getSwitchRoot(): View? = getSuperRecyclerView()
     val layoutManager: RecyclerView.LayoutManager
         get() = LinearLayoutManager(context)
 
