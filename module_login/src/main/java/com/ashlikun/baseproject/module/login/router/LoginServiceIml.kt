@@ -37,8 +37,8 @@ class LoginServiceIml : ILoginService {
         return UserData.userData?.token ?: ""
     }
 
-    override fun exitLogin(activity: Activity) {
-        UserData.exitLogin(activity)
+    override fun exitLogin() {
+        UserData.exitLogin()
     }
 
     override fun exit() {

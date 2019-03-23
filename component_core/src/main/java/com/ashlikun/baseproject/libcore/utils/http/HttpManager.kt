@@ -5,6 +5,7 @@ import android.os.Looper
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.callbacks.onDismiss
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
+import com.ashlikun.baseproject.libcore.utils.CacheUtils
 import com.ashlikun.okhttputils.http.OkHttpUtils
 import com.ashlikun.okhttputils.http.response.HttpCode
 import com.ashlikun.okhttputils.http.response.HttpResponse
@@ -12,7 +13,6 @@ import com.ashlikun.utils.other.MainHandle
 import com.ashlikun.utils.other.file.FileUtils
 import com.ashlikun.utils.ui.ActivityManager
 import com.ashlikun.utils.ui.SuperToast
-import com.ashlikun.baseproject.libcore.utils.CacheUtils
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import java.io.File
@@ -118,7 +118,7 @@ class HttpManager private constructor() {
                         } else {
                             SuperToast.get(response.getMessage()).error()
                             if (response.getCode() == HttpCode.TOKEN_ERROR) {
-                                RouterManage.getLogin().exitLogin(activity)
+                                RouterManage.getLogin().exitLogin()
                                 RouterManage.getLogin().startLogin()
                             }
                         }
@@ -146,7 +146,7 @@ class HttpManager private constructor() {
                         message(text = message)
                         positiveButton(text = "知道了") {
                             if (code == HttpCode.TOKEN_ERROR) {
-                                RouterManage.getLogin().exitLogin(activity)
+                                RouterManage.getLogin().exitLogin()
                                 RouterManage.getLogin().startLogin()
                             }
                         }

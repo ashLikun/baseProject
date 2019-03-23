@@ -28,7 +28,7 @@ interface ILoginService : IProvider {
     fun getToken(): String
 
     fun getUserId(): String
-    fun exitLogin(activity: Activity)
+    fun exitLogin()
     fun startLogin()
     fun exit()
     fun exitShowDialog(activity: Activity)

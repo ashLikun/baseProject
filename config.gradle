@@ -44,7 +44,7 @@ ext {
             //约束布局
             ConstraintLayout       : "com.android.support.constraint:constraint-layout:2.0.0-alpha3",
             //基本架构
-            CustomMvp              : "com.github.ashLikun:CustomMvp:1.5.0",
+            CustomMvp              : "com.github.ashLikun:CustomMvp:1.5.1",
             multidex               : "com.android.support:multidex:1.0.2",
             //webview封装
             XWebView               : "com.github.ashLikun.XWebView:core:1.0.0",
@@ -115,7 +115,7 @@ ext {
             //图片查看
             PhotoView              : "com.github.ashLikun:PhotoView:1.0.0",
             //照片处理
-            PhotoHander            : "com.github.ashLikun:PhotoHander:1.4.1",
+            PhotoHander            : "com.github.ashLikun:PhotoHander:1.4.2",
             //阿里的vlayout transitive = true
             vlayout                : "com.alibaba.android:vlayout:1.2.16@aar",
             //输入验证码
@@ -128,7 +128,7 @@ ext {
             //微信分享，登录sdk
             wechat                 : "com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+",
             //扫码
-            ZxingUtils             : "com.github.ashLikun:ZxingUtils:1.0.5",
+            ZxingUtils             : "com.github.ashLikun:ZxingUtils:1.0.9",
             ZxingCore              : "com.google.zxing:core:3.3.0",
             EasyPay                : "com.github.ashLikun:EasyPay:1.2.3",
             //自动缩放字体大小

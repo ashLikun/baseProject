@@ -75,6 +75,7 @@ class HttpCallbackHandle private constructor() {
      */
     internal var basePresenter: BasePresenter<*>? = null
     internal var context: Context? = null
+    internal var view: IBaseView? = null
     /**
      * 加载框
      */
@@ -138,12 +139,7 @@ class HttpCallbackHandle private constructor() {
     }
 
     /**
-     * 作者　　: 李坤
-     * 创建时间: 2017/7/3 13:45
-     * 邮箱　　：496546144@qq.com
-     *
-     *
-     * 方法功能：下拉刷新的监听
+     * 下拉刷新的监听
      */
     fun setSwipeRefreshLayout(swipeRefreshLayout: RefreshLayout): HttpCallbackHandle {
         this.swipeRefreshLayout = swipeRefreshLayout
@@ -151,12 +147,7 @@ class HttpCallbackHandle private constructor() {
     }
 
     /**
-     * 作者　　: 李坤
-     * 创建时间: 2017/7/3 13:44
-     * 邮箱　　：496546144@qq.com
-     *
-     *
-     * 方法功能：状态改加载监听
+     * 状态改加载监听
      */
     fun setStatusChangListener(statusChangListener: StatusChangListener): HttpCallbackHandle {
         this.statusChangListener = statusChangListener
@@ -174,12 +165,7 @@ class HttpCallbackHandle private constructor() {
     }
 
     /**
-     * 作者　　: 李坤
-     * 创建时间: 2017/7/3 13:44
-     * 邮箱　　：496546144@qq.com
-     *
-     *
-     * 方法功能：重新加载的监听
+     * 重新加载的监听
      */
     fun setLoadSwitchService(loadSwitchService: LoadSwitchService): HttpCallbackHandle {
         this.loadSwitchService = loadSwitchService
@@ -187,12 +173,15 @@ class HttpCallbackHandle private constructor() {
     }
 
     /**
-     * 作者　　: 李坤
-     * 创建时间: 2017/7/3 13:44
-     * 邮箱　　：496546144@qq.com
-     *
-     *
-     * 方法功能：显示加载的监听
+     * 从BaseView里面设置布局切换
+     */
+    fun setLoadSwitchServiceBaseView(baseView: IBaseView): HttpCallbackHandle {
+        this.view = baseView
+        return this
+    }
+
+    /**
+     * 显示加载的监听
      */
     fun setShowLoadding(showLoadding: Boolean): HttpCallbackHandle {
         isShowLoadding = showLoadding
@@ -216,16 +205,20 @@ class HttpCallbackHandle private constructor() {
         if (mvpView == null) {
             return this
         }
+
         if (mvpView is IBaseSwipeView) {
             setSwipeRefreshLayout(mvpView.getSwipeRefreshLayout())
         }
         if (mvpView is IBaseListView) {
             setStatusChangListener(mvpView.getStatusChangListener())
         }
+        //布局切换
+        view = mvpView
         setLoadSwitchService(mvpView.switchService)
         setShowLoadding(false)
         return this
     }
+
 
     fun showDialog() {
         if (isShowLoadding) {
@@ -247,7 +240,27 @@ class HttpCallbackHandle private constructor() {
 
 
     fun showLoading() {
-        loadSwitchService?.showLoading(ContextData(hint))
+        if (view != null) {
+            view?.showLoading(ContextData(hint))
+        } else {
+            loadSwitchService?.showLoading(ContextData(hint))
+        }
+    }
+
+    fun showContent() {
+        if (view != null) {
+            view?.showContent()
+        } else {
+            loadSwitchService?.showContent()
+        }
+    }
+
+    fun showRetry(data: ContextData) {
+        if (view != null) {
+            view?.showRetry(data)
+        } else {
+            loadSwitchService?.showRetry(data)
+        }
     }
 
     fun hintProgress() {

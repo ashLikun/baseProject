@@ -143,7 +143,7 @@ class UserData {
          * 退出登录
          * 吧数据库标识改成false 标记全部没有登录状态
          */
-        fun exitLogin(context: Context): Boolean {
+        fun exitLogin(): Boolean {
             //清除其他登录的用户
             val res = exit()
             /**
@@ -176,7 +176,7 @@ class UserData {
                         title(text = "提示")
                         message(text = "确定退出当前账户吗？")
                         positiveButton(text = "残忍退出") {
-                            exitLogin(context)
+                            exitLogin()
                         }
                         negativeButton(text = "继续使用")
                     }

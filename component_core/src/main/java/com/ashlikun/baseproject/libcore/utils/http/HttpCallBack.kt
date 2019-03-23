@@ -123,8 +123,8 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
                 SuperToast.showErrorMessage("${data.title}(错误码:${data.errCode})")
             }
             statusChangListener?.failure()
-            if (loadSwitchService != null && isFirstRequest()) {
-                loadSwitchService?.showRetry(data)
+            if (isFirstRequest()) {
+                showRetry(data)
             }
         }
         onError(data)
@@ -185,15 +185,15 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
         LogUtils.e("onSuccess")
         buider.run {
             statusChangListener?.complete()
-            loadSwitchService?.let {
+            if (loadSwitchService != null || view != null) {
                 if (result is HttpResponse && isHanderError) {
                     if (result.isSucceed) {
-                        loadSwitchService?.showContent()
+                        showContent()
                     } else {
-                        loadSwitchService?.showRetry(ContextData(result.getCode(), result.getMessage()))
+                        showRetry(ContextData(result.getCode(), result.getMessage()))
                     }
                 } else {
-                    loadSwitchService?.showContent()
+                    showContent()
                 }
             }
         }
