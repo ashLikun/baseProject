@@ -69,8 +69,9 @@ object RouterJump {
     /**
      * 查看大图
      * 前一个页面请调用 statusBar.setFitsSystemWindows()保证页面不抖动
+     * @param isShowDownload 是否显示下载
      */
-    fun startLockImage(position: Int, listDatas: ArrayList<ImageData>?) {
+    fun startLockImage(position: Int, listDatas: ArrayList<ImageData>?, isShowDownload: Boolean = false) {
         if (listDatas == null || listDatas.isEmpty()) {
             SuperToast.showErrorMessage("没有对应的图片")
             return
@@ -78,6 +79,7 @@ object RouterJump {
         ARouter.getInstance().build(RouterPath.IMAGE_LOCK)
                 .withParcelableArrayList(RouterKey.FLAG_DATA, listDatas)
                 .withInt(RouterKey.FLAG_POSITION, position)
+                .withBoolean(RouterKey.FLAG_SHOW_DOWNLOAD, isShowDownload)
                 .greenChannel()
                 .navigation(topActivity())
     }

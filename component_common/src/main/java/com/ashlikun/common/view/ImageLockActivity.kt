@@ -1,6 +1,7 @@
 package com.ashlikun.common.view
 
 import android.content.Context
+import android.graphics.drawable.GradientDrawable
 import android.support.v4.view.ViewPager
 import android.view.Gravity
 import android.view.View
@@ -10,13 +11,19 @@ import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.libcore.constant.RouterKey
 import com.ashlikun.baseproject.libcore.constant.RouterPath
+import com.ashlikun.baseproject.libcore.utils.CacheUtils
 import com.ashlikun.circleprogress.CircleProgressView
 import com.ashlikun.common.R
+import com.ashlikun.common.mode.javabean.ImageData
 import com.ashlikun.core.activity.BaseActivity
 import com.ashlikun.glideutils.GlideLoad
+import com.ashlikun.glideutils.GlideUtils
 import com.ashlikun.photoview.PhotoView
 import com.ashlikun.photoview.ScaleFinishView
 import com.ashlikun.utils.other.DimensUtils
+import com.ashlikun.utils.other.file.FileIOUtils
+import com.ashlikun.utils.ui.BitmapUtil
+import com.ashlikun.utils.ui.SuperToast
 import com.ashlikun.utils.ui.UiUtils
 import com.ashlikun.xviewpager.listener.ViewPageHelperListener
 import com.ashlikun.xviewpager.view.BannerViewPager
@@ -24,8 +31,8 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.ashlikun.common.mode.javabean.ImageData
 import kotlinx.android.synthetic.main.activity_image_lock.*
+import java.io.File
 import java.util.*
 
 /**
@@ -46,6 +53,10 @@ class ImageLockActivity : BaseActivity(), ViewPageHelperListener<ImageData>, Sca
     @Autowired(name = RouterKey.FLAG_POSITION)
     @JvmField
     var position: Int = 0
+    //是否显示下载按钮
+    @Autowired(name = RouterKey.FLAG_SHOW_DOWNLOAD)
+    @JvmField
+    var isShowDownload = false
 
     override fun getLayoutId(): Int {
         return R.layout.activity_image_lock
@@ -60,6 +71,29 @@ class ImageLockActivity : BaseActivity(), ViewPageHelperListener<ImageData>, Sca
             }
         }
         viewPager.addOnPageChangeListener(this)
+        if (isShowDownload) {
+            actionDownLoad.visibility = View.VISIBLE
+            val drawable = GradientDrawable()
+            drawable.setColor(0x77666666)
+            drawable.cornerRadius = DimensUtils.dip2px(this, 3f).toFloat()
+            actionDownLoad.background = drawable
+            actionDownLoad.setOnClickListener {
+                val url = listDatas[viewPager.currentItem].getImageUrl()
+                GlideUtils.downloadBitmap(this, url) { file ->
+                    if (file != null && file.exists()) {
+                        var saveFile = File("${CacheUtils.appSDFilePath}${File.separator}${System.currentTimeMillis()}.jpg")
+                        if (FileIOUtils.copyFile(file, saveFile, false)) {
+                            SuperToast.showInfoMessage("图片已保存至 /${CacheUtils.rootName}/file 文件夹")
+                            BitmapUtil.updatePhotoMedia(this, saveFile)
+                        } else {
+                            SuperToast.showInfoMessage("图片保存失败")
+                        }
+                    } else {
+                        SuperToast.showInfoMessage("图片保存失败")
+                    }
+                }
+            }
+        }
     }
 
     override fun createView(context: Context, banner: BannerViewPager, data: ImageData, position: Int): View {
@@ -103,7 +137,7 @@ class ImageLockActivity : BaseActivity(), ViewPageHelperListener<ImageData>, Sca
     }
 
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-        textView.text = (position + 1).toString() + "/" + listDatas?.size
+
     }
 
     override fun isStatusTranslucent(): Boolean {
@@ -111,7 +145,7 @@ class ImageLockActivity : BaseActivity(), ViewPageHelperListener<ImageData>, Sca
     }
 
     override fun onPageSelected(position: Int) {
-
+        textView.text = (position + 1).toString() + "/" + listDatas?.size
     }
 
     override fun onPageScrollStateChanged(state: Int) {

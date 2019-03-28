@@ -66,9 +66,9 @@ ext {
             //自定义的下拉刷新
             RefreshLayout          : "com.github.ashLikun:RefreshLayout:1.2.4",
             //封装的viewpager，banner，启动页
-            XViewPager             : "com.github.ashLikun:XViewPager:1.4.1",
+            XViewPager             : "com.github.ashLikun:XViewPager:1.4.2",
             //公共的工具
-            CommonUtils            : "com.github.ashLikun:CommonUtils:2.0.8",
+            CommonUtils            : "com.github.ashLikun:CommonUtils:2.0.9",
             //公共的Adapter
             CommonAdapter          : "com.github.ashLikun.CommonAdapter:adapter:2.0.5",
             //TabLayout exclude group: 'com.android.support'
@@ -82,7 +82,7 @@ ext {
             //布局切换
             LoadSwitch             : "com.github.ashLikun:LoadSwitch:1.2.8",
             //兼容的View
-            CompatView             : "com.github.ashLikun:CompatView:1.2.0",
+            CompatView             : "com.github.ashLikun:CompatView:1.2.3",
             //错误捕获
             AppCrashDispose        : "com.github.ashLikun:AppCrashDispose:1.0.2",
             //app内存溢出捕获
@@ -115,7 +115,7 @@ ext {
             //图片查看
             PhotoView              : "com.github.ashLikun:PhotoView:1.0.0",
             //照片处理
-            PhotoHander            : "com.github.ashLikun:PhotoHander:1.4.2",
+            PhotoHander            : "com.github.ashLikun:PhotoHander:1.4.8",
             //阿里的vlayout transitive = true
             vlayout                : "com.alibaba.android:vlayout:1.2.16@aar",
             //输入验证码

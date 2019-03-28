@@ -316,7 +316,11 @@
 -keep class com.alipay.tscenter.** { *; }
 -keep class com.ta.utdid2.** { *;}
 -keep class com.ut.device.** { *;}
-
+#LiveDataVBus
+-dontwarn com.ashlikun.livedatabus.**
+-keep class com.ashlikun.livedatabus.** { *; }
+-keep class android.arch.core.** { *; }
+-keep class android.arch.lifecycle.** { *; }
 #-----------------------------------------2:第三方库 end-------------------------------------------#
 
 

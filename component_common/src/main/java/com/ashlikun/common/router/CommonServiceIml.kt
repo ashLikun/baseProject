@@ -3,8 +3,7 @@ package com.nmlg.common.router
 import android.content.Context
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.libcore.constant.RouterPath
-import com.nmlg.renrenying.libcore.constant.RouterPath
-import com.nmlg.renrenying.libcore.libarouter.service.ICommonService
+import com.ashlikun.baseproject.libcore.libarouter.service.ICommonService
 
 /**
  * 作者　　: 李坤
