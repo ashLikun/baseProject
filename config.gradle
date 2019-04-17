@@ -2,7 +2,7 @@ ext {
 
 
     superVersion = "28.+"
-    frameVersion = "2.7.3"
+    frameVersion = "2.7.5"
     android = [
             applicationId    : "com.ashlikun.baseproject",
             compileSdkVersion: 28,
@@ -44,7 +44,7 @@ ext {
             //约束布局
             ConstraintLayout       : "com.android.support.constraint:constraint-layout:2.0.0-alpha3",
             //基本架构
-            CustomMvp              : "com.github.ashLikun:CustomMvp:1.5.1",
+            CustomMvp              : "com.github.ashLikun:CustomMvp:1.5.2",
             multidex               : "com.android.support:multidex:1.0.2",
             //webview封装
             XWebView               : "com.github.ashLikun.XWebView:core:1.0.0",
@@ -66,7 +66,7 @@ ext {
             //自定义的下拉刷新
             RefreshLayout          : "com.github.ashLikun:RefreshLayout:1.2.4",
             //封装的viewpager，banner，启动页
-            XViewPager             : "com.github.ashLikun:XViewPager:1.4.2",
+            XViewPager             : "com.github.ashLikun:XViewPager:1.5.0",
             //公共的工具
             CommonUtils            : "com.github.ashLikun:CommonUtils:2.0.9",
             //公共的Adapter
@@ -102,7 +102,7 @@ ext {
             //不同type的json解析,依赖于gson
             MultiTypeGson          : "com.github.ashLikun:MultiTypeGson:1.1.1",
             //基于Okhttp封装的
-            OkHttpUtils            : "com.github.ashLikun:OkHttpUtils:1.6.5",
+            OkHttpUtils            : "com.github.ashLikun:OkHttpUtils:1.6.7",
             //图片加载
             glide                  : "com.github.bumptech.glide:glide:4.9.0",
             glideCompiler          : "com.github.bumptech.glide:compiler:4.9.0",
@@ -113,9 +113,9 @@ ext {
             //Android官方流布局
             flexbox                : "com.google.android:flexbox:0.3.1",
             //图片查看
-            PhotoView              : "com.github.ashLikun:PhotoView:1.0.0",
+            PhotoView              : "com.github.ashLikun:PhotoView:1.0.2",
             //照片处理
-            PhotoHander            : "com.github.ashLikun:PhotoHander:1.4.8",
+            PhotoHander            : "com.github.ashLikun:PhotoHander:1.5.1",
             //阿里的vlayout transitive = true
             vlayout                : "com.alibaba.android:vlayout:1.2.16@aar",
             //输入验证码

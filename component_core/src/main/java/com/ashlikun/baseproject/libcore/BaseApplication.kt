@@ -6,6 +6,7 @@ import android.view.Gravity
 import com.ashlikun.appcrash.AppCrashConfig
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 import com.ashlikun.baseproject.libcore.utils.CacheUtils
+import com.ashlikun.baseproject.libcore.utils.LeakCanaryUtils
 import com.ashlikun.baseproject.libcore.utils.http.HttpManager
 import com.ashlikun.glideutils.GlideUtils
 import com.ashlikun.loadswitch.LoadSwitch
@@ -59,9 +60,7 @@ open class BaseApplication : MultiDexApplication() {
 
     private fun initLib() {
         //内存溢出检测
-        if (!LeakCanary.isInAnalyzerProcess(this)) {
-            LeakCanary.install(this)
-        }
+        LeakCanaryUtils.init(this, BuildConfig.DEBUG)
         //app工具
         AppUtils.init(this)
         AppUtils.setDebug(BuildConfig.DEBUG)
