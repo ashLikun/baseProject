@@ -43,15 +43,14 @@ object RouterJump {
 
     /**
      * 启动首页，如果已经启动会清空上面的activity
-     *
+     * [Intent.FLAG_ACTIVITY_REORDER_TO_FRONT]:如果已经启动了四个Activity：A，B，C和D，在D Activity里，想再启动一个Actvity B，但不变成A,B,C,D,B，而是希望是A,C,D,B
      * @param index -1:默认页
      */
     @JvmOverloads
     fun startHome(index: Int = -1) {
         ARouter.getInstance().build(RouterPath.HOME)
                 .withInt(RouterKey.FLAG_INDEX, index)
-                .withFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
-                .withFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                .withFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
                 .greenChannel()
                 .navigation(topActivity())
     }
@@ -61,7 +60,16 @@ object RouterJump {
      */
     fun startLogin() {
         ARouter.getInstance().build(RouterPath.LOGIN)
-                .withFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                .withFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                .greenChannel()
+                .navigation(topActivity())
+    }
+
+    /**
+     * 启动测试页面
+     */
+    fun startTest() {
+        ARouter.getInstance().build(RouterPath.TEST)
                 .greenChannel()
                 .navigation(topActivity())
     }

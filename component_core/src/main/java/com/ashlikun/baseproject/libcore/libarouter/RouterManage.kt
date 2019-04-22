@@ -6,6 +6,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.ashlikun.baseproject.libcore.libarouter.service.ICommonService
 import com.ashlikun.baseproject.libcore.libarouter.service.IHomeService
 import com.ashlikun.baseproject.libcore.libarouter.service.ILoginService
+import com.ashlikun.baseproject.libcore.libarouter.service.IOtherService
 
 /**
  * 作者　　: 李坤
@@ -22,6 +23,8 @@ class RouterManage private constructor() {
     lateinit var homeServic: IHomeService
     @Autowired
     lateinit var loginService: ILoginService
+    @Autowired
+    lateinit var otherService: IOtherService
 
     init {
         ARouter.getInstance().inject(this)
@@ -46,10 +49,11 @@ class RouterManage private constructor() {
             ARouter.init(app)      // 尽可能早，推荐在Application中初始化
         }
 
+        fun common(): ICommonService = get().commonService
+        fun other(): IOtherService = get().otherService
 
-        fun getHome(): IHomeService = get().homeServic
+        fun home(): IHomeService = get().homeServic
+        fun login(): ILoginService = get().loginService
 
-
-        fun getLogin(): ILoginService = get().loginService
     }
 }

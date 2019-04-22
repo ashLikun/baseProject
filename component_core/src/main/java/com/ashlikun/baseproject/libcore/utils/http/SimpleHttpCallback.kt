@@ -3,8 +3,38 @@ package com.ashlikun.baseproject.libcore.utils.http
 import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.okhttputils.http.HttpException
 import com.ashlikun.okhttputils.http.cache.CacheEntity
-import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.okhttputils.http.response.HttpResult
+
+
+/**
+ * 成功的回调
+ */
+typealias OnSuccess<T> = (result: T) -> Unit
+
+/**
+ * 成功后的处理
+ */
+typealias OnSuccessHander<T> = (result: T) -> Boolean
+
+/**
+ * 缓存返回成功
+ */
+typealias OnCacheSuccess<T> = (entity: CacheEntity, result: T) -> Unit
+
+/**
+ * 无参
+ */
+typealias OnArgs = () -> Unit
+
+/**
+ * 错误
+ */
+typealias OnError = (error: HttpException) -> Unit
+
+/**
+ * 处理后的错误
+ */
+typealias OnErrorData = (data: ContextData) -> Unit
 
 /**
  * 作者　　: 李坤
@@ -15,34 +45,32 @@ import com.ashlikun.okhttputils.http.response.HttpResult
  */
 open class SimpleHttpCallback<T> constructor(buider: HttpCallbackHandle = HttpCallbackHandle.get())
     : HttpCallBack<T>(buider) {
-    var success: ((result: T) -> Unit)? = null
+    var success: OnSuccess<T>? = null
     /**
      * 成功后的ui处理
      * @return 是否对错误信息处理
      */
-    var successHanderError: ((result: T) -> Boolean)? = null
+    var successHanderError: OnSuccessHander<T>? = null
     /**
      * 子线程执行,对结果进一步处理
      */
-    var successSubThread: ((result: T) -> Unit)? = null
-    /**
-     * 缓存返回成功
-     */
-    var cacheSuccess: ((entity: CacheEntity, result: T) -> Unit)? = null
+    var successSubThread: OnSuccess<T>? = null
+    var cacheSuccess: OnCacheSuccess<T>? = null
     /**
      * 成功后处理code
      */
-    var successHandelCode: ((result: T) -> Boolean)? = null
-    var completed: (() -> Unit)? = null
-    var start: (() -> Unit)? = null
-    var error: ((error: HttpException) -> Unit)? = null
-    var errorData: ((data: ContextData) -> Unit)? = null
+    var successHandelCode: OnSuccessHander<T>? = null
+    var completed: OnArgs? = null
+    var start: OnArgs? = null
+    var error: OnError? = null
+    var errorData: OnErrorData? = null
 
     override fun onSuccess(result: T) {
         super.onSuccess(result)
         if (result is HttpResult<*>) {
             when {
                 result.isSucceed -> {
+                    //成功时候对data为null的处理
                     if ((result as HttpResult<*>).data == null) {
                         (result as HttpResult<*>).data = getListOrArray()
                     }

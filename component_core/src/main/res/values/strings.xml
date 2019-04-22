@@ -1,4 +1,5 @@
 <resources>
     <string name="my_app_name">基础项目</string>
     <string name="app_name_letter">baseProject</string>
+    <string name="permission_rationale">为了提供更好的服务,名人堂需要获取权限</string>
 </resources>

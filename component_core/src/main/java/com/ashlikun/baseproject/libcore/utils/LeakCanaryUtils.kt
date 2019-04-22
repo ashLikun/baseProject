@@ -3,13 +3,13 @@ package com.ashlikun.baseproject.libcore.utils
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
-import com.squareup.leakcanary.AndroidExcludedRefs
-import com.squareup.leakcanary.DisplayLeakService
+import android.support.v4.app.FragmentManager
+import com.ashlikun.utils.ActivityLifecycleCallbacksAdapter
+import com.ashlikun.utils.AppUtils
 import com.squareup.leakcanary.LeakCanary
-import com.squareup.leakcanary.LeakCanary.refWatcher
 import com.squareup.leakcanary.RefWatcher
-import com.squareup.leakcanary.internal.ActivityLifecycleCallbacksAdapter
 import java.util.concurrent.CopyOnWriteArraySet
 
 /**
@@ -24,10 +24,10 @@ object LeakCanaryUtils {
      * 不用监听的类
      */
     var filtration: MutableSet<Any>? = null
-    var isDebug = true
+
     @JvmStatic
     fun addFiltration(cls: Class<out Any>) {
-        if (!isDebug) {
+        if (!AppUtils.isDebug()) {
             return
         }
         if (filtration == null) {
@@ -38,7 +38,7 @@ object LeakCanaryUtils {
 
     @JvmStatic
     fun removeFiltration(cls: Class<Any>) {
-        if (!isDebug) {
+        if (!AppUtils.isDebug()) {
             return
         }
         if (filtration == null) {
@@ -48,32 +48,37 @@ object LeakCanaryUtils {
     }
 
     @JvmStatic
-    fun init(application: Application, isDebug: Boolean) {
-        LeakCanaryUtils.isDebug = isDebug
-        if (!LeakCanaryUtils.isDebug) {
+    fun init(application: Application) {
+        if (!AppUtils.isDebug()) {
             return
         }
         if (!LeakCanary.isInAnalyzerProcess(application)) {
-            var refWatcher = refWatcher(application).listenerServiceClass(DisplayLeakService::class.java)
-                    .watchFragments(false)
-                    .excludedRefs(AndroidExcludedRefs.createAppDefaults().build())
-                    .buildAndInstall()
-            FragmentHelper(application, refWatcher)
+            Helper(application, LeakCanary.install(application))
         }
     }
 
 
-    class FragmentHelper(var application: Application, refWatcher: RefWatcher) {
+    /**
+     * 监听Fragment生命周期
+     */
+    class Helper(var application: Application, refWatcher: RefWatcher) {
+
 
         private val activityLifecycleCallbacks = object : ActivityLifecycleCallbacksAdapter() {
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
                 val supportFragmentManager = (activity as FragmentActivity).supportFragmentManager
                 supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentLifecycleCallbacks, true)
             }
+
+            override fun onActivityDestroyed(activity: Activity) {
+                super.onActivityDestroyed(activity)
+                val supportFragmentManager = (activity as FragmentActivity).supportFragmentManager
+                supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentLifecycleCallbacks)
+            }
         }
         private val fragmentLifecycleCallbacks = object : android.support.v4.app.FragmentManager.FragmentLifecycleCallbacks() {
 
-            override fun onFragmentViewDestroyed(fm: android.support.v4.app.FragmentManager, fragment: android.support.v4.app.Fragment) {
+            override fun onFragmentViewDestroyed(fm: FragmentManager, fragment: Fragment) {
                 if (filtration?.contains(fragment::class.java) == true) {
                     return
                 }
@@ -83,7 +88,7 @@ object LeakCanaryUtils {
                 }
             }
 
-            override fun onFragmentDestroyed(fm: android.support.v4.app.FragmentManager, fragment: android.support.v4.app.Fragment) {
+            override fun onFragmentDestroyed(fm: FragmentManager, fragment: Fragment) {
                 if (filtration?.contains(fragment::class.java) == true) {
                     return
                 }
@@ -92,8 +97,9 @@ object LeakCanaryUtils {
         }
 
         init {
+            application.unregisterActivityLifecycleCallbacks(activityLifecycleCallbacks)
             application.registerActivityLifecycleCallbacks(activityLifecycleCallbacks)
         }
+
     }
 }
-

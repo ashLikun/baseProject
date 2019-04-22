@@ -6,12 +6,11 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
-import android.os.Bundle
 import android.view.animation.DecelerateInterpolator
-import com.afollestad.materialdialogs.MaterialDialog
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
+import com.ashlikun.baseproject.libcore.utils.extend.requestPermission
 import com.ashlikun.baseproject.module.other.BuildConfig
 import com.ashlikun.baseproject.module.other.R
 import com.ashlikun.common.utils.jump.PullJumpManage
@@ -26,7 +25,6 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.other_activity_welcom.*
-import permissions.dispatcher.*
 import java.util.concurrent.TimeUnit
 
 /**
@@ -38,7 +36,6 @@ import java.util.concurrent.TimeUnit
  * 功能介绍：项目入口类
  */
 
-@RuntimePermissions
 @Route(path = RouterPath.WELCOME)
 class WelcomeActivity : BaseActivity() {
 
@@ -48,6 +45,31 @@ class WelcomeActivity : BaseActivity() {
     internal val shimmer: Shimmer = Shimmer()
 
     override fun initView() {
+        requestPermission(arrayOf(Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
+                , denied = {
+            SuperToast.get("获取权限失败").warn()
+            finish()
+        }) {
+            initViewOnPermiss()
+            Observable.timer(time.toLong(), TimeUnit.MILLISECONDS)
+                    .map { checkIsFirst() }
+                    .map { isFirst -> if (isFirst) 2 else getServiceUser() }
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe { stepCode ->
+                        if (stepCode == 1) {
+                            RouterJump.startHome(0)
+                        } else if (stepCode == 2) {
+                            RouterJump.startLaunch()
+                        }
+                        finish()
+                    }
+            checkIsFirst()
+        }
 
     }
 
@@ -61,63 +83,6 @@ class WelcomeActivity : BaseActivity() {
 
     override fun isStatusTranslucent(): Boolean {
         return true
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if (!isFinishing) {
-            getPermissionWithPermissionCheck()
-        }
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        onRequestPermissionsResult(requestCode, grantResults)
-    }
-
-    @NeedsPermission(Manifest.permission.READ_PHONE_STATE,
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_EXTERNAL_STORAGE)
-    fun getPermission() {
-        initViewOnPermiss()
-        Observable.timer(time.toLong(), TimeUnit.MILLISECONDS)
-                .map { checkIsFirst() }
-                .map { isFirst -> if (isFirst) 2 else getServiceUser() }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { stepCode ->
-                    if (stepCode == 1) {
-                        RouterJump.startHome(0)
-                    } else if (stepCode == 2) {
-                        RouterJump.startLaunch()
-                    }
-                    finish()
-                }
-        checkIsFirst()
-    }
-
-    @OnPermissionDenied(Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
-    fun onDenied() {
-        SuperToast.get("获取权限失败").warn()
-        finish()
-    }
-
-    @OnShowRationale(Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
-    internal fun showRationaleForCamera(request: PermissionRequest) {
-        MaterialDialog(this)
-                .cancelable(false)
-                .show {
-                    message(R.string.other_permission_rationale)
-                    positiveButton {
-                        request.proceed()
-                    }
-                    negativeButton {
-                        request.cancel()
-                    }
-                }
-
     }
 
 
@@ -149,7 +114,7 @@ class WelcomeActivity : BaseActivity() {
     override fun parseIntent(intent: Intent?) {
         PullJumpManage.save(intent)
         //如果首页已经启动了，那么久不用启动首页
-        if (RouterManage.getHome().isHomeStart()) {
+        if (RouterManage.home().isHomeStart()) {
             //这里是为了后续跳转使用的topactivity用的是以前的Activity栈，防止返回后回到微信或者浏览器
             ActivityManager.getInstance().exitActivity(this)
             //处理拉起App数据
@@ -180,7 +145,7 @@ class WelcomeActivity : BaseActivity() {
      * 1跳转登陆或者首页，2：不跳转
      */
     fun getServiceUser(): Int {
-        RouterManage.getLogin().run {
+        RouterManage.login().run {
             if (isLogin()) {
 //                val p = HttpRequestParam(if (UserData.getDbUserData().isStudent())
 //                    "sget_information.php"

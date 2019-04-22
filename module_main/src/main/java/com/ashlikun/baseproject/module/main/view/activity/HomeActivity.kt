@@ -3,7 +3,6 @@ package com.ashlikun.baseproject.module.main.view.activity
 import android.arch.lifecycle.Observer
 import android.content.Context
 import android.content.Intent
-import android.support.v4.app.Fragment
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.libcore.constant.EvenBusKey
 import com.ashlikun.baseproject.libcore.constant.RouterKey
@@ -12,9 +11,7 @@ import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 import com.ashlikun.baseproject.module.main.R
 import com.ashlikun.bottomnavigation.AHBottomNavigation
 import com.ashlikun.bottomnavigation.AHBottomNavigationItem
-import com.ashlikun.common.utils.jump.RouterJump
 import com.ashlikun.core.activity.BaseActivity
-import com.ashlikun.core.listener.OnDispatcherMessage
 import com.ashlikun.livedatabus.EventBus
 import com.ashlikun.utils.ui.ActivityManager
 import com.ashlikun.utils.ui.ResUtils
@@ -99,12 +96,12 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
         viewPager.offscreenPageLimit = adapter?.count ?: 3
         viewPager.adapter = adapter
         //登录之后可以左右滑动
-        viewPager.setCanSlide(RouterManage.getLogin().isLogin())
+        viewPager.setCanSlide(RouterManage.login().isLogin())
                 .run { }
         //监听登录成功的通知
         EventBus.get(EvenBusKey.LOGIN).registerLifecycle(this, Observer<Any> {
             //登录之后可以左右滑动
-            viewPager.setCanSlide(RouterManage.getLogin().isLogin())
+            viewPager.setCanSlide(RouterManage.login().isLogin())
         })
     }
 
@@ -135,23 +132,23 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
 
     private fun onTabChang(position: Int): Boolean {
         //限制登录
-        if (position == 2 || position == 3) {
-            if (!RouterManage.getLogin().isLogin()) {
-                RouterJump.startLogin()
-                cachePosition = position
-                return false
-            }
-        }
-        if (position == 0) {
-            statusBar.translucentStatusBar()
-            val fragment = adapter?.getCurrentFragment<Fragment>()
-            if (fragment is OnDispatcherMessage) {
-                //首页自己更改状态栏
-                (fragment as OnDispatcherMessage).onDispatcherMessage(1, null)
-            }
-        } else {
-            statusBar.setStatusBarColor(statusBarColor)
-        }
+//        if (position == 2 || position == 3) {
+//            if (!RouterManage.getLogin().isLogin()) {
+//                RouterJump.startLogin()
+//                cachePosition = position
+//                return false
+//            }
+//        }
+//        if (position == 0) {
+//            statusBar.translucentStatusBar()
+//            val fragment = adapter?.getCurrentFragment<Fragment>()
+//            if (fragment is OnDispatcherMessage) {
+//                //首页自己更改状态栏
+//                (fragment as OnDispatcherMessage).onDispatcherMessage(1, null)
+//            }
+//        } else {
+//            statusBar.setStatusBarColor(statusBarColor)
+//        }
         return true
     }
 

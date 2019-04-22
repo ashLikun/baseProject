@@ -8,11 +8,18 @@
     android:background="@color/white"
     android:orientation="vertical">
 
+
     <com.ashlikun.supertoobar.SuperToolBar
         android:id="@+id/toolbar"
         style="@style/SuperToolBar.Main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></com.ashlikun.supertoobar.SuperToolBar>
+
+    <Button
+        android:id="@+id/ceshiButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="测试" />
 
     <com.ashlikun.xrecycleview.SuperRecyclerView
         android:id="@+id/switchRoot"

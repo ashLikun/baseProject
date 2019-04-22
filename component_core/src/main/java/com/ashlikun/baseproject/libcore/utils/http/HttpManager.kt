@@ -107,7 +107,7 @@ class HttpManager private constructor() {
 
                     response.code == HttpCode.TOKEN_ERROR -> {
 
-                        RouterManage.getLogin().exit()
+                        RouterManage.login().exit()
                         val activity = ActivityManager.getForegroundActivity()
                         if (activity != null && !activity.isFinishing) {
                             if (Looper.getMainLooper() != Looper.myLooper()) {
@@ -118,8 +118,8 @@ class HttpManager private constructor() {
                         } else {
                             SuperToast.get(response.getMessage()).error()
                             if (response.getCode() == HttpCode.TOKEN_ERROR) {
-                                RouterManage.getLogin().exitLogin()
-                                RouterManage.getLogin().startLogin()
+                                RouterManage.login().exitLogin()
+                                RouterManage.login().startLogin()
                             }
                         }
                         return false
@@ -146,8 +146,8 @@ class HttpManager private constructor() {
                         message(text = message)
                         positiveButton(text = "知道了") {
                             if (code == HttpCode.TOKEN_ERROR) {
-                                RouterManage.getLogin().exitLogin()
-                                RouterManage.getLogin().startLogin()
+                                RouterManage.login().exitLogin()
+                                RouterManage.login().startLogin()
                             }
                         }
                     }

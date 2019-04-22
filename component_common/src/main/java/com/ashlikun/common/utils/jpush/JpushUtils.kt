@@ -34,7 +34,7 @@ object JpushUtils {
     fun init(application: Application) {
 //        JPushInterface.setDebugMode(BuildConfig.DEBUG)
 //        JPushInterface.init(application)
-        RouterManage.getLogin().run {
+        RouterManage.login().run {
             if (isLogin()) else deleteAlias()
         }
     }
@@ -44,7 +44,7 @@ object JpushUtils {
     }
 
     fun setAlias() {
-        RouterManage.getLogin().run {
+        RouterManage.login().run {
             if (isLogin()) {
 //                JPushInterface.setAlias(AppUtils.getApp(), JPUSH_ALIAS_SET_ID, getUserId())
             }

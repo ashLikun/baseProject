@@ -13,7 +13,6 @@ import com.ashlikun.loadswitch.LoadSwitch
 import com.ashlikun.orm.LiteOrmUtil
 import com.ashlikun.utils.AppUtils
 import com.ashlikun.utils.ui.SuperToast
-import com.squareup.leakcanary.LeakCanary
 import java.util.*
 
 /**
@@ -59,8 +58,7 @@ open class BaseApplication : MultiDexApplication() {
     }
 
     private fun initLib() {
-        //内存溢出检测
-        LeakCanaryUtils.init(this, BuildConfig.DEBUG)
+
         //app工具
         AppUtils.init(this)
         AppUtils.setDebug(BuildConfig.DEBUG)
@@ -68,6 +66,8 @@ open class BaseApplication : MultiDexApplication() {
         AppCrashConfig.Builder.create(this)
                 .isDebug(BuildConfig.DEBUG)
                 .apply()
+        //内存溢出检测
+        LeakCanaryUtils.init(this)
         //数据库
         LiteOrmUtil.init(this)
         LiteOrmUtil.setVersionCode(BuildConfig.VERSION_CODE)

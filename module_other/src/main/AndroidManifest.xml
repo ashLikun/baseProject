@@ -6,14 +6,19 @@
         <activity
             android:name=".view.WelcomeActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:theme="@style/AppTheme.Fullscreen"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".view.PermissonActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Fullscreen.Translucent"></activity>
         <activity
             android:name=".view.TestActivity"
             android:configChanges="orientation|screenSize"

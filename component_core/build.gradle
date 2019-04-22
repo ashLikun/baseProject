@@ -142,7 +142,6 @@ dependencies {
     //app内存溢出捕获
     releaseImplementation libs.leakcanaryRelease
     debugImplementation libs.leakcanaryDebug
-    debugImplementation libs.leakcanaryFragmentDebug
 
     //shimmer 文字
     api libs.shimmer

@@ -62,7 +62,7 @@ class HttpRequestParam(action: String? = null, path: String = HttpManager.BASE_P
      * 通用参数：Mobile：手机号码，PassWord：密码
      */
     fun addUserInfo() {
-        if (RouterManage.getLogin().isLogin()) {
+        if (RouterManage.login().isLogin()) {
 
         }
     }

@@ -5,10 +5,12 @@ import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.module.main.R
 import com.ashlikun.baseproject.module.main.iview.IBHomeView
 import com.ashlikun.baseproject.module.main.presenter.HomePresenter
+import com.ashlikun.common.utils.jump.RouterJump
 import com.ashlikun.core.factory.Presenter
 import com.ashlikun.core.fragment.BaseMvpFragment
 import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.loadswitch.OnLoadSwitchClick
+import kotlinx.android.synthetic.main.main_fragment_home.*
 
 /**
  * 作者　　: 李坤
@@ -31,6 +33,9 @@ class HomeFragment : BaseMvpFragment<HomePresenter>(), IBHomeView.IHomeView, OnL
     override fun initView() {
         toolbar?.run {
             setTitle("首页")
+        }
+        ceshiButton.setOnClickListener {
+            RouterJump.startTest()
         }
     }
 

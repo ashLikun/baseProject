@@ -23,7 +23,7 @@ class LoginInterceptor : IInterceptor {
 
     override fun process(postcard: Postcard, callback: InterceptorCallback?) {
         //这里加上自己的判断
-        if (RouterManage.getLogin().isLogin()) {
+        if (RouterManage.login().isLogin()) {
             //已经登录，执行默认操作
             callback?.onContinue(postcard)
         } else {
