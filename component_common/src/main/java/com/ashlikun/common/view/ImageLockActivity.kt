@@ -2,7 +2,7 @@ package com.ashlikun.common.view
 
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
-import android.support.v4.view.ViewPager
+import androidx.viewpager.widget.ViewPager
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup

@@ -1,13 +1,10 @@
-/*
- * Copyright (C) 20015 MaiNaEr All rights reserved
- */
 package com.ashlikun.baseproject.module.other.view
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.ashlikun.baseproject.module.other.R
 import com.ashlikun.okhttputils.http.download.DownloadManager
 import com.ashlikun.okhttputils.http.download.DownloadTask

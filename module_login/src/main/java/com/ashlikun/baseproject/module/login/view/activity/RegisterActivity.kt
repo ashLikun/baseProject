@@ -1,7 +1,7 @@
 package com.ashlikun.baseproject.module.login.view.activity
 
 import android.content.Intent
-import android.support.design.widget.TabLayout
+import com.google.android.material.tabs.TabLayout
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.module.login.R

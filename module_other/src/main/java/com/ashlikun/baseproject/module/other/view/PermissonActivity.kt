@@ -1,7 +1,7 @@
 package com.ashlikun.baseproject.module.other.view
 
 import android.content.Intent
-import android.support.v4.app.ActivityCompat
+import androidx.core.app.ActivityCompat
 import com.afollestad.materialdialogs.MaterialDialog
 import com.ashlikun.baseproject.libcore.constant.RouterKey
 import com.ashlikun.baseproject.module.other.R

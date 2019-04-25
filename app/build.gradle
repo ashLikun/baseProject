@@ -128,8 +128,6 @@ dependencies {
     //公共组件
     implementation project(':component_common')
     kapt libs.aroutercompiler
-    //权限插件
-    kapt libs.permissionprocessor
     kapt libs.glideCompiler
     //主模块
     if (!moudles.main.isRun) {

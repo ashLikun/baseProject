@@ -1,6 +1,6 @@
 package com.ashlikun.common.mode.enumm
 
-import android.support.annotation.IntDef
+import androidx.annotation.IntDef
 
 
 /**

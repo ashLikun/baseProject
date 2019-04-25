@@ -80,8 +80,6 @@ dependencies {
 
     implementation project(':component_common')
     kapt libs.aroutercompiler
-    //权限插件
-    kapt libs.permissionprocessor
     kapt libs.glideCompiler
 }
 

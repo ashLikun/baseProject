@@ -3,9 +3,9 @@ package com.ashlikun.baseproject.libcore.utils
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentManager
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import com.ashlikun.utils.ActivityLifecycleCallbacksAdapter
 import com.ashlikun.utils.AppUtils
 import com.squareup.leakcanary.LeakCanary
@@ -76,7 +76,7 @@ object LeakCanaryUtils {
                 supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentLifecycleCallbacks)
             }
         }
-        private val fragmentLifecycleCallbacks = object : android.support.v4.app.FragmentManager.FragmentLifecycleCallbacks() {
+        private val fragmentLifecycleCallbacks = object : FragmentManager.FragmentLifecycleCallbacks() {
 
             override fun onFragmentViewDestroyed(fm: FragmentManager, fragment: Fragment) {
                 if (filtration?.contains(fragment::class.java) == true) {

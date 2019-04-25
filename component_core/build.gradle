@@ -54,8 +54,6 @@ android {
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
     kapt libs.aroutercompiler
-    //权限插件
-    kapt libs.permissionprocessor
     kapt libs.glideCompiler
     api libs.kotlin
     api libs.design
@@ -86,8 +84,6 @@ dependencies {
     api 'com.github.ashLikun.frame:badgeview:' + rootProject.ext.frameVersion
     api 'com.github.ashLikun.frame:animcheckbox:' + rootProject.ext.frameVersion
     api 'com.github.ashLikun.frame:pathanim:' + rootProject.ext.frameVersion
-    api 'com.github.ashLikun.frame:glideutils:' + rootProject.ext.frameVersion
-    api 'com.github.ashLikun.frame:superwebview:' + rootProject.ext.frameVersion
 
     //简单的PopupWindow
     api libs.EasyPopupWindow
@@ -161,6 +157,7 @@ dependencies {
     api libs.OkHttpUtils
 
     //图片加载
+    api libs.GlideUtils
     api libs.glide
     api libs.glideTransformations
 

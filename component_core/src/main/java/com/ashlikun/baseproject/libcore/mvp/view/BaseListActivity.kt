@@ -1,7 +1,7 @@
 package com.ashlikun.baseproject.libcore.mvp.view
 
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import com.ashlikun.adapter.recyclerview.BaseAdapter
 import com.ashlikun.adapter.recyclerview.click.OnItemClickListener

@@ -1,8 +1,8 @@
 package com.ashlikun.baseproject.libcore
 
 import android.content.res.Configuration
-import android.support.multidex.MultiDexApplication
 import android.view.Gravity
+import androidx.multidex.MultiDexApplication
 import com.ashlikun.appcrash.AppCrashConfig
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 import com.ashlikun.baseproject.libcore.utils.CacheUtils

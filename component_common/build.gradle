@@ -48,8 +48,6 @@ dependencies {
     //公共模块引用核心模块，其他模块只需引用本模块就可以
     api project(':component_core')
     kapt libs.aroutercompiler
-    //权限插件
-    kapt libs.permissionprocessor
     kapt libs.glideCompiler
 }
 

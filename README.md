@@ -14,7 +14,6 @@
 	compile 'com.github.ashLikun.frame:loadSwitchService:1.0.9'//布局切换
 	compile 'com.github.ashLikun.frame:numberprogressbar:1.0.9'//数字精度条
 	compile 'com.github.ashLikun.frame:segmentcontrol:1.0.9'//多段选择
-	compile 'com.github.ashLikun.frame:supergridlayout:1.0.9'//流布局和表格布局
 	compile 'com.github.ashLikun.frame:banner:1.0.9'//广告条
 	compile 'com.github.ashLikun.frame:charbar:1.0.9'//字母索引
 	compile 'com.github.ashLikun.frame:supertoobar:1.0.9'//toobar

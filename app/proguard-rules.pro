@@ -54,10 +54,20 @@
 -keep public class * extends android.preference.Preference
 -keep public class * extends android.view.View
 -keep public class com.android.vending.licensing.ILicensingService
+#supper包混淆
 -keep class android.support.** {*;}
 -keep interface android.support.** { *; }
 -dontwarn android.support.**
 -dontwarn android.os.**
+#AndroidX混淆
+-keep class com.google.android.material.** {*;}
+-keep class androidx.** {*;}
+-keep public class * extends androidx.**
+-keep interface androidx.** {*;}
+-dontwarn com.google.android.material.**
+-dontnote com.google.android.material.**
+-dontwarn androidx.**
+
 #继承Binder类不混淆
 -keep public class * extends android.os.Binder
 

@@ -1,7 +1,7 @@
 package com.ashlikun.baseproject.libcore.libarouter
 
 import android.app.Activity
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.core.LogisticsCenter
 import com.alibaba.android.arouter.launcher.ARouter
 

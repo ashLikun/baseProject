@@ -1,9 +1,9 @@
 package com.ashlikun.common.adapter
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleOwner
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 
 import com.alibaba.android.vlayout.VirtualLayoutManager
 import com.ashlikun.adapter.recyclerview.vlayout.MultipleAdapter

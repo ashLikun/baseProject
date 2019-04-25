@@ -1,6 +1,6 @@
 package com.ashlikun.baseproject.module.main.view.activity
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.content.Context
 import android.content.Intent
 import com.alibaba.android.arouter.facade.annotation.Route

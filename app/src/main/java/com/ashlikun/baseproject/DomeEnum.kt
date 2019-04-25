@@ -1,6 +1,6 @@
 package com.ashlikun.baseproject
 
-import android.support.annotation.IntDef
+import androidx.annotation.IntDef
 
 
 /**
