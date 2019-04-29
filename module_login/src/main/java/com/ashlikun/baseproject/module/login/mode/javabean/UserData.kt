@@ -3,7 +3,7 @@ package com.ashlikun.baseproject.module.login.mode.javabean
 import android.content.Context
 import com.afollestad.materialdialogs.MaterialDialog
 import com.alibaba.android.arouter.launcher.ARouter
-import com.ashlikun.baseproject.libcore.constant.EvenBusKey
+import com.ashlikun.baseproject.libcore.constant.EventBusKey
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.common.utils.jpush.JpushUtils
 import com.ashlikun.common.utils.jump.RouterJump
@@ -71,7 +71,7 @@ class UserData {
             LiteOrmUtil.get().save(this)
             UserData.userData = this
             //发送通知
-            EventBus.get(EvenBusKey.LOGIN).post()
+            EventBus.get(EventBusKey.LOGIN).post()
             //设置推送别名
             JpushUtils.setAlias()
             return true
@@ -149,7 +149,7 @@ class UserData {
             /**
              * 发送退出广播
              */
-            EventBus.get(EvenBusKey.EXIT_LOGIN).post()
+            EventBus.get(EventBusKey.EXIT_LOGIN).post()
             RouterJump.startHome(0)
             return res
         }

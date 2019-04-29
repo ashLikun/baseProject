@@ -96,7 +96,7 @@ ext {
             //不同type的json解析,依赖于gson
             MultiTypeGson        : "com.github.ashLikun:MultiTypeGson:1.1.1",
             //基于Okhttp封装的
-            OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:2.0.0",
+            OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:2.0.1",
             //图片加载
             GlideUtils                : "com.github.ashLikun:GlideUtils:1.0.0",
             glide                : "com.github.bumptech.glide:glide:4.9.0",
@@ -104,7 +104,8 @@ ext {
             glideTransformations : "jp.wasabeef:glide-transformations:3.3.0",
             glidegpuimage        : "jp.co.cyberagent.android:gpuimage:2+",//2.0.2
             //md风格对话框    exclude group: 'com.android.support'
-            materialDialogs      : "com.afollestad.material-dialogs:input:2.8.1",
+            materialDialogCore      : "com.afollestad.material-dialogs:core:2.8.1",
+            materialDialogInput      : "com.afollestad.material-dialogs:input:2.8.1",
             //Android官方流布局
             flexbox              : "com.google.android:flexbox:0.3.1",
             //图片查看

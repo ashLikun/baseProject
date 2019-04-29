@@ -1,10 +1,12 @@
 package com.ashlikun.baseproject.module.main.view.activity
 
-import androidx.lifecycle.Observer
 import android.content.Context
 import android.content.Intent
+import android.os.Looper
+import android.util.Log
+import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.ashlikun.baseproject.libcore.constant.EvenBusKey
+import com.ashlikun.baseproject.libcore.constant.EventBusKey
 import com.ashlikun.baseproject.libcore.constant.RouterKey
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
@@ -44,6 +46,7 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
         }
     }
 
+    var count = 0
 
     override fun initData() {
         super.initData()
@@ -53,6 +56,10 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
             setCurrentItem(cachePosition)
             cachePosition = -1
         }
+        EventBus.get("111").registerLifecycle(this, Observer<Any> {
+            Thread.sleep(1000)
+            Log.e("aaaaa", "是否主线程 = ${Looper.myLooper() == Looper.getMainLooper()}     ${count++}")
+        })
     }
 
     fun setCurrentItem(postion: Int) {
@@ -99,7 +106,7 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
         viewPager.setCanSlide(RouterManage.login().isLogin())
                 .run { }
         //监听登录成功的通知
-        EventBus.get(EvenBusKey.LOGIN).registerLifecycle(this, Observer<Any> {
+        EventBus.get(EventBusKey.LOGIN).registerLifecycle(this, Observer<Any> {
             //登录之后可以左右滑动
             viewPager.setCanSlide(RouterManage.login().isLogin())
         })

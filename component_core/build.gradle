@@ -162,7 +162,10 @@ dependencies {
     api libs.glideTransformations
 
     //md风格对话框
-    api(libs.materialDialogs) {
+    api(libs.materialDialogCore) {
+        exclude group: 'com.android.support'
+    }
+    api(libs.materialDialogInput) {
         exclude group: 'com.android.support'
     }
     //Android官方流布局
