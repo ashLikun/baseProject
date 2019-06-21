@@ -7,7 +7,7 @@ import com.ashlikun.baseproject.libcore.constant.RouterKey
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.libarouter.service.IOtherService
 import com.ashlikun.baseproject.module.other.view.PermissonActivity
-import com.ashlikun.common.utils.jump.RouterJump
+import com.ashlikun.baseproject.common.utils.jump.RouterJump
 
 /**
  * 作者　　: 李坤

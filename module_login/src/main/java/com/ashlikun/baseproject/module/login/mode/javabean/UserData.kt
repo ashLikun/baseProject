@@ -5,8 +5,8 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.alibaba.android.arouter.launcher.ARouter
 import com.ashlikun.baseproject.libcore.constant.EventBusKey
 import com.ashlikun.baseproject.libcore.constant.RouterPath
-import com.ashlikun.common.utils.jpush.JpushUtils
-import com.ashlikun.common.utils.jump.RouterJump
+import com.ashlikun.baseproject.common.utils.jpush.JpushUtils
+import com.ashlikun.baseproject.common.utils.jump.RouterJump
 import com.ashlikun.livedatabus.EventBus
 import com.ashlikun.orm.LiteOrmUtil
 import com.ashlikun.orm.db.annotation.Column

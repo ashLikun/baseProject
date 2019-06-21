@@ -47,13 +47,36 @@ class RouterManage private constructor() {
                 ARouter.openDebug()    // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
             }
             ARouter.init(app)      // 尽可能早，推荐在Application中初始化
+            //get()::commonService.isInitialized
         }
 
-        fun common(): ICommonService = get().commonService
-        fun other(): IOtherService = get().otherService
+        fun common(): ICommonService? =
+                if (get()::commonService.isInitialized) {
+                    get().commonService
+                } else {
+                    null
+                }
 
-        fun home(): IHomeService = get().homeServic
-        fun login(): ILoginService = get().loginService
+        fun other(): IOtherService? =
+                if (get()::otherService.isInitialized) {
+                    get().otherService
+                } else {
+                    null
+                }
+
+        fun home(): IHomeService? =
+                if (get()::homeServic.isInitialized) {
+                    get().homeServic
+                } else {
+                    null
+                }
+
+        fun login(): ILoginService? =
+                if (get()::loginService.isInitialized) {
+                    get().loginService
+                } else {
+                    null
+                }
 
     }
 }

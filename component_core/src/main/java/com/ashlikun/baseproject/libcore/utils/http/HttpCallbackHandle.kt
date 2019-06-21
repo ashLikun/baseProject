@@ -71,11 +71,13 @@ class HttpCallbackHandle private constructor() {
     internal var loadSwitchService: LoadSwitchService? = null
 
     /**
-     * tag类
+     * tag类,标识这个请求，会传递到Request里面
+     * [tag]优先级高
      */
     internal var basePresenter: BasePresenter<*>? = null
     internal var context: Context? = null
     internal var view: IBaseView? = null
+    internal var tag: Any? = null
     /**
      * 加载框
      */
@@ -88,13 +90,13 @@ class HttpCallbackHandle private constructor() {
      */
     fun isFirstRequest() = count() <= 1
 
-    fun getTag() = context ?: basePresenter
+    fun getTag() = tag ?: (context ?: basePresenter)
 
     /**
      * 统计同一个tag的请求数量
      */
     fun count(): Long {
-        return OkHttpUtils.getInstance().countRequest(context, basePresenter)
+        return OkHttpUtils.getInstance().countRequest(tag, context, basePresenter)
     }
 
     /**
@@ -141,7 +143,7 @@ class HttpCallbackHandle private constructor() {
     /**
      * 下拉刷新的监听
      */
-    fun setSwipeRefreshLayout(swipeRefreshLayout: RefreshLayout): HttpCallbackHandle {
+    fun setSwipeRefreshLayout(swipeRefreshLayout: RefreshLayout?): HttpCallbackHandle {
         this.swipeRefreshLayout = swipeRefreshLayout
         return this
     }
@@ -149,7 +151,7 @@ class HttpCallbackHandle private constructor() {
     /**
      * 状态改加载监听
      */
-    fun setStatusChangListener(statusChangListener: StatusChangListener): HttpCallbackHandle {
+    fun setStatusChangListener(statusChangListener: StatusChangListener?): HttpCallbackHandle {
         this.statusChangListener = statusChangListener
         return this
     }
@@ -167,15 +169,18 @@ class HttpCallbackHandle private constructor() {
     /**
      * 重新加载的监听
      */
-    fun setLoadSwitchService(loadSwitchService: LoadSwitchService): HttpCallbackHandle {
+    fun setLoadSwitchService(loadSwitchService: LoadSwitchService?): HttpCallbackHandle {
         this.loadSwitchService = loadSwitchService
+        if (loadSwitchService != null) {
+            setShowLoadding(false)
+        }
         return this
     }
 
     /**
      * 从BaseView里面设置布局切换
      */
-    fun setLoadSwitchServiceBaseView(baseView: IBaseView): HttpCallbackHandle {
+    fun setLoadSwitchServiceBaseView(baseView: IBaseView?): HttpCallbackHandle {
         this.view = baseView
         return this
     }
@@ -190,6 +195,15 @@ class HttpCallbackHandle private constructor() {
 
     fun setShowProgress(showProgress: Boolean): HttpCallbackHandle {
         isShowProgress = showProgress
+        return this
+    }
+
+    /**
+     * 设置默默调用，不提示
+     */
+    fun setNoTips(): HttpCallbackHandle {
+        setShowLoadding(false)
+        isToastShow(false)
         return this
     }
 
@@ -215,7 +229,6 @@ class HttpCallbackHandle private constructor() {
         //布局切换
         view = mvpView
         setLoadSwitchService(mvpView.switchService)
-        setShowLoadding(false)
         return this
     }
 
@@ -289,8 +302,30 @@ class HttpCallbackHandle private constructor() {
             return buider
         }
 
-        fun get(): HttpCallbackHandle {
-            return HttpCallbackHandle()
+        fun getNoTips(basePresenter: BasePresenter<*>): HttpCallbackHandle {
+            val buider = get()
+            buider.basePresenter = basePresenter
+            buider.setNoTips()
+            return buider
+        }
+
+        fun getNoTips(context: Context): HttpCallbackHandle {
+            val buider = get()
+            buider.context = context
+            buider.setNoTips()
+            return buider
+        }
+
+        fun getNoTips(tag: Any? = null): HttpCallbackHandle {
+            val buider = get(tag)
+            buider.setNoTips()
+            return buider
+        }
+
+        fun get(tag: Any? = null): HttpCallbackHandle {
+            val buider = HttpCallbackHandle()
+            buider.tag = tag
+            return buider
         }
     }
 }

@@ -1,9 +1,6 @@
 package com.ashlikun.baseproject.module.other.mode
 
-import com.ashlikun.baseproject.libcore.utils.http.BaseApiService
-import com.ashlikun.baseproject.libcore.utils.http.HttpCallbackHandle
-import com.ashlikun.baseproject.libcore.utils.http.HttpRequestParam
-import com.ashlikun.baseproject.libcore.utils.http.SimpleHttpCallback
+import com.ashlikun.baseproject.libcore.utils.http.*
 import com.ashlikun.okhttputils.http.ExecuteCall
 import com.ashlikun.okhttputils.http.response.HttpResult
 
@@ -22,15 +19,11 @@ class ApiOther : BaseApiService() {
         public var api: ApiOther = ApiOther()
     }
 
-    /**
-     *
-     */
     fun test(handle: HttpCallbackHandle,
-             success: (result: HttpResult<String>) -> Unit): ExecuteCall {
+             success: OnSuccess<HttpResult<String>>): ExecuteCall {
         val callback = object : SimpleHttpCallback<HttpResult<String>>(handle) {}
         callback.success = success
-
-        val p = HttpRequestParam("index")
+        val p = HttpRequestParam.get("index")
         return execute(p, callback)
     }
 }

@@ -1,8 +1,8 @@
 package com.ashlikun.baseproject.libcore.mvp.view
 
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import android.view.View
 import com.ashlikun.adapter.recyclerview.BaseAdapter
 import com.ashlikun.adapter.recyclerview.click.OnItemClickListener
 import com.ashlikun.core.BasePresenter
@@ -22,6 +22,9 @@ abstract class BaseListActivity<P : BasePresenter<*>> : BaseMvpActivity<P>()
         , RecycleViewSwipeListener, OnLoadSwitchClick {
     abstract val itemDecoration: RecyclerView.ItemDecoration?
     abstract val adapter: RecyclerView.Adapter<*>?
+    open val layoutManager: RecyclerView.LayoutManager
+        get() = LinearLayoutManager(context)
+
     override fun baseInitView() {
         super.baseInitView()
         getSuperRecyclerView().run {
@@ -41,32 +44,36 @@ abstract class BaseListActivity<P : BasePresenter<*>> : BaseMvpActivity<P>()
 
     abstract fun getSuperRecyclerView(): SuperRecyclerView
     override fun getSwitchRoot(): View? = getSuperRecyclerView()
-    val layoutManager: RecyclerView.LayoutManager
-        get() = LinearLayoutManager(context)
 
 
-    fun clearData() {
+    open fun clearData() {
         if (adapter is BaseAdapter<*, *>) {
             (adapter as BaseAdapter<*, *>)?.clearData()
         }
     }
 
-    fun notifyChanged() {
+    open fun notifyChanged() {
         if (adapter is BaseAdapter<*, *>) {
             (adapter as BaseAdapter<*, *>)?.notifyDataSetChanged()
         }
     }
 
-    fun clearPaging() {
+    open fun clearPaging() {
         getSuperRecyclerView().pageHelp?.clear()
     }
 
-    fun getSwipeRefreshLayout() = getSuperRecyclerView().getRefreshLayout()
+    open fun getSwipeRefreshLayout() = getSuperRecyclerView().getRefreshLayout()
 
 
-    fun getPageHelp() = getSuperRecyclerView().pageHelp
+    open fun getPageHelp() = getSuperRecyclerView().pageHelp
 
-    fun getPageindex() = getPageHelp().currentPage
+    open fun getPageindex() = getPageHelp().currentPage
 
-    fun getPageCount() = getSuperRecyclerView().pageHelp.currentPage
+    open fun getPageCount() = getSuperRecyclerView().pageHelp.currentPage
+
+    open fun scrollToPosition(position: Int) {
+        if (getSuperRecyclerView() != null) {
+            getSuperRecyclerView().recyclerView.scrollToPosition(position)
+        }
+    }
 }

@@ -138,6 +138,9 @@ dependencies {
     //app内存溢出捕获
     releaseImplementation libs.leakcanaryRelease
     debugImplementation libs.leakcanaryDebug
+    //滴滴的开发助手
+    releaseImplementation libs.doraemonkitRelease
+    debugImplementation libs.doraemonkitDebug
 
     //shimmer 文字
     api libs.shimmer

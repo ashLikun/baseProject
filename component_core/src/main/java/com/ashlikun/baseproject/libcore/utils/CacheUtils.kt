@@ -16,11 +16,11 @@ object CacheUtils {
     var rootName = ""
     //app缓存路径，内部
     val appCachePath: String by lazy {
-        check("${AppUtils.getApp().cacheDir.path}/$rootName/cache")
+        check("${AppUtils.getApp().cacheDir.path}")
     }
     //app文件路径，内部
     val appFilePath: String by lazy {
-        check("${AppUtils.getApp().filesDir.path}/$rootName/file")
+        check("${AppUtils.getApp().filesDir.path}")
     }
     //appsd卡缓存路径
     val appSDCachePath: String by lazy {

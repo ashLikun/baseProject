@@ -7,7 +7,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.libarouter.service.ILoginService
 import com.ashlikun.baseproject.module.login.mode.javabean.UserData
-import com.ashlikun.common.utils.jump.RouterJump
+import com.ashlikun.baseproject.common.utils.jump.RouterJump
 
 /**
  * 作者　　: 李坤

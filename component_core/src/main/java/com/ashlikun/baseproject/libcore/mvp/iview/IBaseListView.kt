@@ -52,11 +52,13 @@ interface IBaseListView : IBaseSwipeView, INotifyView {
      * 作者　　: 李坤
      * 创建时间: 2016/9/22 11:03
      *
-     *
-     *
-     *
      * 方法功能：清空分页数据
      */
 
     fun clearPaging()
+
+    /**
+     * 滚动到指定地方
+     */
+    fun scrollToPosition(position: Int)
 }

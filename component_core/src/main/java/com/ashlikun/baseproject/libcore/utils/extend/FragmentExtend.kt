@@ -1,6 +1,5 @@
 package com.ashlikun.baseproject.libcore.utils.extend
 
-import android.app.Activity
 import androidx.fragment.app.Fragment
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 
@@ -17,5 +16,5 @@ import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 fun Fragment.requestPermission(permission: Array<String>, showRationaleMessage: String? = null
                                , denied: (() -> Unit)? = null
                                , success: (() -> Unit)) {
-    RouterManage.other().requestPermission(permission, showRationaleMessage, denied, success)
+    RouterManage.other()?.requestPermission(permission, showRationaleMessage, denied, success)
 }

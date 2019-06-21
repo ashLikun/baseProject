@@ -5,7 +5,7 @@ import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.module.main.R
 import com.ashlikun.baseproject.module.main.iview.IBHomeView
 import com.ashlikun.baseproject.module.main.presenter.HomePresenter
-import com.ashlikun.common.utils.jump.RouterJump
+import com.ashlikun.baseproject.common.utils.jump.RouterJump
 import com.ashlikun.core.factory.Presenter
 import com.ashlikun.core.fragment.BaseMvpFragment
 import com.ashlikun.loadswitch.ContextData

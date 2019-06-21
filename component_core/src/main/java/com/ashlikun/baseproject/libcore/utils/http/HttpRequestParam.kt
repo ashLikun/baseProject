@@ -14,7 +14,7 @@ import com.ashlikun.xrecycleview.PageHelp
  * 功能介绍：请求参数
  */
 
-class HttpRequestParam(action: String? = null, path: String = HttpManager.BASE_PATH) :
+class HttpRequestParam private constructor(action: String? = null, path: String = HttpManager.BASE_PATH) :
         HttpRequest(HttpManager.BASE_URL + path) {
 
 
@@ -27,13 +27,14 @@ class HttpRequestParam(action: String? = null, path: String = HttpManager.BASE_P
 
     companion object {
         private const val SIGN = "BaseProject"
-
+        @JvmStatic
         fun post(path: String): HttpRequestParam {
             val param = HttpRequestParam(path)
             param.method = "POST"
             return param
         }
 
+        @JvmStatic
         fun get(url: String): HttpRequestParam {
             val param = HttpRequestParam(url)
             param.method = "GET"
@@ -62,7 +63,7 @@ class HttpRequestParam(action: String? = null, path: String = HttpManager.BASE_P
      * 通用参数：Mobile：手机号码，PassWord：密码
      */
     fun addUserInfo() {
-        if (RouterManage.login().isLogin()) {
+        if (RouterManage.login()?.isLogin() == true) {
 
         }
     }

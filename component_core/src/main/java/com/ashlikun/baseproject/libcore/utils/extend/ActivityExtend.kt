@@ -16,5 +16,5 @@ import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 fun Activity.requestPermission(permission: Array<String>, showRationaleMessage: String? = null
                                , denied: (() -> Unit)? = null
                                , success: (() -> Unit)) {
-    RouterManage.other().requestPermission(permission, showRationaleMessage, denied, success)
+    RouterManage.other()?.requestPermission(permission, showRationaleMessage, denied, success)
 }

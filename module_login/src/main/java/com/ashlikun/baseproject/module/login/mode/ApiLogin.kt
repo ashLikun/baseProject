@@ -1,9 +1,6 @@
 package com.ashlikun.baseproject.module.login.mode
 
-import com.ashlikun.baseproject.libcore.utils.http.BaseApiService
-import com.ashlikun.baseproject.libcore.utils.http.HttpCallbackHandle
-import com.ashlikun.baseproject.libcore.utils.http.HttpRequestParam
-import com.ashlikun.baseproject.libcore.utils.http.SimpleHttpCallback
+import com.ashlikun.baseproject.libcore.utils.http.*
 import com.ashlikun.baseproject.module.login.mode.javabean.UserData
 import com.ashlikun.okhttputils.http.ExecuteCall
 import com.ashlikun.okhttputils.http.callback.Callback
@@ -27,8 +24,8 @@ class ApiLogin private constructor() : BaseApiService() {
      */
     fun login(telphone: String, password: String,
               callbackHandle: HttpCallbackHandle,
-              success: (result: HttpResult<UserData>) -> Unit): ExecuteCall {
-        val p = HttpRequestParam("log.php")
+              success: OnSuccess<HttpResult<UserData>>): ExecuteCall {
+        val p = HttpRequestParam.post("log.php")
         p.addParam("username", telphone)
         p.addParam("password", password)
         return execute(p, callbackHandle, success)
@@ -40,7 +37,7 @@ class ApiLogin private constructor() : BaseApiService() {
      * post数据phone
      */
     fun sendMsg(phone: String, callback: Callback<*>): ExecuteCall {
-        val p = HttpRequestParam("sendmsg.php")
+        val p = HttpRequestParam.post("sendmsg.php")
         p.addParam("phone", phone)
         return execute(p, callback)
     }
@@ -52,7 +49,7 @@ class ApiLogin private constructor() : BaseApiService() {
      * Type=2 商户注册
      */
     fun register(type: Int, telphone: String, password: String, code: String, callback: Callback<*>): ExecuteCall {
-        val p = HttpRequestParam("reg.php")
+        val p = HttpRequestParam.post("reg.php")
         p.addParam("username", telphone)
         p.addParam("password", password)
         p.addParam("type", type)
@@ -70,7 +67,7 @@ class ApiLogin private constructor() : BaseApiService() {
      * type=2 商户登陆
      */
     fun upDataPassword(phone: String, password: String, code: String, callback: Callback<*>): ExecuteCall {
-        val p = HttpRequestParam("shemima.php")
+        val p = HttpRequestParam.post("shemima.php")
         p.addParam("phone", phone)
         p.addParam("password", password)
         p.addParam("codemsg", code)
@@ -78,15 +75,11 @@ class ApiLogin private constructor() : BaseApiService() {
     }
 
 
-    /**
-     *
-     */
     fun test(handle: HttpCallbackHandle,
-             success: (result: HttpResult<String>) -> Unit): ExecuteCall {
+             success: OnSuccess<HttpResult<String>>): ExecuteCall {
         val callback = object : SimpleHttpCallback<HttpResult<String>>(handle) {}
         callback.success = success
-
-        val p = HttpRequestParam("index")
+        val p = HttpRequestParam.get("index")
         return execute(p, callback)
     }
 

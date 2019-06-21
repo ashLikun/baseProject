@@ -10,9 +10,11 @@ import com.ashlikun.baseproject.libcore.utils.LeakCanaryUtils
 import com.ashlikun.baseproject.libcore.utils.http.HttpManager
 import com.ashlikun.glideutils.GlideUtils
 import com.ashlikun.loadswitch.LoadSwitch
+import com.ashlikun.okhttputils.http.download.DownloadManager
 import com.ashlikun.orm.LiteOrmUtil
 import com.ashlikun.utils.AppUtils
 import com.ashlikun.utils.ui.SuperToast
+import com.didichuxing.doraemonkit.DoraemonKit
 import java.util.*
 
 /**
@@ -32,13 +34,12 @@ open class BaseApplication : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
         initLib()
-        CacheUtils.init(resources.getString(R.string.app_name_letter))
+
         //布局切换管理器
         LoadSwitch.BASE_EMPTY_LAYOUT_ID = R.layout.base_load_empty
         LoadSwitch.BASE_RETRY_LAYOUT_ID = R.layout.base_load_retry
         LoadSwitch.BASE_LOADING_LAYOUT_ID = R.layout.base_load_loading
-        RouterManage.init(AppUtils.getApp(), AppUtils.isDebug())
-        HttpManager.get()
+
         //activity创建管理器
         for (a in applications) {
             a.onCreate()
@@ -61,6 +62,8 @@ open class BaseApplication : MultiDexApplication() {
 
         //app工具
         AppUtils.init(this)
+        //缓存工具
+        CacheUtils.init(resources.getString(R.string.app_name_letter))
         AppUtils.setDebug(BuildConfig.DEBUG)
         //异常捕获
         AppCrashConfig.Builder.create(this)
@@ -68,10 +71,17 @@ open class BaseApplication : MultiDexApplication() {
                 .apply()
         //内存溢出检测
         LeakCanaryUtils.init(this)
+        //开发助手
+        DoraemonKit.install(this)
         //数据库
         LiteOrmUtil.init(this)
         LiteOrmUtil.setVersionCode(BuildConfig.VERSION_CODE)
         LiteOrmUtil.setIsDebug(BuildConfig.DEBUG)
+        //路由
+        RouterManage.init(AppUtils.getApp(), AppUtils.isDebug())
+        //http
+        HttpManager.get()
+        DownloadManager.initPath(CacheUtils.appFilePath)
         //glide图片库
         GlideUtils.setBaseUrl(HttpManager.BASE_URL)
         GlideUtils.setDEBUG(BuildConfig.DEBUG)

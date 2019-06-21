@@ -2,15 +2,12 @@ package com.ashlikun.baseproject.module.main.view.activity
 
 import android.content.Context
 import android.content.Intent
-import android.os.Looper
-import android.util.Log
 import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.libcore.constant.EventBusKey
 import com.ashlikun.baseproject.libcore.constant.RouterKey
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
-import com.ashlikun.baseproject.module.main.R
 import com.ashlikun.bottomnavigation.AHBottomNavigation
 import com.ashlikun.bottomnavigation.AHBottomNavigationItem
 import com.ashlikun.core.activity.BaseActivity
@@ -56,10 +53,6 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
             setCurrentItem(cachePosition)
             cachePosition = -1
         }
-        EventBus.get("111").registerLifecycle(this, Observer<Any> {
-            Thread.sleep(1000)
-            Log.e("aaaaa", "是否主线程 = ${Looper.myLooper() == Looper.getMainLooper()}     ${count++}")
-        })
     }
 
     fun setCurrentItem(postion: Int) {
@@ -67,23 +60,23 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
     }
 
     override fun getLayoutId(): Int {
-        return R.layout.main_activity_home
+        return com.ashlikun.baseproject.module.main.R.layout.main_activity_home
     }
 
     override fun getStatusBarColor(): Int {
-        return ResUtils.getColor(R.color.white)
+        return ResUtils.getColor(com.ashlikun.baseproject.module.main.R.color.white)
     }
 
     override fun initView() {
-        bottomNavigationBar.accentColor = ResUtils.getColor(R.color.colorPrimary)
-        bottomNavigationBar.addItem(AHBottomNavigationItem.Builder(R.string.main_bottom_1,
-                R.mipmap.app_logo, R.mipmap.app_logo).builder())
-        bottomNavigationBar.addItem(AHBottomNavigationItem.Builder(R.string.main_bottom_2,
-                R.mipmap.app_logo, R.mipmap.app_logo).builder())
-        bottomNavigationBar.addItem(AHBottomNavigationItem.Builder(R.string.main_bottom_3,
-                R.mipmap.app_logo, R.mipmap.app_logo).builder())
+        bottomNavigationBar.accentColor = ResUtils.getColor(com.ashlikun.baseproject.module.main.R.color.colorPrimary)
+        bottomNavigationBar.addItem(AHBottomNavigationItem.Builder(com.ashlikun.baseproject.module.main.R.string.main_bottom_1,
+                com.ashlikun.baseproject.module.main.R.mipmap.app_logo, com.ashlikun.baseproject.module.main.R.mipmap.app_logo).builder())
+        bottomNavigationBar.addItem(AHBottomNavigationItem.Builder(com.ashlikun.baseproject.module.main.R.string.main_bottom_2,
+                com.ashlikun.baseproject.module.main.R.mipmap.app_logo, com.ashlikun.baseproject.module.main.R.mipmap.app_logo).builder())
+        bottomNavigationBar.addItem(AHBottomNavigationItem.Builder(com.ashlikun.baseproject.module.main.R.string.main_bottom_3,
+                com.ashlikun.baseproject.module.main.R.mipmap.app_logo, com.ashlikun.baseproject.module.main.R.mipmap.app_logo).builder())
 
-        bottomNavigationBar.defaultBackgroundColor = ResUtils.getColor(R.color.white)
+        bottomNavigationBar.defaultBackgroundColor = ResUtils.getColor(com.ashlikun.baseproject.module.main.R.color.white)
         bottomNavigationBar.titleState = AHBottomNavigation.TitleState.ALWAYS_SHOW
         bottomNavigationBar.setupWithViewPager(viewPager)
         bottomNavigationBar.addOnTabSelectedListener(this)
@@ -103,12 +96,11 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
         viewPager.offscreenPageLimit = adapter?.count ?: 3
         viewPager.adapter = adapter
         //登录之后可以左右滑动
-        viewPager.setCanSlide(RouterManage.login().isLogin())
-                .run { }
+        viewPager.setCanSlide(RouterManage.login()?.isLogin() ?: false)
         //监听登录成功的通知
         EventBus.get(EventBusKey.LOGIN).registerLifecycle(this, Observer<Any> {
             //登录之后可以左右滑动
-            viewPager.setCanSlide(RouterManage.login().isLogin())
+            viewPager.setCanSlide(RouterManage.login()?.isLogin() ?: false)
         })
     }
 

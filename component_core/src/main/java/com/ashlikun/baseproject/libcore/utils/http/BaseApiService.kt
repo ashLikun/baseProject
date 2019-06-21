@@ -1,10 +1,7 @@
 package com.ashlikun.baseproject.libcore.utils.http
 
-import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.okhttputils.http.ExecuteCall
-import com.ashlikun.okhttputils.http.HttpException
 import com.ashlikun.okhttputils.http.OkHttpUtils
-import com.ashlikun.okhttputils.http.cache.CacheEntity
 import com.ashlikun.okhttputils.http.callback.Callback
 
 /**
@@ -33,18 +30,18 @@ open class BaseApiService {
     /**
      * kotlin方式的请求
      */
-    fun <ResultType> execute(param: HttpRequestParam, callbackHandle: HttpCallbackHandle,
-                             success: ((result: ResultType) -> Unit)? = null,
-                             errorData: ((data: ContextData) -> Unit)? = null,
-                             error: ((error: HttpException) -> Unit)? = null,
-                             successHanderError: ((result: ResultType) -> Boolean)? = null,
-                             successSubThread: ((result: ResultType) -> Unit)? = null,
-                             cacheSuccess: ((entity: CacheEntity, result: ResultType) -> Unit)? = null,
-                             successHandelCode: ((result: ResultType) -> Boolean)? = null,
-                             completed: (() -> Unit)? = null,
-                             start: (() -> Unit)? = null
+    fun <T> execute(param: HttpRequestParam, callbackHandle: HttpCallbackHandle,
+                    success: OnSuccess<T>? = null,
+                    errorData: OnErrorData? = null,
+                    error: OnError? = null,
+                    successHanderError: OnSuccessHander<T>? = null,
+                    successSubThread: OnSuccess<T>? = null,
+                    cacheSuccess: OnCacheSuccess<T>? = null,
+                    successHandelCode: OnSuccessHander<T>? = null,
+                    completed: OnArgs? = null,
+                    start: OnArgs? = null
     ): ExecuteCall {
-        val callback: SimpleHttpCallback<ResultType> = SimpleHttpCallback<ResultType>(callbackHandle)
+        val callback: SimpleHttpCallback<T> = object : SimpleHttpCallback<T>(callbackHandle) {}
         callback.success = success
         callback.successHanderError = successHanderError
         callback.successSubThread = successSubThread

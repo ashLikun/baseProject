@@ -7,7 +7,7 @@ import com.ashlikun.baseproject.module.login.R
 import com.ashlikun.baseproject.module.login.iview.IBLoginView
 import com.ashlikun.baseproject.module.login.mode.javabean.UserData
 import com.ashlikun.baseproject.module.login.presenter.LoginPresenter
-import com.ashlikun.common.utils.jump.RouterJump
+import com.ashlikun.baseproject.common.utils.jump.RouterJump
 import com.ashlikun.core.activity.BaseMvpActivity
 import com.ashlikun.core.factory.Presenter
 

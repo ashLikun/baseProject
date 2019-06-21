@@ -85,9 +85,9 @@ android {
             //设置混淆配置文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             //versionNameSuffix
-            versionNameSuffix "_内测"
+            //  versionNameSuffix "_内测"
             //applicationIdSuffix-测试版本使用debug作为后缀
-            applicationIdSuffix "debug"
+            // applicationIdSuffix "debug"
             //这里配置打包不同的参数
             manifestPlaceholders = rootProject.ext.debugBuild
             if (signingConfigs.debug != null) {

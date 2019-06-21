@@ -66,14 +66,18 @@ object LeakCanaryUtils {
 
         private val activityLifecycleCallbacks = object : ActivityLifecycleCallbacksAdapter() {
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-                val supportFragmentManager = (activity as FragmentActivity).supportFragmentManager
-                supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentLifecycleCallbacks, true)
+                if (activity is FragmentActivity) {
+                    val supportFragmentManager = activity.supportFragmentManager
+                    supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentLifecycleCallbacks, true)
+                }
             }
 
             override fun onActivityDestroyed(activity: Activity) {
                 super.onActivityDestroyed(activity)
-                val supportFragmentManager = (activity as FragmentActivity).supportFragmentManager
-                supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentLifecycleCallbacks)
+                if (activity is FragmentActivity) {
+                    val supportFragmentManager = activity.supportFragmentManager
+                    supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentLifecycleCallbacks)
+                }
             }
         }
         private val fragmentLifecycleCallbacks = object : FragmentManager.FragmentLifecycleCallbacks() {

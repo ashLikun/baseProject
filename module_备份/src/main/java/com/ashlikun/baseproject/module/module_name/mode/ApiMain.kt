@@ -30,8 +30,8 @@ class ApiMain private constructor() : BaseApiService() {
 
 
     fun test(handle: HttpCallbackHandle,
-             success: (result: HttpResult<String>) -> Unit): ExecuteCall {
-        val p = HttpRequestParam("index")
+             success: OnSuccess<HttpResult<String>>): ExecuteCall {
+        val p = HttpRequestParam.get("index")
         return execute(p, handle, success)
     }
 
