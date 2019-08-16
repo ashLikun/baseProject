@@ -62,7 +62,8 @@ abstract class BaseListActivity<P : BasePresenter<*>> : BaseMvpActivity<P>()
         getSuperRecyclerView().pageHelp?.clear()
     }
 
-    open fun getSwipeRefreshLayout() = getSuperRecyclerView().getRefreshLayout()
+    open fun getSwipeRefreshLayout() = getSuperRecyclerView().refreshLayout
+    open fun getStatusChangListener() = getSuperRecyclerView().statusChangListener
 
 
     open fun getPageHelp() = getSuperRecyclerView().pageHelp

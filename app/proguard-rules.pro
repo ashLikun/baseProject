@@ -167,7 +167,7 @@
 #-----------------------------------------定制区-------------------------------------------#
 #-----------------------------------------1:实体类 start-------------------------------------------#
 
--keep class com.ashlikun.common.mode.javabean.** { *; }
+-keep class com.ashlikun.baseproject.common.mode.javabean.** { *; }
 -keep class com.ashlikun.baseproject.libcore.javabean.** { *; }
 -keep class com.ashlikun.baseproject.module.login.mode.javabean.** { *; }
 -keep class com.ashlikun.baseproject.module.main.mode.javabean.** { *; }

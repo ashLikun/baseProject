@@ -61,7 +61,8 @@ abstract class BaseListFragment<P : BasePresenter<*>> : BaseMvpFragment<P>(), Re
         getSuperRecyclerView().pageHelp?.clear()
     }
 
-    open fun getSwipeRefreshLayout() = getSuperRecyclerView().getRefreshLayout()
+    open fun getSwipeRefreshLayout() = getSuperRecyclerView().refreshLayout
+    open fun getStatusChangListener() = getSuperRecyclerView().statusChangListener
 
 
     open fun getPageHelp() = getSuperRecyclerView().pageHelp

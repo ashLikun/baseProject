@@ -2,12 +2,11 @@ package com.ashlikun.baseproject.module.login.router
 
 import android.app.Activity
 import android.content.Context
-
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.ashlikun.baseproject.common.utils.jump.RouterJump
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.libarouter.service.ILoginService
 import com.ashlikun.baseproject.module.login.mode.javabean.UserData
-import com.ashlikun.baseproject.common.utils.jump.RouterJump
 
 /**
  * 作者　　: 李坤
@@ -31,6 +30,14 @@ class LoginServiceIml : ILoginService {
 
     override fun isLogin(): Boolean {
         return UserData.isLogin()
+    }
+
+    override fun isLogin(isToLogin: Boolean): Boolean {
+        return UserData.isLogin(isToLogin)
+    }
+
+    override fun isLogin(isToLogin: Boolean, isShowToast: Boolean): Boolean {
+        return UserData.isLogin(isToLogin, isShowToast)
     }
 
     override fun getToken(): String {

@@ -13,5 +13,7 @@ object HttpCodeApp {
      */
     const val NO_DATA_ERROR = 1000
     const val NO_DATA_ERROR_MSG = "数据错误"
+    const val TOKEN_ERROR = 888
+    const val SIGN_ERROR = 688
 
 }

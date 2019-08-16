@@ -46,7 +46,7 @@ open class MultipleAdapterHelp
         recyclerView.adapter = adapter
     }
 
-
+    fun isEmpty() = adapter.itemCount == 0
     /**
      * 清空数据
      */

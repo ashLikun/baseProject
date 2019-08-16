@@ -7,7 +7,6 @@ import com.afollestad.materialdialogs.callbacks.onDismiss
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 import com.ashlikun.baseproject.libcore.utils.CacheUtils
 import com.ashlikun.okhttputils.http.OkHttpUtils
-import com.ashlikun.okhttputils.http.response.HttpCode
 import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.utils.other.MainHandle
 import com.ashlikun.utils.other.file.FileUtils
@@ -105,7 +104,7 @@ class HttpManager private constructor() {
                 when {
                     response.isSucceed -> return true
 
-                    response.code == HttpCode.TOKEN_ERROR -> {
+                    response.code == HttpCodeApp.TOKEN_ERROR -> {
 
                         RouterManage.login()?.exit()
                         val activity = ActivityManager.getForegroundActivity()
@@ -117,14 +116,14 @@ class HttpManager private constructor() {
                             }
                         } else {
                             SuperToast.get(response.getMessage()).error()
-                            if (response.getCode() == HttpCode.TOKEN_ERROR) {
+                            if (response.getCode() == HttpCodeApp.TOKEN_ERROR) {
                                 RouterManage.login()?.exitLogin()
                                 RouterManage.login()?.startLogin()
                             }
                         }
                         return false
                     }
-                    response.getCode() == HttpCode.SIGN_ERROR -> {
+                    response.getCode() == HttpCodeApp.SIGN_ERROR -> {
                         SuperToast.get("签名错误").error()
                         return false
                     }
@@ -145,7 +144,7 @@ class HttpManager private constructor() {
                     .show {
                         message(text = message)
                         positiveButton(text = "知道了") {
-                            if (code == HttpCode.TOKEN_ERROR) {
+                            if (code == HttpCodeApp.TOKEN_ERROR) {
                                 RouterManage.login()?.exitLogin()
                                 RouterManage.login()?.startLogin()
                             }

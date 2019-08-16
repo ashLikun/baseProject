@@ -78,5 +78,8 @@ class RouterManage private constructor() {
                     null
                 }
 
+        //是否登录
+        fun isLogin(isToLogin: Boolean = false, isShowToast: Boolean = true) = login()?.isLogin(isToLogin, isShowToast)
+                ?: false
     }
 }

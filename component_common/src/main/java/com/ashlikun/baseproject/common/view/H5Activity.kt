@@ -2,17 +2,15 @@ package com.ashlikun.baseproject.common.view
 
 import android.text.TextUtils
 import android.view.KeyEvent
-import android.webkit.DownloadListener
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.ashlikun.baseproject.common.R
 import com.ashlikun.baseproject.libcore.constant.RouterKey
 import com.ashlikun.baseproject.libcore.constant.RouterPath
-import com.ashlikun.baseproject.common.R
 import com.ashlikun.core.activity.BaseActivity
 import com.ashlikun.xwebview.XWeb
 import com.ashlikun.xwebview.websetting.AbsXWebSettings
-import com.ashlikun.xwebview.websetting.WebListenerManager
 import kotlinx.android.synthetic.main.activity_or_fragment_webview.*
 
 /**
@@ -21,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_or_fragment_webview.*
  * 邮箱　　：496546144@qq.com
  *
  *
- * 功能介绍：
+ * 功能介绍：H5页面
  */
 @Route(path = RouterPath.ACTIVITY_H5)
 class H5Activity : BaseActivity() {
@@ -36,10 +34,10 @@ class H5Activity : BaseActivity() {
                 .go(url)
     }
     private val url: String by lazy {
-        intent.getStringExtra(RouterKey.FLAG_URL)
+        intent.getStringExtra(RouterKey.FLAG_URL) ?: ""
     }
     private val htmlData: String by lazy {
-        intent.getStringExtra(RouterKey.FLAG_URL_DATA)
+        intent.getStringExtra(RouterKey.FLAG_URL_DATA) ?: ""
     }
 
     protected var mWebChromeClient: WebChromeClient = object : WebChromeClient() {
@@ -59,13 +57,8 @@ class H5Activity : BaseActivity() {
 
     val webSettings = object : AbsXWebSettings() {
         private var xWeb: XWeb? = null
-
         override fun bindWebSupport(xWeb: XWeb) {
             this.xWeb = xWeb
-        }
-
-        override fun setDownloader(webView: WebView, downloadListener: DownloadListener): WebListenerManager {
-            return super.setDownloader(webView, downloadListener)
         }
     }
 
@@ -78,7 +71,12 @@ class H5Activity : BaseActivity() {
             setBack(this@H5Activity)
             setTitle(intent.getStringExtra(RouterKey.FLAG_TITLE))
         }
-        xWeb.urlLoader.loadData(htmlData, "text/html; charset=UTF-8", null)
+        if (htmlData.isNotEmpty()) {
+            xWeb.urlLoader.loadData(htmlData, "text/html; charset=UTF-8", null)
+        } else {
+            //直接加载url，一定要执行一下
+            xWeb
+        }
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {

@@ -2,11 +2,9 @@ package com.ashlikun.baseproject.module.login.mode.javabean
 
 import android.content.Context
 import com.afollestad.materialdialogs.MaterialDialog
-import com.alibaba.android.arouter.launcher.ARouter
-import com.ashlikun.baseproject.libcore.constant.EventBusKey
-import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.common.utils.jpush.JpushUtils
 import com.ashlikun.baseproject.common.utils.jump.RouterJump
+import com.ashlikun.baseproject.libcore.constant.EventBusKey
 import com.ashlikun.livedatabus.EventBus
 import com.ashlikun.orm.LiteOrmUtil
 import com.ashlikun.orm.db.annotation.Column
@@ -107,34 +105,28 @@ class UserData {
             }
 
         /**
-         * 作者　　: 李坤
-         * 创建时间: 2016/12/23 16:13
-         *
-         * 方法功能：是否登录
-         *
-         * @param activity 如果不为null  没登录就会跳转到登录界面
+         * @param isToLogin 是否跳转到登录页面
          * @param showToast 是否弹出toast
          */
 
         @JvmOverloads
-        fun isLogin(activity: Context? = null, showToast: Boolean = true): Boolean {
+        fun isLogin(isToLogin: Boolean = false, showToast: Boolean = true): Boolean {
             fun isInLogin(): Boolean {
                 userData?.run {
                     return this.isLogin
                 }
                 return false
             }
-            if (isInLogin()) {
-                return true
+            return if (isInLogin()) {
+                true
             } else {
-                activity?.let {
+                if (isToLogin) {
                     if (showToast) {
                         SuperToast.get("您未登录，请先登录").info()
                     }
-                    ARouter.getInstance().build(RouterPath.LOGIN)
-                            .navigation(activity)
+                    RouterJump.startLogin()
                 }
-                return false
+                false
             }
         }
 
@@ -146,11 +138,7 @@ class UserData {
         fun exitLogin(): Boolean {
             //清除其他登录的用户
             val res = exit()
-            /**
-             * 发送退出广播
-             */
-            EventBus.get(EventBusKey.EXIT_LOGIN).post()
-            RouterJump.startHome(0)
+            RouterJump.startHome(1)
             return res
         }
 
@@ -158,6 +146,10 @@ class UserData {
             //清除其他登录的用户
             val res = LiteOrmUtil.get().update(WhereBuilder.create(UserData::class.java).where("isLogin=?", true), ColumnsValue(arrayOf("isLogin"), arrayOf(false)), ConflictAlgorithm.None)
             userData = null
+            if (res > 0) {
+                //发送退出广播
+                EventBus.get(EventBusKey.EXIT_LOGIN).post()
+            }
             if (res <= 0) {
                 return false
             } else {

@@ -87,7 +87,7 @@ class PermissonActivity : BaseActivity() {
         MaterialDialog(this)
                 .cancelable(false)
                 .show {
-                    message(res = R.string.permission_rationale, text = showRationaleMessage)
+                    message(res = R.string.other_permission_rationale, text = showRationaleMessage)
                     positiveButton {
                         request.proceed()
                     }

@@ -1,5 +1,9 @@
 package com.ashlikun.baseproject.libcore.utils.http
 
+import com.ashlikun.baseproject.libcore.utils.http.HttpCallBack
+import com.ashlikun.baseproject.libcore.utils.http.HttpCallbackHandle
+import com.ashlikun.baseproject.libcore.utils.http.HttpCodeApp
+
 import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.okhttputils.http.HttpException
 import com.ashlikun.okhttputils.http.cache.CacheEntity
@@ -47,11 +51,6 @@ open class SimpleHttpCallback<T> constructor(buider: HttpCallbackHandle = HttpCa
     : HttpCallBack<T>(buider) {
     var success: OnSuccess<T>? = null
     /**
-     * 成功后的ui处理
-     * @return 是否对错误信息处理
-     */
-    var successHanderError: OnSuccessHander<T>? = null
-    /**
      * 子线程执行,对结果进一步处理
      */
     var successSubThread: OnSuccess<T>? = null
@@ -83,12 +82,6 @@ open class SimpleHttpCallback<T> constructor(buider: HttpCallbackHandle = HttpCa
             }
         } else {
             success?.invoke(result)
-        }
-    }
-
-    override fun onSuccess(result: T, isHanderError: Boolean) {
-        if (successHanderError?.invoke(result) != false) {
-            super.onSuccess(result, isHanderError)
         }
     }
 

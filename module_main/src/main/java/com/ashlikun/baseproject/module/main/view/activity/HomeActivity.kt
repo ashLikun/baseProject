@@ -16,6 +16,7 @@ import com.ashlikun.utils.ui.ActivityManager
 import com.ashlikun.utils.ui.ResUtils
 import com.ashlikun.utils.ui.SuperToast
 import com.ashlikun.utils.ui.ToastUtils
+import com.ashlikun.xviewpager.FragmentUtils
 import com.ashlikun.xviewpager.fragment.FragmentPagerAdapter
 import com.ashlikun.xviewpager.fragment.FragmentPagerItem
 import kotlinx.android.synthetic.main.main_activity_home.*
@@ -80,14 +81,7 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
         bottomNavigationBar.titleState = AHBottomNavigation.TitleState.ALWAYS_SHOW
         bottomNavigationBar.setupWithViewPager(viewPager)
         bottomNavigationBar.addOnTabSelectedListener(this)
-        val fragments = supportFragmentManager.fragments
-        if (fragments.size != 0) {
-            val ft = supportFragmentManager.beginTransaction()
-            for (i in fragments.indices) {
-                ft.remove(fragments[i])
-            }
-            ft.commit()
-        }
+        FragmentUtils.removeAll(supportFragmentManager)
         adapter = FragmentPagerAdapter.Builder.get(supportFragmentManager)
                 .addItem(FragmentPagerItem.get(RouterPath.FRAGMENT_HOME))
                 .addItem(FragmentPagerItem.get(RouterPath.FRAGMENT_HOME))

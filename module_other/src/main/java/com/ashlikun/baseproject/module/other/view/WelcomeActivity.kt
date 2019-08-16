@@ -145,6 +145,7 @@ class WelcomeActivity : BaseActivity() {
      * 1跳转登陆或者首页，2：不跳转
      */
     fun getServiceUser(): Int {
+
         RouterManage.login()?.run {
             if (isLogin()) {
 //                val p = HttpRequestParam(if (UserData.getDbUserData().isStudent())

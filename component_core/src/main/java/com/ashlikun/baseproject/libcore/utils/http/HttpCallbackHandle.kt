@@ -3,7 +3,6 @@ package com.ashlikun.baseproject.libcore.utils.http
 import android.app.Activity
 import android.content.Context
 import android.view.View
-import com.ashlikun.baseproject.libcore.R
 import com.ashlikun.baseproject.libcore.mvp.iview.IBaseListView
 import com.ashlikun.baseproject.libcore.mvp.iview.IBaseSwipeView
 import com.ashlikun.core.BasePresenter
@@ -12,10 +11,7 @@ import com.ashlikun.customdialog.LoadDialog
 import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.loadswitch.LoadSwitchService
 import com.ashlikun.okhttputils.http.OkHttpUtils
-import com.ashlikun.utils.AppUtils
 import com.ashlikun.utils.main.ActivityUtils
-import com.ashlikun.utils.other.StringUtils
-import com.ashlikun.utils.ui.ResUtils
 import com.ashlikun.xrecycleview.RefreshLayout
 import com.ashlikun.xrecycleview.StatusChangListener
 
@@ -30,12 +26,11 @@ import com.ashlikun.xrecycleview.StatusChangListener
  * 3生命周期
  * 4失效view
  */
-
 class HttpCallbackHandle private constructor() {
     /**
      * 对话框提示的文本  空就不显示对话框
      */
-    internal var hint: String = ""
+    internal var hint: String? = null
 
     /**
      * 失效的View
@@ -116,7 +111,7 @@ class HttpCallbackHandle private constructor() {
     }
 
 
-    fun setHint(hint: String = AppUtils.getApp().resources.getString(R.string.loadding)): HttpCallbackHandle {
+    fun setHint(hint: String = "加载中"): HttpCallbackHandle {
         this.hint = hint
         return this
     }
@@ -171,9 +166,6 @@ class HttpCallbackHandle private constructor() {
      */
     fun setLoadSwitchService(loadSwitchService: LoadSwitchService?): HttpCallbackHandle {
         this.loadSwitchService = loadSwitchService
-        if (loadSwitchService != null) {
-            setShowLoadding(false)
-        }
         return this
     }
 
@@ -221,10 +213,16 @@ class HttpCallbackHandle private constructor() {
         }
 
         if (mvpView is IBaseSwipeView) {
-            setSwipeRefreshLayout(mvpView.getSwipeRefreshLayout())
+            if (mvpView != null) {
+                isShowLoadding = false
+                setSwipeRefreshLayout(mvpView.getSwipeRefreshLayout())
+            }
         }
         if (mvpView is IBaseListView) {
-            setStatusChangListener(mvpView.getStatusChangListener())
+            if (mvpView != null) {
+                isShowLoadding = false
+                setStatusChangListener(mvpView.getStatusChangListener())
+            }
         }
         //布局切换
         view = mvpView
@@ -240,7 +238,7 @@ class HttpCallbackHandle private constructor() {
                     loadDialog = LoadDialog(getActivity())
                 }
                 loadDialog?.run {
-                    setContent(StringUtils.dataFilter(hint, (ResUtils.getString(R.string.loadding))))
+                    setContent(hint)
                     setCancelable(isCancelable)
                     try {
                         show()
@@ -268,12 +266,13 @@ class HttpCallbackHandle private constructor() {
         }
     }
 
-    fun showRetry(data: ContextData) {
+    fun showRetry(data: ContextData): Boolean {
         if (view != null) {
             view?.showRetry(data)
         } else {
             loadSwitchService?.showRetry(data)
         }
+        return view != null || loadSwitchService != null
     }
 
     fun hintProgress() {

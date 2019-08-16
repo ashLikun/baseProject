@@ -20,6 +20,8 @@ interface ILoginService : IProvider {
      */
     fun isLogin(): Boolean
 
+    fun isLogin(isToLogin: Boolean): Boolean
+    fun isLogin(isToLogin: Boolean, isShowToast: Boolean): Boolean
     /**
      * 获取token
      *

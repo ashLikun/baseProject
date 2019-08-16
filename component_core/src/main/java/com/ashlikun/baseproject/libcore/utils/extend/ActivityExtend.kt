@@ -2,6 +2,11 @@ package com.ashlikun.baseproject.libcore.utils.extend
 
 import android.app.Activity
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
+import com.ashlikun.core.BasePresenter
+import com.ashlikun.core.activity.BaseActivity
+import com.ashlikun.core.fragment.BaseFragment
+import com.ashlikun.core.iview.IBaseView
+import com.ashlikun.loadswitch.ContextData
 
 /**
  * 作者　　: 李坤
@@ -17,4 +22,16 @@ fun Activity.requestPermission(permission: Array<String>, showRationaleMessage: 
                                , denied: (() -> Unit)? = null
                                , success: (() -> Unit)) {
     RouterManage.other()?.requestPermission(permission, showRationaleMessage, denied, success)
+}
+
+fun BaseFragment.showEmpty(text: String = "什么都没有呢") {
+    showEmpty(ContextData(text).setButtonShow(false))
+}
+
+fun BaseActivity.showEmpty(text: String = "什么都没有呢") {
+    showEmpty(ContextData(text).setButtonShow(false))
+}
+
+fun BasePresenter<out IBaseView>.showEmpty(text: String = "什么都没有呢") {
+    view.showEmpty(ContextData(text).setButtonShow(false))
 }

@@ -16,6 +16,7 @@ import java.net.URLEncoder
  *
  *
  * 功能介绍：添加一些公共的参数 拦截器
+ *
  */
 class DefaultInterceptor : Interceptor {
 
@@ -112,9 +113,32 @@ class DefaultInterceptor : Interceptor {
                 .addHeader("token", RouterManage.login()?.getToken())
                 .addHeader("os", "android  ${DeviceUtil.getSystemVersion()}")
                 .addHeader("osVersion", URLEncoder.encode(StringUtils.dataFilter(DeviceUtil.getSystemModel(), DeviceUtil.getDeviceBrand()), "utf-8"))
-                .addHeader("devid", DeviceUtil.getDeviceId(AppUtils.getApp()))
+                .addHeader("devid", DeviceUtil.getDeviceId())
                 .addHeader("appVersion", URLEncoder.encode(AppUtils.getVersionName().trim { it <= ' ' }, "utf-8"))
                 .build()
         return chain.proceed(newRequest)
     }
+    /**
+     * 替换某个参数
+     *
+     *    var request: Request.Builder? = null
+    var oldResponse = chain.proceed(chain.request())
+    //解析数据
+    val httpResponse = HttpResponse()
+    httpResponse.setOnGsonErrorData(HttpUtils.getResponseColneBody(oldResponse))
+    if (httpResponse.isTokenError()) {
+    //token 失效，重新获取
+    if (updateToken()) {
+    try {
+    request = HttpUtils.setRequestParams(chain.request(), "token", RouterManage.login()?.getToken())
+    } catch (e: InterruptedException) {
+    e.printStackTrace()
+    }
+    }
+    }
+    if (request != null) {
+    return chain.proceed(request.build())
+    }
+    return oldResponse
+     */
 }

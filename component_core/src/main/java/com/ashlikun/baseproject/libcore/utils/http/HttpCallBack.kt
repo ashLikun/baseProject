@@ -20,6 +20,7 @@ import java.lang.reflect.Array
  * 功能介绍：http请求的回调
  */
 
+
 open class HttpCallBack<ResultType> constructor(private val buider: HttpCallbackHandle = HttpCallbackHandle.get())
     : AbsCallback<ResultType>() {
     /**
@@ -119,12 +120,13 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
         }
         data.resId = R.drawable.material_service_error
         buider.run {
-            if (isToastShow) {
-                SuperToast.showErrorMessage("${data.title}(错误码:${data.errCode})")
-            }
+            var isShowToastNeibu = isToastShow
             statusChangListener?.failure()
             if (isFirstRequest()) {
-                showRetry(data)
+                isShowToastNeibu = isShowToastNeibu && !showRetry(data)
+            }
+            if (isShowToastNeibu) {
+                SuperToast.showErrorMessage("${data.title}(错误码:${data.errCode})")
             }
         }
         onError(data)
@@ -152,7 +154,7 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
      * 方法功能：请求成功
      */
     override fun onSuccess(result: ResultType) {
-        onSuccess(result, true)
+        onSuccess(result, false)
     }
 
     /**
@@ -168,7 +170,7 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
         val res = HttpManager.handelResult(result)
         if (!res) {
             //如果code全局处理的时候错误了，那么是不会走success的，这里就得自己处理UI设置为错误状态
-            onSuccess(result, true)
+            onSuccess(result, false)
         }
         return res
     }
@@ -276,4 +278,5 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
         }
     }
 }
+
 
