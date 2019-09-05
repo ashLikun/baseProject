@@ -5,7 +5,6 @@ import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.module.main.R
 import com.ashlikun.baseproject.module.main.iview.IBHomeView
 import com.ashlikun.baseproject.module.main.presenter.HomePresenter
-import com.ashlikun.baseproject.common.utils.jump.RouterJump
 import com.ashlikun.core.factory.Presenter
 import com.ashlikun.core.fragment.BaseMvpFragment
 import com.ashlikun.loadswitch.ContextData
@@ -35,7 +34,7 @@ class HomeFragment : BaseMvpFragment<HomePresenter>(), IBHomeView.IHomeView, OnL
             setTitle("首页")
         }
         ceshiButton.setOnClickListener {
-            RouterJump.startTest()
+//            toolbar?.getAction<ImageAction>(-1)
         }
     }
 

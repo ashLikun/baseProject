@@ -20,8 +20,8 @@ object RouterPath {
     const val LAUNCH = "/other/activity/launch"
     const val TEST = "/test/activity/main"
     const val HOME = "/home/activity/main"
-    const val IMAGE_LOCK = "/comment/activity/image_lock"
-    const val ACTIVITY_H5 = "/comment/activity/h5"
+    const val IMAGE_LOCK = "/other/activity/image_lock"
+    const val ACTIVITY_H5 = "/other/activity/h5"
     /*************************************登录模块开始 *************************************/
     const val LOGIN = "/login/activity/main"
     const val AMEND_PASSWORD = "/login/activity/amend_password"

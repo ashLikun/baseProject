@@ -1,6 +1,6 @@
 package com.ashlikun.baseproject.libcore.utils.extend
 
-import android.app.Activity
+import android.content.Context
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 import com.ashlikun.core.BasePresenter
 import com.ashlikun.core.activity.BaseActivity
@@ -18,9 +18,9 @@ import com.ashlikun.loadswitch.ContextData
 /**
  * 请求权限
  */
-fun Activity.requestPermission(permission: Array<String>, showRationaleMessage: String? = null
-                               , denied: (() -> Unit)? = null
-                               , success: (() -> Unit)) {
+fun Context.requestPermission(permission: Array<String>, showRationaleMessage: String? = null
+                          , denied: (() -> Unit)? = null
+                          , success: (() -> Unit)) {
     RouterManage.other()?.requestPermission(permission, showRationaleMessage, denied, success)
 }
 

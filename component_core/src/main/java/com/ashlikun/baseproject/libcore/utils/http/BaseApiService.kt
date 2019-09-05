@@ -34,7 +34,6 @@ open class BaseApiService {
                     success: OnSuccess<T>? = null,
                     errorData: OnErrorData? = null,
                     error: OnError? = null,
-                    successHanderError: OnSuccessHander<T>? = null,
                     successSubThread: OnSuccess<T>? = null,
                     cacheSuccess: OnCacheSuccess<T>? = null,
                     successHandelCode: OnSuccessHander<T>? = null,
@@ -43,7 +42,6 @@ open class BaseApiService {
     ): ExecuteCall {
         val callback: SimpleHttpCallback<T> = object : SimpleHttpCallback<T>(callbackHandle) {}
         callback.success = success
-        callback.successHanderError = successHanderError
         callback.successSubThread = successSubThread
         callback.cacheSuccess = cacheSuccess
         callback.successHandelCode = successHandelCode

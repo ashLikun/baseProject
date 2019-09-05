@@ -173,7 +173,6 @@
 -keep class com.ashlikun.baseproject.module.main.mode.javabean.** { *; }
 -keep class com.ashlikun.baseproject.module.other.mode.javabean.** { *; }
 
-
 #-----------------------------------------1:实体类 end-------------------------------------------#
 
 
@@ -193,7 +192,8 @@
 -dontwarn org.codehaus.mojo.animal_sniffer.*
 # OkHttp platform used only on JVM and when Conscrypt dependency is available.
 -dontwarn okhttp3.internal.platform.ConscryptPlatform
-
+# 不混淆使用Table注解（数据库） 的类
+-keep @com.ashlikun.orm.db.annotation.Table class * {*;}
 #retrofit
 -dontwarn rx.**
 -dontwarn retrofit.**
@@ -284,11 +284,9 @@
 
 #友盟统计
 -keep class com.umeng.** {*;}
-
 -keepclassmembers class * {
    public <init> (org.json.JSONObject);
 }
-
 -keepclassmembers enum * {
     public static **[] values();
     public static ** valueOf(java.lang.String);
@@ -331,6 +329,9 @@
 -keep class com.ashlikun.livedatabus.** { *; }
 -keep class android.arch.core.** { *; }
 -keep class android.arch.lifecycle.** { *; }
+#腾讯bugly
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}
 #-----------------------------------------2:第三方库 end-------------------------------------------#
 
 

@@ -1,7 +1,7 @@
 ext {
 
 
-    superVersion = '1.1.+'
+    androidXVersion = '1.1.+'
     frameVersion = "3.0.2"
     android = [
             applicationId    : "com.ashlikun.baseproject",
@@ -20,6 +20,7 @@ ext {
             JPUSH_APPKEY : "001b8ca1b4962d68bfb65049", //JPush上注册的包名对应的appkey.
             JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
             MAP_NAME     : "com.amap.api.v2.apikey", //高德地图的名称
+            BUGLY_APPKEY : "f28e3effd0", //腾讯bugly
     ]
     /**
      * 这里配置打包不同的参数
@@ -37,14 +38,14 @@ ext {
     ]
     dependencies = [
             kotlin                : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
-            design                : "com.google.android.material:material:$superVersion",
+            design                : "com.google.android.material:material:$androidXVersion",
             //约束布局
             ConstraintLayout      : 'androidx.constraintlayout:constraintlayout:2.0.0+',
             //基本架构
-            CustomMvp             : "com.github.ashLikun:CustomMvp:2.0.6",
+            CustomMvp             : "com.github.ashLikun:CustomMvp:2.0.8",
             multidex              : 'androidx.multidex:multidex:2.0.1',
             //webview封装
-            XWebView              : "com.github.ashLikun.XWebView:core:2.0.0",
+            XWebView              : "com.github.ashLikun.XWebView:core:2.0.1",
             //alibaba的路由框架
             arouterapi            : "com.alibaba:arouter-api:+",
             aroutercompiler       : "com.alibaba:arouter-compiler:+",
@@ -57,13 +58,13 @@ ext {
             //数据库
             LiteOrm               : "com.github.ashLikun:LiteOrm:2.0.1",
             //封装的RecycleView
-            XRecycleView          : "com.github.ashLikun:XRecycleView:2.0.8",
+            XRecycleView          : "com.github.ashLikun:XRecycleView:2.0.9",
             //自定义的下拉刷新
             RefreshLayout         : "com.github.ashLikun:RefreshLayout:2.0.0",
             //封装的viewpager，banner，启动页
-            XViewPager            : "com.github.ashLikun:XViewPager:2.0.2",
+            XViewPager            : "com.github.ashLikun:XViewPager:2.0.3",
             //公共的工具
-            CommonUtils           : "com.github.ashLikun:CommonUtils:3.1.5",
+            CommonUtils           : "com.github.ashLikun:CommonUtils:3.1.7",
             //公共的Adapter
             CommonAdapter         : "com.github.ashLikun:CommonAdapter:3.0.3",
             //TabLayout exclude group: 'com.android.support'
@@ -99,7 +100,7 @@ ext {
             //不同type的json解析,依赖于gson
             MultiTypeGson         : "com.github.ashLikun:MultiTypeGson:1.1.1",
             //基于Okhttp封装的
-            OkHttpUtils           : "com.github.ashLikun:OkHttpUtils:2.1.2",
+            OkHttpUtils           : "com.github.ashLikun:OkHttpUtils:2.1.4",
             //图片加载
             GlideUtils            : "com.github.ashLikun:GlideUtils:2.0.6",
             glide                 : "com.github.bumptech.glide:glide:4.9.0",
@@ -115,7 +116,7 @@ ext {
             //图片查看
             PhotoView             : "com.github.ashLikun:PhotoView:2.0.0",
             //照片处理
-            PhotoHander           : "com.github.ashLikun:PhotoHander:2.0.3",
+            PhotoHander           : "com.github.ashLikun:PhotoHander:2.0.4",
             //阿里的vlayout transitive = true
             vlayout               : "com.alibaba.android:vlayout:1.2.22@aar",
             //输入验证码
@@ -134,7 +135,9 @@ ext {
             // 此处以JPush 3.1.6 版本为例。
             jpush                 : 'cn.jiguang.sdk:jpush:3.1.6',
             // 此处以JCore 1.2.5 版本为例。
-            jcore                 : 'cn.jiguang.sdk:jcore:1.2.5'
+            jcore                 : 'cn.jiguang.sdk:jcore:1.2.5',
+            //腾讯Bugly
+            BugLy                 : 'com.tencent.bugly:crashreport:latest.release'
     ]
 
 

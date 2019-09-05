@@ -23,17 +23,13 @@
         <meta-data
             android:name="${MAP_NAME}"
             android:value="${MAP_KEY}"></meta-data>
+        <meta-data
+            android:name="${MAP_NAME}"
+            android:value="${MAP_KEY}"></meta-data>
+        <meta-data
+            android:name="BUGLY_APPKEY"
+            android:value="${BUGLY_APPKEY}"></meta-data>
 
-        <activity
-            android:name=".view.ImageLockActivity"
-            android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.LookImage" />
-        <activity
-            android:name=".view.H5Activity"
-            android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.OtherTheme" />
     </application>
 
 </manifest>

@@ -1,6 +1,5 @@
 package com.ashlikun.baseproject.module.main.mode
 
-import androidx.recyclerview.widget.RecyclerView
 import com.ashlikun.baseproject.libcore.utils.http.*
 import com.ashlikun.okhttputils.http.ExecuteCall
 import com.ashlikun.okhttputils.http.response.HttpResult
@@ -17,8 +16,8 @@ import com.ashlikun.okhttputils.http.response.HttpResult
 class ApiMain private constructor() : BaseApiService() {
 
     fun test(handle: HttpCallbackHandle,
-             success: OnSuccess<HttpResult<String>>): ExecuteCall {
-        val callback =  object :SimpleHttpCallback<HttpResult<String>>(handle){}
+             success: OnSuccess<HttpResult<List<String>>>): ExecuteCall {
+        val callback = object : SimpleHttpCallback<HttpResult<List<String>>>(handle) {}
         callback.success = success
         val p = HttpRequestParam.get("index")
         return execute(p, callback)

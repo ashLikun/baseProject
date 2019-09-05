@@ -15,6 +15,16 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.ashlikun.baseproject.module.other.view.ImageLockActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.LookImage" />
+        <activity
+            android:name="com.ashlikun.baseproject.module.other.view.H5Activity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.OtherTheme" />
+        <activity
             android:name=".view.PermissonActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"

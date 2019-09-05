@@ -5,7 +5,9 @@ import android.os.Looper
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.callbacks.onDismiss
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
-import com.ashlikun.baseproject.libcore.utils.CacheUtils
+import com.ashlikun.baseproject.libcore.utils.other.CacheUtils
+import com.ashlikun.baseproject.libcore.utils.other.postBugly
+import com.ashlikun.okhttputils.http.HttpUtils
 import com.ashlikun.okhttputils.http.OkHttpUtils
 import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.utils.other.MainHandle
@@ -27,6 +29,11 @@ import java.util.concurrent.TimeUnit
 class HttpManager private constructor() {
     init {
         OkHttpUtils.init(getOkHttpClientBuilder().build())
+        OkHttpUtils.setOnDataParseError { code, exception, response, json ->
+            val requestStr = HttpUtils.getRequestToString(response.request())
+            val responseStr = HttpUtils.getResponseToString(response)
+            RuntimeException("request:\n$requestStr\nresponse:\n$responseStr \n$json", exception).postBugly()
+        }
     }
 
     fun getCacheDir(): File {
@@ -62,12 +69,8 @@ class HttpManager private constructor() {
     }
 
     companion object {
-        const val BASE_URL = "http://ly.o6o6o.com"
-        const val BASE_PATH = "/tools/yapp_tool.ashx"
-        /**
-         * 上传图片的地址
-         */
-        const val API_IMAGE_UPLOAD = "$BASE_URL/tools/chat_img.ashx"
+        const val BASE_URL = "http://ym.yoohfit.com"
+        const val BASE_PATH = "/tools/apptool.ashx"
         /**
          * 退出对话框是否显示,防止多次显示
          */

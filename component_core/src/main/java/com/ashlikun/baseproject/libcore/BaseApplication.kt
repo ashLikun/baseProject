@@ -5,9 +5,11 @@ import android.view.Gravity
 import androidx.multidex.MultiDexApplication
 import com.ashlikun.appcrash.AppCrashConfig
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
-import com.ashlikun.baseproject.libcore.utils.CacheUtils
-import com.ashlikun.baseproject.libcore.utils.LeakCanaryUtils
 import com.ashlikun.baseproject.libcore.utils.http.HttpManager
+import com.ashlikun.baseproject.libcore.utils.other.AppCrashEventListener
+import com.ashlikun.baseproject.libcore.utils.other.CacheUtils
+import com.ashlikun.baseproject.libcore.utils.other.LeakCanaryUtils
+import com.ashlikun.baseproject.libcore.utils.other.initBugly
 import com.ashlikun.glideutils.GlideUtils
 import com.ashlikun.loadswitch.LoadSwitch
 import com.ashlikun.okhttputils.http.download.DownloadManager
@@ -16,6 +18,7 @@ import com.ashlikun.utils.AppUtils
 import com.ashlikun.utils.ui.SuperToast
 import com.didichuxing.doraemonkit.DoraemonKit
 import java.util.*
+
 
 /**
  * @author　　: 李坤
@@ -67,7 +70,8 @@ open class BaseApplication : MultiDexApplication() {
         AppUtils.setDebug(BuildConfig.DEBUG)
         //异常捕获
         AppCrashConfig.Builder.create(this)
-                .isDebug(BuildConfig.DEBUG)
+                .eventListener(AppCrashEventListener())
+                .isDebug(AppUtils.isDebug())
                 .apply()
         //内存溢出检测
         LeakCanaryUtils.init(this)
@@ -82,11 +86,11 @@ open class BaseApplication : MultiDexApplication() {
         //http
         HttpManager.get()
         DownloadManager.initPath(CacheUtils.appFilePath)
-        //glide图片库
-        GlideUtils.setBaseUrl(HttpManager.BASE_URL)
         GlideUtils.setDEBUG(BuildConfig.DEBUG)
         //toast库
         SuperToast.setGravity(Gravity.CENTER)
+        //腾讯Bugly
+        initBugly()
     }
 
     override fun onTerminate() {
