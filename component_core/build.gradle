@@ -182,5 +182,8 @@ dependencies {
 
     //腾讯Bugly
     api libs.BugLy
+    //极光推送
+    api libs.jpush
+    api libs.jcore
 }
 

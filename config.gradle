@@ -2,7 +2,7 @@ ext {
 
 
     androidXVersion = '1.1.+'
-    frameVersion = "3.0.2"
+    frameVersion = "3.0.3"
     android = [
             applicationId    : "com.ashlikun.baseproject",
             compileSdkVersion: 28,
@@ -42,10 +42,10 @@ ext {
             //约束布局
             ConstraintLayout      : 'androidx.constraintlayout:constraintlayout:2.0.0+',
             //基本架构
-            CustomMvp             : "com.github.ashLikun:CustomMvp:2.0.8",
+            CustomMvp             : "com.github.ashLikun:CustomMvp:2.1.0",
             multidex              : 'androidx.multidex:multidex:2.0.1',
             //webview封装
-            XWebView              : "com.github.ashLikun.XWebView:core:2.0.1",
+            XWebView              : "com.github.ashLikun.XWebView:core-x5:2.0.1",
             //alibaba的路由框架
             arouterapi            : "com.alibaba:arouter-api:+",
             aroutercompiler       : "com.alibaba:arouter-compiler:+",
@@ -59,16 +59,18 @@ ext {
             LiteOrm               : "com.github.ashLikun:LiteOrm:2.0.1",
             //封装的RecycleView
             XRecycleView          : "com.github.ashLikun:XRecycleView:2.0.9",
+            //动画菜单,可以不用
+            AnimationMenu         : "com.github.ashLikun:AnimationMenu:2.0.0",
             //自定义的下拉刷新
-            RefreshLayout         : "com.github.ashLikun:RefreshLayout:2.0.0",
+            RefreshLayout         : "com.github.ashLikun:RefreshLayout:2.0.1",
             //封装的viewpager，banner，启动页
             XViewPager            : "com.github.ashLikun:XViewPager:2.0.3",
             //公共的工具
-            CommonUtils           : "com.github.ashLikun:CommonUtils:3.1.7",
+            CommonUtils           : "com.github.ashLikun:CommonUtils:3.2.0",
             //公共的Adapter
             CommonAdapter         : "com.github.ashLikun:CommonAdapter:3.0.3",
             //TabLayout exclude group: 'com.android.support'
-            XTabLayout            : "com.github.ashLikun:XTabLayout:2.0.3",
+            XTabLayout            : "com.github.ashLikun:XTabLayout:2.0.5",
             //阿里的vlayout
             vlayout               : "com.alibaba.android:vlayout:1.2.18@aar",
             //习惯的对话框
@@ -98,11 +100,11 @@ ext {
             okhttp                : "com.squareup.okhttp3:okhttp:3.12.0",
             gson                  : "com.google.code.gson:gson:2.8.5",
             //不同type的json解析,依赖于gson
-            MultiTypeGson         : "com.github.ashLikun:MultiTypeGson:1.1.1",
+            MultiTypeGson         : "com.github.ashLikun:MultiTypeGson:2.0.1",
             //基于Okhttp封装的
-            OkHttpUtils           : "com.github.ashLikun:OkHttpUtils:2.1.4",
+            OkHttpUtils           : "com.github.ashLikun:OkHttpUtils:2.1.9",
             //图片加载
-            GlideUtils            : "com.github.ashLikun:GlideUtils:2.0.6",
+            GlideUtils            : "com.github.ashLikun:GlideUtils:2.0.7",
             glide                 : "com.github.bumptech.glide:glide:4.9.0",
             glideCompiler         : "com.github.bumptech.glide:compiler:4.9.0",
             glideTransformations  : "jp.wasabeef:glide-transformations:4+",
@@ -132,12 +134,12 @@ ext {
             ZxingUtils            : "com.github.ashLikun:ZxingUtils:2.0.0",
             ZxingCore             : "com.google.zxing:core:3.3.0",
             EasyPay               : "com.github.ashLikun:EasyPay:2.0.4",
-            // 此处以JPush 3.1.6 版本为例。
-            jpush                 : 'cn.jiguang.sdk:jpush:3.1.6',
-            // 此处以JCore 1.2.5 版本为例。
-            jcore                 : 'cn.jiguang.sdk:jcore:1.2.5',
+            // 极光推送
+            jpush                 : 'cn.jiguang.sdk:jpush:3.3.4',
+            // 极光推送
+            jcore                 : 'cn.jiguang.sdk:jcore:2.1.2',
             //腾讯Bugly
-            BugLy                 : 'com.tencent.bugly:crashreport:latest.release'
+            BugLy                 : 'com.tencent.bugly:crashreport:latest.release',
     ]
 
 

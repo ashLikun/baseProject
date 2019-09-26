@@ -3,8 +3,9 @@ package com.ashlikun.baseproject.common.utils.jpush
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.ashlikun.utils.other.LogUtils
+import cn.jpush.android.api.JPushInterface
 import com.ashlikun.baseproject.common.mode.javabean.JpushJsonData
+import com.ashlikun.utils.other.LogUtils
 
 /**
  * 作者　　: 李坤
@@ -20,18 +21,18 @@ class JpushMessageReceiver : BroadcastReceiver() {
         if (context == null || intent == null || intent.extras == null) {
             return
         }
-//        val action = intent.action
+        val action = intent.action
         val data = JpushJsonData.getJpushData(intent)
         data?.save()
-//         if (data != null && JPushInterface.ACTION_NOTIFICATION_OPENED != action) {
-//            data.save()
-//        }
-//        if (JPushInterface.ACTION_NOTIFICATION_RECEIVED == action) {
-//            notifiation(context, data)
-//        } else if (JPushInterface.ACTION_NOTIFICATION_OPENED == action) {
-//            notifiationOpened(context, data)
-//            JpushJsonData.addOrRemove(false)
-//        }
+        if (data != null && JPushInterface.ACTION_NOTIFICATION_OPENED != action) {
+            data.save()
+        }
+        if (JPushInterface.ACTION_NOTIFICATION_RECEIVED == action) {
+            notifiation(context, data)
+        } else if (JPushInterface.ACTION_NOTIFICATION_OPENED == action) {
+            notifiationOpened(context, data)
+            JpushJsonData.addOrRemove(false)
+        }
     }
 
     /**

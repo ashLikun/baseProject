@@ -2,13 +2,12 @@ package com.ashlikun.baseproject.common.utils.jpush
 
 import android.app.Application
 import android.content.Context
-import com.ashlikun.baseproject.libcore.libarouter.RouterManage
+import cn.jpush.android.api.JPushInterface
 import com.ashlikun.baseproject.common.mode.javabean.JpushJsonData
 import com.ashlikun.baseproject.common.utils.jump.RouterJump
+import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 import com.ashlikun.utils.AppUtils
 import com.ashlikun.utils.main.ActivityUtils
-import com.ashlikun.utils.other.LogUtils
-import com.ashlikun.utils.other.SharedPreUtils
 import com.ashlikun.utils.ui.SuperToast
 
 /**
@@ -23,32 +22,48 @@ import com.ashlikun.utils.ui.SuperToast
 object JpushUtils {
     var JPUSH_ALIAS_SET_ID = 10086
     var JPUSH_ALIAS_DELETE_ID = 10087
+    var JPUSH_TAGS_SET_ID = 10088
+    var JPUSH_TAGS_DELETE_ID = 10089
     /**
      * 推送点击后缓存的数据
      */
     private var cacheData: JpushJsonData? = null
 
-    val number: Int
-        get() = SharedPreUtils.getInt(AppUtils.getApp(), "JPUSH_NUMBER")
-
     fun init(application: Application) {
-//        JPushInterface.setDebugMode(BuildConfig.DEBUG)
-//        JPushInterface.init(application)
+        JPushInterface.setDebugMode(AppUtils.isDebug())
+        JPushInterface.init(application)
         RouterManage.login()?.run {
-            if (isLogin()) else deleteAlias()
+            if (isLogin()) setAlias() else deleteAlias()
         }
     }
 
     fun deleteAlias() {
-//        JPushInterface.deleteAlias(AppUtils.getApp(), JPUSH_ALIAS_DELETE_ID)
+        JPushInterface.deleteAlias(AppUtils.getApp(), JPUSH_ALIAS_DELETE_ID)
     }
 
     fun setAlias() {
         RouterManage.login()?.run {
             if (isLogin()) {
-//                JPushInterface.setAlias(AppUtils.getApp(), JPUSH_ALIAS_SET_ID, getUserId())
+                JPushInterface.setAlias(AppUtils.getApp(), JPUSH_ALIAS_SET_ID, getUserId())
             }
         }
+    }
+
+    fun setTags(tags: Set<String>) {
+        RouterManage.login()?.run {
+            if (isLogin()) {
+                JPushInterface.setTags(AppUtils.getApp(), JPUSH_TAGS_SET_ID, tags)
+            }
+        }
+    }
+
+    fun deleteTags() {
+        JPushInterface.deleteAlias(AppUtils.getApp(), JPUSH_TAGS_DELETE_ID)
+    }
+
+    fun clearAliasAndTags() {
+        deleteAlias()
+        deleteTags()
     }
 
     /**
@@ -58,7 +73,7 @@ object JpushUtils {
      */
     fun handleCachePush(context: Context) {
         if (cacheData != null) {
-            skip(context, cacheData!!)
+            handlePush(context, cacheData!!)
             cacheData = null
         }
     }
@@ -81,7 +96,10 @@ object JpushUtils {
             RouterJump.startApp()
         } else {
             //跳转到对应的页面
-            skip(context, data)
+            when (data.type) {
+                //1跳转类型
+                1 -> skip(context, data)
+            }
         }
     }
 
@@ -92,6 +110,5 @@ object JpushUtils {
      * @param data
      */
     fun skip(context: Context, data: JpushJsonData) {
-        LogUtils.e("$context$data")
     }
 }

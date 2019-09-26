@@ -1,4 +1,4 @@
-package com.ashlikun.baseproject.common.utils
+package com.ashlikun.baseproject.common.utils.other
 
 /**
  * 作者　　: 李坤
