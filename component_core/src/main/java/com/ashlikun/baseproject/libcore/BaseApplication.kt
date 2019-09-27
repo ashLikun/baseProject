@@ -17,6 +17,7 @@ import com.ashlikun.orm.LiteOrmUtil
 import com.ashlikun.utils.AppUtils
 import com.ashlikun.utils.ui.SuperToast
 import com.didichuxing.doraemonkit.DoraemonKit
+import com.tencent.smtt.sdk.QbSdk
 import java.util.*
 
 
@@ -89,6 +90,8 @@ open class BaseApplication : MultiDexApplication() {
         GlideUtils.setDEBUG(BuildConfig.DEBUG)
         //toast库
         SuperToast.setGravity(Gravity.CENTER)
+        //初始化X5内核
+        QbSdk.initX5Environment(this, null)
         //腾讯Bugly
         initBugly()
     }

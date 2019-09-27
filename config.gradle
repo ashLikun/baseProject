@@ -131,7 +131,7 @@ ext {
             //微信分享，登录sdk
             wechat                : "com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+",
             //扫码
-            ZxingUtils            : "com.github.ashLikun:ZxingUtils:2.0.0",
+            ZxingUtils            : "com.github.ashLikun:ZxingUtils:2.0.2",
             ZxingCore             : "com.google.zxing:core:3.3.0",
             EasyPay               : "com.github.ashLikun:EasyPay:2.0.4",
             // 极光推送

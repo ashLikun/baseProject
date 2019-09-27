@@ -29,10 +29,12 @@
 
 #不去忽略非公共的库类
 -dontskipnonpubliclibraryclasses
-
+#指定不忽略非public类里面的成员和方法
+-dontskipnonpubliclibraryclassmembers
  #优化  不优化输入的类文件
 -dontoptimize
-
+#虚拟机相关不混淆
+-dontwarn dalvik.**
  #预校验
 -dontpreverify
 
@@ -137,7 +139,18 @@
 
 #避免混淆泛型 如果混淆报错建议关掉
 -keepattributes Signature
+# 方法名中含有“JNI”字符的，认定是Java Native Interface方法，自动排除
+# 方法名中含有“JRI”字符的，认定是Java Reflection Interface方法，自动排除
 
+-keepclasseswithmembers class * {
+    ... *JNI*(...);
+}
+
+-keepclasseswithmembernames class * {
+	... *JRI*(...);
+}
+
+-keep class **JNI* {*;}
 #--------------------------------------------默认保留区 end--------------------------------------------------#
 
 
@@ -332,6 +345,11 @@
 #腾讯bugly
 -dontwarn com.tencent.bugly.**
 -keep public class com.tencent.bugly.**{*;}
+#腾讯X5内核
+-dontwarn com.tencent.smtt.**
+-keep class com.tencent.smtt.** { *; }
+#---------------------------------------------------------------------------
+
 #-----------------------------------------2:第三方库 end-------------------------------------------#
 
 
