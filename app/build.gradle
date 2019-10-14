@@ -102,9 +102,9 @@ android {
     applicationVariants.all { variant ->
         variant.outputs.all {
             if (variant.buildType.isDebuggable()) {
-                outputFileName = 'APP_' + releaseTime() + '_debug_' + variant.versionName + '.apk'
+                outputFileName = "App-v${variant.versionName}-${variant.buildType.name}-${releaseTime()}.apk"
             } else {
-                outputFileName = 'APP_' + releaseTime() + '_release_' + variant.versionName + '.apk'
+                outputFileName = "App-v${variant.versionName}-${variant.buildType.name}-${releaseTime()}.apk"
             }
         }
     }

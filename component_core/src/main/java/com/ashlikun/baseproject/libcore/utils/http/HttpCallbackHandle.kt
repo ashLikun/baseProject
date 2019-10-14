@@ -295,7 +295,7 @@ class HttpCallbackHandle private constructor() {
             return buider
         }
 
-        operator fun get(context: Context): HttpCallbackHandle {
+        operator fun get(context: Context?): HttpCallbackHandle {
             val buider = get()
             buider.context = context
             return buider
@@ -308,7 +308,7 @@ class HttpCallbackHandle private constructor() {
             return buider
         }
 
-        fun getNoTips(context: Context): HttpCallbackHandle {
+        fun getNoTips(context: Context?): HttpCallbackHandle {
             val buider = get()
             buider.context = context
             buider.setNoTips()
