@@ -151,6 +151,7 @@ dependencies {
     //rxjava
     api libs.rxandroid
     api libs.rxjava
+    api libs.RxLife
 
     //okhttp
     api libs.okhttp

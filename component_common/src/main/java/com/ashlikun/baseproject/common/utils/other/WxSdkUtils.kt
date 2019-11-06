@@ -8,9 +8,10 @@ package com.ashlikun.baseproject.common.utils.other
  *
  * 功能介绍：微信sdk相关工具
  */
+//typealias OnWxListener = (isSuccess: Boolean, result: SendAuth.Resp) -> Unit
 object WxSdkUtils {
 //    var APP_ID = ""
-//    var onWxListener: WeakReference<((result: SendAuth.Resp) -> Unit)>? = null
+//    var onWxListener: OnWxListener? = null
 //
 //    /**
 //     * 注册到微信,也是获取IWXAPI实例的方法
@@ -37,7 +38,7 @@ object WxSdkUtils {
 //        //回掉时候区分
 //        req.transaction = "login"
 //        if (api.sendReq(req)) {
-//            WxSdkUtils.onWxListener = WeakReference(onWxLogin)
+//            WxSdkUtils.onWxListener = onWxLogin
 //        }
 //    }
 //
@@ -64,7 +65,7 @@ object WxSdkUtils {
 //        //添加到微信收藏——WXSceneFavorite
 //        req.scene = if (wx == 0) SendMessageToWX.Req.WXSceneSession else if (wx == 1) SendMessageToWX.Req.WXSceneTimeline else SendMessageToWX.Req.WXSceneFavorite
 //        if (api.sendReq(req)) {
-//            WxSdkUtils.onWxListener = WeakReference(onWxLogin)
+//            WxSdkUtils.onWxListener = onWxLogin
 //        }
 //    }
 //

@@ -66,15 +66,15 @@ ext {
             //封装的viewpager，banner，启动页
             XViewPager            : "com.github.ashLikun:XViewPager:2.0.3",
             //公共的工具
-            CommonUtils           : "com.github.ashLikun:CommonUtils:3.2.0",
+            CommonUtils           : "com.github.ashLikun:CommonUtils:3.2.4",
             //公共的Adapter
-            CommonAdapter         : "com.github.ashLikun:CommonAdapter:3.0.3",
+            CommonAdapter         : "com.github.ashLikun:CommonAdapter:3.0.6",
             //TabLayout exclude group: 'com.android.support'
             XTabLayout            : "com.github.ashLikun:XTabLayout:2.0.5",
             //阿里的vlayout
             vlayout               : "com.alibaba.android:vlayout:1.2.18@aar",
             //习惯的对话框
-            CustomDialog          : "com.github.ashLikun:CustomDialog:2.0.0",
+            CustomDialog          : "com.github.ashLikun:CustomDialog:2.0.2",
             //圆形的进度条
             CircleProgressView    : "com.github.ashLikun:CircleProgressView:2.0.1",
             //布局切换
@@ -94,8 +94,9 @@ ext {
             //导航tab
             BottomNavigation      : "com.github.ashLikun:BottomNavigation:3.0.0",
             //rxjava
-            rxandroid             : "io.reactivex.rxjava2:rxandroid:2.0.1",
+            rxandroid             : "io.reactivex.rxjava2:rxandroid:2.1.1",
             rxjava                : "io.reactivex.rxjava2:rxjava:x.y.z",
+            RxLife                : "com.github.ashLikun:RxLife:1.0.0",
             //okhttp
             okhttp                : "com.squareup.okhttp3:okhttp:3.12.0",
             gson                  : "com.google.code.gson:gson:2.8.5",
@@ -138,6 +139,10 @@ ext {
             jpush                 : 'cn.jiguang.sdk:jpush:3.3.4',
             // 极光推送
             jcore                 : 'cn.jiguang.sdk:jcore:2.1.2',
+            //友盟公共组件
+            UmCommon              : 'com.umeng.umsdk:common:2.1.0',
+            //友盟统计
+            UmAnalytics           : 'com.umeng.umsdk:analytics:8.0.0',
             //腾讯Bugly
             BugLy                 : 'com.tencent.bugly:crashreport:latest.release',
     ]
