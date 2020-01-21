@@ -44,7 +44,6 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
         }
     }
 
-    var count = 0
 
     override fun initData() {
         super.initData()

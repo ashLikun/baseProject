@@ -41,6 +41,7 @@ open class BaseApiService {
                     start: OnArgs? = null
     ): ExecuteCall {
         val callback: SimpleHttpCallback<T> = object : SimpleHttpCallback<T>(callbackHandle) {}
+        callback::class.java
         callback.success = success
         callback.successSubThread = successSubThread
         callback.cacheSuccess = cacheSuccess

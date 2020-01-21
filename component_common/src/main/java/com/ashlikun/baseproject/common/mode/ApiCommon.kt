@@ -53,7 +53,7 @@ class ApiCommon private constructor() : BaseApiService() {
 
     fun test(handle: HttpCallbackHandle,
              success: OnSuccess<HttpResult<String>>): ExecuteCall {
-        val callback = object : SimpleHttpCallback<HttpResult<String>>(handle) {}
+        val callback =  SimpleHttpCallback<HttpResult<String>>(handle)
         callback.success = success
         val p = HttpRequestParam.get("index")
         return execute(p, callback)

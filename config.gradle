@@ -2,7 +2,7 @@ ext {
 
 
     androidXVersion = '1.1.+'
-    frameVersion = "3.0.3"
+    frameVersion = "3.0.4"
     android = [
             applicationId    : "com.ashlikun.baseproject",
             compileSdkVersion: 28,
@@ -42,10 +42,10 @@ ext {
             //约束布局
             ConstraintLayout      : 'androidx.constraintlayout:constraintlayout:2.0.0+',
             //基本架构
-            CustomMvp             : "com.github.ashLikun:CustomMvp:2.1.0",
+            CustomMvp             : "com.github.ashLikun:CustomMvp:2.1.1",
             multidex              : 'androidx.multidex:multidex:2.0.1',
             //webview封装
-            XWebView              : "com.github.ashLikun.XWebView:core-x5:2.0.1",
+            XWebView              : "com.github.ashLikun.XWebView:core-x5:2.0.2",
             //alibaba的路由框架
             arouterapi            : "com.alibaba:arouter-api:+",
             aroutercompiler       : "com.alibaba:arouter-compiler:+",
@@ -54,23 +54,23 @@ ext {
             //简单的PopupWindow
             EasyPopupWindow       : "com.github.ashLikun:EasyPopupWindow:2.0.0",
             //事件总线
-            EventBus              : "com.github.ashLikun:LiveDataVBus:2.0.0",
+            EventBus              : "com.github.ashLikun:LiveDataVBus:2.0.1",
             //数据库
             LiteOrm               : "com.github.ashLikun:LiteOrm:2.0.1",
             //封装的RecycleView
-            XRecycleView          : "com.github.ashLikun:XRecycleView:2.0.9",
+            XRecycleView          : "com.github.ashLikun:XRecycleView:2.1.1",
             //动画菜单,可以不用
             AnimationMenu         : "com.github.ashLikun:AnimationMenu:2.0.0",
             //自定义的下拉刷新
-            RefreshLayout         : "com.github.ashLikun:RefreshLayout:2.0.1",
+            RefreshLayout         : "com.github.ashLikun:RefreshLayout:2.0.2",
             //封装的viewpager，banner，启动页
-            XViewPager            : "com.github.ashLikun:XViewPager:2.0.3",
+            XViewPager            : "com.github.ashLikun:XViewPager:2.0.5",
             //公共的工具
-            CommonUtils           : "com.github.ashLikun:CommonUtils:3.2.4",
+            CommonUtils           : "com.github.ashLikun:CommonUtils:3.2.8",
             //公共的Adapter
             CommonAdapter         : "com.github.ashLikun:CommonAdapter:3.0.6",
             //TabLayout exclude group: 'com.android.support'
-            XTabLayout            : "com.github.ashLikun:XTabLayout:2.0.5",
+            XTabLayout            : "com.github.ashLikun:XTabLayout:2.0.6",
             //阿里的vlayout
             vlayout               : "com.alibaba.android:vlayout:1.2.18@aar",
             //习惯的对话框
@@ -80,9 +80,9 @@ ext {
             //布局切换
             LoadSwitch            : "com.github.ashLikun:LoadSwitch:2.0.3",
             //兼容的View
-            CompatView            : "com.github.ashLikun:CompatView:2.0.5",
+            CompatView            : "com.github.ashLikun:CompatView:2.0.6",
             //错误捕获
-            AppCrashDispose       : "com.github.ashLikun:AppCrashDispose:2.0.0",
+            AppCrashDispose       : "com.github.ashLikun:AppCrashDispose:2.0.1",
             //app内存溢出捕获
             leakcanaryDebug       : "com.squareup.leakcanary:leakcanary-android:1.6.3",
             leakcanaryRelease     : "com.squareup.leakcanary:leakcanary-android-no-op:1.6.3",
@@ -96,14 +96,14 @@ ext {
             //rxjava
             rxandroid             : "io.reactivex.rxjava2:rxandroid:2.1.1",
             rxjava                : "io.reactivex.rxjava2:rxjava:x.y.z",
-            RxLife                : "com.github.ashLikun:RxLife:1.0.0",
+            RxLife                : "com.github.ashLikun:RxLife:1.0.2",
             //okhttp
             okhttp                : "com.squareup.okhttp3:okhttp:3.12.0",
             gson                  : "com.google.code.gson:gson:2.8.5",
             //不同type的json解析,依赖于gson
             MultiTypeGson         : "com.github.ashLikun:MultiTypeGson:2.0.1",
             //基于Okhttp封装的
-            OkHttpUtils           : "com.github.ashLikun:OkHttpUtils:2.1.9",
+            OkHttpUtils           : "com.github.ashLikun:OkHttpUtils:2.2.6",
             //图片加载
             GlideUtils            : "com.github.ashLikun:GlideUtils:2.0.7",
             glide                 : "com.github.bumptech.glide:glide:4.9.0",
@@ -130,7 +130,7 @@ ext {
             MaterialRatingBar     : "com.github.ashLikun:MaterialRatingBar:2.0.0",
             CalendarView          : "com.github.ashLikun:CalendarView:2.0.0",
             //微信分享，登录sdk
-            wechat                : "com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+",
+            wechat                : "com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+",
             //扫码
             ZxingUtils            : "com.github.ashLikun:ZxingUtils:2.0.2",
             ZxingCore             : "com.google.zxing:core:3.3.0",
