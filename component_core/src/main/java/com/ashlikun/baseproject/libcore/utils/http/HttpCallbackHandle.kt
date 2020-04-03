@@ -3,10 +3,8 @@ package com.ashlikun.baseproject.libcore.utils.http
 import android.app.Activity
 import android.content.Context
 import android.view.View
-import com.ashlikun.baseproject.libcore.mvp.iview.IBaseListView
-import com.ashlikun.baseproject.libcore.mvp.iview.IBaseSwipeView
-import com.ashlikun.core.BasePresenter
-import com.ashlikun.core.iview.IBaseView
+import com.ashlikun.baseproject.libcore.mvp.presenter.BaseListViewModel
+import com.ashlikun.core.mvvm.BaseViewModel
 import com.ashlikun.customdialog.LoadDialog
 import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.loadswitch.LoadSwitchService
@@ -36,30 +34,37 @@ class HttpCallbackHandle private constructor() {
      * 失效的View
      */
     internal var enableView: Array<out View?>? = null
+
     /**
      * 对话框是否可以取消
      */
     internal var isCancelable = true
+
     /**
      * 是否错误的时候toast提示
      */
     internal var isToastShow = true
+
     /**
      * 是否显示进度，进度回调才用到的
      */
     internal var isShowProgress = true
+
     /**
      * 是否显示对话框
      */
     internal var isShowLoadding = true
+
     /**
      * 下拉刷新
      */
     internal var swipeRefreshLayout: RefreshLayout? = null
+
     /**
      * 自动加载刷新
      */
     internal var statusChangListener: StatusChangListener? = null
+
     /**
      * 界面显示管理器（加载中，加载失败，加载成功）
      */
@@ -69,10 +74,10 @@ class HttpCallbackHandle private constructor() {
      * tag类,标识这个请求，会传递到Request里面
      * [tag]优先级高
      */
-    internal var basePresenter: BasePresenter<*>? = null
+    internal var baseViewModel: BaseViewModel? = null
     internal var context: Context? = null
-    internal var view: IBaseView? = null
     internal var tag: Any? = null
+
     /**
      * 加载框
      */
@@ -85,13 +90,13 @@ class HttpCallbackHandle private constructor() {
      */
     fun isFirstRequest() = count() <= 1
 
-    fun getTag() = tag ?: (context ?: basePresenter)
+    fun getTag() = tag ?: (context ?: baseViewModel)
 
     /**
      * 统计同一个tag的请求数量
      */
     fun count(): Long {
-        return OkHttpUtils.getInstance().countRequest(tag, context, basePresenter)
+        return OkHttpUtils.getInstance().countRequest(tag, context, baseViewModel)
     }
 
     /**
@@ -151,8 +156,8 @@ class HttpCallbackHandle private constructor() {
         return this
     }
 
-    fun setPresenter(basePresenter: BasePresenter<*>): HttpCallbackHandle {
-        this.basePresenter = basePresenter
+    fun setPresenter(baseViewModel: BaseViewModel): HttpCallbackHandle {
+        this.baseViewModel = baseViewModel
         return this
     }
 
@@ -169,13 +174,6 @@ class HttpCallbackHandle private constructor() {
         return this
     }
 
-    /**
-     * 从BaseView里面设置布局切换
-     */
-    fun setLoadSwitchServiceBaseView(baseView: IBaseView?): HttpCallbackHandle {
-        this.view = baseView
-        return this
-    }
 
     /**
      * 显示加载的监听
@@ -200,36 +198,39 @@ class HttpCallbackHandle private constructor() {
     }
 
     /**
-     * 作者　　: 李坤
-     * 创建时间: 2017/7/3 13:44
-     * 邮箱　　：496546144@qq.com
-     *
-     *
-     * 方法功能：设置下位刷新，底加载，状态显示
+     * 方法功能：设置下位刷新，底加载，布局切换
      */
-    fun setLoadingStatus(mvpView: IBaseView?): HttpCallbackHandle {
-        if (mvpView == null) {
-            return this
-        }
-
-        if (mvpView is IBaseSwipeView) {
-            if (mvpView != null) {
-                isShowLoadding = false
-                setSwipeRefreshLayout(mvpView.getSwipeRefreshLayout())
-            }
-        }
-        if (mvpView is IBaseListView) {
-            if (mvpView != null) {
-                isShowLoadding = false
-                setStatusChangListener(mvpView.getStatusChangListener())
+    fun setLoadingStatus(baseViewModel: BaseViewModel? = this.baseViewModel): HttpCallbackHandle {
+        if (baseViewModel is BaseListViewModel) {
+            (baseViewModel as BaseListViewModel)?.run {
+                if (swipeRefreshLayout != null) {
+                    isShowLoadding = false
+                    setSwipeRefreshLayout(swipeRefreshLayout)
+                }
+                if (statusChangListener != null) {
+                    isShowLoadding = false
+                    setStatusChangListener(statusChangListener)
+                }
             }
         }
         //布局切换
-        view = mvpView
-        setLoadSwitchService(mvpView.switchService)
+        setLoadSwitchService(baseViewModel?.loadSwitchService)
         return this
     }
 
+
+    fun showLoading() {
+        loadSwitchService?.showLoading(ContextData(hint))
+    }
+
+    fun showContent() {
+        loadSwitchService?.showContent()
+    }
+
+    fun showRetry(data: ContextData): Boolean {
+        loadSwitchService?.showRetry(data)
+        return loadSwitchService != null
+    }
 
     fun showDialog() {
         if (isShowLoadding) {
@@ -249,32 +250,6 @@ class HttpCallbackHandle private constructor() {
         }
     }
 
-
-    fun showLoading() {
-        if (view != null) {
-            view?.showLoading(ContextData(hint))
-        } else {
-            loadSwitchService?.showLoading(ContextData(hint))
-        }
-    }
-
-    fun showContent() {
-        if (view != null) {
-            view?.showContent()
-        } else {
-            loadSwitchService?.showContent()
-        }
-    }
-
-    fun showRetry(data: ContextData): Boolean {
-        if (view != null) {
-            view?.showRetry(data)
-        } else {
-            loadSwitchService?.showRetry(data)
-        }
-        return view != null || loadSwitchService != null
-    }
-
     fun hintProgress() {
         loadDialog?.dismiss()
     }
@@ -282,16 +257,16 @@ class HttpCallbackHandle private constructor() {
     private fun getActivity(): Activity? {
         var activity: Activity? = ActivityUtils.getActivity(context)
         if (activity == null) {
-            activity = basePresenter?.activity
+            activity = ActivityUtils.getActivity(baseViewModel?.context)
         }
         return activity
     }
 
     companion object {
 
-        operator fun get(basePresenter: BasePresenter<*>): HttpCallbackHandle {
+        operator fun get(baseViewModel: BaseViewModel): HttpCallbackHandle {
             val buider = get()
-            buider.basePresenter = basePresenter
+            buider.baseViewModel = baseViewModel
             return buider
         }
 
@@ -301,9 +276,9 @@ class HttpCallbackHandle private constructor() {
             return buider
         }
 
-        fun getNoTips(basePresenter: BasePresenter<*>): HttpCallbackHandle {
+        fun getNoTips(baseViewModel: BaseViewModel): HttpCallbackHandle {
             val buider = get()
-            buider.basePresenter = basePresenter
+            buider.baseViewModel = baseViewModel
             buider.setNoTips()
             return buider
         }

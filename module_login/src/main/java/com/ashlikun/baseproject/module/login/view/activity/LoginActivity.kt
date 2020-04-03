@@ -1,15 +1,15 @@
 package com.ashlikun.baseproject.module.login.view.activity
 
+import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.libarouter.interceptor.LoginInterceptor
 import com.ashlikun.baseproject.module.login.R
-import com.ashlikun.baseproject.module.login.iview.IBLoginView
 import com.ashlikun.baseproject.module.login.mode.javabean.UserData
-import com.ashlikun.baseproject.module.login.presenter.LoginPresenter
+import com.ashlikun.baseproject.module.login.viewmodel.LoginViewModel
 import com.ashlikun.baseproject.common.utils.jump.RouterJump
-import com.ashlikun.core.activity.BaseMvpActivity
-import com.ashlikun.core.factory.Presenter
+import com.ashlikun.core.mvvm.BaseMvvmActivity
+import com.ashlikun.core.mvvm.IViewModel
 
 
 /**
@@ -17,8 +17,8 @@ import com.ashlikun.core.factory.Presenter
  * *
  */
 @Route(path = RouterPath.LOGIN)
-@Presenter(LoginPresenter::class)
-class LoginActivity : BaseMvpActivity<LoginPresenter>(), IBLoginView.IloginView {
+@IViewModel(LoginViewModel::class)
+class LoginActivity : BaseMvvmActivity<LoginViewModel>() {
 
     override fun getLayoutId(): Int {
         return R.layout.login_activity_login
@@ -32,27 +32,13 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(), IBLoginView.IloginView 
         //        editHelper.addEditHelperData(new EditHelper.EditHelperData(dataBind.passwordTil,
         //                Validators.getLengthSRegex(6, dataBind.passwordTil.getCounterMaxLength()), "密码6-20位"));
         //        dataBind.setPresenter(presenter);
-    }
-
-    override fun checkData(): Boolean {
-        return false
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
+        viewModel.userData.observe(this, Observer {
+            login(it)
+        })
     }
 
 
-    override fun clearData() {
-
-    }
-
-//    fun onWangjiClick(view: View) {
-//        ARouter.getInstance().build(RouterPath.AMEND_PASSWORD)
-//                .navigation(this)
-//    }
-
-    override fun login(data: UserData) {
+    fun login(data: UserData) {
         if (UserData.isLogin()) {
             //登录拦截器是否有任务挂起
             if (LoginInterceptor.isHaveRun()) {

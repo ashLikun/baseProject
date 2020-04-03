@@ -5,10 +5,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ashlikun.adapter.recyclerview.BaseAdapter
 import com.ashlikun.adapter.recyclerview.click.OnItemClickListener
-import com.ashlikun.core.BasePresenter
-import com.ashlikun.core.activity.BaseMvpActivity
+import com.ashlikun.baseproject.libcore.mvp.presenter.BaseListViewModel
+import com.ashlikun.core.mvvm.BaseMvvmActivity
 import com.ashlikun.loadswitch.OnLoadSwitchClick
-import com.ashlikun.xrecycleview.SuperRecyclerView
+import com.ashlikun.xrecycleview.PageHelp
+import com.ashlikun.xrecycleview.RefreshLayout
+import com.ashlikun.xrecycleview.StatusChangListener
 import com.ashlikun.xrecycleview.listener.RecycleViewSwipeListener
 
 /**
@@ -18,63 +20,47 @@ import com.ashlikun.xrecycleview.listener.RecycleViewSwipeListener
  *
  * 功能介绍：列表界面父类
  */
-abstract class BaseListActivity<P : BasePresenter<*>> : BaseMvpActivity<P>()
+abstract class BaseListActivity<VM : BaseListViewModel> : BaseMvvmActivity<VM>()
         , RecycleViewSwipeListener, OnLoadSwitchClick {
     abstract val itemDecoration: RecyclerView.ItemDecoration?
     abstract val adapter: RecyclerView.Adapter<*>?
     open val layoutManager: RecyclerView.LayoutManager
-        get() = LinearLayoutManager(context)
+        get() = LinearLayoutManager(this)
 
     override fun baseInitView() {
         super.baseInitView()
-        getSuperRecyclerView().run {
-            if (itemDecoration != null) {
-                recyclerView.addItemDecoration(itemDecoration!!)
-            }
-            recyclerView.layoutManager = layoutManager
-            setAdapter(adapter)
-            setOnRefreshListener(this@BaseListActivity)
-            setOnLoaddingListener(this@BaseListActivity)
+        viewModel.swipeRefreshLayout = getSwipeRefreshLayout()
+        viewModel.statusChangListener = getStatusChangListener()
+        viewModel.pageHelp = getPageHelp()
+        initRecyclerView()
+    }
+
+    open fun initRecyclerView() {
+        if (itemDecoration != null) {
+            getRecyclerView().addItemDecoration(itemDecoration!!)
         }
+        getRecyclerView().layoutManager = layoutManager
+        getRecyclerView().adapter = adapter
         if (adapter is BaseAdapter<*, *> && this is OnItemClickListener<*>) {
             (adapter as BaseAdapter<*, *>)?.setOnItemClickListener(this)
         }
-
     }
 
-    abstract fun getSuperRecyclerView(): SuperRecyclerView
-    override fun getSwitchRoot(): View? = getSuperRecyclerView()
+    override fun getSwitchRoot(): View? = getRecyclerView()
 
-
-    open fun clearData() {
-        if (adapter is BaseAdapter<*, *>) {
-            (adapter as BaseAdapter<*, *>)?.clearData()
-        }
+    override fun clearData() {
+        (adapter as BaseAdapter<*, *>?)?.clearData()
     }
 
     open fun notifyChanged() {
-        if (adapter is BaseAdapter<*, *>) {
-            (adapter as BaseAdapter<*, *>)?.notifyDataSetChanged()
-        }
+        adapter?.notifyDataSetChanged()
     }
 
-    open fun clearPaging() {
-        getSuperRecyclerView().pageHelp?.clear()
-    }
-
-    open fun getSwipeRefreshLayout() = getSuperRecyclerView().refreshLayout
-    open fun getStatusChangListener() = getSuperRecyclerView().statusChangListener
-
-
-    open fun getPageHelp() = getSuperRecyclerView().pageHelp
-
-    open fun getPageindex() = getPageHelp().currentPage
-
-    open fun getPageCount() = getSuperRecyclerView().pageHelp.currentPage
-
+    open abstract fun getRecyclerView(): RecyclerView
+    open abstract fun getSwipeRefreshLayout(): RefreshLayout?
+    open abstract fun getStatusChangListener(): StatusChangListener?
+    open abstract fun getPageHelp(): PageHelp?
     open fun scrollToPosition(position: Int) {
-        if (getSuperRecyclerView() != null) {
-            getSuperRecyclerView().recyclerView.scrollToPosition(position)
-        }
+        getRecyclerView().scrollToPosition(position)
     }
 }

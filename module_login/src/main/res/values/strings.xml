@@ -9,4 +9,13 @@
     <string name="login_get_yanzenma">获取验证码</string>
     <string name="login_login">立即登录</string>
     <string name="login_register">立即注册</string>
+    <string name="title_activity_mainsss">MainsssActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>

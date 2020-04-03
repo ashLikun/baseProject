@@ -3,6 +3,7 @@ package com.ogow.libs.utils.extend
 import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.utils.other.StringUtils
+import com.ashlikun.utils.ui.SuperToast
 import com.ashlikun.utils.ui.ToastUtils
 
 /**
@@ -13,10 +14,12 @@ import com.ashlikun.utils.ui.ToastUtils
  * 功能介绍：http相关的扩展函数
  */
 
-fun HttpResponse.toast(default: String? = null) = ToastUtils.showLong(message(default ?: ""))
+fun HttpResponse.toast(default: String? = null) =
+        if (isSucceed) SuperToast.showInfoMessage(message(default ?: ""))
+        else SuperToast.showErrorMessage(message(default ?: ""))
+
 fun HttpResponse.message(default: String) = StringUtils.dataFilter(getMessage(), default)
 fun HttpResponse.getContextData() = ContextData(code, message("出错啦"))
-
 
 
 ////登录异常

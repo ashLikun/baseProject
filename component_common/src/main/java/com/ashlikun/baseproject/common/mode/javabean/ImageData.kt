@@ -14,7 +14,9 @@ import com.ashlikun.baseproject.libcore.widget.banner.IBannerData
  *
  * 功能介绍：图片数据
  */
-class ImageData(image: String = StringNullAdapter.NULL, thumbImage: String = StringNullAdapter.NULL, id: Int = 0) : Parcelable, IBannerData {
+class ImageData(image: String = StringNullAdapter.NULL,
+                thumbImage: String = StringNullAdapter.NULL,
+                id: Int = 0) : Parcelable, IBannerData {
     override fun getImageUrl() = image
 
     /**

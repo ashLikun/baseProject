@@ -21,23 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".view.activity.AmendPasswordActivity"
-            android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.OtherTheme" />
-        <activity
-            android:name=".view.activity.UpdataPasswordActivity"
-            android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.OtherTheme" />
 
-        <!--注册-->
-        <activity
-            android:name=".view.activity.RegisterActivity"
-            android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.OtherTheme" />
     </application>
 
 </manifest>

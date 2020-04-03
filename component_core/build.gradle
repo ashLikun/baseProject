@@ -59,7 +59,7 @@ dependencies {
     api libs.design
 
     //mvp
-    api libs.CustomMvp
+    api libs.CustomMvvm
     api libs.multidex
     //约束布局
     api libs.ConstraintLayout
@@ -136,7 +136,6 @@ dependencies {
     //错误捕获
     api libs.AppCrashDispose
     //app内存溢出捕获
-    releaseImplementation libs.leakcanaryRelease
     debugImplementation libs.leakcanaryDebug
     //滴滴的开发助手
     releaseImplementation libs.doraemonkitRelease
@@ -152,6 +151,9 @@ dependencies {
     api libs.rxandroid
     api libs.rxjava
     api libs.RxLife
+
+    //KotlinxCoroutines
+    api libs.KotlinxCoroutines
 
     //okhttp
     api libs.okhttp

@@ -5,15 +5,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.ashlikun.xviewpager.view.BannerViewPager
+    <com.ashlikun.xviewpager2.view.BannerViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black"
         app:banner_canLoop="false"
         app:banner_isOneDataOffLoopAndTurning="false"
-        app:banner_ratio="-1"
-        app:banner_turningTime="-1"></com.ashlikun.xviewpager.view.BannerViewPager>
+        app:banner_turningTime="-1"
+        app:xvp_ratio="-1"></com.ashlikun.xviewpager2.view.BannerViewPager>
 
     <TextView
         android:id="@+id/textView"
@@ -29,9 +29,9 @@
         android:layout_width="@dimen/dp_40"
         android:layout_height="@dimen/dp_40"
         android:layout_gravity="right|bottom"
-        android:visibility="gone"
         android:layout_marginRight="@dimen/dp_10"
         android:layout_marginBottom="@dimen/dp_30"
         android:padding="@dimen/dp_10"
-        android:src="@drawable/ic_downlod" />
+        android:src="@drawable/ic_downlod"
+        android:visibility="gone" />
 </FrameLayout>

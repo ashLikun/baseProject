@@ -1,14 +1,14 @@
 package com.ashlikun.baseproject.module.main.view.fragment
 
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.ashlikun.baseproject.common.mode.javabean.ImageData
+import com.ashlikun.baseproject.common.utils.jump.RouterJump
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.module.main.R
-import com.ashlikun.baseproject.module.main.iview.IBHomeView
-import com.ashlikun.baseproject.module.main.presenter.HomePresenter
-import com.ashlikun.core.factory.Presenter
-import com.ashlikun.core.fragment.BaseMvpFragment
+import com.ashlikun.baseproject.module.main.viewmodel.HomeViewModel
+import com.ashlikun.core.mvvm.BaseMvvmFragment
+import com.ashlikun.core.mvvm.IViewModel
 import com.ashlikun.loadswitch.ContextData
-import com.ashlikun.loadswitch.OnLoadSwitchClick
 import kotlinx.android.synthetic.main.main_fragment_home.*
 
 /**
@@ -19,10 +19,17 @@ import kotlinx.android.synthetic.main.main_fragment_home.*
  *
  * 功能介绍：
  */
-@Presenter(HomePresenter::class)
+@IViewModel(HomeViewModel::class)
 @Route(path = RouterPath.FRAGMENT_HOME)
-class HomeFragment : BaseMvpFragment<HomePresenter>(), IBHomeView.IHomeView, OnLoadSwitchClick {
+class HomeFragment : BaseMvvmFragment<HomeViewModel>() {
 
+    val RESURL2 = listOf(
+            "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4135477902,3355939884&fm=26&gp=0.jpg",
+            "http://img1.cache.netease.com/catchpic/A/A0/A0153E1AEDA115EAE7061A0C7EBB69D2.jpg",
+            "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1584594344314&di=4eb56ec22f47949d7c36069f55403e5c&imgtype=0&src=http%3A%2F%2Fimg.improve-yourmemory.com%2Fpic%2Fe573f475a02c84bf35a44be7cff56307-0.jpg",
+            "http://uploadfile.bizhizu.cn/up/03/50/95/0350955b21a20b6deceea4914b1cfeeb.jpg.source.jpg",
+            "http://pic1.win4000.com/wallpaper/7/5860842b353da.jpg",
+            "http://pic1.win4000.com/wallpaper/b/566a37b05aac3.jpg")
 
     override fun getLayoutId(): Int {
         return R.layout.main_fragment_home
@@ -34,7 +41,10 @@ class HomeFragment : BaseMvpFragment<HomePresenter>(), IBHomeView.IHomeView, OnL
             setTitle("首页")
         }
         ceshiButton.setOnClickListener {
-//            toolbar?.getAction<ImageAction>(-1)
+            RouterJump.startLockImage(0, RESURL2.map { ImageData(it, it, 0) } as ArrayList, true)
+        }
+        ceshi2Button.setOnClickListener {
+            RouterJump.startTest()
         }
     }
 

@@ -61,9 +61,7 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
     open fun dismissUi() {
         buider.run {
             swipeRefreshLayout?.isRefreshing = false
-
-
-            val isNoRun = basePresenter?.view == null && context == null
+            val isNoRun = baseViewModel == null && context == null
             if (isNoRun) {
                 return
             }
@@ -177,17 +175,13 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
 
 
     /**
-     * 作者　　: 李坤
-     * 创建时间: 2017/7/3 13:44
-     * 邮箱　　：496546144@qq.com
-     *
      * 方法功能： 是否对错误信息处理
      */
     open fun onSuccess(result: ResultType, isHanderError: Boolean) {
         LogUtils.e("onSuccess")
         buider.run {
             statusChangListener?.complete()
-            if (loadSwitchService != null || view != null) {
+            if (loadSwitchService != null) {
                 if (result is HttpResponse && isHanderError) {
                     if (result.isSucceed) {
                         showContent()
@@ -202,6 +196,7 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
     }
 
     fun getTag(): Any? = buider.getTag()
+
     /**
      * 获取当前泛型内部data->list或者数组
      */

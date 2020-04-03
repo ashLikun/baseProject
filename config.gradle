@@ -21,6 +21,7 @@ ext {
             JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
             MAP_NAME     : "com.amap.api.v2.apikey", //高德地图的名称
             BUGLY_APPKEY : "f28e3effd0", //腾讯bugly
+            DOKIT_PID : "f2ab59a864aabba32dd5ebeddac76c83", //滴滴的开发助手,https://www.dokit.cn/
     ]
     /**
      * 这里配置打包不同的参数
@@ -40,9 +41,9 @@ ext {
             kotlin                : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
             design                : "com.google.android.material:material:$androidXVersion",
             //约束布局
-            ConstraintLayout      : 'androidx.constraintlayout:constraintlayout:2.0.0+',
+            ConstraintLayout      : 'androidx.constraintlayout:constraintlayout:+',
             //基本架构
-            CustomMvp             : "com.github.ashLikun:CustomMvp:2.1.1",
+            CustomMvvm             : "com.github.ashLikun:CustomMvvm:1.0.5",
             multidex              : 'androidx.multidex:multidex:2.0.1',
             //webview封装
             XWebView              : "com.github.ashLikun.XWebView:core-x5:2.0.2",
@@ -58,21 +59,21 @@ ext {
             //数据库
             LiteOrm               : "com.github.ashLikun:LiteOrm:2.0.1",
             //封装的RecycleView
-            XRecycleView          : "com.github.ashLikun:XRecycleView:2.1.1",
+            XRecycleView          : "com.github.ashLikun:XRecycleView:2.1.4",
             //动画菜单,可以不用
             AnimationMenu         : "com.github.ashLikun:AnimationMenu:2.0.0",
             //自定义的下拉刷新
             RefreshLayout         : "com.github.ashLikun:RefreshLayout:2.0.2",
             //封装的viewpager，banner，启动页
-            XViewPager            : "com.github.ashLikun:XViewPager:2.0.5",
+            XViewPager            : "com.github.ashLikun:XViewPager2:1.0.3",
             //公共的工具
-            CommonUtils           : "com.github.ashLikun:CommonUtils:3.2.8",
+            CommonUtils           : "com.github.ashLikun:CommonUtils:3.3.1",
             //公共的Adapter
             CommonAdapter         : "com.github.ashLikun:CommonAdapter:3.0.6",
             //TabLayout exclude group: 'com.android.support'
             XTabLayout            : "com.github.ashLikun:XTabLayout:2.0.6",
             //阿里的vlayout
-            vlayout               : "com.alibaba.android:vlayout:1.2.18@aar",
+            vlayout               : "com.alibaba.android:vlayout:1.2.36@aar",
             //习惯的对话框
             CustomDialog          : "com.github.ashLikun:CustomDialog:2.0.2",
             //圆形的进度条
@@ -84,26 +85,27 @@ ext {
             //错误捕获
             AppCrashDispose       : "com.github.ashLikun:AppCrashDispose:2.0.1",
             //app内存溢出捕获
-            leakcanaryDebug       : "com.squareup.leakcanary:leakcanary-android:1.6.3",
-            leakcanaryRelease     : "com.squareup.leakcanary:leakcanary-android-no-op:1.6.3",
+            leakcanaryDebug       : "com.squareup.leakcanary:leakcanary-android:+",
             //滴滴的开发助手
-            doraemonkitDebug      : "com.didichuxing.doraemonkit:doraemonkit:1.1.7",
-            doraemonkitRelease    : "com.didichuxing.doraemonkit:doraemonkit-no-op:1.1.7",
+            doraemonkitDebug      : "com.didichuxing.doraemonkit:doraemonkit:+",
+            doraemonkitRelease    : "com.didichuxing.doraemonkit:doraemonkit-no-op:+",
             //shimmer 文字
             shimmer               : "com.romainpiel.shimmer:library:1.4.0",
             //导航tab
-            BottomNavigation      : "com.github.ashLikun:BottomNavigation:3.0.0",
+            BottomNavigation      : "com.github.ashLikun:BottomNavigation:3.0.2",
             //rxjava
             rxandroid             : "io.reactivex.rxjava2:rxandroid:2.1.1",
             rxjava                : "io.reactivex.rxjava2:rxjava:x.y.z",
             RxLife                : "com.github.ashLikun:RxLife:1.0.2",
+            //kotlin的协程
+            KotlinxCoroutines     : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines",
             //okhttp
             okhttp                : "com.squareup.okhttp3:okhttp:3.12.0",
             gson                  : "com.google.code.gson:gson:2.8.5",
             //不同type的json解析,依赖于gson
             MultiTypeGson         : "com.github.ashLikun:MultiTypeGson:2.0.1",
             //基于Okhttp封装的
-            OkHttpUtils           : "com.github.ashLikun:OkHttpUtils:2.2.6",
+            OkHttpUtils           : "com.github.ashLikun:OkHttpUtils:2.2.7",
             //图片加载
             GlideUtils            : "com.github.ashLikun:GlideUtils:2.0.7",
             glide                 : "com.github.bumptech.glide:glide:4.9.0",
@@ -117,7 +119,7 @@ ext {
             //Android官方流布局
             flexbox               : "com.google.android:flexbox:1.1.0",
             //图片查看
-            PhotoView             : "com.github.ashLikun:PhotoView:2.0.0",
+            PhotoView             : "com.github.ashLikun:PhotoView:2.0.1",
             //照片处理
             PhotoHander           : "com.github.ashLikun:PhotoHander:2.0.4",
             //阿里的vlayout transitive = true
@@ -136,9 +138,9 @@ ext {
             ZxingCore             : "com.google.zxing:core:3.3.0",
             EasyPay               : "com.github.ashLikun:EasyPay:2.0.4",
             // 极光推送
-            jpush                 : 'cn.jiguang.sdk:jpush:3.3.4',
+            jpush                 : 'cn.jiguang.sdk:jpush:3.5.8',
             // 极光推送
-            jcore                 : 'cn.jiguang.sdk:jcore:2.1.2',
+            jcore                 : 'cn.jiguang.sdk:jcore:2.3.0',
             //友盟公共组件
             UmCommon              : 'com.umeng.umsdk:common:2.1.0',
             //友盟统计
