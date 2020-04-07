@@ -21,7 +21,7 @@ ext {
             JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
             MAP_NAME     : "com.amap.api.v2.apikey", //高德地图的名称
             BUGLY_APPKEY : "f28e3effd0", //腾讯bugly
-            DOKIT_PID : "f2ab59a864aabba32dd5ebeddac76c83", //滴滴的开发助手,https://www.dokit.cn/
+            DOKIT_PID    : "f2ab59a864aabba32dd5ebeddac76c83", //滴滴的开发助手,https://www.dokit.cn/
     ]
     /**
      * 这里配置打包不同的参数
@@ -43,7 +43,7 @@ ext {
             //约束布局
             ConstraintLayout      : 'androidx.constraintlayout:constraintlayout:+',
             //基本架构
-            CustomMvvm             : "com.github.ashLikun:CustomMvvm:1.0.5",
+            CustomMvvm            : "com.github.ashLikun.Framework:libraryMvvm:1.0.0",
             multidex              : 'androidx.multidex:multidex:2.0.1',
             //webview封装
             XWebView              : "com.github.ashLikun.XWebView:core-x5:2.0.2",
@@ -67,7 +67,7 @@ ext {
             //封装的viewpager，banner，启动页
             XViewPager            : "com.github.ashLikun:XViewPager2:1.0.3",
             //公共的工具
-            CommonUtils           : "com.github.ashLikun:CommonUtils:3.3.1",
+            CommonUtils           : "com.github.ashLikun:CommonUtils:3.3.3",
             //公共的Adapter
             CommonAdapter         : "com.github.ashLikun:CommonAdapter:3.0.6",
             //TabLayout exclude group: 'com.android.support'
