@@ -111,7 +111,8 @@ class WelcomeActivity : BaseActivity() {
         shimmer.start(shimmerTv)
     }
 
-    override fun parseIntent(intent: Intent?) {
+    override fun parseIntent(intent: Intent) {
+        super.parseIntent(intent)
         PullJumpManage.save(intent)
         //如果首页已经启动了，那么久不用启动首页
         if (RouterManage.home()?.isHomeStart() == true) {

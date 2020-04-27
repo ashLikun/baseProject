@@ -1,7 +1,7 @@
 ext {
 
 
-    androidXVersion = '1.1.+'
+    androidXVersion = '+'
     frameVersion = "3.0.4"
     android = [
             applicationId    : "com.ashlikun.baseproject",
@@ -10,7 +10,7 @@ ext {
             versionCode      : 1,
             versionName      : "1.0.0",
             targetSdkVersion : 26,
-            minSdkVersion    : 16,
+            minSdkVersion    : 21,
             flavorDimensions : "flavorDimensions"
     ]
 
@@ -19,7 +19,6 @@ ext {
             JPUSH_PKGNAME: android.applicationId, //应用id
             JPUSH_APPKEY : "001b8ca1b4962d68bfb65049", //JPush上注册的包名对应的appkey.
             JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
-            MAP_NAME     : "com.amap.api.v2.apikey", //高德地图的名称
             BUGLY_APPKEY : "f28e3effd0", //腾讯bugly
             DOKIT_PID    : "f2ab59a864aabba32dd5ebeddac76c83", //滴滴的开发助手,https://www.dokit.cn/
     ]
@@ -43,7 +42,7 @@ ext {
             //约束布局
             ConstraintLayout      : 'androidx.constraintlayout:constraintlayout:+',
             //基本架构
-            CustomMvvm            : "com.github.ashLikun.Framework:libraryMvvm:1.0.0",
+            CustomMvvm            : "com.github.ashLikun.Framework:libraryMvvm:1.0.3",
             multidex              : 'androidx.multidex:multidex:2.0.1',
             //webview封装
             XWebView              : "com.github.ashLikun.XWebView:core-x5:2.0.2",
@@ -67,7 +66,7 @@ ext {
             //封装的viewpager，banner，启动页
             XViewPager            : "com.github.ashLikun:XViewPager2:1.0.3",
             //公共的工具
-            CommonUtils           : "com.github.ashLikun:CommonUtils:3.3.3",
+            CommonUtils           : "com.github.ashLikun:CommonUtils:3.3.6",
             //公共的Adapter
             CommonAdapter         : "com.github.ashLikun:CommonAdapter:3.0.6",
             //TabLayout exclude group: 'com.android.support'
@@ -100,14 +99,14 @@ ext {
             //kotlin的协程
             KotlinxCoroutines     : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines",
             //okhttp
-            okhttp                : "com.squareup.okhttp3:okhttp:3.12.0",
+            okhttp                : "com.squareup.okhttp3:okhttp:3.+",
             gson                  : "com.google.code.gson:gson:2.8.5",
             //不同type的json解析,依赖于gson
             MultiTypeGson         : "com.github.ashLikun:MultiTypeGson:2.0.1",
             //基于Okhttp封装的
-            OkHttpUtils           : "com.github.ashLikun:OkHttpUtils:2.2.7",
+            OkHttpUtils           : "com.github.ashLikun:OkHttpUtils:2.2.9",
             //图片加载
-            GlideUtils            : "com.github.ashLikun:GlideUtils:2.0.7",
+            GlideUtils            : "com.github.ashLikun:GlideUtils:2.0.8",
             glide                 : "com.github.bumptech.glide:glide:4.9.0",
             glideCompiler         : "com.github.bumptech.glide:compiler:4.9.0",
             glideTransformations  : "jp.wasabeef:glide-transformations:4+",
@@ -121,7 +120,7 @@ ext {
             //图片查看
             PhotoView             : "com.github.ashLikun:PhotoView:2.0.1",
             //照片处理
-            PhotoHander           : "com.github.ashLikun:PhotoHander:2.0.4",
+            PhotoHander           : "com.github.ashLikun:PhotoHander:2.0.5",
             //阿里的vlayout transitive = true
             vlayout               : "com.alibaba.android:vlayout:1.2.22@aar",
             //输入验证码

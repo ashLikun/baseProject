@@ -25,11 +25,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.OtherTheme" />
         <activity
-            android:name=".view.PermissonActivity"
-            android:configChanges="orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Fullscreen.Translucent"></activity>
-        <activity
             android:name=".view.TestActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"

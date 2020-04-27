@@ -1,5 +1,6 @@
 package com.ashlikun.baseproject.libcore.mvp.view
 
+import android.media.MediaCodec
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +14,7 @@ import com.ashlikun.xrecycleview.PageHelp
 import com.ashlikun.xrecycleview.RefreshLayout
 import com.ashlikun.xrecycleview.StatusChangListener
 import com.ashlikun.xrecycleview.listener.RecycleViewSwipeListener
+import javax.microedition.khronos.egl.EGLSurface
 
 /**
  * 作者　　: 李坤

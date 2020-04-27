@@ -12,10 +12,4 @@ import com.alibaba.android.arouter.facade.template.IProvider
  */
 interface IOtherService : IProvider {
 
-    /**
-     * 请求权限
-     */
-    fun requestPermission(permission: Array<String>, showRationaleMessage: String? = null
-                          , denied: (() -> Unit)? = null
-                          , success: (() -> Unit))
 }

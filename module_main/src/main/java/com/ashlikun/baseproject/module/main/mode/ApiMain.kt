@@ -14,17 +14,17 @@ import com.ashlikun.okhttputils.http.response.HttpResult
  */
 
 class ApiMain private constructor() : BaseApiService() {
-
-    fun test(handle: HttpCallbackHandle,
-             success: OnSuccess<HttpResult<List<String>>>): ExecuteCall {
-        val callback = object : SimpleHttpCallback<HttpResult<List<String>>>(handle) {}
-        callback.success = success
-        val p = HttpRequestParam.get("index")
-        return execute(p, callback)
-    }
-
     companion object {
         val api: ApiMain by lazy { ApiMain() }
     }
+
+
+    fun testx(handle: HttpCallbackHandle,
+             success: OnSuccess<HttpResult<String>>): ExecuteCall? {
+        return "index".requestGet()
+                .execute(handle, success)
+    }
+
+
 
 }

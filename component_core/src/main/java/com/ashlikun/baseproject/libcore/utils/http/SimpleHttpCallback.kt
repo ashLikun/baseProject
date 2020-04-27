@@ -5,6 +5,7 @@ import com.ashlikun.baseproject.libcore.utils.http.HttpCallbackHandle
 import com.ashlikun.baseproject.libcore.utils.http.HttpCodeApp
 
 import com.ashlikun.loadswitch.ContextData
+import com.ashlikun.okhttputils.http.ExecuteCall
 import com.ashlikun.okhttputils.http.HttpException
 import com.ashlikun.okhttputils.http.cache.CacheEntity
 import com.ashlikun.okhttputils.http.response.HttpResult
@@ -50,11 +51,13 @@ typealias OnErrorData = (data: ContextData) -> Unit
 open class SimpleHttpCallback<T> constructor(buider: HttpCallbackHandle = HttpCallbackHandle.get())
     : HttpCallBack<T>(buider) {
     var success: OnSuccess<T>? = null
+
     /**
      * 子线程执行,对结果进一步处理
      */
     var successSubThread: OnSuccess<T>? = null
     var cacheSuccess: OnCacheSuccess<T>? = null
+
     /**
      * 成功后处理code
      */
@@ -63,7 +66,6 @@ open class SimpleHttpCallback<T> constructor(buider: HttpCallbackHandle = HttpCa
     var start: OnArgs? = null
     var error: OnError? = null
     var errorData: OnErrorData? = null
-
     override fun onSuccess(result: T) {
         super.onSuccess(result)
         if (result is HttpResult<*>) {
@@ -118,4 +120,5 @@ open class SimpleHttpCallback<T> constructor(buider: HttpCallbackHandle = HttpCa
         super.onStart()
         start?.invoke()
     }
+
 }

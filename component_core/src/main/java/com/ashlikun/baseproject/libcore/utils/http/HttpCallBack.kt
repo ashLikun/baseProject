@@ -3,11 +3,15 @@ package com.ashlikun.baseproject.libcore.utils.http
 import com.ashlikun.baseproject.libcore.R
 import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.okhttputils.http.HttpException
+import com.ashlikun.okhttputils.http.HttpUtils
 import com.ashlikun.okhttputils.http.callback.AbsCallback
+import com.ashlikun.okhttputils.http.request.HttpRequest
 import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.utils.other.LogUtils
 import com.ashlikun.utils.other.MainHandle
 import com.ashlikun.utils.ui.SuperToast
+import com.google.gson.Gson
+import okhttp3.Response
 import java.lang.reflect.*
 import java.lang.reflect.Array
 
@@ -24,10 +28,19 @@ import java.lang.reflect.Array
 open class HttpCallBack<ResultType> constructor(private val buider: HttpCallbackHandle = HttpCallbackHandle.get())
     : AbsCallback<ResultType>() {
     /**
-     * 作者　　: 李坤
-     * 创建时间: 2017/7/3 13:40
-     * 邮箱　　：496546144@qq.com
-     *
+     * 指定数据类型，不使用HttpCallBack的泛型
+     */
+    var resultType: Type? = null
+
+    //重写数据转换
+    override fun convertResponse(response: Response?, gosn: Gson?): ResultType {
+        if (resultType != null) {
+            return HttpUtils.handerResult(resultType, response, gosn)
+        }
+        return super.convertResponse(response, gosn)
+    }
+
+    /**
      * 方法功能：请求开始
      */
     override fun onStart() {

@@ -1,7 +1,11 @@
 package com.ashlikun.baseproject.libcore.utils.extend
 
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
+import com.ashlikun.baseproject.libcore.utils.permisson.PermissonFragment
+import com.ashlikun.baseproject.libcore.utils.permisson.PermissonResult
 
 /**
  * 作者　　: 李坤
@@ -13,8 +17,14 @@ import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 /**
  * 请求权限
  */
-fun Fragment.requestPermission(permission: Array<String>, showRationaleMessage: String? = null
+
+fun Fragment.requestPermission(permission: Array<String>, showRationaleMessage: String = ""
                                , denied: (() -> Unit)? = null
                                , success: (() -> Unit)) {
-    RouterManage.other()?.requestPermission(permission, showRationaleMessage, denied, success)
+    PermissonFragment.request(this, permission, showRationaleMessage).observe(this, Observer {
+        when (it) {
+            PermissonResult.SUCCESS -> success.invoke()
+            PermissonResult.DENIED -> denied?.invoke()
+        }
+    })
 }

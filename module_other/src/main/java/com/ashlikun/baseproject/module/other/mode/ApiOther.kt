@@ -16,14 +16,13 @@ import com.ashlikun.okhttputils.http.response.HttpResult
 
 class ApiOther : BaseApiService() {
     companion object {
-        public var api: ApiOther = ApiOther()
+        var api: ApiOther = ApiOther()
     }
 
-    fun test(handle: HttpCallbackHandle,
-             success: OnSuccess<HttpResult<String>>): ExecuteCall {
-        val callback = object : SimpleHttpCallback<HttpResult<String>>(handle) {}
-        callback.success = success
-        val p = HttpRequestParam.get("index")
-        return execute(p, callback)
+    fun testx(handle: HttpCallbackHandle,
+             success: OnSuccess<HttpResult<String>>): ExecuteCall? {
+        return "index".requestGet()
+                .execute(handle, success)
     }
+
 }

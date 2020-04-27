@@ -22,12 +22,6 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <application>
         <meta-data
-            android:name="${MAP_NAME}"
-            android:value="${MAP_KEY}"></meta-data>
-        <meta-data
-            android:name="${MAP_NAME}"
-            android:value="${MAP_KEY}"></meta-data>
-        <meta-data
             android:name="BUGLY_APPKEY"
             android:value="${BUGLY_APPKEY}"></meta-data>
         <!--极光推送 -->

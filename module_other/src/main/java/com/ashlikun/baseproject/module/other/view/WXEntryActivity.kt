@@ -25,7 +25,7 @@ package com.ashlikun.baseproject.module.other.view
 //        iwxapi = WxSdkUtils.wxApi
 //    }
 //
-//    override fun parseIntent(intent: Intent?) {
+//    override fun parseIntent(intent: Intent) {
 //        super.parseIntent(intent)
 //
 //        //接收到分享以及登录的intent传递handleIntent方法，处理结果

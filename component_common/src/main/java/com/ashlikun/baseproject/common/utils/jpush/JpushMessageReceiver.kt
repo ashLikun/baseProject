@@ -36,11 +36,6 @@ class JpushMessageReceiver : BroadcastReceiver() {
     }
 
     /**
-     * 作者　　: 李坤
-     * 创建时间: 2016/11/16 10:22
-     *
-     *
-     * 方法功能：
      * 处理cn.jpush.android.intent.NOTIFICATION 广播
      * Required 用户接收SDK通知栏信息的intent
      */
@@ -49,10 +44,6 @@ class JpushMessageReceiver : BroadcastReceiver() {
     }
 
     /**
-     * 作者　　: 李坤
-     * 创建时间: 2016/11/16 10:23
-     *
-     *
      * 方法功能：处理cn.jpush.android.intent.NOTIFICATION_OPENED广播
      * Required 用户打开自定义通知栏的intent
      */

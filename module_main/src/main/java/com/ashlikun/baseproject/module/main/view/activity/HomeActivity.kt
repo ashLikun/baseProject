@@ -49,7 +49,8 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener, C
                 .build()
     }
 
-    override fun parseIntent(intent: Intent?) {
+    override fun parseIntent(intent: Intent) {
+        super.parseIntent(intent)
         ActivityManager.getInstance().currentActivity()
         intent?.run {
             index = getIntExtra(RouterKey.FLAG_INDEX, -1)
@@ -59,13 +60,6 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener, C
 
     override fun initData() {
         super.initData()
-        val a = SupervisorJob() + Dispatchers.Main
-        GlobalScope.launch(Dispatchers.Default) {
-
-            withContext(Dispatchers.Main) {
-
-            }
-        }
         if (index != -1) {
             setCurrentItem(index)
         } else if (cachePosition != -1) {
@@ -94,11 +88,11 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener, C
                 R.mipmap.app_logo, R.mipmap.app_logo).builder())
         bottomNavigationBar.addItem(AHBottomNavigationItem.Builder(R.string.main_bottom_3,
                 R.mipmap.app_logo, R.mipmap.app_logo).builder())
-
         bottomNavigationBar.defaultBackgroundColor = ResUtils.getColor(R.color.white)
         bottomNavigationBar.titleState = AHBottomNavigation.TitleState.ALWAYS_SHOW
 
         bottomNavigationBar.addOnTabSelectedListener(this)
+        //防止重复添加
         FragmentUtils.removeAll(supportFragmentManager)
         viewPager.setOffscreenPageLimit(adapter.itemCount)
         viewPager.setAdapter(adapter)

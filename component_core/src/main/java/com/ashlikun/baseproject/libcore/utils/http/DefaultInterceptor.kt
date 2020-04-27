@@ -113,7 +113,7 @@ class DefaultInterceptor : Interceptor {
                 .addHeader("token", RouterManage.login()?.getToken())
                 .addHeader("os", "android  ${DeviceUtil.getSystemVersion()}")
                 .addHeader("osVersion", URLEncoder.encode(StringUtils.dataFilter(DeviceUtil.getSystemModel(), DeviceUtil.getDeviceBrand()), "utf-8"))
-                .addHeader("devid", DeviceUtil.getDeviceId())
+                .addHeader("devid", DeviceUtil.getSoleDeviceId())
                 .addHeader("appVersion", URLEncoder.encode(AppUtils.getVersionName().trim { it <= ' ' }, "utf-8"))
                 .build()
         return chain.proceed(newRequest)

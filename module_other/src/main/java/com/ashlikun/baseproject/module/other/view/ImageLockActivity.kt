@@ -79,10 +79,14 @@ class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener, View.
         return R.layout.other_activity_image_lock
     }
 
-    override fun initView() {
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(newBase)
         //当<item name="android:windowBackground">@color/translucent</item> 的时候Activity的动画可能不执行
         //这里需要在开始和结束的时候手动调用
         overridePendingTransition(R.anim.mis_anim_fragment_lookphotp_in, R.anim.mis_anim_fragment_lookphotp_out)
+    }
+
+    override fun initView() {
         window.setBackgroundDrawableResource(R.color.translucent)
         viewPager.setAdapter(adapter)
         textView.text = (position + 1).toString() + "/" + listDatas.size

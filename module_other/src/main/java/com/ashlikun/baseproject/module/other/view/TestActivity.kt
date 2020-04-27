@@ -12,6 +12,7 @@ import com.ashlikun.core.activity.BaseActivity
 import com.ashlikun.livedatabus.EventBus
 import com.ashlikun.utils.other.ThreadPoolManage
 import kotlinx.android.synthetic.main.other_activity_test.*
+import com.ashlikun.baseproject.module.other.R
 
 
 /**
@@ -27,7 +28,7 @@ class TestActivity : BaseActivity() {
             "http://pic1.win4000.com/wallpaper/7/5860842b353da.jpg",
             "http://pic1.win4000.com/wallpaper/b/566a37b05aac3.jpg")
     override fun getLayoutId(): Int {
-        return com.ashlikun.baseproject.module.other.R.layout.other_activity_test
+        return R.layout.other_activity_test
     }
 
     override fun initView() {

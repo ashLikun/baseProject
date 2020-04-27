@@ -1,10 +1,12 @@
 package com.ashlikun.baseproject.module.login.viewmodel
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.ashlikun.baseproject.module.login.mode.ApiLogin
 import com.ashlikun.baseproject.libcore.utils.http.HttpCallbackHandle
 import com.ashlikun.baseproject.module.login.mode.javabean.UserData
 import com.ashlikun.core.mvvm.BaseViewModel
+import com.ashlikun.livedatabus.EventBus
 import com.nmlg.renrenying.libcore.utils.extend.showToast
 
 /**
@@ -24,7 +26,6 @@ class LoginViewModel : BaseViewModel() {
 
     override fun onCreate() {
         super.onCreate()
-
     }
 
     /**

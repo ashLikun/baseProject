@@ -3,7 +3,14 @@ package com.ashlikun.baseproject.libcore.utils.extend
 import android.app.Activity
 import android.content.Context
 import android.view.View
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
+import com.alibaba.android.arouter.launcher.ARouter
+import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
+import com.ashlikun.baseproject.libcore.utils.permisson.PermissonFragment
+import com.ashlikun.baseproject.libcore.utils.permisson.PermissonResult
 import com.ashlikun.core.activity.BaseActivity
 import com.ashlikun.core.fragment.BaseFragment
 import com.ashlikun.core.mvvm.BaseViewModel
@@ -48,10 +55,15 @@ fun Activity.setStatusBarVisible(show: Boolean, statusBar: StatusBarCompat? = nu
 /**
  * 请求权限
  */
-fun Context.requestPermission(permission: Array<String>, showRationaleMessage: String? = null
-                              , denied: (() -> Unit)? = null
-                              , success: (() -> Unit)) {
-    RouterManage.other()?.requestPermission(permission, showRationaleMessage, denied, success)
+fun FragmentActivity.requestPermission(permission: Array<String>, showRationaleMessage: String? = null
+                                       , denied: (() -> Unit)? = null
+                                       , success: (() -> Unit)) {
+    PermissonFragment.request(this, permission, showRationaleMessage).observe(this, Observer {
+        when (it) {
+            PermissonResult.SUCCESS -> success.invoke()
+            PermissonResult.DENIED -> denied?.invoke()
+        }
+    })
 }
 
 fun BaseFragment.showEmpty(text: String = "什么都没有呢") {

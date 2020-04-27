@@ -36,5 +36,4 @@ object RouterKey {
      * Intent Flag   object
      */
     const val FLAG_DATA = "FLAG_DATA"
-    const val FLAG_PERMISSION = "FLAG_PERMISSION"
 }
