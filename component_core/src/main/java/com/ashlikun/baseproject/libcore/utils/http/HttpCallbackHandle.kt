@@ -3,7 +3,7 @@ package com.ashlikun.baseproject.libcore.utils.http
 import android.app.Activity
 import android.content.Context
 import android.view.View
-import com.ashlikun.baseproject.libcore.mvp.presenter.BaseListViewModel
+import com.ashlikun.baseproject.libcore.mvvm.viewmodel.BaseListViewModel
 import com.ashlikun.core.mvvm.BaseViewModel
 import com.ashlikun.customdialog.LoadDialog
 import com.ashlikun.loadswitch.ContextData

@@ -5,6 +5,7 @@ import android.os.Looper
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.callbacks.onDismiss
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
+import com.ashlikun.baseproject.libcore.utils.http.interceptor.DefaultInterceptor
 import com.ashlikun.baseproject.libcore.utils.other.CacheUtils
 import com.ashlikun.baseproject.libcore.utils.other.postBugly
 import com.ashlikun.okhttputils.http.HttpUtils
@@ -30,7 +31,7 @@ class HttpManager private constructor() {
     init {
         OkHttpUtils.init(getOkHttpClientBuilder().build())
         OkHttpUtils.setOnDataParseError { code, exception, response, json ->
-            val requestStr = HttpUtils.getRequestToString(response.request())
+            val requestStr = HttpUtils.getRequestToString(response.request)
             val responseStr = HttpUtils.getResponseToString(response)
             RuntimeException("request:\n$requestStr\nresponse:\n$responseStr \n$json", exception).postBugly()
         }

@@ -1,9 +1,7 @@
-package com.ashlikun.baseproject.libcore.mvp.view
+package com.ashlikun.baseproject.libcore.mvvm.view
 
 import android.view.View
-import com.ashlikun.adapter.recyclerview.BaseAdapter
-import com.ashlikun.adapter.recyclerview.click.OnItemClickListener
-import com.ashlikun.baseproject.libcore.mvp.presenter.BaseListViewModel
+import com.ashlikun.baseproject.libcore.mvvm.viewmodel.BaseListViewModel
 import com.ashlikun.loadswitch.OnLoadSwitchClick
 import com.ashlikun.xrecycleview.SuperRecyclerView
 import com.ashlikun.xrecycleview.listener.RecycleViewSwipeListener
@@ -15,12 +13,12 @@ import com.ashlikun.xrecycleview.listener.RecycleViewSwipeListener
  *
  * 功能介绍：列表(SuperRecyclerView)界面父类
  */
-abstract class BaseSuperListActivity<VM : BaseListViewModel> : BaseListActivity<VM>()
+abstract class BaseSuperListFragment<VM : BaseListViewModel> : BaseListFragment<VM>()
         , RecycleViewSwipeListener, OnLoadSwitchClick {
     override fun initRecyclerView() {
         super.initRecyclerView()
-        getSuperRecyclerView().setOnRefreshListener(this@BaseSuperListActivity)
-        getSuperRecyclerView().setOnLoaddingListener(this@BaseSuperListActivity)
+        getSuperRecyclerView().setOnRefreshListener(this@BaseSuperListFragment)
+        getSuperRecyclerView().setOnLoaddingListener(this@BaseSuperListFragment)
     }
 
     abstract fun getSuperRecyclerView(): SuperRecyclerView

@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.ashlikun.gson.StringNullAdapter
 import com.google.gson.annotations.SerializedName
-import com.ashlikun.baseproject.libcore.widget.banner.IBannerData
+import com.ashlikun.baseproject.common.widget.banner.IBannerData
 
 /**
  * 作者　　: 李坤

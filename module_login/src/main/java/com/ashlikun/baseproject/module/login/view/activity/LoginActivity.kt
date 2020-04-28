@@ -3,7 +3,7 @@ package com.ashlikun.baseproject.module.login.view.activity
 import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.libcore.constant.RouterPath
-import com.ashlikun.baseproject.libcore.libarouter.interceptor.LoginInterceptor
+import com.ashlikun.baseproject.libcore.utils.http.interceptor.LoginInterceptor
 import com.ashlikun.baseproject.module.login.R
 import com.ashlikun.baseproject.module.login.mode.javabean.UserData
 import com.ashlikun.baseproject.module.login.viewmodel.LoginViewModel

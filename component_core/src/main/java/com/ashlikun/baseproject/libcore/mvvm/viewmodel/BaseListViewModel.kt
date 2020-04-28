@@ -1,4 +1,4 @@
-package com.ashlikun.baseproject.libcore.mvp.presenter
+package com.ashlikun.baseproject.libcore.mvvm.viewmodel
 
 
 import com.ashlikun.core.mvvm.BaseViewModel

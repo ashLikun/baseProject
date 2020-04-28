@@ -1,13 +1,11 @@
-package com.ashlikun.baseproject.libcore.widget.banner
+package com.ashlikun.baseproject.common.widget.banner
 
 import android.content.Context
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
-import com.ashlikun.baseproject.libcore.R
+import com.ashlikun.baseproject.common.R
 import com.ashlikun.glideutils.GlideUtils
 import com.ashlikun.utils.http.HttpLocalUtils
-import com.ashlikun.xviewpager2.view.BannerViewPager
 import com.bumptech.glide.request.RequestOptions
 import com.ashlikun.baseproject.libcore.utils.http.HttpManager
 import com.ashlikun.xviewpager2.adapter.BasePageAdapter

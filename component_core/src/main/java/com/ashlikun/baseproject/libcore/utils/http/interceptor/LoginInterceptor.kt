@@ -1,4 +1,4 @@
-package com.ashlikun.baseproject.libcore.libarouter.interceptor
+package com.ashlikun.baseproject.libcore.utils.http.interceptor
 
 import android.content.Context
 import com.alibaba.android.arouter.facade.Postcard

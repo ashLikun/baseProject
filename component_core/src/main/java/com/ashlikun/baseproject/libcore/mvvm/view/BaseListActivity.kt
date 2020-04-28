@@ -1,20 +1,17 @@
-package com.ashlikun.baseproject.libcore.mvp.view
+package com.ashlikun.baseproject.libcore.mvvm.view
 
-import android.media.MediaCodec
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ashlikun.adapter.recyclerview.BaseAdapter
 import com.ashlikun.adapter.recyclerview.click.OnItemClickListener
-import com.ashlikun.baseproject.libcore.mvp.presenter.BaseListViewModel
+import com.ashlikun.baseproject.libcore.mvvm.viewmodel.BaseListViewModel
 import com.ashlikun.core.mvvm.BaseMvvmActivity
-import com.ashlikun.core.mvvm.BaseMvvmFragment
 import com.ashlikun.loadswitch.OnLoadSwitchClick
 import com.ashlikun.xrecycleview.PageHelp
 import com.ashlikun.xrecycleview.RefreshLayout
 import com.ashlikun.xrecycleview.StatusChangListener
 import com.ashlikun.xrecycleview.listener.RecycleViewSwipeListener
-import javax.microedition.khronos.egl.EGLSurface
 
 /**
  * 作者　　: 李坤
@@ -23,12 +20,12 @@ import javax.microedition.khronos.egl.EGLSurface
  *
  * 功能介绍：列表界面父类
  */
-abstract class BaseListFragment<VM : BaseListViewModel> : BaseMvvmFragment<VM>()
+abstract class BaseListActivity<VM : BaseListViewModel> : BaseMvvmActivity<VM>()
         , RecycleViewSwipeListener, OnLoadSwitchClick {
     abstract val itemDecoration: RecyclerView.ItemDecoration?
     abstract val adapter: RecyclerView.Adapter<*>?
     open val layoutManager: RecyclerView.LayoutManager
-        get() = LinearLayoutManager(context)
+        get() = LinearLayoutManager(this)
 
     override fun baseInitView() {
         super.baseInitView()

@@ -1,4 +1,4 @@
-package com.ashlikun.baseproject.libcore.widget.banner
+package com.ashlikun.baseproject.common.widget.banner
 
 /**
  * 作者　　: 李坤

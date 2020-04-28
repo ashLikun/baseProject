@@ -2,11 +2,7 @@ package com.ashlikun.baseproject.module.other.view
 
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
-import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
-import android.widget.FrameLayout
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -14,14 +10,10 @@ import com.ashlikun.baseproject.common.mode.javabean.ImageData
 import com.ashlikun.baseproject.libcore.constant.RouterKey
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.utils.other.CacheUtils
-import com.ashlikun.baseproject.libcore.widget.banner.BannerImagePagerAdapter
 import com.ashlikun.baseproject.module.other.R
-import com.ashlikun.circleprogress.CircleProgressView
-import com.ashlikun.compatview.ScaleImageView
 import com.ashlikun.core.activity.BaseActivity
 import com.ashlikun.glideutils.GlideLoad
 import com.ashlikun.glideutils.GlideUtils
-import com.ashlikun.photoview.PhotoView
 import com.ashlikun.photoview.ScaleFinishView
 import com.ashlikun.utils.other.DimensUtils
 import com.ashlikun.utils.other.file.FileIOUtils
