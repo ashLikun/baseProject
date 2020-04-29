@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="BaseDialogButtonStyle">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">@dimen/dp_16</item>
+    </style>
+
+    <style name="BaseDialogTitleStyle">
+        <item name="android:textColor">@color/black_33</item>
+        <item name="android:textSize">@dimen/dp_16</item>
+    </style>
+
+</resources>

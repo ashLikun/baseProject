@@ -1,19 +1,12 @@
 package com.ashlikun.baseproject.libcore.utils.permisson
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.solver.ArrayLinkedVariables
-import androidx.core.app.ActivityCompat
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.MutableLiveData
-import com.afollestad.materialdialogs.MaterialDialog
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.ashlikun.baseproject.libcore.constant.RouterKey
 import com.ashlikun.baseproject.libcore.R
-import com.ashlikun.baseproject.libcore.constant.RouterPath
 import permissions.dispatcher.PermissionRequest
 import permissions.dispatcher.PermissionUtils
 import java.lang.ref.WeakReference
@@ -95,17 +88,17 @@ class PermissonFragment : Fragment() {
      * 弹窗提示
      */
     private fun showRationaleDialog(request: MyPermissionRequest, showRationaleMessage: String?) {
-        MaterialDialog(context!!)
-                .cancelable(false)
-                .show {
-                    message(text = showRationaleMessage ?: getString(R.string.permission_rationale))
-                    positiveButton {
-                        request.proceed()
-                    }
-                    negativeButton {
-                        request.cancel()
-                    }
+        AlertDialog.Builder(context!!)
+                .setCancelable(false)
+                .setTitle("权限申请")
+                .setMessage(showRationaleMessage ?: getString(R.string.permission_rationale))
+                .setPositiveButton("确认") { dialoog, which ->
+                    request.proceed()
                 }
+                .setNegativeButton("取消") { dialog, which ->
+                    request.cancel()
+                }
+                .show()
     }
 
     private class MyPermissionRequest(target: PermissonFragment) : PermissionRequest {

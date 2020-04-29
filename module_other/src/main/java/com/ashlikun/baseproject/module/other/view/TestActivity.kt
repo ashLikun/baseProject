@@ -1,9 +1,6 @@
 package com.ashlikun.baseproject.module.other.view
-
-import android.content.DialogInterface
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
-import com.afollestad.materialdialogs.MaterialDialog
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.common.mode.javabean.ImageData
 import com.ashlikun.baseproject.common.utils.jump.RouterJump
@@ -45,15 +42,12 @@ class TestActivity : BaseActivity() {
 
         }
         ceshiButton2.setOnClickListener {
-            MaterialDialog(this)
-                    .cancelable(false)
-                    .show {
-                        title(text = "提示")
-                        message(text = "确定退出当前账户吗？")
-                        positiveButton(text = "残忍退出") {
-                        }
-                        negativeButton(text = "继续使用")
+            AlertDialog.Builder(this)
+                    .setCancelable(false)
+                    .setMessage("确定退出当前账户吗？")
+                    .setPositiveButton("残忍退出") { dialoog, which ->
                     }
+                    .show()
 
 
         }

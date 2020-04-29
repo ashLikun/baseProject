@@ -1,7 +1,7 @@
 package com.ashlikun.baseproject.module.login.mode.javabean
 
 import android.content.Context
-import com.afollestad.materialdialogs.MaterialDialog
+import androidx.appcompat.app.AlertDialog
 import com.ashlikun.baseproject.common.utils.jpush.JpushUtils
 import com.ashlikun.baseproject.common.utils.jump.RouterJump
 import com.ashlikun.baseproject.libcore.constant.EventBusKey
@@ -162,16 +162,14 @@ class UserData {
          * 退出登录,对话框
          */
         fun exit(context: Context) {
-            MaterialDialog(context)
-                    .cancelable(false)
-                    .show {
-                        title(text = "提示")
-                        message(text = "确定退出当前账户吗？")
-                        positiveButton(text = "残忍退出") {
-                            exitLogin()
-                        }
-                        negativeButton(text = "继续使用")
+            AlertDialog.Builder(context)
+                    .setCancelable(false)
+                    .setTitle("提示")
+                    .setPositiveButton("残忍退出") { dialoog, which ->
+                        exitLogin()
                     }
+                    .setNegativeButton("继续使用", null)
+                    .show()
         }
     }
 

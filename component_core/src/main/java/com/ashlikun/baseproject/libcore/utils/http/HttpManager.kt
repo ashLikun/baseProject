@@ -2,7 +2,7 @@ package com.ashlikun.baseproject.libcore.utils.http
 
 import android.app.Activity
 import android.os.Looper
-import com.afollestad.materialdialogs.MaterialDialog
+import androidx.appcompat.app.AlertDialog
 import com.afollestad.materialdialogs.callbacks.onDismiss
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 import com.ashlikun.baseproject.libcore.utils.http.interceptor.DefaultInterceptor
@@ -142,18 +142,18 @@ class HttpManager private constructor() {
                 return
             }
             IS_LOGIN_OUT_DIALOG_SHOW = true
-            MaterialDialog(activity)
-                    .cancelable(false)
-                    .onDismiss { IS_LOGIN_OUT_DIALOG_SHOW = false }
-                    .show {
-                        message(text = message)
-                        positiveButton(text = "知道了") {
-                            if (code == HttpCodeApp.TOKEN_ERROR) {
-                                RouterManage.login()?.exitLogin()
-                                RouterManage.login()?.startLogin()
-                            }
+            AlertDialog.Builder(activity)
+                    .setCancelable(false)
+                    .setTitle("账号异常")
+                    .setOnDismissListener { IS_LOGIN_OUT_DIALOG_SHOW = false }
+                    .setMessage(message)
+                    .setPositiveButton("知道了") { dialoog, which ->
+                        if (code == HttpCodeApp.TOKEN_ERROR) {
+                            RouterManage.login()?.exitLogin()
+                            RouterManage.login()?.startLogin()
                         }
                     }
+                    .show()
         }
     }
 
