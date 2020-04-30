@@ -3,7 +3,6 @@ package com.ashlikun.baseproject.libcore.utils.http
 import android.app.Activity
 import android.os.Looper
 import androidx.appcompat.app.AlertDialog
-import com.afollestad.materialdialogs.callbacks.onDismiss
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 import com.ashlikun.baseproject.libcore.utils.http.interceptor.DefaultInterceptor
 import com.ashlikun.baseproject.libcore.utils.other.CacheUtils

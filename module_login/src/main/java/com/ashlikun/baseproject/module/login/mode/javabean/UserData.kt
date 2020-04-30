@@ -2,6 +2,8 @@ package com.ashlikun.baseproject.module.login.mode.javabean
 
 import android.content.Context
 import androidx.appcompat.app.AlertDialog
+import com.ashlikun.baseproject.common.utils.extend.setNegativeButton
+import com.ashlikun.baseproject.common.utils.extend.setPositiveButton
 import com.ashlikun.baseproject.common.utils.jpush.JpushUtils
 import com.ashlikun.baseproject.common.utils.jump.RouterJump
 import com.ashlikun.baseproject.libcore.constant.EventBusKey
@@ -38,6 +40,7 @@ class UserData {
     var id: String? = null
         private set
         get() = StringUtils.dataFilter(field, "")
+
     @SerializedName("user_name")
     var userName: String? = null
         private set
@@ -46,6 +49,7 @@ class UserData {
     var token: String? = null
         private set
         get() = StringUtils.dataFilter(field, "")
+
     /**
      * 是否是当前登录的用户（这样就不用sb保存用户ID）
      */
@@ -165,10 +169,10 @@ class UserData {
             AlertDialog.Builder(context)
                     .setCancelable(false)
                     .setTitle("提示")
-                    .setPositiveButton("残忍退出") { dialoog, which ->
+                    .setPositiveButton("残忍退出") { dialoog ->
                         exitLogin()
                     }
-                    .setNegativeButton("继续使用", null)
+                    .setNegativeButton("继续使用")
                     .show()
         }
     }
