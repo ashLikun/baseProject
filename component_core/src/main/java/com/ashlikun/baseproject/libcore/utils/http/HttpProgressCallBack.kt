@@ -1,5 +1,6 @@
 package com.ashlikun.baseproject.libcore.utils.http
 
+import com.ashlikun.baseproject.libcore.utils.http.HttpCallBack
 import com.ashlikun.okhttputils.http.callback.ProgressCallBack
 import com.ashlikun.utils.other.LogUtils
 
@@ -25,17 +26,6 @@ abstract class HttpProgressCallBack<ResultType>(private val buider: HttpCallback
         return rateVar
     }
 
-
-    override fun dismissUi() {
-        super.dismissUi()
-        buider.run {
-            if (isShowProgress) {
-
-            }
-        }
-        LogUtils.e("dismissUi")
-    }
-
     override fun onLoading(progress: Long, total: Long, done: Boolean, isUpdate: Boolean) {
         LogUtils.e("onLoading")
         onLoading(progress, total, done, isUpdate, false)
@@ -43,7 +33,7 @@ abstract class HttpProgressCallBack<ResultType>(private val buider: HttpCallback
 
     fun onLoading(progress: Long, total: Long, done: Boolean, isUpdate: Boolean, isCompress: Boolean) {
         if (done) {
-            dismissUi()
+            buider.dismissUi()
             return
         }
         LogUtils.e("onLoading")

@@ -5,11 +5,7 @@ import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.okhttputils.http.HttpException
 import com.ashlikun.okhttputils.http.HttpUtils
 import com.ashlikun.okhttputils.http.callback.AbsCallback
-import com.ashlikun.okhttputils.http.request.HttpRequest
-import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.utils.other.LogUtils
-import com.ashlikun.utils.other.MainHandle
-import com.ashlikun.utils.ui.SuperToast
 import com.google.gson.Gson
 import okhttp3.Response
 import java.lang.reflect.*
@@ -44,62 +40,15 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
      * 方法功能：请求开始
      */
     override fun onStart() {
-        buider.goSetEnableView(false)
-        if (buider.swipeRefreshLayout?.isRefreshing == true) {
-            return
-        }
-        if (buider.loadSwitchService?.isLoadingCanShow == true) {
-            buider.showLoading()
-        } else {
-            buider.showDialog()
-        }
+        buider.start()
     }
 
     /**
-     * 作者　　: 李坤
-     * 创建时间: 2017/7/3 13:43
-     * 邮箱　　：496546144@qq.com
-     *
      * 方法功能：请求完成
      */
     override fun onCompleted() {
         LogUtils.e("onCompleted")
-        buider.goSetEnableView(true)
-        dismissUi()
-    }
-
-    /**
-     * 销毁页面的状态
-     */
-    open fun dismissUi() {
-        buider.run {
-            swipeRefreshLayout?.isRefreshing = false
-            val isNoRun = baseViewModel == null && context == null
-            if (isNoRun) {
-                return
-            }
-            dismissDialog()
-        }
-    }
-
-    /**
-     * 销毁对话框
-     */
-    fun dismissDialog() {
-        //如果不显示对话框,就直接返回
-        if (!buider.isShowLoadding) {
-            return
-        }
-        //如果count > 0，说明当前页面还有请求，就不销毁对话框
-        if (buider.count() > 0) {
-            //是否等待,Okhttp内部在子线程里面执行的，这里延时1秒检测
-            //可能会一直占用内存不释放，所以这里false
-            MainHandle.get().postDelayed({
-                dismissDialog()
-            }, 1000)
-            return
-        }
-        buider.hintProgress()
+        buider.completed()
     }
 
     /**
@@ -110,45 +59,20 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
      */
 
     open fun onError(data: ContextData) {
-        if (data.title != null) {
-            LogUtils.e(data.title)
-        }
+        buider.error(data)
     }
 
     /**
-     * 作者　　: 李坤
-     * 创建时间: 2017/7/3 13:43
-     * 邮箱　　：496546144@qq.com
-     *
      * 方法功能：请求出错
      */
     override fun onError(error: HttpException) {
         LogUtils.wtf(error)
-        val data = ContextData()
-        with(error) {
-            data.title = message()
-            data.errCode = code()
-        }
-        data.resId = R.drawable.material_service_error
-        buider.run {
-            var isShowToastNeibu = isToastShow
-            statusChangListener?.failure()
-            if (isFirstRequest()) {
-                isShowToastNeibu = isShowToastNeibu && !showRetry(data)
-            }
-            if (isShowToastNeibu) {
-                SuperToast.showErrorMessage("${data.title}(错误码:${data.errCode})")
-            }
-        }
-        onError(data)
+        onError(ContextData().setErrCode(error.code())
+                .setTitle(error.message())
+                .setResId(R.drawable.material_service_error))
     }
 
     /**
-     * 作者　　: 李坤
-     * 创建时间: 2017/9/15 17:15
-     * 邮箱　　：496546144@qq.com
-     *
-     *
      * 方法功能：运行与子线程
      */
 
@@ -157,11 +81,6 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
     }
 
     /**
-     * 作者　　: 李坤
-     * 创建时间: 2017/7/3 13:44
-     * 邮箱　　：496546144@qq.com
-     *
-     *
      * 方法功能：请求成功
      */
     override fun onSuccess(result: ResultType) {
@@ -169,11 +88,7 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
     }
 
     /**
-     * 作者　　: 李坤
-     * 创建时间: 2017/9/6 14:17
-     * 邮箱　　：496546144@qq.com
-     * 方法功能：接口请求成功了，但是处理code
-     *
+     * 接口请求成功了，但是处理code
      * @return true:没问题
      * false:有问题
      */
@@ -192,20 +107,7 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
      */
     open fun onSuccess(result: ResultType, isHanderError: Boolean) {
         LogUtils.e("onSuccess")
-        buider.run {
-            statusChangListener?.complete()
-            if (loadSwitchService != null) {
-                if (result is HttpResponse && isHanderError) {
-                    if (result.isSucceed) {
-                        showContent()
-                    } else {
-                        showRetry(ContextData(result.getCode(), result.getMessage()))
-                    }
-                } else {
-                    showContent()
-                }
-            }
-        }
+        buider.success(result as Any, isHanderError)
     }
 
     fun getTag(): Any? = buider.getTag()
@@ -255,8 +157,8 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
             else -> false
         }
     }
-// type不能直接实例化对象，通过type获取class的类型，然后实例化对象
 
+    // type不能直接实例化对象，通过type获取class的类型，然后实例化对象
     protected fun getRawType(type: Type?): Class<*> {
         when (type) {
             is Class<*> -> return type

@@ -1,10 +1,9 @@
-package com.ogow.libs.utils.extend
+package com.ashlikun.baseproject.common.utils.extend
 
 import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.utils.other.StringUtils
 import com.ashlikun.utils.ui.SuperToast
-import com.ashlikun.utils.ui.ToastUtils
 
 /**
  * 作者　　: 李坤
@@ -20,7 +19,15 @@ fun HttpResponse.toast(default: String? = null) =
 
 fun HttpResponse.message(default: String) = StringUtils.dataFilter(getMessage(), default)
 fun HttpResponse.getContextData() = ContextData(code, message("出错啦"))
+fun HttpResponse.contextData() = ContextData(code, message)
 
+fun HttpResponse.showToast() {
+        if (isSucceed) {
+                SuperToast.showInfoMessage(message)
+        } else {
+                SuperToast.showErrorMessage(message)
+        }
+}
 
 ////登录异常
 //fun HttpResponse.isLogout() = code == HttpCodeApp.NO_DATA_ERROR || code == HttpCode.ERROR_CODE_LOGOUT_2

@@ -5,14 +5,14 @@
     android:layout_height="match_parent"
 
     android:orientation="vertical">
-
-    <com.ashlikun.xviewpager2.view.XViewPager
+    com.ashlikun.xviewpager
+    <com.ashlikun.xviewpager.view.XViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottomNavigationBar">
 
-    </com.ashlikun.xviewpager2.view.XViewPager>
+    </com.ashlikun.xviewpager.view.XViewPager>
 
 
     <com.ashlikun.bottomnavigation.AHBottomNavigation

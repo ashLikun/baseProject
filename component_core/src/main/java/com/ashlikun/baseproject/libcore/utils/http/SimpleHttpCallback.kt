@@ -1,14 +1,13 @@
 package com.ashlikun.baseproject.libcore.utils.http
 
 import com.ashlikun.baseproject.libcore.utils.http.HttpCallBack
-import com.ashlikun.baseproject.libcore.utils.http.HttpCallbackHandle
-import com.ashlikun.baseproject.libcore.utils.http.HttpCodeApp
 
 import com.ashlikun.loadswitch.ContextData
-import com.ashlikun.okhttputils.http.ExecuteCall
 import com.ashlikun.okhttputils.http.HttpException
 import com.ashlikun.okhttputils.http.cache.CacheEntity
 import com.ashlikun.okhttputils.http.response.HttpResult
+import com.ashlikun.baseproject.libcore.javabean.HttpListResult
+import com.ashlikun.baseproject.libcore.javabean.HttpPageResult
 
 
 /**
@@ -66,6 +65,14 @@ open class SimpleHttpCallback<T> constructor(buider: HttpCallbackHandle = HttpCa
     var start: OnArgs? = null
     var error: OnError? = null
     var errorData: OnErrorData? = null
+
+    //自动处理  Code(接口是成功的)错误，布局切换
+    var isAutoHanderError: Boolean = true
+
+    override fun onSuccess(result: T, isHanderError: Boolean) {
+        super.onSuccess(result, isAutoHanderError)
+    }
+
     override fun onSuccess(result: T) {
         super.onSuccess(result)
         if (result is HttpResult<*>) {
@@ -77,6 +84,7 @@ open class SimpleHttpCallback<T> constructor(buider: HttpCallbackHandle = HttpCa
                     }
                     when {
                         (result as HttpResult<*>).data != null -> success?.invoke(result)
+                        (result as HttpListResult<*>).data != null -> success?.invoke(result)
                         else -> onError(HttpException(HttpCodeApp.NO_DATA_ERROR, HttpCodeApp.NO_DATA_ERROR_MSG))
                     }
                 }

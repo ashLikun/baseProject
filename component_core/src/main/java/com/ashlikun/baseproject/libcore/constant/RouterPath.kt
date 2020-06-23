@@ -22,6 +22,8 @@ object RouterPath {
     const val HOME = "/home/activity/main"
     const val IMAGE_LOCK = "/other/activity/image_lock"
     const val ACTIVITY_H5 = "/other/activity/h5"
+    const val ACTIVITY_SHOW_FRAGMENT = "/common/activity/show/fragment"
+
     /*************************************登录模块开始 *************************************/
     const val LOGIN = "/login/activity/main"
     const val AMEND_PASSWORD = "/login/activity/amend_password"

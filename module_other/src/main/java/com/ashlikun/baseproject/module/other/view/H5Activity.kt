@@ -24,10 +24,9 @@ import kotlinx.android.synthetic.main.other_activity_or_fragment_webview.*
 @Route(path = RouterPath.ACTIVITY_H5)
 class H5Activity : BaseActivity() {
     private val xWeb: XWeb by lazy {
-        XWeb.withXml(this)
+        XWeb.with(webView)
                 .useDefaultIndicator()
                 .setWebWebSettings(webSettings)
-                .setWebView(webView)
                 .setWebChromeClient(mWebChromeClient)
                 .createWeb()
                 .ready()

@@ -1,9 +1,9 @@
 package com.ashlikun.baseproject.libcore.utils.http
 
 import com.ashlikun.okhttputils.http.ExecuteCall
-import com.ashlikun.okhttputils.http.callback.Callback
 import com.ashlikun.okhttputils.http.request.HttpRequest
 import com.ashlikun.okhttputils.http.response.HttpResult
+import com.ashlikun.baseproject.libcore.utils.http.*
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
@@ -35,7 +35,8 @@ open class BaseApiService {
                                 cacheSuccess: OnCacheSuccess<T>? = null,
                                 successHandelCode: OnSuccessHander<T>? = null,
                                 completed: OnArgs? = null,
-                                start: OnArgs? = null
+                                start: OnArgs? = null,
+                                isAutoHanderError: Boolean? = null
     ): ExecuteCall {
         val callback = SimpleHttpCallback<T>(handle)
         //由于SimpleHttpCallback的泛型这里无法直接指定，只能通过其他参数获取
@@ -52,6 +53,9 @@ open class BaseApiService {
         callback.start = start
         callback.error = error
         callback.errorData = errorData
+        if (isAutoHanderError != null) {
+            callback.isAutoHanderError = isAutoHanderError
+        }
         return execute(callback)
     }
 

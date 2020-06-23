@@ -3,10 +3,12 @@ package com.ashlikun.baseproject.module.other.view
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
 import android.view.View
+import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.common.mode.javabean.ImageData
+import com.ashlikun.baseproject.common.utils.extend.show
 import com.ashlikun.baseproject.libcore.constant.RouterKey
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.utils.other.CacheUtils
@@ -14,13 +16,16 @@ import com.ashlikun.baseproject.module.other.R
 import com.ashlikun.core.activity.BaseActivity
 import com.ashlikun.glideutils.GlideLoad
 import com.ashlikun.glideutils.GlideUtils
+import com.ashlikun.photoview.PhotoView
 import com.ashlikun.photoview.ScaleFinishView
 import com.ashlikun.utils.other.DimensUtils
 import com.ashlikun.utils.other.file.FileIOUtils
 import com.ashlikun.utils.ui.BitmapUtil
 import com.ashlikun.utils.ui.SuperToast
 import com.ashlikun.utils.ui.UiUtils
-import com.ashlikun.xviewpager2.adapter.BasePageAdapter
+import com.ashlikun.xviewpager.adapter.BasePageAdapter
+import com.ashlikun.xviewpager.listener.ViewPageHelperListener
+import com.ashlikun.xviewpager.view.BannerViewPager
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
@@ -58,8 +63,8 @@ class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener, View.
     @Autowired(name = RouterKey.FLAG_SHOW_DOWNLOAD)
     @JvmField
     var isShowDownload = false
-    val onPageChangCallback: ViewPager2.OnPageChangeCallback by lazy {
-        object : ViewPager2.OnPageChangeCallback() {
+    val onPageChangCallback: ViewPager.SimpleOnPageChangeListener by lazy {
+        object : ViewPager.SimpleOnPageChangeListener() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 textView.text = (position + 1).toString() + "/" + listDatas?.size
@@ -80,12 +85,12 @@ class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener, View.
 
     override fun initView() {
         window.setBackgroundDrawableResource(R.color.translucent)
-        viewPager.setAdapter(adapter)
+        viewPager.setPages(adapter, listDatas)
         textView.text = (position + 1).toString() + "/" + listDatas.size
         if (position < listDatas.size) {
             viewPager.setCurrentItem(position, false)
         }
-        viewPager.registerOnPageChangeCallback(onPageChangCallback)
+        viewPager.addOnPageChangeListener(onPageChangCallback)
         if (isShowDownload) {
             actionDownLoad.visibility = View.VISIBLE
             val drawable = GradientDrawable()
@@ -93,7 +98,7 @@ class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener, View.
             drawable.cornerRadius = DimensUtils.dip2px(this, 3f).toFloat()
             actionDownLoad.background = drawable
             actionDownLoad.setOnClickListener {
-                val url = listDatas[viewPager.getCurrentItemReal()].getImageUrl()
+                val url = listDatas[viewPager.realPosition].getImageUrl()
                 GlideUtils.downloadBitmap(this, url) { file ->
                     if (file != null && file.exists()) {
                         var saveFile = File("${CacheUtils.appSDFilePath}${File.separator}${System.currentTimeMillis()}.jpg")
@@ -112,29 +117,24 @@ class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener, View.
     }
 
     val adapter by lazy {
-        object : BasePageAdapter<ImageData>(this@ImageLockActivity, listDatas) {
-            override fun convert(holder: MyViewHolder, data: ImageData) {
-                holder.getView<ScaleFinishView>(R.id.scaleFinishView)?.setOnSwipeListener(this@ImageLockActivity)
-                holder.getView<View>(R.id.photoView)?.setOnClickListener(this@ImageLockActivity)
+        object : ViewPageHelperListener<ImageData> {
+            override fun createView(context: Context, banner: BannerViewPager, data: ImageData, position: Int): View {
+                val view = UiUtils.getInflaterView(this@ImageLockActivity, R.layout.other_item_image_lock)
+                view.findViewById<ScaleFinishView>(R.id.scaleFinishView)?.setOnSwipeListener(this@ImageLockActivity)
+                view.findViewById<PhotoView>(R.id.photoView)?.setOnClickListener(this@ImageLockActivity)
 
-                GlideLoad.with(this@ImageLockActivity)
-                        .load(data.image)
-                        .requestListener(object : RequestListener<Any> {
-                            override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Any>?, isFirstResource: Boolean): Boolean {
-                                holder.getView<View>(R.id.progressView)?.visibility = View.GONE
-                                return false
-                            }
+                view.findViewById<PhotoView>(R.id.photoView)?.show(data.image, requestListener = object : RequestListener<Any> {
+                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Any>?, isFirstResource: Boolean): Boolean {
+                        view.findViewById<View>(R.id.progressView)?.visibility = View.GONE
+                        return false
+                    }
 
-                            override fun onResourceReady(resource: Any?, model: Any?, target: Target<Any>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                                holder.getView<View>(R.id.progressView)?.visibility = View.GONE
-                                return false
-                            }
-                        })
-                        .show(holder.getImageView(R.id.photoView))
-            }
-
-            override fun createView(context: Context): View {
-                return UiUtils.getInflaterView(this@ImageLockActivity, R.layout.other_item_image_lock)
+                    override fun onResourceReady(resource: Any?, model: Any?, target: Target<Any>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                        view.findViewById<View>(R.id.progressView)?.visibility = View.GONE
+                        return false
+                    }
+                })
+                return view
 
             }
 

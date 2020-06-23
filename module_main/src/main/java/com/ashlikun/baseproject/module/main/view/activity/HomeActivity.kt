@@ -2,30 +2,27 @@ package com.ashlikun.baseproject.module.main.view.activity
 
 import android.content.Context
 import android.content.Intent
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.ashlikun.adapter.recyclerview.CommonAdapter
 import com.ashlikun.baseproject.libcore.constant.EventBusKey
 import com.ashlikun.baseproject.libcore.constant.RouterKey
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
+import com.ashlikun.baseproject.module.main.R
 import com.ashlikun.bottomnavigation.AHBottomNavigation
 import com.ashlikun.bottomnavigation.AHBottomNavigationItem
-import com.ashlikun.bottomnavigation.AHBottomNavigationMediator
 import com.ashlikun.core.activity.BaseActivity
 import com.ashlikun.livedatabus.EventBus
 import com.ashlikun.utils.ui.ActivityManager
 import com.ashlikun.utils.ui.ResUtils
 import com.ashlikun.utils.ui.SuperToast
 import com.ashlikun.utils.ui.ToastUtils
-import com.ashlikun.xviewpager2.FragmentUtils
-import com.ashlikun.xviewpager2.fragment.FragmentPagerAdapter
-import com.ashlikun.xviewpager2.fragment.FragmentPagerItem
+import com.ashlikun.xviewpager.FragmentUtils
+import com.ashlikun.xviewpager.fragment.FragmentPagerAdapter
+import com.ashlikun.xviewpager.fragment.FragmentPagerItem
 import kotlinx.android.synthetic.main.main_activity_home.*
-import kotlinx.coroutines.*
-import com.ashlikun.baseproject.module.main.R
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
 
 /**
  * 作者　　: 李坤
@@ -41,7 +38,7 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener, C
     var index = 0
     var cachePosition = -1
     val adapter: FragmentPagerAdapter by lazy {
-        FragmentPagerAdapter.Builder.create(this)
+        FragmentPagerAdapter.Builder.create(supportFragmentManager)
                 .addItem(FragmentPagerItem.get(RouterPath.FRAGMENT_HOME))
                 .addItem(FragmentPagerItem.get(RouterPath.FRAGMENT_HOME))
                 .addItem(FragmentPagerItem.get(RouterPath.FRAGMENT_HOME))
@@ -94,16 +91,16 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener, C
         bottomNavigationBar.addOnTabSelectedListener(this)
         //防止重复添加
         FragmentUtils.removeAll(supportFragmentManager)
-        viewPager.setOffscreenPageLimit(adapter.itemCount)
+        viewPager.offscreenPageLimit = adapter.count
         viewPager.setAdapter(adapter)
         //登录之后可以左右滑动
-        viewPager.isUserInputEnabled = RouterManage.login()?.isLogin() ?: false
+        viewPager.setCanSlide(RouterManage.login()?.isLogin() ?: false)
         //监听登录成功的通知
         EventBus.get(EventBusKey.LOGIN).registerLifecycle(this, Observer<Any> {
             //登录之后可以左右滑动
-            viewPager.isUserInputEnabled = RouterManage.login()?.isLogin() ?: false
+            viewPager.setCanSlide(RouterManage.login()?.isLogin() ?: false)
         })
-        AHBottomNavigationMediator(bottomNavigationBar, viewPager.viewPager).attach()
+        bottomNavigationBar.setupWithViewPager(viewPager, false)
     }
 
 

@@ -3,20 +3,26 @@ package com.ashlikun.baseproject.libcore.utils.http
 import android.app.Activity
 import android.os.Looper
 import androidx.appcompat.app.AlertDialog
+import com.ashlikun.livedatabus.EventBus
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
-import com.ashlikun.baseproject.libcore.utils.http.interceptor.DefaultInterceptor
 import com.ashlikun.baseproject.libcore.utils.other.CacheUtils
 import com.ashlikun.baseproject.libcore.utils.other.postBugly
 import com.ashlikun.okhttputils.http.HttpUtils
 import com.ashlikun.okhttputils.http.OkHttpUtils
 import com.ashlikun.okhttputils.http.response.HttpResponse
+import com.ashlikun.utils.AppUtils
+import com.ashlikun.utils.other.DeviceUtil
 import com.ashlikun.utils.other.MainHandle
+import com.ashlikun.utils.other.StringUtils
 import com.ashlikun.utils.other.file.FileUtils
 import com.ashlikun.utils.ui.ActivityManager
 import com.ashlikun.utils.ui.SuperToast
+import com.ashlikun.baseproject.libcore.constant.EventBusKey
+import com.ashlikun.baseproject.libcore.utils.http.interceptor.DefaultInterceptor
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import java.io.File
+import java.net.URLEncoder
 import java.util.concurrent.TimeUnit
 
 /**
@@ -28,12 +34,33 @@ import java.util.concurrent.TimeUnit
  */
 class HttpManager private constructor() {
     init {
+        HttpResponse.SUCCEED = 0
+        HttpResponse.ERROR = 1
         OkHttpUtils.init(getOkHttpClientBuilder().build())
         OkHttpUtils.setOnDataParseError { code, exception, response, json ->
             val requestStr = HttpUtils.getRequestToString(response.request)
             val responseStr = HttpUtils.getResponseToString(response)
             RuntimeException("request:\n$requestStr\nresponse:\n$responseStr \n$json", exception).postBugly()
         }
+        EventBus.get(EventBusKey.LOGIN).registerForever {
+            setCommonParams();
+        }
+        EventBus.get(EventBusKey.EXIT_LOGIN).registerForever {
+            setCommonParams();
+        }
+        setCommonParams()
+    }
+
+    fun setCommonParams() {
+        //公共参数
+        OkHttpUtils.getInstance().commonParams = mapOf(
+                "uid" to (RouterManage.login()?.getUserId() ?: ""),
+                "sessionid" to (RouterManage.login()?.getToken() ?: ""),
+                "os" to "android",
+                "sdkVersion" to "${DeviceUtil.getSystemVersion()}",
+                "osVersion" to StringUtils.dataFilter(DeviceUtil.getSystemModel(), DeviceUtil.getDeviceBrand()),
+                "devid" to DeviceUtil.getSoleDeviceId(),
+                "appVersion" to AppUtils.getVersionName())
     }
 
     fun getCacheDir(): File {
@@ -69,15 +96,15 @@ class HttpManager private constructor() {
     }
 
     companion object {
-        const val BASE_URL = "http://ym.yoohfit.com"
-        const val BASE_PATH = "/tools/apptool.ashx"
+        const val BASE_URL = "https://api-sip.510gow.com"
+        const val BASE_PATH = "/interface?"
+
         /**
          * 退出对话框是否显示,防止多次显示
          */
         private var IS_LOGIN_OUT_DIALOG_SHOW = false
 
         private val INSTANCE by lazy {
-
             HttpManager()
         }
 
@@ -126,6 +153,25 @@ class HttpManager private constructor() {
                         }
                         return false
                     }
+                    response.code == HttpCodeApp.NO_LOGIN -> {
+
+                        RouterManage.login()?.exit()
+                        val activity = ActivityManager.getForegroundActivity()
+                        if (activity != null && !activity.isFinishing) {
+                            if (Looper.getMainLooper() != Looper.myLooper()) {
+                                MainHandle.get().post { showTokenErrorDialog(activity, response.getMessage(), response.code) }
+                            } else {
+                                showTokenErrorDialog(activity, response.getMessage(), response.code)
+                            }
+                        } else {
+                            SuperToast.get(response.getMessage()).error()
+                            if (response.getCode() == HttpCodeApp.NO_LOGIN) {
+                                RouterManage.login()?.exitLogin()
+                                RouterManage.login()?.startLogin()
+                            }
+                        }
+                        return false
+                    }
                     response.getCode() == HttpCodeApp.SIGN_ERROR -> {
                         SuperToast.get("签名错误").error()
                         return false
@@ -136,7 +182,7 @@ class HttpManager private constructor() {
             return true
         }
 
-        public fun showTokenErrorDialog(activity: Activity, message: String, code: Int) {
+        fun showTokenErrorDialog(activity: Activity, message: String, code: Int) {
             if (IS_LOGIN_OUT_DIALOG_SHOW) {
                 return
             }
@@ -149,6 +195,9 @@ class HttpManager private constructor() {
                     .setPositiveButton("知道了") { dialoog, which ->
                         if (code == HttpCodeApp.TOKEN_ERROR) {
                             RouterManage.login()?.exitLogin()
+                            RouterManage.login()?.startLogin()
+                        }
+                        if (code == HttpCodeApp.NO_LOGIN) {
                             RouterManage.login()?.startLogin()
                         }
                     }

@@ -9,9 +9,15 @@ import com.ashlikun.customdialog.LoadDialog
 import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.loadswitch.LoadSwitchService
 import com.ashlikun.okhttputils.http.OkHttpUtils
+import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.utils.main.ActivityUtils
+import com.ashlikun.utils.other.MainHandle
+import com.ashlikun.utils.other.coroutines.taskLaunch
+import com.ashlikun.utils.other.coroutines.taskLaunchMain
+import com.ashlikun.utils.ui.SuperToast
 import com.ashlikun.xrecycleview.RefreshLayout
 import com.ashlikun.xrecycleview.StatusChangListener
+import kotlinx.coroutines.delay
 
 /**
  * 作者　　: 李坤
@@ -100,9 +106,6 @@ class HttpCallbackHandle private constructor() {
     }
 
     /**
-     * 作者　　: 李坤
-     * 创建时间: 2016/12/27 15:24
-     *
      * 方法功能：设置View的使能
      */
     fun goSetEnableView(enable: Boolean) {
@@ -202,14 +205,14 @@ class HttpCallbackHandle private constructor() {
      */
     fun setLoadingStatus(baseViewModel: BaseViewModel? = this.baseViewModel): HttpCallbackHandle {
         if (baseViewModel is BaseListViewModel) {
-            (baseViewModel as BaseListViewModel)?.run {
-                if (swipeRefreshLayout != null) {
+            baseViewModel?.run {
+                if (baseViewModel.swipeRefreshLayout != null) {
                     isShowLoadding = false
-                    setSwipeRefreshLayout(swipeRefreshLayout)
+                    setSwipeRefreshLayout(baseViewModel.swipeRefreshLayout)
                 }
-                if (statusChangListener != null) {
+                if (baseViewModel.statusChangListener != null) {
                     isShowLoadding = false
-                    setStatusChangListener(statusChangListener)
+                    setStatusChangListener(baseViewModel.statusChangListener)
                 }
             }
         }
@@ -251,15 +254,90 @@ class HttpCallbackHandle private constructor() {
     }
 
     fun hintProgress() {
+        //如果不显示对话框,就直接返回
+        if (!isShowLoadding || loadDialog == null) {
+            return
+        }
+        //如果count > 0，说明当前页面还有请求，就不销毁对话框
+        if (count() > 0) {
+            //是否等待,Okhttp内部在子线程里面执行的，这里延时1秒检测
+            //可能会一直占用内存不释放，所以这里false
+            taskLaunchMain(delayTime = 1000) {
+                hintProgress()
+            }
+            return
+        }
         loadDialog?.dismiss()
     }
 
     private fun getActivity(): Activity? {
-        var activity: Activity? = ActivityUtils.getActivity(context)
-        if (activity == null) {
-            activity = ActivityUtils.getActivity(baseViewModel?.context)
+        return ActivityUtils.getActivity(getContext())
+    }
+
+    private fun getContext(): Context? {
+        return context ?: baseViewModel?.context
+    }
+
+    /**
+     * http错误
+     */
+    fun error(data: ContextData) {
+        var isShowToastNeibu = isToastShow
+        statusChangListener?.failure()
+        isShowToastNeibu = isShowToastNeibu && !showRetry(data)
+        if (isShowToastNeibu) {
+            SuperToast.showErrorMessage("${data.title}(错误码:${data.errCode})")
         }
-        return activity
+    }
+
+    /**
+     * 接口错误  code
+     */
+    fun successError(data: ContextData) {
+        var isShowToastNeibu = isToastShow
+        if (statusChangListener != null) {
+            statusChangListener?.failure()
+        } else {
+            isShowToastNeibu = isShowToastNeibu && !showRetry(data)
+        }
+        if (isShowToastNeibu) {
+            SuperToast.showErrorMessage("${data.title}(错误码:${data.errCode})")
+        }
+    }
+
+    fun dismissUi() {
+        swipeRefreshLayout?.isRefreshing = false
+        hintProgress()
+    }
+
+    fun start() {
+        goSetEnableView(false)
+        if (swipeRefreshLayout?.isRefreshing == true) {
+            return
+        }
+        if (loadSwitchService?.isLoadingCanShow == true) {
+            showLoading()
+        } else {
+            showDialog()
+        }
+    }
+
+    fun completed() {
+        goSetEnableView(true)
+        dismissUi()
+    }
+
+    fun success(result: Any, handerError: Boolean) {
+        statusChangListener?.complete()
+        if (result is HttpResponse && handerError) {
+            if (result.isSucceed) {
+                showContent()
+            } else {
+                successError(ContextData(result.getCode(), result.getMessage()))
+            }
+        } else {
+            showContent()
+        }
     }
 
     companion object {

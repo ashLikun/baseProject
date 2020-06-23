@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true">
+
+        <trust-anchors>
+            <!--certificates说明的src=“system"表示信任系统的CA证书-->
+            <certificates
+                overridePins="true"
+                src="system" />
+            <!--src=“user"表示信任用户导入的CA证书-->
+            <certificates
+                overridePins="true"
+                src="user" />
+        </trust-anchors>
+
+    </base-config>
+</network-security-config>

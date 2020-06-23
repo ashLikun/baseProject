@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.ashlikun.xviewpager2.view.BannerViewPager
+    <com.ashlikun.xviewpager.view.BannerViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -13,7 +13,7 @@
         app:banner_canLoop="false"
         app:banner_isOneDataOffLoopAndTurning="false"
         app:banner_turningTime="-1"
-        app:xvp_ratio="-1"></com.ashlikun.xviewpager2.view.BannerViewPager>
+        app:xvp_ratio="-1"></com.ashlikun.xviewpager.view.BannerViewPager>
 
     <TextView
         android:id="@+id/textView"

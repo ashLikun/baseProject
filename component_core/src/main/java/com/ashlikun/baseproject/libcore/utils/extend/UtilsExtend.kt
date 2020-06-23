@@ -1,4 +1,4 @@
-package com.nmlg.renrenying.libcore.utils.extend
+package com.ashlikun.baseproject.libcore.utils.extend
 
 /**
  * 作者　　: 李坤

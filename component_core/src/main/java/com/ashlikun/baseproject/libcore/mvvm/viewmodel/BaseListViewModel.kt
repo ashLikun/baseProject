@@ -23,4 +23,10 @@ abstract class BaseListViewModel : BaseViewModel() {
 
     //分页工具
     var pageHelp: PageHelp? = null
+    override fun onDestroy() {
+        super.onDestroy()
+        swipeRefreshLayout = null
+        statusChangListener = null
+        pageHelp = null
+    }
 }

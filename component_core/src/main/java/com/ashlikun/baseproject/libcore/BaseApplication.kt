@@ -75,7 +75,7 @@ open class BaseApplication : MultiDexApplication() {
                 .isDebug(AppUtils.isDebug())
                 .apply()
         //开发助手
-        DoraemonKit.install(this, null, FileUtils.getMetaValue(this, "DOKIT_PID"))
+        DoraemonKit.install(this, FileUtils.getMetaValue(this, "DOKIT_PID"))
         //数据库
         LiteOrmUtil.init(this)
         LiteOrmUtil.setVersionCode(BuildConfig.VERSION_CODE)

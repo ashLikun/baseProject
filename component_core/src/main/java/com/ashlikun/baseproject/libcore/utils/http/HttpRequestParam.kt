@@ -1,15 +1,13 @@
 package com.ashlikun.baseproject.libcore.utils.http
 
+import com.ashlikun.baseproject.libcore.utils.http.HttpCallBack
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 import com.ashlikun.okhttputils.http.ExecuteCall
-import com.ashlikun.okhttputils.http.OkHttpUtils
 import com.ashlikun.okhttputils.http.callback.Callback
 import com.ashlikun.okhttputils.http.request.HttpRequest
 import com.ashlikun.utils.encryption.Md5Utils
 import com.ashlikun.utils.other.LogUtils
 import com.ashlikun.xrecycleview.PageHelp
-import java.lang.reflect.ParameterizedType
-import java.lang.reflect.Type
 
 /**
  * @author　　: 李坤
@@ -22,14 +20,9 @@ fun String.requestGet(): HttpRequestParam = HttpRequestParam.get(this)
 fun String.requestPost(): HttpRequestParam = HttpRequestParam.post(this)
 
 class HttpRequestParam private constructor(action: String? = null, path: String = HttpManager.BASE_PATH) :
-        HttpRequest(HttpManager.BASE_URL + path) {
-
-
+        HttpRequest(HttpManager.BASE_URL + path + "action=" + action) {
     init {
         method = "POST"
-        if (action != null) {
-            addParam("action", action)
-        }
     }
 
     companion object {
@@ -61,7 +54,7 @@ class HttpRequestParam private constructor(action: String? = null, path: String 
      */
     fun addPaging(pagingHelp: PageHelp): HttpRequestParam {
         //第几页
-        addParam("pageindex", pagingHelp.currentPage)
+        addParam("page", pagingHelp.currentPage)
         return this
     }
 

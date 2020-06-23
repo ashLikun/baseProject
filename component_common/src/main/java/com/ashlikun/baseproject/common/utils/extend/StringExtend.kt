@@ -1,5 +1,6 @@
-package com.ogow.core.base.utils
+package com.ashlikun.baseproject.common.utils.extend
 
+import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
@@ -56,4 +57,20 @@ fun String?.intDian(isQian: Boolean = true) = try {
     this
 } catch (e: Exception) {
     this
+}
+
+/**
+ * 装换万
+ * @param isQian true：前面      false:后面
+ */
+fun Int.toWan(sub: String = "W") = if (this >= 10000) {
+    try {
+        var bd = BigDecimal(this / 10000.0)
+                .setScale(1, RoundingMode.DOWN)
+        "${bd}${sub}"
+    } catch (e: Exception) {
+        ""
+    }
+} else {
+    this.toString()
 }

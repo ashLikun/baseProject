@@ -4,9 +4,12 @@ import android.content.Context
 import cn.jpush.android.api.JPushMessage
 import cn.jpush.android.service.JPushMessageReceiver
 import com.ashlikun.utils.other.LogUtils
+import com.ashlikun.utils.other.coroutines.taskLaunchMain
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import java.util.concurrent.TimeUnit
 
 /**
@@ -20,10 +23,10 @@ import java.util.concurrent.TimeUnit
  */
 class AliasAndTagReceiver : JPushMessageReceiver() {
     companion object {
-        var setAliasDisposable: Disposable? = null
-        var deleteAliasDisposable: Disposable? = null
-        var setTagsDisposable: Disposable? = null
-        var deleteTagsDisposable: Disposable? = null
+        var setAliasJob: Job? = null
+        var deleteAliasJob: Job? = null
+        var setTagsJob: Job? = null
+        var deleteTagsJob: Job? = null
     }
 
     override fun onTagOperatorResult(context: Context, message: JPushMessage) {
@@ -32,30 +35,26 @@ class AliasAndTagReceiver : JPushMessageReceiver() {
         if (message.sequence === JpushUtils.JPUSH_TAGS_SET_ID) {
             if (message.errorCode !== 0) {
                 LogUtils.e("极光推送Tags设置失败 ,Tags = " + message.tags + ",错误码 = " + message.errorCode)
-                setTagsDisposable = Observable.timer(5, TimeUnit.SECONDS)
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe { aLong ->
-                            setTagsDisposable = null
-                            JpushUtils.setTags(message.tags)
-                        }
+                setTagsJob = taskLaunchMain {
+                    delay(5000)
+                    JpushUtils.setTags(message.tags)
+                }
             } else {
                 LogUtils.e("极光推送Tags设置成功,Tags = " + message.tags)
-                setTagsDisposable?.dispose()
-                deleteTagsDisposable?.dispose()
+                setTagsJob?.cancel()
+                deleteTagsJob?.cancel()
             }
         } else if (message.sequence === JpushUtils.JPUSH_TAGS_DELETE_ID) {
             if (message.errorCode !== 0) {
                 LogUtils.e("极光推送Tags删除失败 ,别名 = " + message.tags + ",错误码 = " + message.errorCode)
-                deleteTagsDisposable = Observable.timer(5, TimeUnit.SECONDS)
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe { aLong ->
-                            deleteTagsDisposable = null
-                            JpushUtils.deleteAlias()
-                        }
+                deleteTagsJob = taskLaunchMain {
+                    delay(5000)
+                    JpushUtils.deleteTags()
+                }
             } else {
                 LogUtils.e("极光推送Tags删除成功,别名 = " + message.tags)
-                setTagsDisposable?.dispose()
-                deleteTagsDisposable?.dispose()
+                setTagsJob?.cancel()
+                deleteTagsJob?.cancel()
             }
         }
     }
@@ -67,30 +66,26 @@ class AliasAndTagReceiver : JPushMessageReceiver() {
         if (message.sequence === JpushUtils.JPUSH_ALIAS_SET_ID) {
             if (message.errorCode !== 0) {
                 LogUtils.e("极光推送别名设置失败 ,别名 = " + message.alias + ",错误码 = " + message.errorCode)
-                setAliasDisposable = Observable.timer(5, TimeUnit.SECONDS)
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe { aLong ->
-                            setAliasDisposable = null
-                            JpushUtils.setAlias()
-                        }
+                setAliasJob = taskLaunchMain {
+                    delay(5000)
+                    JpushUtils.setAlias()
+                }
             } else {
                 LogUtils.e("极光推送别名设置成功,别名 = " + message.alias)
-                setAliasDisposable?.dispose()
-                deleteAliasDisposable?.dispose()
+                setAliasJob?.cancel()
+                deleteAliasJob?.cancel()
             }
         } else if (message.sequence === JpushUtils.JPUSH_ALIAS_DELETE_ID) {
             if (message.errorCode !== 0) {
                 LogUtils.e("极光推送别名删除失败 ,别名 = " + message.alias + ",错误码 = " + message.errorCode)
-                deleteAliasDisposable = Observable.timer(5, TimeUnit.SECONDS)
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe { aLong ->
-                            deleteAliasDisposable = null
-                            JpushUtils.deleteAlias()
-                        }
+                deleteAliasJob = taskLaunchMain {
+                    delay(5000)
+                    JpushUtils.deleteAlias()
+                }
             } else {
                 LogUtils.e("极光推送别名删除成功,别名 = " + message.alias)
-                setAliasDisposable?.dispose()
-                deleteAliasDisposable?.dispose()
+                setAliasJob?.cancel()
+                deleteAliasJob?.cancel()
             }
         }
     }

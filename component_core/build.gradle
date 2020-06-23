@@ -63,6 +63,8 @@ dependencies {
     api libs.multidex
     //约束布局
     api libs.ConstraintLayout
+    //Fragment
+    api libs.Fragment
 
     //alibaba的路由框架
     api libs.arouterapi

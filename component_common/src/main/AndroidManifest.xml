@@ -20,10 +20,21 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+
     <application>
+        <!-- 显示Fragment的Activity-->
+        <activity
+            android:name=".view.activity.ShowFragmentActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.OtherTheme" />
+
         <meta-data
             android:name="BUGLY_APPKEY"
             android:value="${BUGLY_APPKEY}"></meta-data>
+        <meta-data
+            android:name="DOKIT_PID"
+            android:value="${DOKIT_PID}"></meta-data>
         <!--极光推送 -->
         <!-- Required since 3.0.7 -->
         <!-- 新的tag/alias接口结果返回需要开发者配置一个自定的广播 -->

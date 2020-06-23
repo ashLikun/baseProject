@@ -24,11 +24,11 @@
         app:tabSelectedTextColor="@color/colorPrimary"
         app:tabTextColor="@color/text_color" />
 
-    <com.ashlikun.xviewpager2.view.XViewPager
+    <com.ashlikun.xviewpager.view.XViewPager
         android:id="@+id/viewPage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"></com.ashlikun.xviewpager2.view.XViewPager>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"></com.ashlikun.xviewpager.view.XViewPager>
 
 </LinearLayout>
 

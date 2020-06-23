@@ -108,15 +108,8 @@ class DefaultInterceptor : Interceptor {
         //                    .build();
         //            return chain.proceed(newRequest);
         //请求头不能包含中文
-        val newRequest = oldRequest.newBuilder()
-                .addHeader("userid", RouterManage.login()?.getUserId() ?: "")
-                .addHeader("token", RouterManage.login()?.getToken() ?: "")
-                .addHeader("os", "android  ${DeviceUtil.getSystemVersion()}")
-                .addHeader("osVersion", URLEncoder.encode(StringUtils.dataFilter(DeviceUtil.getSystemModel(), DeviceUtil.getDeviceBrand()), "utf-8"))
-                .addHeader("devid", DeviceUtil.getSoleDeviceId())
-                .addHeader("appVersion", URLEncoder.encode(AppUtils.getVersionName().trim { it <= ' ' }, "utf-8"))
-                .build()
-        return chain.proceed(newRequest)
+
+        return chain.proceed(oldRequest)
     }
     /**
      * 替换某个参数

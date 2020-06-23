@@ -1,5 +1,11 @@
 package com.ashlikun.baseproject.common.utils.other
 
+import android.app.Activity
+import com.ashlikun.utils.AppUtils
+import com.ashlikun.utils.other.StringUtils
+import com.ashlikun.utils.ui.SuperToast
+
+
 /**
  * 作者　　: 李坤
  * 创建时间: 2018/9/20　13:27
@@ -9,6 +15,7 @@ package com.ashlikun.baseproject.common.utils.other
  * 功能介绍：微信sdk相关工具
  */
 //typealias OnWxListener = (isSuccess: Boolean, result: SendAuth.Resp) -> Unit
+
 object WxSdkUtils {
 //    var APP_ID = ""
 //    var onWxListener: OnWxListener? = null
@@ -23,7 +30,7 @@ object WxSdkUtils {
 //            return api
 //        }
 //
-//    fun login(params: WxLoginParams, onWxLogin: (result: SendAuth.Resp) -> Unit) {
+//    fun login(params: WxLoginParams, onWxLogin: OnWxListener) {
 //        APP_ID = params.appid
 //        val api = wxApi
 //        if (!api.isWXAppInstalled) {
@@ -46,7 +53,7 @@ object WxSdkUtils {
 //     * @param params
 //     * @param wx     0:聊天界面    1:朋友圈   2:微信收藏
 //     */
-//    fun share(params: ShareParams, wx: Int, onWxLogin: (result: SendAuth.Resp) -> Unit) {
+//    fun share(params: ShareParams, wx: Int, onWxLogin: OnWxListener) {
 //        APP_ID = params.appid
 //        val api = wxApi
 //        if (!api.isWXAppInstalled) {
