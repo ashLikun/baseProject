@@ -19,8 +19,6 @@ import java.lang.reflect.Array
  *
  * 功能介绍：http请求的回调
  */
-
-
 open class HttpCallBack<ResultType> constructor(private val buider: HttpCallbackHandle = HttpCallbackHandle.get())
     : AbsCallback<ResultType>() {
     /**
@@ -113,11 +111,11 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
     fun getTag(): Any? = buider.getTag()
 
     /**
-     * 获取当前泛型内部data->list或者数组
+     * 获取当前泛型内部data->list或者数组  或者 对象
      */
-    protected fun getListOrArray(): Any? {
+    protected fun getListOrArrayOrObject(): Any? {
         try {
-            var res = classToListOrArray(this::class.java.genericSuperclass)
+            var res = classToListOrArrayOrObject(resultType ?: this::class.java.genericSuperclass)
             return res?.newInstance()
         } catch (e: Exception) {
             e.printStackTrace()
@@ -125,16 +123,18 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
         return null
     }
 
-    private fun classToListOrArray(superClass: Type?): Class<*>? {
+    private fun classToListOrArrayOrObject(superClass: Type?): Class<*>? {
         if (superClass is ParameterizedType && superClass.actualTypeArguments?.isNullOrEmpty() == false) {
             var type1 = superClass.actualTypeArguments[0]
             return when {
                 isTypeToListOrArray(type1) -> getRawType(type1)
-                type1 is Class<*> -> classToListOrArray(type1.genericSuperclass)
-                else -> classToListOrArray(type1)
+                //返回对象
+                type1 is Class<*> -> type1
+                else -> classToListOrArrayOrObject(type1)
             }
         } else if (superClass is Class<*>) {
-            return classToListOrArray(superClass.genericSuperclass)
+            //返回对象
+            return superClass
         }
         return null
     }
@@ -188,5 +188,3 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
         }
     }
 }
-
-

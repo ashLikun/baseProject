@@ -35,11 +35,11 @@ ext {
      */
     debugBuild = [
             //高德地图的KEY
-            MAP_KEY   : "ebdc4e35503dd9d99692ac7e0b37ce60"
+            MAP_KEY: "ebdc4e35503dd9d99692ac7e0b37ce60"
     ]
     releasBuild = [
             //高德地图的KEY
-            MAP_KEY     : "03c6da12f537654eac8f71ea54f2f41c"
+            MAP_KEY: "03c6da12f537654eac8f71ea54f2f41c"
     ]
     dependencies = [
             kotlin               : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
@@ -47,12 +47,12 @@ ext {
             //约束布局
             ConstraintLayout     : 'androidx.constraintlayout:constraintlayout:+',
             //Fragment
-            Fragment     : 'androidx.fragment:fragment:1.3.+',
+            Fragment             : 'androidx.fragment:fragment:1.3.+',
             //基本架构
             CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:1.0.5",
             multidex             : 'androidx.multidex:multidex:2.0.1',
             //webview封装
-            XWebView             : "com.github.ashLikun.XWebView:core-x5:2.1.0",
+            XWebView             : "com.github.ashLikun.XWebView:core:2.1.0",
             //alibaba的路由框架
             arouterapi           : "com.alibaba:arouter-api:+",
             aroutercompiler      : "com.alibaba:arouter-compiler:+",
@@ -118,6 +118,8 @@ ext {
             glideCompiler        : "com.github.bumptech.glide:compiler:4.11.0",
             glideTransformations : "jp.wasabeef:glide-transformations:4+",
             glidegpuimage        : "jp.co.cyberagent.android:gpuimage:2+",//2.0.2
+            //lottie 动画
+            lottie               : "com.airbnb.android:lottie:3.4.0",
             //Android官方流布局
             flexbox              : "com.google.android:flexbox:2.0.1",
             //图片查看
@@ -138,7 +140,7 @@ ext {
             ZxingCore            : "com.google.zxing:core:3.3.0",
             EasyPay              : "com.github.ashLikun:EasyPay:2.0.4",
             //腾讯X5浏览器
-            tbssdk               : "com.tencent.tbs.tbssdk:sdk:43903",
+//            tbssdk               : "com.tencent.tbs.tbssdk:sdk:43903",
             // 极光推送
             jpush                : 'cn.jiguang.sdk:jpush:3.5.8',
             // 极光推送

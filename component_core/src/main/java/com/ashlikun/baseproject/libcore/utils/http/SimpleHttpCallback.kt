@@ -8,6 +8,7 @@ import com.ashlikun.okhttputils.http.cache.CacheEntity
 import com.ashlikun.okhttputils.http.response.HttpResult
 import com.ashlikun.baseproject.libcore.javabean.HttpListResult
 import com.ashlikun.baseproject.libcore.javabean.HttpPageResult
+import com.ashlikun.okhttputils.http.response.HttpResponse
 
 
 /**
@@ -75,17 +76,26 @@ open class SimpleHttpCallback<T> constructor(buider: HttpCallbackHandle = HttpCa
 
     override fun onSuccess(result: T) {
         super.onSuccess(result)
-        if (result is HttpResult<*>) {
+        if (result is HttpResult<*> || result is HttpListResult<*>) {
             when {
-                result.isSucceed -> {
+                (result as HttpResponse).isSucceed -> {
                     //成功时候对data为null的处理
-                    if ((result as HttpResult<*>).data == null) {
-                        (result as HttpResult<*>).data = getListOrArray()
-                    }
-                    when {
-                        (result as HttpResult<*>).data != null -> success?.invoke(result)
-                        (result as HttpListResult<*>).data != null -> success?.invoke(result)
-                        else -> onError(HttpException(HttpCodeApp.NO_DATA_ERROR, HttpCodeApp.NO_DATA_ERROR_MSG))
+                    if (result is HttpResult<*>) {
+                        if (result.data == null) {
+                            result.data = getListOrArrayOrObject()
+                        }
+                        when {
+                            result.data != null -> success?.invoke(result)
+                            else -> onError(HttpException(HttpCodeApp.NO_DATA_ERROR, HttpCodeApp.NO_DATA_ERROR_MSG))
+                        }
+                    } else if (result is HttpListResult<*>) {
+                        if (result.data == null) {
+                            (result as HttpListResult<in Any>).data = getListOrArrayOrObject()
+                        }
+                        when {
+                            result.data != null -> success?.invoke(result)
+                            else -> onError(HttpException(HttpCodeApp.NO_DATA_ERROR, HttpCodeApp.NO_DATA_ERROR_MSG))
+                        }
                     }
                 }
                 else -> success?.invoke(result)

@@ -2,20 +2,20 @@ package com.ashlikun.baseproject.libcore.utils.extend
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.view.View
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.Observer
-import com.alibaba.android.arouter.launcher.ARouter
-import com.ashlikun.baseproject.libcore.constant.RouterPath
-import com.ashlikun.baseproject.libcore.libarouter.RouterManage
-import com.ashlikun.baseproject.libcore.utils.permisson.PermissonFragment
-import com.ashlikun.baseproject.libcore.utils.permisson.PermissonResult
+import androidx.activity.ComponentActivity
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import com.ashlikun.core.activity.BaseActivity
 import com.ashlikun.core.fragment.BaseFragment
 import com.ashlikun.core.mvvm.BaseViewModel
 import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.utils.ui.StatusBarCompat
+import permissions.dispatcher.PermissionUtils
+import com.ashlikun.baseproject.libcore.R
 
 /**
  * 作者　　: 李坤
@@ -51,19 +51,61 @@ fun Activity.setStatusBarVisible(show: Boolean, statusBar: StatusBarCompat? = nu
     statusBar?.setStatusDarkColor()
 }
 
-
 /**
  * 请求权限
  */
-fun FragmentActivity.requestPermission(permission: Array<String>, showRationaleMessage: String? = null
-                                       , denied: (() -> Unit)? = null
-                                       , success: (() -> Unit)) {
-    PermissonFragment.request(this, permission, showRationaleMessage).observe(this, Observer {
-        when (it) {
-            PermissonResult.SUCCESS -> success.invoke()
-            PermissonResult.DENIED -> denied?.invoke()
+fun ComponentActivity.requestPermission(permission: Array<String>, showRationaleMessage: String? = null
+                                        , denied: (() -> Unit)? = null
+                                        , success: (() -> Unit)): ActivityResultLauncher<Array<String>> {
+    val launcher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+        if (it.all { itt -> itt.value }) {
+            success.invoke()
+        } else {
+            denied?.invoke()
         }
-    })
+    }
+
+    //弹窗提示
+    fun showRationaleDialog(showRationaleMessage: String? = null) {
+        AlertDialog.Builder(this)
+                .setCancelable(false)
+                .setTitle("权限申请")
+                .setMessage(showRationaleMessage ?: getString(R.string.permission_rationale))
+                .setPositiveButton("确认") { dialoog, which ->
+                    launcher.launch(permission)
+                }
+                .setNegativeButton("取消") { dialog, which ->
+                    denied?.invoke()
+                }
+                .show()
+    }
+    //是否已经有权限
+    if (PermissionUtils.hasSelfPermissions(this, *permission)) {
+        success.invoke()
+        return launcher
+    } else {
+        //是否之前拒绝过
+        if (PermissionUtils.shouldShowRequestPermissionRationale(this, *permission)) {
+            showRationaleDialog(showRationaleMessage)
+        } else {
+            //请求权限
+            launcher.launch(permission)
+        }
+    }
+    return launcher
+}
+
+/**
+ * 启动activity,用新api registerForActivityResult
+ */
+fun ComponentActivity.launchForActivityResult(intent: Intent, success: ((ActivityResult) -> Unit)): ActivityResultLauncher<Intent> {
+    val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode == Activity.RESULT_OK) {
+            success.invoke(it)
+        }
+    }
+    launcher.launch(intent)
+    return launcher
 }
 
 fun BaseFragment.showEmpty(text: String = "什么都没有呢") {

@@ -56,11 +56,11 @@ android {
             println 'build - release'
             debuggable false
             //设置是否混淆
-            minifyEnabled false
+            minifyEnabled true
             //设置压缩对齐
-            zipAlignEnabled false
+            zipAlignEnabled true
             //移除无用的资源文件
-            shrinkResources false
+            shrinkResources true
             //设置混淆配置文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             //如果签名配置不为空 则设置签名信息

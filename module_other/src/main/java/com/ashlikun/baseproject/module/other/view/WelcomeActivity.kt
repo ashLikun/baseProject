@@ -13,6 +13,7 @@ import com.ashlikun.baseproject.common.utils.jump.RouterJump
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 import com.ashlikun.baseproject.libcore.utils.extend.requestPermission
+import com.ashlikun.baseproject.libcore.utils.jni.JniDemo1
 import com.ashlikun.baseproject.module.other.BuildConfig
 import com.ashlikun.baseproject.module.other.R
 import com.ashlikun.core.activity.BaseActivity
@@ -20,7 +21,6 @@ import com.ashlikun.utils.other.SharedPreUtils
 import com.ashlikun.utils.ui.ActivityManager
 import com.ashlikun.utils.ui.SuperToast
 import com.ashlikun.utils.ui.UiUtils
-import com.romainpiel.shimmer.Shimmer
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -42,7 +42,6 @@ class WelcomeActivity : BaseActivity() {
 
     private val time = 2000
 
-    internal val shimmer: Shimmer = Shimmer()
 
     override fun initView() {
         requestPermission(arrayOf(Manifest.permission.READ_PHONE_STATE,
@@ -70,7 +69,7 @@ class WelcomeActivity : BaseActivity() {
                     }
             checkIsFirst()
         }
-
+        JniDemo1.nativeMethod()
     }
 
     override fun getLayoutId(): Int {
@@ -108,7 +107,6 @@ class WelcomeActivity : BaseActivity() {
         })
         animSet.playTogether(scaleX, scaleY, alpha)
         animSet.start()
-        shimmer.start(shimmerTv)
     }
 
     override fun parseIntent(intent: Intent) {
@@ -169,8 +167,4 @@ class WelcomeActivity : BaseActivity() {
         return 1
     }
 
-    override fun finish() {
-        shimmer.cancel()
-        super.finish()
-    }
 }

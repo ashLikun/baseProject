@@ -1,20 +1,29 @@
 package com.ashlikun.baseproject.common.utils.extend
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.Rect
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.widget.ImageView
+import android.widget.ImageView.ScaleType
 import com.ashlikun.glideutils.GlideLoad
 import com.ashlikun.glideutils.GlideUtils
-import com.ashlikun.baseproject.common.R
 import com.ashlikun.utils.other.DimensUtils
-import com.ashlikun.utils.ui.*
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
+import com.ashlikun.utils.ui.ResUtils
+import com.bumptech.glide.load.MultiTransformation
+import com.bumptech.glide.load.Transformation
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.CenterInside
+import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.Target
+import com.ashlikun.baseproject.common.R
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation
+import kotlin.math.min
 
 /**
  * 作者　　: 李坤
@@ -23,54 +32,67 @@ import com.bumptech.glide.request.target.Target
  *
  * 功能介绍：
  */
+
+fun ImageView.getDefaultTransformation(radiusDp: Float = 0f,
+                                       cornerType: RoundedCornersTransformation.CornerType = RoundedCornersTransformation.CornerType.ALL): MultiTransformation<Bitmap>? {
+    val st = when (scaleType) {
+        ScaleType.CENTER_CROP -> CenterCrop()
+        ScaleType.CENTER_INSIDE, ScaleType.FIT_XY -> CenterInside()
+        ScaleType.FIT_CENTER, ScaleType.FIT_START, ScaleType.FIT_END -> FitCenter()
+        else -> CenterCrop()
+    }
+    if (radiusDp > 0) {
+        return MultiTransformation(st,
+                RoundedCornersTransformation(DimensUtils.dip2px(radiusDp), 0, cornerType))
+    }
+    return MultiTransformation(st)
+}
+
 /**
  * 显示图片
  * @param showBg 背景 颜色
  * @param placeholderDp 占位图宽度大小 dp
  */
-fun ImageView.show(path: String, radiusDp: Float = 0f, placeholderDp: Float = 0f,
+fun ImageView.show(path: String, radiusDp: Float = 0f, isPlaceholder: Boolean = false,
                    showBgColorRes: Int = R.color.color_f5f5f5, requestOptions: RequestOptions? = null, requestListener: RequestListener<Any>? = null) {
-    var options = RequestOptions()
-    if (placeholderDp > 0) {
-        val drawable = BitmapDrawable(resources, BitmapUtil.decodeResource(context, R.drawable.material_default_image_1_1,
-                DimensUtils.dip2px(placeholderDp), (DimensUtils.dip2px(placeholderDp) / 2.5621f).toInt()))
-        options.error(drawable)
-        options.placeholder(drawable)
+    var options = requestOptions ?: RequestOptions()
+    if (isPlaceholder) {
+        try {
+            val drawable = BitmapDrawable(resources, BitmapFactory.decodeResource(context.resources, R.drawable.material_default_image_1_1))
+            val layerDrawable = PlaceholderDrawable(drawable)
+            layerDrawable.setColor(ResUtils.getColor(showBgColorRes))
+            layerDrawable.cornerRadius = DimensUtils.dip2px(radiusDp).toFloat()
+            options.error(layerDrawable)
+            options.placeholder(layerDrawable)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     if (radiusDp > 0) {
-        options.apply(GlideUtils.getRoundedOptions(DimensUtils.dip2px(radiusDp)))
+        if (!options.transformations.isNullOrEmpty()) {
+            val a = options.transformations[Bitmap::class.java]!! as Transformation<Bitmap>
+            options.transform(MultiTransformation(a, getDefaultTransformation(radiusDp)))
+        } else {
+            options.transform(getDefaultTransformation(radiusDp))
+        }
     }
-    if (requestOptions != null) {
-        options.apply(requestOptions)
-    }
+
     GlideLoad.with(this)
             .load(path)
             .options(options)
-            .requestListener(PlaceRequestListener(this, showBgColorRes, radiusDp, requestListener))
+            .requestListener(requestListener)
             .show(this)
 }
 
-fun ImageView.showCircle(path: String, showBgColorRes: Int = R.color.color_f5f5f5, placeholderDp: Float = 30f) {
-    if (showBgColorRes != 0) {
-        this.background = DrawableUtils.getGradientDrawable(showBgColorRes, 200f)
-    }
-    show(path, 0f, placeholderDp, 0, GlideUtils.getCircleOptions())
+fun ImageView.showCircle(path: String, showBgColorRes: Int = R.color.color_f5f5f5, isPlaceholder: Boolean = true) {
+    show(path, 150f, isPlaceholder, showBgColorRes, GlideUtils.getCircleOptions())
 }
 
-fun ImageView.showPlace(path: String, radiusDp: Float = 0f, placeholderDp: Float = 103f,
+fun ImageView.showPlace(path: String, radiusDp: Float = 0f, isPlaceholder: Boolean = true,
                         showBgColor: Int = R.color.color_f5f5f5, requestOptions: RequestOptions? = null) {
-
-    show(path, radiusDp, placeholderDp, showBgColor, requestOptions)
+    show(path, radiusDp, isPlaceholder, showBgColor, requestOptions)
 }
-
-fun ImageView.showMaxPlace(path: String, radiusDp: Float = 0f,
-                           showBgColor: Int = R.color.color_f5f5f5, requestOptions: RequestOptions? = null) =
-        showPlace(path, radiusDp, 103f, showBgColor, requestOptions)
-
-fun ImageView.showMinPlace(path: String, radiusDp: Float = 0f,
-                           showBgColor: Int = R.color.color_f5f5f5, requestOptions: RequestOptions? = null) =
-        showPlace(path, radiusDp, 59f, showBgColor, requestOptions)
 
 /**
  * 设置SimpleDraweeView  上面蒙层
@@ -88,36 +110,27 @@ fun ImageView.isShowMengcheng(radiusDp: Float = 0f, color: Int = 0x80000000.toIn
     }
 }
 
-class PlaceRequestListener(var view: View, var showBgColorRes: Int = R.color.color_f5f5f5,
-                           var radiusDp: Float = 0f,
-                           var listener: RequestListener<Any>?) : RequestListener<Any> {
-    var oldBack: Drawable? = null
-
-    companion object {
-        const val SET_KEY = 305688845
-    }
-
-    init {
-        this.view.setTag(SET_KEY, oldBack)
-        setBack()
-    }
-
-    fun setBack() {
-        if (showBgColorRes != 0) {
-            oldBack = this.view.getTag(SET_KEY) as Drawable?
-            this.view.background = DrawableUtils.getGradientDrawable(showBgColorRes, radiusDp)
+class PlaceholderDrawable(var placeholder: Drawable, orientation: Orientation = Orientation.TOP_BOTTOM, colors: IntArray? = null) : GradientDrawable(orientation, colors) {
+    override fun onBoundsChange(r: Rect) {
+        super.onBoundsChange(r)
+        var minSize = min(r.width(), r.height())
+        var placeholderWidth = when {
+            minSize <= DimensUtils.dip2px(100f) -> (minSize / 1.5f).toInt()
+            minSize <= DimensUtils.dip2px(200f) -> (minSize / 1.6f).toInt()
+            minSize <= DimensUtils.dip2px(250f) -> (minSize / 1.7f).toInt()
+            minSize <= DimensUtils.dip2px(300f) -> (minSize / 1.8f).toInt()
+            else -> (minSize / 2f).toInt()
         }
+        placeholder.setBounds(0, 0, placeholderWidth, (placeholderWidth / 2.5621f).toInt())
     }
 
-    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Any>?, isFirstResource: Boolean): Boolean {
-        setBack()
-        return listener?.onLoadFailed(e, model, target, isFirstResource) ?: false
+    override fun draw(canvas: Canvas) {
+        super.draw(canvas)
+        canvas.save()
+        var transX = (bounds.width() - placeholder.bounds.width()) / 2
+        var transY = (bounds.height() - placeholder.bounds.height()) / 2
+        canvas.translate(transX.toFloat(), transY.toFloat())
+        placeholder.draw(canvas)
+        canvas.restore()
     }
-
-    override fun onResourceReady(resource: Any?, model: Any?, target: Target<Any>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-        this.view.background = oldBack
-        return listener?.onResourceReady(resource, model, target, dataSource, isFirstResource)
-                ?: false
-    }
-
 }

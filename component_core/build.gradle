@@ -21,8 +21,21 @@ android {
                 arg("AROUTER_MODULE_NAME", project.getName())
             }
         }
-    }
 
+        //主要填写 CMake 的命令参数。即由 arguments 中的参数最后转化成一个可执行的 CMake 的命令
+        externalNativeBuild {
+            ndkBuild {
+                cppFlags ""
+                abiFilters "all"
+            }
+        }
+    }
+    //指明了 CMakeList.txt 的路径
+    externalNativeBuild {
+        cmake {
+            path "src/main/jni/CMakeLists.txt"
+        }
+    }
     buildTypes {
         debug {
             //保存appid，因为当前模块本来的appid是清单文件的包名
@@ -39,11 +52,13 @@ android {
      * java插件引入了一个概念叫做SourceSets 通过修改SourceSets中的属性
      * 可以指定哪些源文件（或文件夹下的源文件）要被编译，哪些源文件要被排除。
      */
-    sourceSets {
-        main.res.srcDirs = [
+    sourceSets.main {
+        res.srcDirs = [
                 'src/main/res',
                 'src/main/res-core'
         ]
+        //so文件
+        jniLibs.srcDirs = ['libs']
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -168,6 +183,8 @@ dependencies {
     api libs.GlideUtils
     api libs.glide
     api libs.glideTransformations
+    //lottie 动画
+    api libs.lottie
 
     //Android官方流布局
     api libs.flexbox
