@@ -15,6 +15,11 @@ import java.io.File
  */
 object CacheUtils {
     var rootName = ""
+
+    //内部缓存根目录
+    val appCacheRoot = StringNullAdapter.NULL
+        get() = check(if (field.isNullOrEmpty()) "${AppUtils.getApp().cacheDir.path}" else field)
+
     //app缓存路径，内部
     val appCachePath = StringNullAdapter.NULL
         get() = check(if (field.isNullOrEmpty()) "${AppUtils.getApp().cacheDir.path}/$rootName/cache" else field)
@@ -22,15 +27,19 @@ object CacheUtils {
     //app文件路径，内部
     val appFilePath = StringNullAdapter.NULL
         get() = check(if (field.isNullOrEmpty()) "${AppUtils.getApp().filesDir.path}/$rootName/file" else field)
+
     //appsd卡缓存路径
     val appSDCachePath = StringNullAdapter.NULL
         get() = check(if (field.isNullOrEmpty()) "${Environment.getExternalStorageDirectory().path}/$rootName/cache" else field)
+
     //appsd卡文件路径
     val appSDFilePath = StringNullAdapter.NULL
         get() = check(if (field.isNullOrEmpty()) "${Environment.getExternalStorageDirectory().path}/$rootName/file" else field)
+
     //app sd卡路径
     val appSDPath = StringNullAdapter.NULL
         get() = check(if (field.isNullOrEmpty()) "${Environment.getExternalStorageDirectory().path}/$rootName" else field)
+
     fun check(path: String): String {
         val file = File(path)
         if (file.exists() || file.mkdirs()) {

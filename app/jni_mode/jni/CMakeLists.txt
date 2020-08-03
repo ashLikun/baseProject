@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.4.1)
 
 #增加其他目录的源文件到集合变量中
 list(APPEND SRC_LIST
-        ./cpp/test.cpp
+        test.cpp
         )
 
 #设置生成的so动态库最后输出的路径

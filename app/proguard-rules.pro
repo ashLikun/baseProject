@@ -24,8 +24,8 @@
 #指定代码的压缩级别
 -optimizationpasses 5
 
-#包明不混合大小写
--dontusemixedcaseclassnames
+#混淆时不会产生形形色色的类名(混淆时不使用大小写混合类名)
+#-dontusemixedcaseclassnames
 
 #不去忽略非公共的库类
 -dontskipnonpubliclibraryclasses
@@ -180,11 +180,7 @@
 #-----------------------------------------定制区-------------------------------------------#
 #-----------------------------------------1:实体类 start-------------------------------------------#
 
--keep class com.ashlikun.baseproject.common.mode.javabean.** { *; }
--keep class com.ashlikun.baseproject.libcore.javabean.** { *; }
--keep class com.ashlikun.baseproject.module.login.mode.javabean.** { *; }
--keep class com.ashlikun.baseproject.module.main.mode.javabean.** { *; }
--keep class com.ashlikun.baseproject.module.other.mode.javabean.** { *; }
+-keep class com.ashlikun.baseproject.**.*javabean*.** {*;}
 
 #-----------------------------------------1:实体类 end-------------------------------------------#
 

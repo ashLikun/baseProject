@@ -1,0 +1,17 @@
+//主要填写 CMake 的命令参数。即由 arguments 中的参数最后转化成一个可执行的 CMake 的命令
+android {
+    defaultConfig {
+        externalNativeBuild {
+            ndkBuild {
+                cppFlags ""
+                abiFilters "all"
+            }
+        }
+    }
+}
+//指明了 CMakeList.txt 的路径
+externalNativeBuild {
+    cmake {
+        path "src/main/jni/CMakeLists.txt"
+    }
+}

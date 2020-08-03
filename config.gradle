@@ -71,19 +71,21 @@ ext {
             //自定义的下拉刷新
             RefreshLayout        : "com.github.ashLikun:RefreshLayout:2.0.4",
             //封装的viewpager，banner，启动页
-            XViewPager           : "com.github.ashLikun:XViewPager:2.0.9",
+            XViewPager           : "com.github.ashLikun:XViewPager:2.1.2",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:3.4.1",
+            CommonUtils          : "com.github.ashLikun:CommonUtils:3.5.0",
             //公共的Adapter
-            CommonAdapter        : "com.github.ashLikun:CommonAdapter:3.0.8",
+            CommonAdapter        : "com.github.ashLikun:CommonAdapter:3.1.1",
             //TabLayout exclude group: 'com.android.support'
-            XTabLayout           : "com.github.ashLikun:XTabLayout:2.1.3",
+            XTabLayout           : "com.github.ashLikun:XTabLayout:2.1.6",
             //阿里的vlayout
             vlayout              : "com.alibaba.android:vlayout:1.2.36@aar",
             //习惯的对话框
             CustomDialog         : "com.github.ashLikun:CustomDialog:2.0.2",
             //圆形的进度条
             CircleProgressView   : "com.github.ashLikun:CircleProgressView:2.0.1",
+            //LayoutManage
+            XLayoutManager       : "com.github.ashLikun:XLayoutManager:1.0.9",
             //布局切换
             LoadSwitch           : "com.github.ashLikun:LoadSwitch:2.0.3",
             //兼容的View
@@ -111,9 +113,9 @@ ext {
             //不同type的json解析,依赖于gson
             MultiTypeGson        : "com.github.ashLikun:MultiTypeGson:2.0.1",
             //基于Okhttp封装的
-            OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:2.3.1",
+            OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:2.3.2",
             //图片加载
-            GlideUtils           : "com.github.ashLikun:GlideUtils:3.0.0",
+            GlideUtils           : "com.github.ashLikun:GlideUtils:3.0.1",
             glide                : "com.github.bumptech.glide:glide:4.11.0",
             glideCompiler        : "com.github.bumptech.glide:compiler:4.11.0",
             glideTransformations : "jp.wasabeef:glide-transformations:4+",
@@ -145,17 +147,17 @@ ext {
             jpush                : 'cn.jiguang.sdk:jpush:3.5.8',
             // 极光推送
             jcore                : 'cn.jiguang.sdk:jcore:2.3.0',
-
-            shareQQ              : 'com.umeng.umsdk:share-qq:7.0.2',
-            shareSina            : 'com.sina.weibo.sdk:core:4.4.3:openDefaultRelease@aar',
-
             //腾讯Bugly
             BugLy                : 'com.tencent.bugly:crashreport:latest.release',
+            shareQQ              : 'com.umeng.umsdk:share-qq:7.0.2',
+            shareSina            : 'com.sina.weibo.sdk:core:4.4.3:openDefaultRelease@aar',
             //RangeSeekBar 进度条
             RangeSeekBar         : 'com.github.Jay-Goo:RangeSeekBar:v3.0.0',
-            EasyMedia            : 'com.github.ashLikun:EasyMedia:2.0.9',
+            EasyMedia            : 'com.github.ashLikun.EasyMedia:ExoPlay2:2.3.0',
+            //ExoPlay
+            extensionRtmp        : 'com.google.android.exoplayer:extension-rtmp:2.11.7',
+            exoplayer            : 'com.google.android.exoplayer:exoplayer:2.11.7',
             ijkplayerJava        : 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8',
-            ijkplayerSohttps     : 'com.github.ashLikun.ijkPlayer:lib_lite_https:1.0.0',
     ]
 
 
