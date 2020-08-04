@@ -87,7 +87,7 @@ class HttpManager private constructor() {
 
     fun getCacheSize(): Double {
         try {
-            return FileUtils.getFileSize(getCacheDir()).toDouble()
+            return FileUtils.getFileOrFilesSize(getCacheDir().path, FileUtils.SIZETYPE_B)
         } catch (e: Exception) {
             e.printStackTrace()
         }

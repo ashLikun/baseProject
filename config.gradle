@@ -2,7 +2,7 @@ ext {
 
 
     androidXVersion = '1.1.+'
-    frameVersion = "3.0.9"
+    frameVersion = "3.1.3"
     android = [
             applicationId    : "com.ashlikun.baseproject",
             compileSdkVersion: 28,
@@ -49,7 +49,7 @@ ext {
             //Fragment
             Fragment             : 'androidx.fragment:fragment:1.3.+',
             //基本架构
-            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:1.0.5",
+            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:1.0.6",
             multidex             : 'androidx.multidex:multidex:2.0.1',
             //webview封装
             XWebView             : "com.github.ashLikun.XWebView:core:2.1.0",
@@ -73,11 +73,11 @@ ext {
             //封装的viewpager，banner，启动页
             XViewPager           : "com.github.ashLikun:XViewPager:2.1.2",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:3.5.0",
+            CommonUtils          : "com.github.ashLikun:CommonUtils:3.5.2",
             //公共的Adapter
             CommonAdapter        : "com.github.ashLikun:CommonAdapter:3.1.1",
             //TabLayout exclude group: 'com.android.support'
-            XTabLayout           : "com.github.ashLikun:XTabLayout:2.1.6",
+            XTabLayout           : "com.github.ashLikun:XTabLayout2:1.0.5",
             //阿里的vlayout
             vlayout              : "com.alibaba.android:vlayout:1.2.36@aar",
             //习惯的对话框
@@ -149,8 +149,11 @@ ext {
             jcore                : 'cn.jiguang.sdk:jcore:2.3.0',
             //腾讯Bugly
             BugLy                : 'com.tencent.bugly:crashreport:latest.release',
+
             shareQQ              : 'com.umeng.umsdk:share-qq:7.0.2',
             shareSina            : 'com.sina.weibo.sdk:core:4.4.3:openDefaultRelease@aar',
+
+
             //RangeSeekBar 进度条
             RangeSeekBar         : 'com.github.Jay-Goo:RangeSeekBar:v3.0.0',
             EasyMedia            : 'com.github.ashLikun.EasyMedia:ExoPlay2:2.3.0',

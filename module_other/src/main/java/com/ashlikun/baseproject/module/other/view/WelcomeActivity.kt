@@ -13,7 +13,6 @@ import com.ashlikun.baseproject.common.utils.jump.RouterJump
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 import com.ashlikun.baseproject.libcore.utils.extend.requestPermission
-import com.ashlikun.baseproject.libcore.utils.jni.JniDemo1
 import com.ashlikun.baseproject.module.other.BuildConfig
 import com.ashlikun.baseproject.module.other.R
 import com.ashlikun.core.activity.BaseActivity
@@ -69,7 +68,6 @@ class WelcomeActivity : BaseActivity() {
                     }
             checkIsFirst()
         }
-        JniDemo1.nativeMethod()
     }
 
     override fun getLayoutId(): Int {
