@@ -124,17 +124,21 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
     }
 
     private fun classToListOrArrayOrObject(superClass: Type?): Class<*>? {
+        if (superClass == null) {
+            return null
+        }
         if (superClass is ParameterizedType && superClass.actualTypeArguments?.isNullOrEmpty() == false) {
             var type1 = superClass.actualTypeArguments[0]
             return when {
                 isTypeToListOrArray(type1) -> getRawType(type1)
                 //返回对象
                 type1 is Class<*> -> type1
+                //找父类
                 else -> classToListOrArrayOrObject(type1)
             }
         } else if (superClass is Class<*>) {
-            //返回对象
-            return superClass
+            //找父类
+            return classToListOrArrayOrObject(superClass.genericSuperclass)
         }
         return null
     }

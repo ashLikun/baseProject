@@ -54,7 +54,7 @@ fun ImageView.getDefaultTransformation(radiusDp: Float = 0f,
  * @param placeholderDp 占位图宽度大小 dp
  */
 fun ImageView.show(path: String, radiusDp: Float = 0f, isPlaceholder: Boolean = false,
-                   showBgColorRes: Int = R.color.color_f5f5f5, requestOptions: RequestOptions? = null, requestListener: RequestListener<Any>? = null) {
+                   showBgColorRes: Int = R.color.color_f5f5f5, requestOptions: RequestOptions? = null, requestListener: RequestListener<Drawable>? = null) {
     var options = requestOptions ?: RequestOptions()
     if (isPlaceholder) {
         try {

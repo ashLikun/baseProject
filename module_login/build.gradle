@@ -13,13 +13,16 @@ apply plugin: 'kotlin-kapt'
 def sdk = rootProject.ext.sdk // SDK配置
 def config = rootProject.ext.android // 工程配置
 def libs = rootProject.ext.dependencies // 库依赖
+
+
 android {
+    rootProject.ext.changRun(currentModule, sdk, config)
     compileSdkVersion config.compileSdkVersion
     buildToolsVersion config.buildToolsVersion
     defaultConfig {
         if (currentModule.isRun) {
             // 当前组件独立运行，需要设置applicationId,和主包的id不一样
-            applicationId currentModule.applicationId
+            applicationId config.applicationId
             //applicationIdSuffix ".login"
         }
         minSdkVersion config.minSdkVersion
@@ -42,12 +45,20 @@ android {
     buildTypes {
         debug {
             //保存appid，因为当前模块本来的appid是清单文件的包名
-            buildConfigField "String", "MY_APP_ID", "\"$config.applicationId\""
+            if (currentModule.isRun) {
+                buildConfigField "String", "MY_APP_ID", "\"$currentModule.applicationId\""
+            } else {
+                buildConfigField "String", "MY_APP_ID", "\"$config.applicationId\""
+            }
         }
         release {
             minifyEnabled true
             //保存appid，因为当前模块本来的appid是清单文件的包名
-            buildConfigField "String", "MY_APP_ID", "\"$config.applicationId\""
+            if (currentModule.isRun) {
+                buildConfigField "String", "MY_APP_ID", "\"$currentModule.applicationId\""
+            } else {
+                buildConfigField "String", "MY_APP_ID", "\"$config.applicationId\""
+            }
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
