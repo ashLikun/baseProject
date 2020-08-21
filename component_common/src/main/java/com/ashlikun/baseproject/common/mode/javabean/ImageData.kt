@@ -41,8 +41,8 @@ class ImageData(image: String = StringNullAdapter.NULL,
 
     constructor(parcel: Parcel) : this() {
         id = parcel.readInt()
-        image = parcel.readString()
-        thumbImage = parcel.readString()
+        image = parcel.readString()?:""
+        thumbImage = parcel.readString()?:""
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

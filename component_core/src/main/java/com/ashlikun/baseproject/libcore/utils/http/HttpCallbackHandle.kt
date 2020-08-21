@@ -3,6 +3,7 @@ package com.ashlikun.baseproject.libcore.utils.http
 import android.app.Activity
 import android.content.Context
 import android.view.View
+import com.ashlikun.baseproject.libcore.dialog.LoadTransDialog
 import com.ashlikun.baseproject.libcore.mvvm.viewmodel.BaseListViewModel
 import com.ashlikun.core.mvvm.BaseViewModel
 import com.ashlikun.customdialog.LoadDialog
@@ -47,9 +48,12 @@ class HttpCallbackHandle private constructor() {
     internal var isCancelable = true
 
     /**
-     * 是否错误的时候toast提示
+     * 是否错误的时候toast提示,只有Http错误的时候
      */
-    internal var isToastShow = true
+    var isErrorToastShow = true
+        internal set(value) {
+            field = value
+        }
 
     /**
      * 是否显示进度，进度回调才用到的
@@ -76,6 +80,9 @@ class HttpCallbackHandle private constructor() {
      */
     internal var loadSwitchService: LoadSwitchService? = null
 
+    //自动处理  Code(接口是成功的)错误，布局切换
+    internal var isAutoHanderError: Boolean = true
+
     /**
      * tag类,标识这个请求，会传递到Request里面
      * [tag]优先级高
@@ -87,7 +94,7 @@ class HttpCallbackHandle private constructor() {
     /**
      * 加载框
      */
-    internal var loadDialog: LoadDialog? = null
+    var loadDialog: LoadDialog? = null
 
     /**
      * 在当前页面是否第一次请求
@@ -139,9 +146,10 @@ class HttpCallbackHandle private constructor() {
      * 错误的时候是否显示toast
      */
     fun isToastShow(isToastShow: Boolean): HttpCallbackHandle {
-        this.isToastShow = isToastShow
+        this.isErrorToastShow = isToastShow
         return this
     }
+
 
     /**
      * 下拉刷新的监听
@@ -183,6 +191,14 @@ class HttpCallbackHandle private constructor() {
      */
     fun setShowLoadding(showLoadding: Boolean): HttpCallbackHandle {
         isShowLoadding = showLoadding
+        return this
+    }
+
+    /**
+     * 自动处理  Code(接口是成功的)错误，布局切换
+     */
+    fun setAutoHanderError(autoHanderError: Boolean): HttpCallbackHandle {
+        isAutoHanderError = autoHanderError
         return this
     }
 
@@ -239,7 +255,7 @@ class HttpCallbackHandle private constructor() {
         if (isShowLoadding) {
             if (getActivity()?.isFinishing == false) {
                 if (loadDialog == null) {
-                    loadDialog = LoadDialog(getActivity())
+                    loadDialog = LoadTransDialog(getActivity()!!)
                 }
                 loadDialog?.run {
                     setContent(hint)
@@ -270,11 +286,11 @@ class HttpCallbackHandle private constructor() {
         loadDialog?.dismiss()
     }
 
-    private fun getActivity(): Activity? {
+    fun getActivity(): Activity? {
         return ActivityUtils.getActivity(getContext())
     }
 
-    private fun getContext(): Context? {
+    fun getContext(): Context? {
         return context ?: baseViewModel?.context
     }
 
@@ -282,7 +298,7 @@ class HttpCallbackHandle private constructor() {
      * http错误
      */
     fun error(data: ContextData) {
-        var isShowToastNeibu = isToastShow
+        var isShowToastNeibu = isErrorToastShow
         statusChangListener?.failure()
         isShowToastNeibu = isShowToastNeibu && !showRetry(data)
         if (isShowToastNeibu) {
@@ -294,14 +310,12 @@ class HttpCallbackHandle private constructor() {
      * 接口错误  code
      */
     fun successError(data: ContextData) {
-        var isShowToastNeibu = isToastShow
         if (statusChangListener != null) {
+            showContent()
             statusChangListener?.failure()
-        } else {
-            isShowToastNeibu = isShowToastNeibu && !showRetry(data)
         }
-        if (isShowToastNeibu) {
-            SuperToast.showErrorMessage("${data.title}(错误码:${data.errCode})")
+        if (statusChangListener?.itemCount ?: 0 == 0) {
+            !showRetry(data)
         }
     }
 
@@ -327,9 +341,9 @@ class HttpCallbackHandle private constructor() {
         dismissUi()
     }
 
-    fun success(result: Any, handerError: Boolean) {
+    fun success(result: Any) {
         statusChangListener?.complete()
-        if (result is HttpResponse && handerError) {
+        if (result is HttpResponse && isAutoHanderError) {
             if (result.isSucceed) {
                 showContent()
             } else {
@@ -338,6 +352,15 @@ class HttpCallbackHandle private constructor() {
         } else {
             showContent()
         }
+    }
+
+    fun setLoadDialogStyle(): HttpCallbackHandle {
+        if (getActivity()?.isFinishing == false) {
+            if (loadDialog == null) {
+                loadDialog = LoadDialog(getActivity()!!)
+            }
+        }
+        return this
     }
 
     companion object {

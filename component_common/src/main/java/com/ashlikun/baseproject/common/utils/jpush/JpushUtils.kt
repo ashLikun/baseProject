@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import cn.jpush.android.api.JPushInterface
 import com.ashlikun.baseproject.common.mode.javabean.JpushJsonData
+import com.ashlikun.baseproject.common.utils.jump.PullJumpManage
 import com.ashlikun.baseproject.common.utils.jump.RouterJump
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 import com.ashlikun.utils.AppUtils
@@ -24,6 +25,7 @@ object JpushUtils {
     var JPUSH_ALIAS_DELETE_ID = 10087
     var JPUSH_TAGS_SET_ID = 10088
     var JPUSH_TAGS_DELETE_ID = 10089
+
     /**
      * 推送点击后缓存的数据
      */
@@ -76,6 +78,8 @@ object JpushUtils {
             handlePush(context, cacheData!!)
             cacheData = null
         }
+        //处理拉起App数据
+        PullJumpManage.handleCachePush(context)
     }
 
     /**
@@ -86,7 +90,7 @@ object JpushUtils {
      */
     fun handlePush(context: Context, data: JpushJsonData?) {
         if (data == null || data.type <= 0) {
-            SuperToast.get("无效的推送").info()
+            SuperToast.get("无效的跳转").info()
             return
         }
         val runStatus = ActivityUtils.appBackgoundToForeground(context)
@@ -96,11 +100,13 @@ object JpushUtils {
             RouterJump.startApp()
         } else {
             //跳转到对应的页面
-            when (data.type) {
-                //1跳转类型
-                1 -> skip(context, data)
-            }
+            skip(context, data)
+
         }
+    }
+
+    fun showParamsError(): Unit {
+        SuperToast.get("参数错误").info()
     }
 
     /**
@@ -110,5 +116,15 @@ object JpushUtils {
      * @param data
      */
     fun skip(context: Context, data: JpushJsonData) {
+        when (data.type) {
+            //1跳转类型
+            1 -> {
+                val id = data.getStringIdParams()
+                if (!id.isNullOrEmpty()) {
+                } else {
+                    showParamsError()
+                }
+            }
+        }
     }
 }

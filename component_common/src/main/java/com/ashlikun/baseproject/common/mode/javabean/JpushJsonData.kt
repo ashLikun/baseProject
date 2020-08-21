@@ -1,7 +1,11 @@
 package com.ashlikun.baseproject.common.mode.javabean
 
 import android.content.Intent
+import com.ashlikun.baseproject.libcore.constant.EventBusKey
+import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 import com.ashlikun.gson.GsonHelper
+import com.ashlikun.livedatabus.EventBus
+import com.ashlikun.orm.LiteOrmUtil
 import com.ashlikun.orm.db.annotation.Ignore
 import com.ashlikun.orm.db.annotation.PrimaryKey
 import com.ashlikun.orm.db.annotation.Table
@@ -27,11 +31,13 @@ class JpushJsonData {
      */
     @Transient
     var msgId: String? = null
+
     /**
      * 标题
      */
     @Transient
     var title: String? = null
+
     /**
      * 通知栏的Notification ID，可以用于清除Notification
      * 如果服务端内容（alert）字段为空，则notification id 为0
@@ -39,6 +45,7 @@ class JpushJsonData {
     @Ignore
     @Transient
     var notificationID: Int = 0
+
     /**
      * 推送的时间戳 数据库排序用的
      */
@@ -48,31 +55,40 @@ class JpushJsonData {
      * 消息类型
      */
     var type: Int = 0
-    /**
-     * 内容ID
-     */
-    var id: String? = null
 
-    fun getIdInt(): Int {
-        try {
-            return id?.toInt() ?: 0
+    /**
+     * 具体内容
+     */
+    var params: Map<String, Any?>? = null
+
+    fun getIntParams(key: String): Int {
+        return try {
+            params?.get(key) as Int? ?: 0
         } catch (e: NumberFormatException) {
-            return 0
+            0
         }
+    }
+
+    fun getStringParams(key: String): String {
+        return params?.get(key)?.toString() ?: ""
+    }
+
+    fun getStringIdParams(): String {
+        return params?.get("id")?.toString() ?: ""
     }
 
     /**
      * 保存最新的数据
      */
     fun save() {
-//        RouterManage.getLogin().run {
-//            if (isLogin()) {
-//                userId = getUserId()
-//                LiteOrmUtil.get().save(this)
-//                addOrRemove(true)
-//                EventBus.get(EvenBusKey.EVENBUS_JPUSH_RECEIVER_SAVE).post(this)
-//            }
-//        }
+        RouterManage.login()?.run {
+            if (isLogin()) {
+                userId = getUserId()
+                LiteOrmUtil.get().save(this)
+                addOrRemove(true)
+                EventBus.get(EventBusKey.EVENBUS_JPUSH_RECEIVER_SAVE).post(this)
+            }
+        }
     }
 
     companion object {

@@ -33,7 +33,7 @@ object PullJumpManage {
         cacheData = null
         //统一跳转逻辑
         data?.let {
-            JpushUtils.skip(context, data)
+            JpushUtils.handlePush(context, data)
         }
     }
 
@@ -44,7 +44,7 @@ object PullJumpManage {
      */
     fun check(intent: Intent?): Boolean {
         intent?.data?.run {
-            return StringUtils.isEquals(intent.data.host, "com.baseproject")
+            return StringUtils.isEquals(intent.data?.host, "com.baseproject")
         }
         return false
 
@@ -55,7 +55,7 @@ object PullJumpManage {
             return
         }
         intent?.data?.run {
-            val json = getQueryParameter("json")
+            val json = getQueryParameter("data") ?: ""
             val data = JpushJsonData.jsonParse(json)
             if (data != null) {
                 //缓存这个数据

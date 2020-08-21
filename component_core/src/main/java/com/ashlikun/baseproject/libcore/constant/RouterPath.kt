@@ -14,37 +14,41 @@ package com.ashlikun.baseproject.libcore.constant
  */
 object RouterPath {
     /********************************************************************************************
-     * activity的
-     *******************************************************************************************/
-    const val WELCOME = "/other/activity/welcome"
-    const val LAUNCH = "/other/activity/launch"
-    const val TEST = "/test/activity/main"
-    const val HOME = "/home/activity/main"
-    const val IMAGE_LOCK = "/other/activity/image_lock"
-    const val ACTIVITY_H5 = "/other/activity/h5"
-    const val ACTIVITY_SHOW_FRAGMENT = "/common/activity/show/fragment"
-
-    /*************************************登录模块开始 *************************************/
-    const val LOGIN = "/login/activity/main"
-    const val AMEND_PASSWORD = "/login/activity/amend_password"
-    const val UPDATA_PASSWORD = "/login/activity/updata_password"
-    const val REGISTER = "/login/activity/register"
-    /*************************************登录模块结束 *************************************/
-
-
-    /********************************************************************************************
-     * fragment的
-     *******************************************************************************************/
-    /**
-     * 首页
-     */
-    const val FRAGMENT_HOME = "/home/fragment/main"
-
-    /********************************************************************************************
      * service path
      *******************************************************************************************/
     const val SERVICE_COMMON = "/common/service"
     const val SERVICE_OTHER = "/other/service"
     const val SERVICE_HOME = "/home/service"
     const val SERVICE_LOGIN = "/login/service"
+
+    /********************************************************************************************
+     *                                           Other模块
+     ********************************************************************************************/
+    const val WELCOME = "/other/activity/welcome"
+    const val LAUNCH = "/other/activity/launch"
+    const val TEST = "/other/activity/main"
+
+    const val IMAGE_LOCK = "/other/activity/image_lock"
+    const val ACTIVITY_H5 = "/other/activity/h5"
+    const val ACTIVITY_SHOW_FRAGMENT = "/common/activity/show/fragment"
+
+    /********************************************************************************************
+     *                                           登录模块
+     ********************************************************************************************/
+    const val LOGIN = "/login/activity/main"
+    const val AMEND_PASSWORD = "/login/activity/amend_password"
+    const val UPDATA_PASSWORD = "/login/activity/updata_password"
+    const val REGISTER = "/login/activity/register"
+
+
+    /********************************************************************************************
+     *                                           Main 模块
+     ********************************************************************************************/
+    //主页
+    const val HOME = "/home/activity/main"
+
+    //首页
+    const val FRAGMENT_HOME = "/home/fragment/main"
+
+
 }

@@ -3,6 +3,7 @@ package com.ashlikun.baseproject.module.other.view
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
+import android.os.Build
 import android.view.View
 import android.widget.ImageView
 import androidx.viewpager.widget.ViewPager
@@ -54,7 +55,7 @@ import java.util.*
  * overridePendingTransition(R.anim.mis_anim_fragment_lookphotp_in, R.anim.mis_anim_fragment_lookphotp_out)
  */
 @Route(path = RouterPath.IMAGE_LOCK)
-class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener, View.OnClickListener {
+class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener {
     @Autowired(name = RouterKey.FLAG_DATA)
     lateinit var listDatas: ArrayList<ImageData>
 
@@ -87,9 +88,8 @@ class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener, View.
     }
 
     override fun initView() {
+        Build.VERSION_CODES.GINGERBREAD_MR1
         window.setBackgroundDrawableResource(R.color.translucent)
-        StatusBarCompat.setTransparentViewMargin(backIv)
-        backIv.setOnClickListener { finish() }
         viewPager.setPages(adapter, listDatas)
         textView.text = (position + 1).toString() + "/" + listDatas.size
         if (position < listDatas.size) {
@@ -126,6 +126,9 @@ class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener, View.
             override fun createView(context: Context, banner: BannerViewPager, data: ImageData, position: Int): View {
                 val view = UiUtils.getInflaterView(this@ImageLockActivity, R.layout.other_item_image_lock)
                 val photoView = view.findViewById<PhotoView>(R.id.photoView)
+                photoView.setOnClickListener { view ->
+                    finish()
+                }
                 view.findViewById<ScaleFinishView>(R.id.scaleFinishView)?.setOnSwipeListener(this@ImageLockActivity)
                 photoView?.show(data.image, requestListener = object : RequestListener<Drawable> {
                     override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
@@ -167,9 +170,6 @@ class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener, View.
         return true
     }
 
-    override fun onClick(v: View) {
-        finish()
-    }
 
     override fun finish() {
         super.finish()

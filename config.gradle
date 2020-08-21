@@ -3,11 +3,11 @@ ext {
     frameVersion = "3.1.4"
     android = [
             applicationId    : "com.ashlikun.baseproject",
-            compileSdkVersion: 28,
-            buildToolsVersion: "28.0.3",
+            compileSdkVersion: 29,
+            buildToolsVersion: "29.0.3",
             versionCode      : 1,
             versionName      : "1.0.0",
-            targetSdkVersion : 26,
+            targetSdkVersion : 28,
             minSdkVersion    : 21,
             flavorDimensions : "flavorDimensions"
     ]
@@ -66,7 +66,7 @@ ext {
             //数据库
             LiteOrm              : "com.github.ashLikun:LiteOrm:2.0.1",
             //封装的RecycleView
-            XRecycleView         : "com.github.ashLikun:XRecycleView:2.1.4",
+            XRecycleView         : "com.github.ashLikun:XRecycleView:2.1.5",
             //动画菜单,可以不用
             AnimationMenu        : "com.github.ashLikun:AnimationMenu:2.0.0",
             //自定义的下拉刷新
@@ -74,7 +74,7 @@ ext {
             //封装的viewpager，banner，启动页
             XViewPager           : "com.github.ashLikun:XViewPager:2.1.2",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:3.5.2",
+            CommonUtils          : "com.github.ashLikun:CommonUtils:3.5.5",
             //公共的Adapter
             CommonAdapter        : "com.github.ashLikun:CommonAdapter:3.1.1",
             //TabLayout exclude group: 'com.android.support'
@@ -157,7 +157,7 @@ ext {
 
             //RangeSeekBar 进度条
             RangeSeekBar         : 'com.github.Jay-Goo:RangeSeekBar:v3.0.0',
-            EasyMedia            : 'com.github.ashLikun.EasyMedia:ExoPlay2:2.3.4',
+            EasyMedia            : 'com.github.ashLikun.EasyMedia:ExoPlay2:2.3.9',
             //ExoPlay
             extensionRtmp        : 'com.google.android.exoplayer:extension-rtmp:2.11.7',
             exoplayer            : 'com.google.android.exoplayer:exoplayer:2.11.7',

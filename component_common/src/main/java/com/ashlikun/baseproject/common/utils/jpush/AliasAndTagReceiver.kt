@@ -5,12 +5,7 @@ import cn.jpush.android.api.JPushMessage
 import cn.jpush.android.service.JPushMessageReceiver
 import com.ashlikun.utils.other.LogUtils
 import com.ashlikun.utils.other.coroutines.taskLaunchMain
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import java.util.concurrent.TimeUnit
+import kotlinx.coroutines.*
 
 /**
  * 作者　　: 李坤

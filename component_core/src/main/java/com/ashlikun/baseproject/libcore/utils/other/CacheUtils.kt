@@ -30,7 +30,7 @@ object CacheUtils {
 
     //appsd卡缓存路径
     val appSDCachePath = StringNullAdapter.NULL
-        get() = check(if (field.isNullOrEmpty()) "${Environment.getExternalStorageDirectory().path}/$rootName/cache" else field)
+        get() = check(if (field.isNullOrEmpty()) "${AppUtils.getApp().getExternalFilesDir("")?.path}/$rootName/cache" else field)
 
     //appsd卡文件路径
     val appSDFilePath = StringNullAdapter.NULL
