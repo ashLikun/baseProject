@@ -19,18 +19,14 @@ import java.lang.reflect.Array
  *
  * 功能介绍：http请求的回调
  */
+
+
 open class HttpCallBack<ResultType> constructor(private val buider: HttpCallbackHandle = HttpCallbackHandle.get())
     : AbsCallback<ResultType>() {
-    /**
-     * 指定数据类型，不使用HttpCallBack的泛型
-     */
-    var resultType: Type? = null
+
 
     //重写数据转换
     override fun convertResponse(response: Response?, gosn: Gson?): ResultType {
-        if (resultType != null) {
-            return HttpUtils.handerResult(resultType, response, gosn)
-        }
         return super.convertResponse(response, gosn)
     }
 
@@ -93,8 +89,10 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
     override fun onSuccessHandelCode(result: ResultType): Boolean {
         val res = HttpManager.handelResult(result)
         if (!res) {
+            //不显示toast
+            buider.isErrorToastShow = false
             //如果code全局处理的时候错误了，那么是不会走success的，这里就得自己处理UI设置为错误状态
-            onSuccess(result, false)
+            onSuccess(result, true)
         }
         return res
     }
@@ -105,7 +103,7 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
      */
     open fun onSuccess(result: ResultType, isHanderError: Boolean) {
         LogUtils.e("onSuccess")
-        buider.success(result as Any, isHanderError)
+        buider.success(result as Any)
     }
 
     fun getTag(): Any? = buider.getTag()
@@ -192,3 +190,5 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
         }
     }
 }
+
+

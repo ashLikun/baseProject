@@ -19,10 +19,13 @@ import com.ashlikun.baseproject.libcore.libarouter.service.IOtherService
 class RouterManage private constructor() {
     @Autowired
     lateinit var commonService: ICommonService
+
     @Autowired
     lateinit var homeServic: IHomeService
+
     @Autowired
     lateinit var loginService: ILoginService
+
     @Autowired
     lateinit var otherService: IOtherService
 
@@ -79,7 +82,10 @@ class RouterManage private constructor() {
                 }
 
         //是否登录
-        fun isLogin(isToLogin: Boolean = false, isShowToast: Boolean = true) = login()?.isLogin(isToLogin, isShowToast)
+        fun isLogin(isToLogin: Boolean = false, isShowToast: Boolean = true) = login()?.isLogin(isToLogin, !isToLogin && isShowToast)
+                ?: false
+
+        fun isLogin() = login()?.isLogin(isToLogin = false, isShowToast = false)
                 ?: false
     }
 }

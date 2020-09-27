@@ -104,6 +104,10 @@ class HttpCallbackHandle private constructor() {
     fun isFirstRequest() = count() <= 1
 
     fun getTag() = tag ?: (context ?: baseViewModel)
+    fun setTag(tag: Any): HttpCallbackHandle {
+        this.tag = tag
+        return this
+    }
 
     /**
      * 统计同一个tag的请求数量
