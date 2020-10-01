@@ -110,16 +110,4 @@ class HttpRequestParam private constructor(action: String? = null, path: String 
         addParam("id", id)
         return this
     }
-
-    /**
-     * 发起请求
-     */
-    override fun <T> execute(callback: Callback<T>?): ExecuteCall {
-        if (tag == null) {
-            if (callback is HttpCallBack<T>) {
-                tag(callback.getTag())
-            }
-        }
-        return super.execute(callback)
-    }
 }

@@ -169,6 +169,7 @@ class UserData {
             AlertDialog.Builder(context)
                     .setCancelable(false)
                     .setTitle("提示")
+                    .setMessage("确认退出登录吗？")
                     .setPositiveButton("残忍退出") { dialoog ->
                         exitLogin()
                     }

@@ -49,7 +49,7 @@ ext {
             //Fragment
             Fragment             : 'androidx.fragment:fragment:1.3.+',
             //基本架构
-            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:1.0.8",
+            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:1.0.9",
             multidex             : 'androidx.multidex:multidex:2.0.1',
             //webview封装
             XWebView             : "com.github.ashLikun.XWebView:core:2.1.0",
@@ -73,7 +73,7 @@ ext {
             //封装的viewpager，banner，启动页
             XViewPager           : "com.github.ashLikun:XViewPager:2.1.3",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:3.6.3",
+            CommonUtils          : "com.github.ashLikun:CommonUtils:3.6.7",
             //公共的Adapter
             CommonAdapter        : "com.github.ashLikun:CommonAdapter:3.1.4",
             //TabLayout exclude group: 'com.android.support'
@@ -88,7 +88,7 @@ ext {
             //LayoutManage
             XLayoutManager       : "com.github.ashLikun:XLayoutManager:1.0.9",
             //布局切换
-            LoadSwitch           : "com.github.ashLikun:LoadSwitch:2.0.4",
+            LoadSwitch           : "com.github.ashLikun:LoadSwitch:2.0.5",
             //兼容的View
             CompatView           : "com.github.ashLikun:CompatView:2.0.7",
             //错误捕获
@@ -114,7 +114,7 @@ ext {
             //不同type的json解析,依赖于gson
             MultiTypeGson        : "com.github.ashLikun:MultiTypeGson:2.0.1",
             //基于Okhttp封装的
-            OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:2.3.4",
+            OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:2.4.0",
             //图片加载
             GlideUtils           : "com.github.ashLikun:GlideUtils:3.0.1",
             glide                : "com.github.bumptech.glide:glide:4.11.0",

@@ -39,6 +39,9 @@ open class BaseApiService {
                                 isAutoHanderError: Boolean? = null
     ): ExecuteCall {
         val callback = SimpleHttpCallback<T>(handle)
+        if (tag == null) {
+            tag(handle.getTag())
+        }
         //由于SimpleHttpCallback的泛型这里无法直接指定，只能通过其他参数获取
         val type = success?.javaClass ?: successSubThread?.javaClass
         ?: cacheSuccess?.javaClass ?: successHandelCode?.javaClass
