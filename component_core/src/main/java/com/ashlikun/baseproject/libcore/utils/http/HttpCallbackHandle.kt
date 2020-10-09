@@ -85,11 +85,11 @@ class HttpCallbackHandle private constructor() {
 
     /**
      * tag类,标识这个请求，会传递到Request里面
+     * 可以是 [BaseViewModel]
      * [tag]优先级高
      */
-    internal var baseViewModel: BaseViewModel? = null
-    internal var context: Context? = null
     internal var tag: Any? = null
+    internal var context: Context? = null
 
     /**
      * 加载框
@@ -103,7 +103,7 @@ class HttpCallbackHandle private constructor() {
      */
     fun isFirstRequest() = count() <= 1
 
-    fun getTag() = tag ?: (context ?: baseViewModel)
+    fun getTag() = tag ?: context
     fun setTag(tag: Any): HttpCallbackHandle {
         this.tag = tag
         return this
@@ -113,7 +113,7 @@ class HttpCallbackHandle private constructor() {
      * 统计同一个tag的请求数量
      */
     fun count(): Long {
-        return OkHttpUtils.getInstance().countRequest(tag, context, baseViewModel)
+        return OkHttpUtils.getInstance().countRequest(tag, context)
     }
 
     /**
@@ -171,10 +171,6 @@ class HttpCallbackHandle private constructor() {
         return this
     }
 
-    fun setPresenter(baseViewModel: BaseViewModel): HttpCallbackHandle {
-        this.baseViewModel = baseViewModel
-        return this
-    }
 
     fun setContext(context: Context): HttpCallbackHandle {
         this.context = context
@@ -223,21 +219,23 @@ class HttpCallbackHandle private constructor() {
     /**
      * 方法功能：设置下位刷新，底加载，布局切换
      */
-    fun setLoadingStatus(baseViewModel: BaseViewModel? = this.baseViewModel): HttpCallbackHandle {
-        if (baseViewModel is BaseListViewModel) {
-            baseViewModel?.run {
-                if (baseViewModel.swipeRefreshLayout != null) {
+    fun setLoadingStatus(tag: Any? = this.tag): HttpCallbackHandle {
+        if (tag is BaseListViewModel) {
+            tag?.run {
+                if (tag.swipeRefreshLayout != null) {
                     isShowLoadding = false
-                    setSwipeRefreshLayout(baseViewModel.swipeRefreshLayout)
+                    setSwipeRefreshLayout(tag.swipeRefreshLayout)
                 }
-                if (baseViewModel.statusChangListener != null) {
+                if (tag.statusChangListener != null) {
                     isShowLoadding = false
-                    setStatusChangListener(baseViewModel.statusChangListener)
+                    setStatusChangListener(tag.statusChangListener)
                 }
             }
         }
         //布局切换
-        setLoadSwitchService(baseViewModel?.loadSwitchService)
+        if (tag is BaseViewModel) {
+            setLoadSwitchService(tag?.loadSwitchService)
+        }
         return this
     }
 
@@ -278,8 +276,8 @@ class HttpCallbackHandle private constructor() {
         if (!isShowLoadding || loadDialog == null) {
             return
         }
-        //如果count > 0，说明当前页面还有请求，就不销毁对话框
-        if (count() > 0) {
+        //如果count > 1，说明当前页面还有请求，就不销毁对话框
+        if (count() > 1) {
             //是否等待,Okhttp内部在子线程里面执行的，这里延时1秒检测
             //可能会一直占用内存不释放，所以这里false
             taskLaunchMain(delayTime = 1000) {
@@ -295,7 +293,7 @@ class HttpCallbackHandle private constructor() {
     }
 
     fun getContext(): Context? {
-        return context ?: baseViewModel?.context
+        return context ?: if (tag is BaseViewModel) (tag as BaseViewModel).context else null
     }
 
     /**
@@ -356,6 +354,7 @@ class HttpCallbackHandle private constructor() {
         } else {
             showContent()
         }
+        dismissUi()
     }
 
     fun setLoadDialogStyle(): HttpCallbackHandle {
@@ -371,7 +370,7 @@ class HttpCallbackHandle private constructor() {
 
         operator fun get(baseViewModel: BaseViewModel): HttpCallbackHandle {
             val buider = get()
-            buider.baseViewModel = baseViewModel
+            buider.tag = baseViewModel
             return buider
         }
 
@@ -383,7 +382,7 @@ class HttpCallbackHandle private constructor() {
 
         fun getNoTips(baseViewModel: BaseViewModel): HttpCallbackHandle {
             val buider = get()
-            buider.baseViewModel = baseViewModel
+            buider.tag = baseViewModel
             buider.setNoTips()
             return buider
         }

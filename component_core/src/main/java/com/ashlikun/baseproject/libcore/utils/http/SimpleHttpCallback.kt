@@ -1,13 +1,10 @@
 package com.ashlikun.baseproject.libcore.utils.http
 
-import com.ashlikun.baseproject.libcore.utils.http.HttpCallBack
-
 import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.okhttputils.http.HttpException
 import com.ashlikun.okhttputils.http.cache.CacheEntity
 import com.ashlikun.okhttputils.http.response.HttpResult
 import com.ashlikun.baseproject.libcore.javabean.HttpListResult
-import com.ashlikun.baseproject.libcore.javabean.HttpPageResult
 import com.ashlikun.okhttputils.http.response.HttpResponse
 
 
@@ -48,8 +45,8 @@ typealias OnErrorData = (data: ContextData) -> Unit
  *
  * 功能介绍：实现HttpCallBack
  */
-open class SimpleHttpCallback<T> constructor(buider: HttpCallbackHandle = HttpCallbackHandle.get())
-    : HttpCallBack<T>(buider) {
+open class SimpleHttpCallback<T> constructor(handle: HttpCallbackHandle = HttpCallbackHandle.get())
+    : HttpCallBack<T>(handle) {
     var success: OnSuccess<T>? = null
 
     /**

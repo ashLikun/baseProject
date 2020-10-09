@@ -3,7 +3,6 @@ package com.ashlikun.baseproject.libcore.utils.http
 import com.ashlikun.baseproject.libcore.R
 import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.okhttputils.http.HttpException
-import com.ashlikun.okhttputils.http.HttpUtils
 import com.ashlikun.okhttputils.http.callback.AbsCallback
 import com.ashlikun.utils.other.LogUtils
 import com.google.gson.Gson
@@ -21,7 +20,7 @@ import java.lang.reflect.Array
  */
 
 
-open class HttpCallBack<ResultType> constructor(private val buider: HttpCallbackHandle = HttpCallbackHandle.get())
+open class HttpCallBack<ResultType> constructor(val handle: HttpCallbackHandle = HttpCallbackHandle.get())
     : AbsCallback<ResultType>() {
 
 
@@ -34,7 +33,7 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
      * 方法功能：请求开始
      */
     override fun onStart() {
-        buider.start()
+        handle.start()
     }
 
     /**
@@ -42,7 +41,7 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
      */
     override fun onCompleted() {
         LogUtils.e("onCompleted")
-        buider.completed()
+        handle.completed()
     }
 
     /**
@@ -53,7 +52,7 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
      */
 
     open fun onError(data: ContextData) {
-        buider.error(data)
+        handle.error(data)
     }
 
     /**
@@ -90,7 +89,7 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
         val res = HttpManager.handelResult(result)
         if (!res) {
             //不显示toast
-            buider.isErrorToastShow = false
+            handle.isErrorToastShow = false
             //如果code全局处理的时候错误了，那么是不会走success的，这里就得自己处理UI设置为错误状态
             onSuccess(result, true)
         }
@@ -103,10 +102,10 @@ open class HttpCallBack<ResultType> constructor(private val buider: HttpCallback
      */
     open fun onSuccess(result: ResultType, isHanderError: Boolean) {
         LogUtils.e("onSuccess")
-        buider.success(result as Any)
+        handle.success(result as Any)
     }
 
-    fun getTag(): Any? = buider.getTag()
+    fun getTag(): Any? = handle.getTag()
 
     /**
      * 获取当前泛型内部data->list或者数组  或者 对象
