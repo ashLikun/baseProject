@@ -3,8 +3,8 @@ ext {
     frameVersion = "3.1.4"
     android = [
             applicationId    : "com.ashlikun.baseproject",
-            compileSdkVersion: 29,
-            buildToolsVersion: "29.0.3",
+            compileSdkVersion: 30,
+            buildToolsVersion: "30.0.2",
             versionCode      : 1,
             versionName      : "1.0.0",
             targetSdkVersion : 28,

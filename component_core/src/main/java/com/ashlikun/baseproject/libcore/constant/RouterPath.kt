@@ -40,7 +40,6 @@ object RouterPath {
     const val UPDATA_PASSWORD = "/login/activity/updata_password"
     const val REGISTER = "/login/activity/register"
 
-
     /********************************************************************************************
      *                                           Main 模块
      ********************************************************************************************/
@@ -50,5 +49,6 @@ object RouterPath {
     //首页
     const val FRAGMENT_HOME = "/home/fragment/main"
 
-
+    //啊实打实大所大所所多
+    const val FRAGMENT_FIND_NEXT = "/login/fragment/findnext"
 }
