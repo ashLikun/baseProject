@@ -19,9 +19,12 @@ import com.ashlikun.utils.ui.ActivityManager
 import com.ashlikun.utils.ui.SuperToast
 import com.ashlikun.baseproject.libcore.constant.EventBusKey
 import com.ashlikun.baseproject.libcore.utils.http.interceptor.DefaultInterceptor
+import com.ashlikun.glideutils.GlideUtils
+import com.ashlikun.okhttputils.retrofit.Retrofit
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import java.io.File
+import java.net.Proxy
 import java.net.URLEncoder
 import java.util.concurrent.TimeUnit
 
@@ -41,6 +44,24 @@ class HttpManager private constructor() {
             val requestStr = HttpUtils.getRequestToString(response.request)
             val responseStr = HttpUtils.getResponseToString(response)
             RuntimeException("request:\n$requestStr\nresponse:\n$responseStr \n$json", exception).postBugly()
+        }
+        Retrofit.get().methodInvoke = { it, args ->
+            val requestParam = HttpRequestParam.create(it.url).setMethod(it.method)
+            it.params.forEach { itt ->
+                itt.apply(requestParam, args)
+            }
+            val handle = args?.find { it is HttpCallbackHandle } as HttpCallbackHandle?
+                    ?: throw IllegalArgumentException("url = ${it.url} not HttpCallbackHandle")
+            requestParam.syncExecute<Any>(handle, it.resultType)
+        }
+        Retrofit.get().createUrl = { url, action, path ->
+            if (url.isNullOrEmpty()) {
+                if (path.isNullOrEmpty()) {
+                    createUrl(action)
+                } else {
+                    createUrl(action, path)
+                }
+            } else url
         }
         EventBus.get(EventBusKey.LOGIN).registerForever {
             setCommonParams();
@@ -82,6 +103,10 @@ class HttpManager private constructor() {
         builder.cache(cache)
         //公共拦截器
         builder.addInterceptor(DefaultInterceptor())
+        //防止抓包
+        if (!AppUtils.isDebug()) {
+            builder.proxy(Proxy.NO_PROXY)
+        }
         return builder
     }
 
@@ -112,14 +137,16 @@ class HttpManager private constructor() {
         fun get(): HttpManager {
             return INSTANCE
         }
-
+        /**
+         * 创建Url
+         */
+        @JvmStatic
+        fun createUrl(action: String? = null, path: String = BASE_PATH): String {
+            return HttpManager.BASE_URL + path + "action=" + action
+        }
 
         /**
          * 处理成功后的数据code
-         *
-         * @param responseBody
-         * @param <T>
-         * @return
          * */
         @JvmStatic
         fun <T> handelResult(responseBody: T): Boolean {
@@ -140,7 +167,7 @@ class HttpManager private constructor() {
                         val activity = ActivityManager.getForegroundActivity()
                         if (activity != null && !activity.isFinishing) {
                             if (Looper.getMainLooper() != Looper.myLooper()) {
-                                MainHandle.get().post { showTokenErrorDialog(activity, response.getMessage(), response.code) }
+                                MainHandle.post { showTokenErrorDialog(activity, response.getMessage(), response.code) }
                             } else {
                                 showTokenErrorDialog(activity, response.getMessage(), response.code)
                             }
@@ -159,7 +186,7 @@ class HttpManager private constructor() {
                         val activity = ActivityManager.getForegroundActivity()
                         if (activity != null && !activity.isFinishing) {
                             if (Looper.getMainLooper() != Looper.myLooper()) {
-                                MainHandle.get().post { showTokenErrorDialog(activity, response.getMessage(), response.code) }
+                                MainHandle.post { showTokenErrorDialog(activity, response.getMessage(), response.code) }
                             } else {
                                 showTokenErrorDialog(activity, response.getMessage(), response.code)
                             }

@@ -8,6 +8,7 @@ import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.common.mode.javabean.ImageData
 import com.ashlikun.utils.ui.ActivityManager
 import com.ashlikun.utils.ui.SuperToast
+import java.io.Serializable
 import java.util.*
 
 /**
@@ -88,6 +89,21 @@ object RouterJump {
                 .withParcelableArrayList(RouterKey.FLAG_DATA, listDatas)
                 .withInt(RouterKey.FLAG_POSITION, position)
                 .withBoolean(RouterKey.FLAG_SHOW_DOWNLOAD, isShowDownload)
+                .greenChannel()
+                .navigation(topActivity())
+    }
+
+    /**
+     * 启动H5
+     */
+    fun startH5(url: String?, title: String? = null, otherParams: Map<String, Any?>? = null) {
+        if (url.isNullOrEmpty()) {
+            return
+        }
+        ARouter.getInstance().build(RouterPath.ACTIVITY_H5)
+                .withString(RouterKey.FLAG_URL, url)
+                .withString(RouterKey.FLAG_TITLE, title)
+                .withSerializable(RouterKey.FLAG_DATA, otherParams as Serializable?)
                 .greenChannel()
                 .navigation(topActivity())
     }

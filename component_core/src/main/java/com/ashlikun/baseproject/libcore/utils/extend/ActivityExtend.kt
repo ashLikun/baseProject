@@ -4,11 +4,14 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.View
+import android.view.WindowInsets
 import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.Lifecycle
 import com.ashlikun.core.activity.BaseActivity
 import com.ashlikun.core.fragment.BaseFragment
 import com.ashlikun.core.mvvm.BaseViewModel
@@ -16,6 +19,7 @@ import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.utils.ui.StatusBarCompat
 import permissions.dispatcher.PermissionUtils
 import com.ashlikun.baseproject.libcore.R
+import com.ashlikun.utils.other.ClassUtils
 
 /**
  * 作者　　: 李坤
@@ -40,24 +44,46 @@ var Activity.windowBrightness
 
 fun Activity.setStatusBarVisible(show: Boolean, statusBar: StatusBarCompat? = null) {
     if (show) {
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+//        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        window.decorView.windowInsetsController?.show(WindowInsets.Type.statusBars())
     } else {
-        var uiFlags = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                or View.SYSTEM_UI_FLAG_FULLSCREEN
-                or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
-        window.decorView.systemUiVisibility = uiFlags
+//        var uiFlags = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+//                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+//                or View.SYSTEM_UI_FLAG_FULLSCREEN
+//                or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
+//        window.decorView.systemUiVisibility = uiFlags
+        window.decorView.windowInsetsController?.hide(WindowInsets.Type.statusBars())
     }
+    window.decorView.windowInsetsController?.show(WindowInsets.Type.statusBars())
     statusBar?.setStatusDarkColor()
+}
+
+
+fun <I, O> ComponentActivity.registerForActivityResultX(
+        contract: ActivityResultContract<I, O>,
+        callback: (O) -> Unit): ActivityResultLauncher<I> {
+    var oldStatus: Lifecycle.State? = null
+    //反射修改字段
+    if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
+        oldStatus = lifecycle.currentState
+        ClassUtils.setField(lifecycle, "mState", Lifecycle.State.CREATED)
+    }
+    //这段注册代码源码里面做了限制，必须在onStart之前，所以反射修改字段，骗过注册
+    val launcher = registerForActivityResult(contract) {
+        callback.invoke(it)
+    }
+    if (oldStatus != null) {
+        ClassUtils.setField(lifecycle, "mState", oldStatus)
+    }
+    return launcher
 }
 
 /**
  * 请求权限
  */
-fun ComponentActivity.requestPermission(permission: Array<String>, showRationaleMessage: String? = null
-                                        , denied: (() -> Unit)? = null
-                                        , success: (() -> Unit)): ActivityResultLauncher<Array<String>> {
-    val launcher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+fun ComponentActivity.requestPermission(permission: Array<String>, showRationaleMessage: String? = null, denied: (() -> Unit)? = null, success: (() -> Unit)): ActivityResultLauncher<Array<String>> {
+
+    val launcher = registerForActivityResultX(ActivityResultContracts.RequestMultiplePermissions()) {
         if (it.all { itt -> itt.value }) {
             success.invoke()
         } else {
@@ -99,7 +125,7 @@ fun ComponentActivity.requestPermission(permission: Array<String>, showRationale
  * 启动activity,用新api registerForActivityResult
  */
 fun ComponentActivity.launchForActivityResult(intent: Intent, success: ((ActivityResult) -> Unit)): ActivityResultLauncher<Intent> {
-    val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+    val launcher = registerForActivityResultX(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode == Activity.RESULT_OK) {
             success.invoke(it)
         }

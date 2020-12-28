@@ -1,13 +1,12 @@
 package com.ashlikun.baseproject.module.login.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import com.ashlikun.baseproject.common.utils.extend.showToast
 import com.ashlikun.baseproject.module.login.mode.ApiLogin
 import com.ashlikun.baseproject.libcore.utils.http.HttpCallbackHandle
 import com.ashlikun.baseproject.module.login.mode.javabean.UserData
 import com.ashlikun.core.mvvm.BaseViewModel
-import com.ashlikun.livedatabus.EventBus
+import com.ashlikun.core.mvvm.launch
 
 /**
  * @author　　: 李坤
@@ -23,29 +22,19 @@ class LoginViewModel : BaseViewModel() {
         get(UserData.javaClass) as MutableLiveData<UserData>
     }
 
-
-    override fun onCreate() {
-        super.onCreate()
-    }
-
     /**
-     * 作者　　: 李坤
-     * 创建时间: 2016/12/10 11:25
-     *
-     *
-     * 方法功能：用户登录	UserLogin	Mobile：手机号码
+     *用户登录	UserLogin	Mobile：手机号码
      * PassWord：密码
      */
-    fun login() {
+    fun login() = launch {
         val handle = HttpCallbackHandle[this]
-        ApiLogin.api.login(phone, password, handle) { result ->
-            if (result.isSucceed) {
-                result.getData().save()
-                userData.postValue(result.getData())
+        ApiLogin.api.login(handle, phone, password)?.also {
+            if (it.isSucceed) {
+                it.getData().save()
+                userData.postValue(it.getData())
             } else {
-                result.showToast()
+                it.showToast()
             }
         }
     }
-
 }

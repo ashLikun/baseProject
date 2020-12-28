@@ -8,6 +8,7 @@ apply plugin: 'kotlin-kapt'
 
 def config = rootProject.ext.android // 工程配置
 def libs = rootProject.ext.dependencies // 库依赖
+apply from: file('.././configs_module_common.gradle')
 android {
     compileSdkVersion config.compileSdkVersion
     buildToolsVersion config.buildToolsVersion
@@ -20,19 +21,6 @@ android {
             arguments {
                 arg("AROUTER_MODULE_NAME", project.getName())
             }
-        }
-    }
-
-    buildTypes {
-        debug {
-            //保存appid，因为当前模块本来的appid是清单文件的包名
-            buildConfigField "String", "MY_APP_ID", "\"$config.applicationId\""
-        }
-        release {
-            minifyEnabled true
-            //保存appid，因为当前模块本来的appid是清单文件的包名
-            buildConfigField "String", "MY_APP_ID", "\"$config.applicationId\""
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
     /**
@@ -59,6 +47,7 @@ dependencies {
     kapt libs.glideCompiler
     api libs.kotlin
     api libs.design
+    api libs.viewmodel
 
     //mvp
     api libs.CustomMvvm
@@ -187,5 +176,6 @@ dependencies {
     //极光推送
     api libs.jpush
     api libs.jcore
+    api 'com.squareup.retrofit2:retrofit:2.9.0'
 }
 

@@ -7,15 +7,15 @@
     <com.ashlikun.supertoobar.SuperToolBar
         android:id="@+id/toolbar"
         style="@style/SuperToolBar.Main"
-        app:stb_backImg="@drawable/ic_close_black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_scrollFlags="scroll|enterAlways"></com.ashlikun.supertoobar.SuperToolBar>
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:stb_backImg="@drawable/ic_close_black"></com.ashlikun.supertoobar.SuperToolBar>
 
-    <com.ashlikun.xwebview.webview.XWebView
-        android:id="@+id/webView"
+
+    <FrameLayout
+        android:id="@+id/webviewPar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></com.ashlikun.xwebview.webview.XWebView>
-
+        android:layout_height="match_parent"></FrameLayout>
 
 </LinearLayout>

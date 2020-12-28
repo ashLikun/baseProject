@@ -23,7 +23,6 @@ import java.lang.reflect.Array
 open class HttpCallBack<ResultType> constructor(val handle: HttpCallbackHandle = HttpCallbackHandle.get())
     : AbsCallback<ResultType>() {
 
-
     //重写数据转换
     override fun convertResponse(response: Response?, gosn: Gson?): ResultType {
         return super.convertResponse(response, gosn)
@@ -40,7 +39,6 @@ open class HttpCallBack<ResultType> constructor(val handle: HttpCallbackHandle =
      * 方法功能：请求完成
      */
     override fun onCompleted() {
-        LogUtils.e("onCompleted")
         handle.completed()
     }
 
@@ -82,8 +80,7 @@ open class HttpCallBack<ResultType> constructor(val handle: HttpCallbackHandle =
 
     /**
      * 接口请求成功了，但是处理code
-     * @return true:没问题
-     * false:有问题
+     * @return true:没问题 false:有问题
      */
     override fun onSuccessHandelCode(result: ResultType): Boolean {
         val res = HttpManager.handelResult(result)
@@ -101,90 +98,89 @@ open class HttpCallBack<ResultType> constructor(val handle: HttpCallbackHandle =
      * 方法功能： 是否对错误信息处理
      */
     open fun onSuccess(result: ResultType, isHanderError: Boolean) {
-        LogUtils.e("onSuccess")
         handle.success(result as Any)
     }
 
-    fun getTag(): Any? = handle.getTag()
-
-    /**
-     * 获取当前泛型内部data->list或者数组  或者 对象
-     */
-    protected fun getListOrArrayOrObject(): Any? {
-        try {
-            var res = classToListOrArrayOrObject(resultType ?: this::class.java.genericSuperclass)
-            return res?.newInstance()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        return null
-    }
-
-    private fun classToListOrArrayOrObject(superClass: Type?): Class<*>? {
-        if (superClass == null) {
+    companion object {
+        /**
+         * 获取当前泛型内部data->list或者数组  或者 对象
+         */
+        fun getListOrArrayOrObject(resultType: Type): Any? {
+            try {
+                var res = classToListOrArrayOrObject(resultType)
+                return res?.newInstance()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
             return null
         }
-        if (superClass is ParameterizedType && superClass.actualTypeArguments?.isNullOrEmpty() == false) {
-            var type1 = superClass.actualTypeArguments[0]
-            return when {
-                isTypeToListOrArray(type1) -> getRawType(type1)
-                //返回对象
-                type1 is Class<*> -> type1
-                //找父类
-                else -> classToListOrArrayOrObject(type1)
-            }
-        } else if (superClass is Class<*>) {
-            //找父类
-            return classToListOrArrayOrObject(superClass.genericSuperclass)
-        }
-        return null
-    }
 
-    /**
-     * 这个type类型是否是List或者数组
-     */
-    private fun isTypeToListOrArray(type: Type?): Boolean {
-        return when (type) {
-            is Class<*> -> type == List::class.java || type == Array::class.java
-            is ParameterizedType -> {
-                if (type.rawType is Class<*>) {
-                    if (List::class.java.isAssignableFrom((type.rawType as Class<*>))) {
-                        true
-                    } else Array::class.java.isAssignableFrom((type.rawType as Class<*>))
-                } else type == List::class.java || type == ArrayList::class.java || type == kotlin.Array<Any>::class.java
+        fun classToListOrArrayOrObject(superClass: Type?): Class<*>? {
+            if (superClass == null) {
+                return null
             }
-            is GenericArrayType -> true
-            is WildcardType -> isTypeToListOrArray(type.upperBounds[0])
-            else -> false
-        }
-    }
-
-    // type不能直接实例化对象，通过type获取class的类型，然后实例化对象
-    protected fun getRawType(type: Type?): Class<*> {
-        when (type) {
-            is Class<*> -> return type
-            is ParameterizedType -> {
-                //防止list为null
-                if (type.rawType is Class<*>) {
-                    if (List::class.java.isAssignableFrom((type.rawType as Class<*>))) {
-                        return ArrayList::class.java
-                    }
-                } else if (type == List::class.java || type == ArrayList::class.java || type == kotlin.Array<Any>::class.java) {
-                    return kotlin.Array<Any>::class.java
+            if (superClass is ParameterizedType && !superClass.actualTypeArguments.isNullOrEmpty()) {
+                var type1 = superClass.actualTypeArguments[0]
+                return when {
+                    isTypeToListOrArray(type1) -> getRawType(type1)
+                    //返回对象
+                    type1 is Class<*> -> type1
+                    //找父类
+                    else -> classToListOrArrayOrObject(type1)
                 }
-                val parameterizedType = type as ParameterizedType?
-                val rawType = parameterizedType!!.rawType
-                return rawType as Class<*>
+            } else if (superClass is Class<*>) {
+                //找父类
+                return classToListOrArrayOrObject(superClass.genericSuperclass)
             }
-            is GenericArrayType -> {
-                val componentType = type.genericComponentType
-                return Array.newInstance(getRawType(componentType), 0).javaClass
+            return null
+        }
+
+        /**
+         * 这个type类型是否是List或者数组
+         */
+        private fun isTypeToListOrArray(type: Type?): Boolean {
+            return when (type) {
+                is Class<*> -> type == List::class.java || type == Array::class.java
+                is ParameterizedType -> {
+                    if (type.rawType is Class<*>) {
+                        if (List::class.java.isAssignableFrom((type.rawType as Class<*>))) {
+                            true
+                        } else Array::class.java.isAssignableFrom((type.rawType as Class<*>))
+                    } else type == List::class.java || type == ArrayList::class.java || type == kotlin.Array<Any>::class.java
+                }
+                is GenericArrayType -> true
+                is WildcardType -> isTypeToListOrArray(type.upperBounds[0])
+                else -> false
             }
-            is TypeVariable<*> -> return Any::class.java
-            is WildcardType -> return getRawType(type.upperBounds[0])
-            else -> {
-                val className = if (type == null) "null" else type.javaClass.name
-                throw IllegalArgumentException("Expected a Class, ParameterizedType, or GenericArrayType, but <$type> is of type $className")
+        }
+
+        // type不能直接实例化对象，通过type获取class的类型，然后实例化对象
+        protected fun getRawType(type: Type?): Class<*> {
+            when (type) {
+                is Class<*> -> return type
+                is ParameterizedType -> {
+                    //防止list为null
+                    if (type.rawType is Class<*>) {
+                        if (List::class.java.isAssignableFrom((type.rawType as Class<*>))) {
+                            return ArrayList::class.java
+                        }
+                    } else if (type == List::class.java || type == ArrayList::class.java || type == kotlin.Array<Any>::class.java) {
+                        return kotlin.Array<Any>::class.java
+                    }
+                    val parameterizedType = type as ParameterizedType?
+                    val rawType = parameterizedType!!.rawType
+                    return rawType as Class<*>
+                }
+                is GenericArrayType -> {
+                    val componentType = type.genericComponentType
+                    return Array.newInstance(getRawType(componentType), 0).javaClass
+                }
+                is TypeVariable<*> -> return Any::class.java
+                is WildcardType -> return getRawType(type.upperBounds[0])
+                else -> {
+                    val className = type?.javaClass?.name ?: "null"
+                    throw IllegalArgumentException("Expected a Class, ParameterizedType, or GenericArrayType, but <$type> is of type $className")
+                }
             }
         }
     }

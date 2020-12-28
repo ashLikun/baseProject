@@ -1,6 +1,6 @@
 ext {
     androidXVersion = '1.1.+'
-    frameVersion = "3.1.4"
+    frameVersion = "3.1.5"
     android = [
             applicationId    : "com.ashlikun.baseproject",
             compileSdkVersion: 30,
@@ -18,13 +18,11 @@ ext {
      *     android:value="${KEY}"></meta-data>
      */
     sdk = [
-            APP_ID       : android.applicationId, //应用id
             JPUSH_PKGNAME: android.applicationId, //应用id
             JPUSH_APPKEY : "001b8ca1b4962d68bfb65049", //JPush上注册的包名对应的appkey.
             JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
             BUGLY_APPKEY : "f28e3effd0", //腾讯bugly
             DOKIT_PID    : "f2ab59a864aabba32dd5ebeddac76c83", //滴滴的开发助手,https://www.dokit.cn/
-
     ]
 
     /**
@@ -46,13 +44,15 @@ ext {
             design               : "com.google.android.material:material:$androidXVersion",
             //约束布局
             ConstraintLayout     : 'androidx.constraintlayout:constraintlayout:+',
+            //viewmodel
+            viewmodel            : 'androidx.lifecycle:lifecycle-viewmodel-ktx:+',
             //Fragment
             Fragment             : 'androidx.fragment:fragment:1.3.+',
             //基本架构
-            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:1.0.9",
+            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:1.1.4",
             multidex             : 'androidx.multidex:multidex:2.0.1',
             //webview封装
-            XWebView             : "com.github.ashLikun.XWebView:core:2.1.0",
+            XWebView             : "com.github.ashLikun.XWebView:core:2.1.2",
             //alibaba的路由框架
             arouterapi           : "com.alibaba:arouter-api:+",
             aroutercompiler      : "com.alibaba:arouter-compiler:+",
@@ -65,17 +65,17 @@ ext {
             //数据库
             LiteOrm              : "com.github.ashLikun:LiteOrm:2.0.1",
             //封装的RecycleView
-            XRecycleView         : "com.github.ashLikun:XRecycleView:2.1.5",
+            XRecycleView         : "com.github.ashLikun:XRecycleView:2.1.7",
             //动画菜单,可以不用
             AnimationMenu        : "com.github.ashLikun:AnimationMenu:2.0.0",
             //自定义的下拉刷新
             RefreshLayout        : "com.github.ashLikun:RefreshLayout:2.0.4",
             //封装的viewpager，banner，启动页
-            XViewPager           : "com.github.ashLikun:XViewPager:2.1.3",
+            XViewPager           : "com.github.ashLikun:XViewPager:2.1.5",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:3.6.7",
+            CommonUtils          : "com.github.ashLikun:CommonUtils:3.7.4",
             //公共的Adapter
-            CommonAdapter        : "com.github.ashLikun:CommonAdapter:3.1.4",
+            CommonAdapter        : "com.github.ashLikun:CommonAdapter:3.1.8",
             //TabLayout exclude group: 'com.android.support'
             XTabLayout           : "com.github.ashLikun:XTabLayout2:1.0.5",
             XTabLayout1          : "com.github.ashLikun:XTabLayout:2.1.6",
@@ -88,7 +88,7 @@ ext {
             //LayoutManage
             XLayoutManager       : "com.github.ashLikun:XLayoutManager:1.0.9",
             //布局切换
-            LoadSwitch           : "com.github.ashLikun:LoadSwitch:2.0.5",
+            LoadSwitch           : "com.github.ashLikun:LoadSwitch:2.0.8",
             //兼容的View
             CompatView           : "com.github.ashLikun:CompatView:2.0.7",
             //错误捕获
@@ -112,11 +112,11 @@ ext {
             okhttp               : "com.squareup.okhttp3:okhttp:4.+",
             gson                 : "com.google.code.gson:gson:2.8.5",
             //不同type的json解析,依赖于gson
-            MultiTypeGson        : "com.github.ashLikun:MultiTypeGson:2.0.1",
+            MultiTypeGson        : "com.github.ashLikun:MultiTypeGson:2.0.6",
             //基于Okhttp封装的
-            OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:2.4.0",
+            OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:2.5.0",
             //图片加载
-            GlideUtils           : "com.github.ashLikun:GlideUtils:3.0.1",
+            GlideUtils           : "com.github.ashLikun:GlideUtils:3.0.2",
             glide                : "com.github.bumptech.glide:glide:4.11.0",
             glideCompiler        : "com.github.bumptech.glide:compiler:4.11.0",
             glideTransformations : "jp.wasabeef:glide-transformations:4+",//4.2.0 glide4.11.0
@@ -128,7 +128,7 @@ ext {
             //图片查看
             PhotoView            : "com.github.ashLikun:PhotoView:2.0.4",
             //照片处理
-            PhotoHander          : "com.github.ashLikun:PhotoHander:2.0.5",
+            PhotoHander          : "com.github.ashLikun:PhotoHander:2.1.0",
             //输入验证码
             VerificationCodeInput: "com.github.ashLikun:VerifyCodeView:1.0.0",
             //带圆角，边框的的ImageView
@@ -156,12 +156,10 @@ ext {
 
             //RangeSeekBar 进度条
             RangeSeekBar         : 'com.github.Jay-Goo:RangeSeekBar:v3.0.0',
-            EasyMedia            : 'com.github.ashLikun.EasyMedia:ExoPlay2:2.4.0',
+            EasyMedia            : 'com.github.ashLikun.EasyMedia:ExoPlay2:2.4.6',
             //ExoPlay
             extensionRtmp        : 'com.google.android.exoplayer:extension-rtmp:2.11.7',
             exoplayer            : 'com.google.android.exoplayer:exoplayer:2.11.7',
             ijkplayerJava        : 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8',
     ]
-
-
 }

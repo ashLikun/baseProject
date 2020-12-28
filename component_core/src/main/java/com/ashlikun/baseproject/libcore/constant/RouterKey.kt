@@ -38,6 +38,7 @@ object RouterKey {
      */
     const val FLAG_TITLE = "FLAG_TITLE"
     const val FLAG_URL_DATA = "FLAG_URL_DATA"
+    const val FLAG_JS = "js"
     const val FLAG_URL = "FLAG_TITLE"
 
     /********************************************************************************************

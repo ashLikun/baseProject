@@ -3,7 +3,6 @@ package com.ashlikun.baseproject.libcore.utils.http
 import android.app.Activity
 import android.content.Context
 import android.view.View
-import com.ashlikun.baseproject.libcore.dialog.LoadTransDialog
 import com.ashlikun.baseproject.libcore.mvvm.viewmodel.BaseListViewModel
 import com.ashlikun.core.mvvm.BaseViewModel
 import com.ashlikun.customdialog.LoadDialog
@@ -12,13 +11,10 @@ import com.ashlikun.loadswitch.LoadSwitchService
 import com.ashlikun.okhttputils.http.OkHttpUtils
 import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.utils.main.ActivityUtils
-import com.ashlikun.utils.other.MainHandle
-import com.ashlikun.utils.other.coroutines.taskLaunch
 import com.ashlikun.utils.other.coroutines.taskLaunchMain
 import com.ashlikun.utils.ui.SuperToast
 import com.ashlikun.xrecycleview.RefreshLayout
 import com.ashlikun.xrecycleview.StatusChangListener
-import kotlinx.coroutines.delay
 
 /**
  * 作者　　: 李坤
@@ -32,6 +28,9 @@ import kotlinx.coroutines.delay
  * 4失效view
  */
 class HttpCallbackHandle private constructor() {
+    //是否接口请求完成了,请求的状态
+    var isStatusCompleted = true
+
     /**
      * 对话框提示的文本  空就不显示对话框
      */
@@ -257,7 +256,7 @@ class HttpCallbackHandle private constructor() {
         if (isShowLoadding) {
             if (getActivity()?.isFinishing == false) {
                 if (loadDialog == null) {
-                    loadDialog = LoadTransDialog(getActivity()!!)
+                    loadDialog = LoadDialog(getActivity()!!)
                 }
                 loadDialog?.run {
                     setContent(hint)
@@ -302,7 +301,10 @@ class HttpCallbackHandle private constructor() {
     fun error(data: ContextData) {
         var isShowToastNeibu = isErrorToastShow
         statusChangListener?.failure()
-        isShowToastNeibu = isShowToastNeibu && !showRetry(data)
+        //这里判断是否需要显示错误页面
+        if (statusChangListener?.itemCount ?: 0 == 0) {
+            isShowToastNeibu = !showRetry(data) && isShowToastNeibu
+        }
         if (isShowToastNeibu) {
             SuperToast.showErrorMessage("${data.title}(错误码:${data.errCode})")
         }
@@ -316,6 +318,7 @@ class HttpCallbackHandle private constructor() {
             showContent()
             statusChangListener?.failure()
         }
+        //这里判断是否需要显示错误页面
         if (statusChangListener?.itemCount ?: 0 == 0) {
             !showRetry(data)
         }
@@ -327,8 +330,13 @@ class HttpCallbackHandle private constructor() {
     }
 
     fun start() {
+        isStatusCompleted = false
         goSetEnableView(false)
         if (swipeRefreshLayout?.isRefreshing == true) {
+            if (loadSwitchService?.isStatusContent == false) {
+                //布局切换没有归为
+                showLoading()
+            }
             return
         }
         if (loadSwitchService?.isLoadingCanShow == true) {
@@ -341,6 +349,7 @@ class HttpCallbackHandle private constructor() {
     fun completed() {
         goSetEnableView(true)
         dismissUi()
+        isStatusCompleted = true
     }
 
     fun success(result: Any) {
@@ -354,7 +363,6 @@ class HttpCallbackHandle private constructor() {
         } else {
             showContent()
         }
-        dismissUi()
     }
 
     fun setLoadDialogStyle(): HttpCallbackHandle {

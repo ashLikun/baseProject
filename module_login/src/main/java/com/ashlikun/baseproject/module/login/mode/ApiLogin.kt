@@ -22,19 +22,17 @@ class ApiLogin private constructor() : BaseApiService() {
     }
 
     /**
-     * http://121.43.181.169/app/log.php
-     * post
-     * username,password
+     * 登录
      */
-    fun login(telphone: String,
-              password: String,
-              handle: HttpCallbackHandle,
-              success: OnSuccess<HttpResult<UserData>>): ExecuteCall {
+    suspend fun login(handle: HttpCallbackHandle,
+                      telphone: String,
+                      password: String): HttpResult<UserData>? {
         return "log.php".requestPost()
                 .addParam("username", telphone)
                 .addParam("password", password)
-                .execute(handle, success)
+                .syncExecute(handle) {}
     }
+
 
     fun testx(handle: HttpCallbackHandle,
               success: OnSuccess<HttpResult<String>>): ExecuteCall? {
@@ -42,4 +40,11 @@ class ApiLogin private constructor() : BaseApiService() {
                 .execute(handle, success)
     }
 
+    /**
+     * 模板 同步
+     */
+    suspend fun testSyncx(handle: HttpCallbackHandle): HttpResult<String>? {
+        return "index".requestGet()
+                .syncExecute(handle) {}
+    }
 }

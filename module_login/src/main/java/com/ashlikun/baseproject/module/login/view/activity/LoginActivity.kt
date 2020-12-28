@@ -1,9 +1,5 @@
 package com.ashlikun.baseproject.module.login.view.activity
 
-import android.app.Application
-import android.app.Dialog
-import android.view.View
-import android.view.WindowManager
 import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.libcore.constant.RouterPath
@@ -14,6 +10,7 @@ import com.ashlikun.baseproject.module.login.viewmodel.LoginViewModel
 import com.ashlikun.baseproject.common.utils.jump.RouterJump
 import com.ashlikun.core.mvvm.BaseMvvmActivity
 import com.ashlikun.core.mvvm.IViewModel
+import kotlinx.android.synthetic.main.login_activity_login.*
 
 
 /**
@@ -33,8 +30,10 @@ class LoginActivity : BaseMvvmActivity<LoginViewModel>() {
     }
 
     override fun initView() {
+
         toolbar!!.setTitle("登录")
         toolbar!!.setBack(this)
+
         //        editHelper.addEditHelperData(
         //                new EditHelper.EditHelperData(dataBind.phoneTil, Validators.REGEX_PHONE_NUMBER, "请正确输入11位手机号"));
         //        editHelper.addEditHelperData(new EditHelper.EditHelperData(dataBind.passwordTil,
@@ -43,6 +42,9 @@ class LoginActivity : BaseMvvmActivity<LoginViewModel>() {
         viewModel.userData.observe(this, Observer {
             login(it)
         })
+        textView.setOnClickListener {
+
+        }
     }
 
 

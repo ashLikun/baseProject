@@ -79,7 +79,7 @@ open class SimpleHttpCallback<T> constructor(handle: HttpCallbackHandle = HttpCa
                     //成功时候对data为null的处理
                     if (result is HttpResult<*>) {
                         if (result.data == null) {
-                            result.data = getListOrArrayOrObject()
+                            result.data = getListOrArrayOrObject(resultType)
                         }
                         when {
                             result.data != null -> success?.invoke(result)
@@ -87,7 +87,7 @@ open class SimpleHttpCallback<T> constructor(handle: HttpCallbackHandle = HttpCa
                         }
                     } else if (result is HttpListResult<*>) {
                         if (result.data == null) {
-                            (result as HttpListResult<in Any>).data = getListOrArrayOrObject()
+                            (result as HttpListResult<in Any>).data = getListOrArrayOrObject(resultType)
                         }
                         when {
                             result.data != null -> success?.invoke(result)

@@ -35,6 +35,9 @@
         <meta-data
             android:name="DOKIT_PID"
             android:value="${DOKIT_PID}"></meta-data>
+        <meta-data
+            android:name="JPUSH_PKGNAME"
+            android:value="${applicationId}"></meta-data>
         <!--极光推送 -->
         <!-- Required since 3.0.7 -->
         <!-- 新的tag/alias接口结果返回需要开发者配置一个自定的广播 -->

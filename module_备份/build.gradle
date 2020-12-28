@@ -13,6 +13,7 @@ apply plugin: 'kotlin-kapt'
 def sdk = rootProject.ext.sdk // SDK配置
 def config = rootProject.ext.android // 工程配置
 def libs = rootProject.ext.dependencies // 库依赖
+apply from: file('.././configs_module_common.gradle')
 android {
     rootProject.ext.changRun(currentModule, sdk, config)
     compileSdkVersion config.compileSdkVersion
@@ -37,19 +38,6 @@ android {
         resourcePrefix currentModule.name + "_"
         //向清单文件注入参数
         manifestPlaceholders = sdk
-    }
-
-    buildTypes {
-        debug {
-            //保存appid，因为当前模块本来的appid是清单文件的包名
-            buildConfigField "String", "MY_APP_ID", "\"$config.applicationId\""
-        }
-        release {
-            minifyEnabled true
-            //保存appid，因为当前模块本来的appid是清单文件的包名
-            buildConfigField "String", "MY_APP_ID", "\"$config.applicationId\""
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
     }
     /**
      * java插件引入了一个概念叫做SourceSets 通过修改SourceSets中的属性

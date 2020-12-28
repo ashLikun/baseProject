@@ -1,6 +1,6 @@
-include ':app',
-        ':module_main',
-        ':module_other',
-        ':component_common',
-        ':component_core',
-        ':module_login'
+include ':app'
+include ':module_main'
+include ':module_other'
+include ':component_common'
+include ':component_core'
+include ':module_login'

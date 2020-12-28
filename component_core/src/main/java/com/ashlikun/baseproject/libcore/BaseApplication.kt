@@ -11,6 +11,7 @@ import com.ashlikun.baseproject.libcore.utils.other.CacheUtils
 import com.ashlikun.baseproject.libcore.utils.other.initBugly
 import com.ashlikun.glideutils.GlideUtils
 import com.ashlikun.loadswitch.LoadSwitch
+import com.ashlikun.okhttputils.http.OkHttpUtils
 import com.ashlikun.okhttputils.http.download.DownloadManager
 import com.ashlikun.orm.LiteOrmUtil
 import com.ashlikun.utils.AppUtils
@@ -85,6 +86,8 @@ open class BaseApplication : MultiDexApplication() {
         HttpManager.get()
         DownloadManager.initPath(CacheUtils.appFilePath)
         GlideUtils.setDEBUG(BuildConfig.DEBUG)
+        //Glide图片加载使用一个okHttpClient
+        GlideUtils.init(OkHttpUtils.getInstance().okHttpClient)
         //toast库
         SuperToast.setGravity(Gravity.CENTER)
         //腾讯Bugly
