@@ -49,7 +49,7 @@ ext {
             //Fragment
             Fragment             : 'androidx.fragment:fragment:1.3.+',
             //基本架构
-            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:1.1.4",
+            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:1.1.5",
             multidex             : 'androidx.multidex:multidex:2.0.1',
             //webview封装
             XWebView             : "com.github.ashLikun.XWebView:core:2.1.2",
@@ -65,7 +65,7 @@ ext {
             //数据库
             LiteOrm              : "com.github.ashLikun:LiteOrm:2.0.1",
             //封装的RecycleView
-            XRecycleView         : "com.github.ashLikun:XRecycleView:2.1.7",
+            XRecycleView         : "com.github.ashLikun:XRecycleView:2.1.9",
             //动画菜单,可以不用
             AnimationMenu        : "com.github.ashLikun:AnimationMenu:2.0.0",
             //自定义的下拉刷新
@@ -73,7 +73,7 @@ ext {
             //封装的viewpager，banner，启动页
             XViewPager           : "com.github.ashLikun:XViewPager:2.1.5",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:3.7.4",
+            CommonUtils          : "com.github.ashLikun:CommonUtils:3.7.5",
             //公共的Adapter
             CommonAdapter        : "com.github.ashLikun:CommonAdapter:3.1.8",
             //TabLayout exclude group: 'com.android.support'

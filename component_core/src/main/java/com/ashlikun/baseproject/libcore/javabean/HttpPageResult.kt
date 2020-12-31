@@ -26,7 +26,7 @@ class HttpPageResult<T> : HttpResult<T>() {
      *
      * @param pageHelp
      */
-    fun setPageHelp(pageHelp: PageHelp) {
-        pageHelp.setPageInfo(currentPage, recordPage)
+    fun setPageHelp(pageHelp: PageHelp?) {
+        pageHelp?.setPageInfo(currentPage, recordPage)
     }
 }

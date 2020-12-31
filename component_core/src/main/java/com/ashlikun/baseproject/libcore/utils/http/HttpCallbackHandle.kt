@@ -13,8 +13,8 @@ import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.utils.main.ActivityUtils
 import com.ashlikun.utils.other.coroutines.taskLaunchMain
 import com.ashlikun.utils.ui.SuperToast
+import com.ashlikun.xrecycleview.PageHelpListener
 import com.ashlikun.xrecycleview.RefreshLayout
-import com.ashlikun.xrecycleview.StatusChangListener
 
 /**
  * 作者　　: 李坤
@@ -70,16 +70,19 @@ class HttpCallbackHandle private constructor() {
     internal var swipeRefreshLayout: RefreshLayout? = null
 
     /**
-     * 自动加载刷新
+     * 分页助手
      */
-    internal var statusChangListener: StatusChangListener? = null
+    internal var pageHelpListener: PageHelpListener? = null
 
     /**
      * 界面显示管理器（加载中，加载失败，加载成功）
      */
     internal var loadSwitchService: LoadSwitchService? = null
 
-    //自动处理  Code(接口是成功的)错误，布局切换
+    /**
+     * 请求成功，但是接口Code错误的时候是否内部处理错误状态
+     * 默认为走错误方法
+     */
     internal var isAutoHanderError: Boolean = true
 
     /**
@@ -163,10 +166,10 @@ class HttpCallbackHandle private constructor() {
     }
 
     /**
-     * 状态改加载监听
+     * 分页助手
      */
-    fun setStatusChangListener(statusChangListener: StatusChangListener?): HttpCallbackHandle {
-        this.statusChangListener = statusChangListener
+    fun setPageHelpListener(pageHelpListener: PageHelpListener?): HttpCallbackHandle {
+        this.pageHelpListener = pageHelpListener
         return this
     }
 
@@ -216,6 +219,18 @@ class HttpCallbackHandle private constructor() {
     }
 
     /**
+     * 设置加载框样式
+     */
+    fun setLoadDialogStyle(): HttpCallbackHandle {
+        if (getActivity()?.isFinishing == false) {
+            if (loadDialog == null) {
+                loadDialog = LoadDialog(getActivity()!!)
+            }
+        }
+        return this
+    }
+
+    /**
      * 方法功能：设置下位刷新，底加载，布局切换
      */
     fun setLoadingStatus(tag: Any? = this.tag): HttpCallbackHandle {
@@ -225,9 +240,9 @@ class HttpCallbackHandle private constructor() {
                     isShowLoadding = false
                     setSwipeRefreshLayout(tag.swipeRefreshLayout)
                 }
-                if (tag.statusChangListener != null) {
+                if (tag.pageHelpListener != null) {
                     isShowLoadding = false
-                    setStatusChangListener(tag.statusChangListener)
+                    setPageHelpListener(tag.pageHelpListener)
                 }
             }
         }
@@ -252,6 +267,9 @@ class HttpCallbackHandle private constructor() {
         return loadSwitchService != null
     }
 
+    /**
+     * 显示对话框
+     */
     fun showDialog() {
         if (isShowLoadding) {
             if (getActivity()?.isFinishing == false) {
@@ -270,6 +288,9 @@ class HttpCallbackHandle private constructor() {
         }
     }
 
+    /**
+     * 隐藏对话框
+     */
     fun hintProgress() {
         //如果不显示对话框,就直接返回
         if (!isShowLoadding || loadDialog == null) {
@@ -296,39 +317,8 @@ class HttpCallbackHandle private constructor() {
     }
 
     /**
-     * http错误
+     * 开始执行
      */
-    fun error(data: ContextData) {
-        var isShowToastNeibu = isErrorToastShow
-        statusChangListener?.failure()
-        //这里判断是否需要显示错误页面
-        if (statusChangListener?.itemCount ?: 0 == 0) {
-            isShowToastNeibu = !showRetry(data) && isShowToastNeibu
-        }
-        if (isShowToastNeibu) {
-            SuperToast.showErrorMessage("${data.title}(错误码:${data.errCode})")
-        }
-    }
-
-    /**
-     * 接口错误  code
-     */
-    fun successError(data: ContextData) {
-        if (statusChangListener != null) {
-            showContent()
-            statusChangListener?.failure()
-        }
-        //这里判断是否需要显示错误页面
-        if (statusChangListener?.itemCount ?: 0 == 0) {
-            !showRetry(data)
-        }
-    }
-
-    fun dismissUi() {
-        swipeRefreshLayout?.isRefreshing = false
-        hintProgress()
-    }
-
     fun start() {
         isStatusCompleted = false
         goSetEnableView(false)
@@ -346,33 +336,60 @@ class HttpCallbackHandle private constructor() {
         }
     }
 
-    fun completed() {
-        goSetEnableView(true)
-        dismissUi()
-        isStatusCompleted = true
-    }
-
+    /**
+     * 接口成功回调
+     */
     fun success(result: Any) {
-        statusChangListener?.complete()
+        pageHelpListener?.complete()
         if (result is HttpResponse && isAutoHanderError) {
             if (result.isSucceed) {
                 showContent()
             } else {
-                successError(ContextData(result.getCode(), result.getMessage()))
+                successCodeError(ContextData(result.getCode(), result.getMessage()))
             }
         } else {
             showContent()
         }
     }
 
-    fun setLoadDialogStyle(): HttpCallbackHandle {
-        if (getActivity()?.isFinishing == false) {
-            if (loadDialog == null) {
-                loadDialog = LoadDialog(getActivity()!!)
-            }
-        }
-        return this
+    /**
+     * 请求成功，但是接口Code错误
+     * 默认直接走错误方法
+     */
+    fun successCodeError(data: ContextData) {
+        error(data)
     }
+
+    /**
+     * 接口错误，Http的错误
+     */
+    fun error(data: ContextData) {
+        val message = "${data.title}(错误码:${data.errCode})"
+        var isShowToastNeibu = isErrorToastShow
+        if (pageHelpListener != null) {
+            showContent()
+            pageHelpListener?.failure(message)
+        }
+        //这里判断是否需要显示错误页面
+        if (pageHelpListener?.itemCount ?: 0 == 0) {
+            isShowToastNeibu = !showRetry(data) && isShowToastNeibu
+        }
+        if (isShowToastNeibu) {
+            SuperToast.showErrorMessage(message)
+        }
+    }
+
+    fun completed() {
+        goSetEnableView(true)
+        dismissUi()
+        isStatusCompleted = true
+    }
+
+    fun dismissUi() {
+        swipeRefreshLayout?.isRefreshing = false
+        hintProgress()
+    }
+
 
     companion object {
 

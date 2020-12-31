@@ -1,10 +1,11 @@
 package com.ashlikun.baseproject.libcore.mvvm.viewmodel
 
 
+import androidx.lifecycle.MutableLiveData
 import com.ashlikun.core.mvvm.BaseViewModel
 import com.ashlikun.xrecycleview.PageHelp
+import com.ashlikun.xrecycleview.PageHelpListener
 import com.ashlikun.xrecycleview.RefreshLayout
-import com.ashlikun.xrecycleview.StatusChangListener
 
 /**
  * 作者　　: 李坤
@@ -19,14 +20,22 @@ abstract class BaseListViewModel : BaseViewModel() {
     var swipeRefreshLayout: RefreshLayout? = null
 
     //分页状态
-    var statusChangListener: StatusChangListener? = null
+    var pageHelpListener: PageHelpListener? = null
 
-    //分页工具
-    var pageHelp: PageHelp? = null
+    //滚动列表
+    val scrollPosition: MutableLiveData<Int> by lazy {
+        MutableLiveData<Int>()
+    }
+    val pageHelp: PageHelp?
+        get() = pageHelpListener?.pageHelp
+
+    fun cleanPage() {
+        pageHelpListener?.pageHelp?.clear()
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         swipeRefreshLayout = null
-        statusChangListener = null
-        pageHelp = null
+        pageHelpListener = null
     }
 }
