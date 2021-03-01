@@ -342,8 +342,10 @@
 -dontwarn com.tencent.bugly.**
 -keep public class com.tencent.bugly.**{*;}
 #腾讯X5内核
+-dontwarn dalvik.**
 -dontwarn com.tencent.smtt.**
 -keep class com.tencent.smtt.** { *; }
+-keep class com.tencent.tbs.** {*;}
 #---------------------------------------------------------------------------
 
 #-----------------------------------------2:第三方库 end-------------------------------------------#

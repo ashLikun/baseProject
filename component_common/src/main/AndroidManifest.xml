@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -38,12 +39,19 @@
         <meta-data
             android:name="JPUSH_PKGNAME"
             android:value="${applicationId}"></meta-data>
-        <!--极光推送 -->
+
+        <!--  X5内核  该Service仅在TBS内核首次Dex加载时触发并执行dex2oat任务，任务完成后自动结束。    -->
+        <service
+            android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
+            android:label="dexopt"
+            android:process=":dexopt"></service>
+
         <!-- Required since 3.0.7 -->
-        <!-- 新的tag/alias接口结果返回需要开发者配置一个自定的广播 -->
-        <!-- 该广播需要继承JPush提供的JPushMessageReceiver类, 并如下新增一个 Intent-Filter -->
+        <!-- 新的 tag/alias 接口结果返回需要开发者配置一个自定的广播 -->
+        <!-- 3.3.0开始所有事件将通过该类回调 -->
+        <!-- 该广播需要继承 JPush 提供的 JPushMessageReceiver 类, 并如下新增一个 Intent-Filter -->
         <receiver
-            android:name=".utils.jpush.AliasAndTagReceiver"
+            android:name=".utils.jpush.JpushReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
@@ -61,21 +69,6 @@
                 <action android:name="cn.jiguang.user.service.action" />
             </intent-filter>
         </service>
-        <receiver
-            android:name=".utils.jpush.JpushMessageReceiver"
-            android:enabled="true"
-            tools:node="replace">
-            <intent-filter>
-                <action android:name="cn.jpush.android.intent.REGISTRATION" />
-                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_CLICK_ACTION" />
-                <action android:name="cn.jpush.android.intent.CONNECTION" />
-
-                <category android:name="${applicationId}" />
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>

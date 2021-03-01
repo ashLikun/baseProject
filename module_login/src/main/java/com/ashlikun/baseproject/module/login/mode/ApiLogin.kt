@@ -3,7 +3,6 @@ package com.ashlikun.baseproject.module.login.mode
 import com.ashlikun.baseproject.libcore.utils.http.*
 import com.ashlikun.baseproject.module.login.mode.javabean.UserData
 import com.ashlikun.okhttputils.http.ExecuteCall
-import com.ashlikun.okhttputils.http.callback.Callback
 import com.ashlikun.okhttputils.http.response.HttpResult
 
 /**
@@ -24,7 +23,7 @@ class ApiLogin private constructor() : BaseApiService() {
     /**
      * 登录
      */
-    suspend fun login(handle: HttpCallbackHandle,
+    suspend fun login(handle: HttpUiHandle,
                       telphone: String,
                       password: String): HttpResult<UserData>? {
         return "log.php".requestPost()
@@ -34,7 +33,7 @@ class ApiLogin private constructor() : BaseApiService() {
     }
 
 
-    fun testx(handle: HttpCallbackHandle,
+    fun testx(handle: HttpUiHandle,
               success: OnSuccess<HttpResult<String>>): ExecuteCall? {
         return "index".requestGet()
                 .execute(handle, success)
@@ -43,7 +42,7 @@ class ApiLogin private constructor() : BaseApiService() {
     /**
      * 模板 同步
      */
-    suspend fun testSyncx(handle: HttpCallbackHandle): HttpResult<String>? {
+    suspend fun testSyncx(handle: HttpUiHandle): HttpResult<String>? {
         return "index".requestGet()
                 .syncExecute(handle) {}
     }

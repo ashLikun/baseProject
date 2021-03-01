@@ -21,7 +21,7 @@ class HttpRequestParam private constructor(action: String? = null, path: String 
     init {
         method = "POST"
         //时间戳公共不能放到统一的地方，这里每次初始化实例重新调用,保证最新时间戳
-        addParam("timestamp", System.currentTimeMillis())
+//        addParam("timestamp", System.currentTimeMillis())
     }
 
     companion object {
@@ -88,26 +88,27 @@ class HttpRequestParam private constructor(action: String? = null, path: String 
 
     override fun onBuildRequestBodyHasCommonParams() {
         super.onBuildRequestBodyHasCommonParams()
-        if (params == null) {
-            return
-        }
-        val sign = StringBuilder()
-        params?.forEach { it ->
-            val value = it?.value
-            if (value is String && value.isNullOrEmpty()) {
-            } else {
-                sign.append("${it.key}=$value&")
-            }
-        }
-
-        if (sign.isNotEmpty()) {
-            sign.delete(sign.length - 1, sign.length)
-            sign.append("&secret=8d68a9777b8b7115364452c712837616")
-            LogUtils.i("Httpsign  $sign")
-            addParam("sign", Md5Utils.getMD5(sign.toString()).toUpperCase())
-        }
+//        if (params == null) {
+//            return
+//        }
+//        val sign = StringBuilder()
+//        params?.forEach { it ->
+//            val value = it?.value
+//            if (value is String && value.isNullOrEmpty()) {
+//            } else {
+//                sign.append("${it.key}=$value&")
+//            }
+//        }
+//
+//        if (sign.isNotEmpty()) {
+//            sign.delete(sign.length - 1, sign.length)
+//            sign.append("&secret=8d68a9777b8b7115364452c712837616")
+//            LogUtils.i("Httpsign  $sign")
+//            addParam("sign", Md5Utils.getMD5(sign.toString()).toUpperCase())
+//        }
         //转换成json
-        //toJson()
+        toJson()
+//        setContent("{}")
     }
 
 

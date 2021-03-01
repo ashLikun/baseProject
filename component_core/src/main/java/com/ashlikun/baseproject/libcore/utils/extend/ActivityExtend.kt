@@ -20,6 +20,8 @@ import com.ashlikun.utils.ui.StatusBarCompat
 import permissions.dispatcher.PermissionUtils
 import com.ashlikun.baseproject.libcore.R
 import com.ashlikun.utils.other.ClassUtils
+import com.ashlikun.utils.ui.extend.hineIme
+import com.ashlikun.utils.ui.extend.showIme
 
 /**
  * 作者　　: 李坤
@@ -42,17 +44,33 @@ var Activity.windowBrightness
         }
     }
 
+/**
+ * 防止activity退出的时候动画重叠
+ */
+fun Activity.finishNoAnim() {
+    overridePendingTransition(0, 0)
+    finish()
+}
+
+/**
+ * 关闭activity动画
+ */
+fun Activity.noAnim() {
+    overridePendingTransition(0, 0)
+}
+
+/**
+ * 关闭activity动画
+ */
+fun Activity.noExitAnim() {
+    overridePendingTransition(R.anim.activity_open_enter, 0)
+}
+
 fun Activity.setStatusBarVisible(show: Boolean, statusBar: StatusBarCompat? = null) {
     if (show) {
-//        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-        window.decorView.windowInsetsController?.show(WindowInsets.Type.statusBars())
+        window.showIme()
     } else {
-//        var uiFlags = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-//                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-//                or View.SYSTEM_UI_FLAG_FULLSCREEN
-//                or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
-//        window.decorView.systemUiVisibility = uiFlags
-        window.decorView.windowInsetsController?.hide(WindowInsets.Type.statusBars())
+        window.hineIme()
     }
     window.decorView.windowInsetsController?.show(WindowInsets.Type.statusBars())
     statusBar?.setStatusDarkColor()

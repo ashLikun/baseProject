@@ -28,6 +28,12 @@
             android:name=".view.TestActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.OtherTheme"
+            android:windowSoftInputMode="adjustResize"></activity>
+        <activity
+            android:name=".view.Test2Activity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.OtherTheme"></activity>
         <activity
             android:name=".view.DownLoadActivity"

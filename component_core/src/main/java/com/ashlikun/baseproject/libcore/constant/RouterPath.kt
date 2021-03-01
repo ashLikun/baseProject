@@ -13,6 +13,9 @@ package com.ashlikun.baseproject.libcore.constant
  * service：   /模块/service    或   /模块/service/子模块..   至少二级  例子  /商城/service
  */
 object RouterPath {
+    //需要登录的页面的flag
+    const val FLAG_LOGIN = 0x10000000
+
     /********************************************************************************************
      * service path
      *******************************************************************************************/

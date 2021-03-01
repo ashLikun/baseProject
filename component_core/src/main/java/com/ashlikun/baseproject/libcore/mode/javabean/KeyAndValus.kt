@@ -1,4 +1,4 @@
-package com.ashlikun.baseproject.libcore.javabean
+package com.ashlikun.baseproject.libcore.mode.javabean
 
 /**
  * @author　　: 李坤

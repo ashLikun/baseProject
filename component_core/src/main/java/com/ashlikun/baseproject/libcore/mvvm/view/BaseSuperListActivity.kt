@@ -2,7 +2,7 @@ package com.ashlikun.baseproject.libcore.mvvm.view
 
 import android.view.View
 import com.ashlikun.baseproject.libcore.mvvm.viewmodel.BaseListViewModel
-import com.ashlikun.core.R
+import com.ashlikun.baseproject.libcore.R
 import com.ashlikun.loadswitch.OnLoadSwitchClick
 import com.ashlikun.xrecycleview.SuperRecyclerView
 import com.ashlikun.xrecycleview.listener.RecycleViewSwipeListener

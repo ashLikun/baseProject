@@ -89,7 +89,7 @@ object JpushUtils {
      * @param data
      */
     fun handlePush(context: Context, data: JpushJsonData?) {
-        if (data == null || data.type <= 0) {
+        if (data == null || data.type.isEmpty()) {
             SuperToast.get("无效的跳转").info()
             return
         }
@@ -118,7 +118,7 @@ object JpushUtils {
     fun skip(context: Context, data: JpushJsonData) {
         when (data.type) {
             //1跳转类型
-            1 -> {
+            "1" -> {
                 val id = data.getStringIdParams()
                 if (!id.isNullOrEmpty()) {
                 } else {

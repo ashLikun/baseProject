@@ -12,11 +12,15 @@ import com.ashlikun.baseproject.common.utils.jump.PullJumpManage
 import com.ashlikun.baseproject.common.utils.jump.RouterJump
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
+import com.ashlikun.baseproject.libcore.utils.extend.noAnim
 import com.ashlikun.baseproject.libcore.utils.extend.requestPermission
 import com.ashlikun.baseproject.module.other.BuildConfig
 import com.ashlikun.baseproject.module.other.R
 import com.ashlikun.core.activity.BaseActivity
+import com.ashlikun.core.mvvm.launch
+import com.ashlikun.utils.other.LogUtils
 import com.ashlikun.utils.other.SharedPreUtils
+import com.ashlikun.utils.other.ThreadUtils
 import com.ashlikun.utils.ui.ActivityManager
 import com.ashlikun.utils.ui.SuperToast
 import com.ashlikun.utils.ui.UiUtils
@@ -24,6 +28,7 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.other_activity_welcom.*
+import kotlinx.coroutines.delay
 import java.util.concurrent.TimeUnit
 
 /**
@@ -39,7 +44,7 @@ import java.util.concurrent.TimeUnit
 class WelcomeActivity : BaseActivity() {
 
 
-    private val time = 2000
+    private val time = 2000L
 
 
     override fun initView() {
@@ -53,20 +58,17 @@ class WelcomeActivity : BaseActivity() {
             finish()
         }) {
             initViewOnPermiss()
-            Observable.timer(time.toLong(), TimeUnit.MILLISECONDS)
-                    .map { checkIsFirst() }
-                    .map { isFirst -> if (isFirst) 2 else getServiceUser() }
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe { stepCode ->
-                        if (stepCode == 1) {
-                            RouterJump.startHome(0)
-                        } else if (stepCode == 2) {
-                            RouterJump.startLaunch()
-                        }
-                        finish()
-                    }
-            checkIsFirst()
+            launch(delayTime = time) {
+                LogUtils.e(ThreadUtils.isMainThread())
+                when {
+                    checkIsFirst() -> RouterJump.startLaunch()
+                    else -> RouterJump.startHome(0)
+                }
+                LogUtils.e(ThreadUtils.isMainThread())
+                finish()
+            }
+
+
         }
     }
 

@@ -19,13 +19,12 @@ import com.ashlikun.utils.ui.ActivityManager
 import com.ashlikun.utils.ui.SuperToast
 import com.ashlikun.baseproject.libcore.constant.EventBusKey
 import com.ashlikun.baseproject.libcore.utils.http.interceptor.DefaultInterceptor
-import com.ashlikun.glideutils.GlideUtils
+import com.ashlikun.okhttputils.http.HttpException
 import com.ashlikun.okhttputils.retrofit.Retrofit
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import java.io.File
 import java.net.Proxy
-import java.net.URLEncoder
 import java.util.concurrent.TimeUnit
 
 /**
@@ -50,8 +49,7 @@ class HttpManager private constructor() {
             it.params.forEach { itt ->
                 itt.apply(requestParam, args)
             }
-            val handle = args?.find { it is HttpCallbackHandle } as HttpCallbackHandle?
-                    ?: throw IllegalArgumentException("url = ${it.url} not HttpCallbackHandle")
+            val handle = args?.find { it is HttpUiHandle? } as HttpUiHandle?
             requestParam.syncExecute<Any>(handle, it.resultType)
         }
         Retrofit.get().createUrl = { url, action, path ->
@@ -74,14 +72,14 @@ class HttpManager private constructor() {
 
     fun setCommonParams() {
         //公共参数
-        OkHttpUtils.getInstance().commonParams = mapOf(
-                "uid" to (RouterManage.login()?.getUserId() ?: ""),
-                "sessionid" to (RouterManage.login()?.getToken() ?: ""),
-                "os" to "android",
-                "sdkVersion" to "${DeviceUtil.getSystemVersion()}",
-                "osVersion" to StringUtils.dataFilter(DeviceUtil.getSystemModel(), DeviceUtil.getDeviceBrand()),
-                "devid" to DeviceUtil.getSoleDeviceId(),
-                "appVersion" to AppUtils.getVersionName())
+//        OkHttpUtils.getInstance().commonParams = mapOf(
+//                "uid" to (RouterManage.login()?.getUserId() ?: ""),
+//                "sessionid" to (RouterManage.login()?.getToken() ?: ""),
+//                "os" to "android",
+//                "sdkVersion" to "${DeviceUtil.getSystemVersion()}",
+//                "osVersion" to StringUtils.dataFilter(DeviceUtil.getSystemModel(), DeviceUtil.getDeviceBrand()),
+//                "devid" to DeviceUtil.getSoleDeviceId(),
+//                "appVersion" to AppUtils.getVersionName())
     }
 
     fun getCacheDir(): File {
@@ -137,6 +135,7 @@ class HttpManager private constructor() {
         fun get(): HttpManager {
             return INSTANCE
         }
+
         /**
          * 创建Url
          */
@@ -144,12 +143,12 @@ class HttpManager private constructor() {
         fun createUrl(action: String? = null, path: String = BASE_PATH): String {
             return HttpManager.BASE_URL + path + "action=" + action
         }
-
         /**
          * 处理成功后的数据code
+         * @return 如果错误会返回[HttpHandelResultException]
          * */
         @JvmStatic
-        fun <T> handelResult(responseBody: T): Boolean {
+        fun <T> handelResult(responseBody: T): HttpHandelResultException? {
             var response: HttpResponse? = null
             if (responseBody is HttpResponse) {
                 response = responseBody
@@ -157,9 +156,10 @@ class HttpManager private constructor() {
                 response = HttpResponse()
                 response.setOnGsonErrorData(responseBody as String)
             }
+            var httpException: HttpException? = null
             response?.let {
                 when {
-                    response.isSucceed -> return true
+                    response.isSucceed -> return null
 
                     response.code == HttpCodeApp.TOKEN_ERROR -> {
 
@@ -178,7 +178,7 @@ class HttpManager private constructor() {
                                 RouterManage.login()?.startLogin()
                             }
                         }
-                        return false
+                        httpException = HttpException(response.code, response.message)
                     }
                     response.code == HttpCodeApp.NO_LOGIN -> {
 
@@ -197,16 +197,19 @@ class HttpManager private constructor() {
                                 RouterManage.login()?.startLogin()
                             }
                         }
-                        return false
+                        httpException = HttpException(response.code, response.message)
                     }
                     response.getCode() == HttpCodeApp.SIGN_ERROR -> {
                         SuperToast.get("签名错误").error()
-                        return false
+                        httpException = HttpException(response.code, response.message)
                     }
-                    else -> return true
+                    else -> null
                 }
             }
-            return true
+            if (httpException != null) {
+                return HttpHandelResultException(httpException!!)
+            }
+            return null
         }
 
         fun showTokenErrorDialog(activity: Activity, message: String, code: Int) {
@@ -235,3 +238,12 @@ class HttpManager private constructor() {
 
 }
 
+/**
+ * 接口成功处理code时候的错误
+ */
+class HttpHandelResultException(var exception: HttpException) : HttpException(20009, "全局错误") {
+    init {
+        originalException = exception
+    }
+
+}

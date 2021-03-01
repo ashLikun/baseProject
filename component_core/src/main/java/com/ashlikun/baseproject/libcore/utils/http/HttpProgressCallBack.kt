@@ -1,10 +1,11 @@
-package com.ashlikun.baseproject.libcore.utils.http
+package com.namei.jinjihu.libcore.utils.http
 
 import com.ashlikun.baseproject.libcore.utils.http.HttpCallBack
+import com.ashlikun.baseproject.libcore.utils.http.HttpUiHandle
 import com.ashlikun.okhttputils.http.callback.ProgressCallBack
 import com.ashlikun.utils.other.LogUtils
 
-abstract class HttpProgressCallBack<ResultType>(private val buider: HttpCallbackHandle = HttpCallbackHandle.get()) : HttpCallBack<ResultType>(buider), ProgressCallBack {
+abstract class HttpProgressCallBack<ResultType>(private var buider2: HttpUiHandle = HttpUiHandle.get()) : HttpCallBack<ResultType>(buider2), ProgressCallBack {
     /**
      * 下载或者上传 回调的频率  ms
      */
@@ -33,11 +34,11 @@ abstract class HttpProgressCallBack<ResultType>(private val buider: HttpCallback
 
     fun onLoading(progress: Long, total: Long, done: Boolean, isUpdate: Boolean, isCompress: Boolean) {
         if (done) {
-            buider.dismissUi()
+            handle?.dismissUi()
             return
         }
         LogUtils.e("onLoading")
-        buider.run {
+        handle?.run {
             if (isShowProgress) {
                 val percentage = (progress * 100.0 / total).toInt()
 

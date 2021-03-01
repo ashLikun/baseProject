@@ -76,16 +76,22 @@
     </style>
 
     <style name="AppTheme.PhotoHander">
+        <item name="android:statusBarColor">@color/black_33</item>
+        <item name="colorPrimary">@color/black_33</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@style/OtherAnimation</item>
     </style>
 
     <style name="AppTheme.Fullscreen">
         <item name="android:windowFullscreen">true</item>
+        <item name="android:windowAnimationStyle">@null</item>
     </style>
+
 
     <style name="AppTheme.Translucent">
         <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@color/translucent</item>
+        <item name="android:windowAnimationStyle">@null</item>
     </style>
 
     <style name="AppTheme.Fullscreen.Translucent">
@@ -102,6 +108,7 @@
     <style name="BaseDialogTheme" parent="@style/Theme.AppCompat.Light.Dialog">
         <item name="android:textColor">@color/text_color</item>
         <item name="android:textSize">@dimen/dp_14</item>
+        <item name="android:background">@color/white</item>
         <item name="android:buttonStyle">@style/BaseDialogButtonStyle</item>
     </style>
 
@@ -109,6 +116,7 @@
         //message content color
         <item name="android:textColorPrimary">@color/text_color</item>
         <item name="textColorAlertDialogListItem">@color/text_color</item>
+        <item name="android:background">@color/white</item>
         <item name="android:textColorAlertDialogListItem">@color/text_color</item>
         <item name="android:buttonStyle">@style/BaseDialogButtonStyle</item>
         <item name="android:windowTitleStyle">@style/BaseDialogTitleStyle</item>

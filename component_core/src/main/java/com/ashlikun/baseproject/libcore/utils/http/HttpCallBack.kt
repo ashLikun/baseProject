@@ -20,7 +20,7 @@ import java.lang.reflect.Array
  */
 
 
-open class HttpCallBack<ResultType> constructor(val handle: HttpCallbackHandle = HttpCallbackHandle.get())
+open class HttpCallBack<ResultType> constructor(val handle: HttpUiHandle?)
     : AbsCallback<ResultType>() {
 
     //重写数据转换
@@ -32,14 +32,14 @@ open class HttpCallBack<ResultType> constructor(val handle: HttpCallbackHandle =
      * 方法功能：请求开始
      */
     override fun onStart() {
-        handle.start()
+        handle?.start()
     }
 
     /**
      * 方法功能：请求完成
      */
     override fun onCompleted() {
-        handle.completed()
+        handle?.completed()
     }
 
     /**
@@ -50,7 +50,7 @@ open class HttpCallBack<ResultType> constructor(val handle: HttpCallbackHandle =
      */
 
     open fun onError(data: ContextData) {
-        handle.error(data)
+        handle?.error(data)
     }
 
     /**
@@ -83,22 +83,28 @@ open class HttpCallBack<ResultType> constructor(val handle: HttpCallbackHandle =
      * @return true:没问题 false:有问题
      */
     override fun onSuccessHandelCode(result: ResultType): Boolean {
+        return onSuccessHandelCode2(result) == null
+    }
+
+    open fun onSuccessHandelCode2(result: ResultType): HttpException? {
+        //全局处理结果
         val res = HttpManager.handelResult(result)
-        if (!res) {
+        if (res != null) {
             //不显示toast
-            handle.isErrorToastShow = false
+            handle?.isErrorToastShow = false
             //如果code全局处理的时候错误了，那么是不会走success的，这里就得自己处理UI设置为错误状态
-            onSuccess(result, true)
+            handle?.error(ContextData().setErrCode(res.exception.code())
+                    .setTitle(res.exception.message())
+                    .setResId(R.drawable.material_service_error))
         }
         return res
     }
-
 
     /**
      * 方法功能： 是否对错误信息处理
      */
     open fun onSuccess(result: ResultType, isHanderError: Boolean) {
-        handle.success(result as Any)
+        handle?.success(result as Any)
     }
 
     companion object {

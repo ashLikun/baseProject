@@ -3,31 +3,69 @@ package com.ashlikun.baseproject.libcore.utils.http
 import android.app.Activity
 import android.content.Context
 import android.view.View
-import com.ashlikun.baseproject.libcore.mvvm.viewmodel.BaseListViewModel
 import com.ashlikun.core.mvvm.BaseViewModel
+import com.ashlikun.core.mvvm.launch
 import com.ashlikun.customdialog.LoadDialog
 import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.loadswitch.LoadSwitchService
+import com.ashlikun.okhttputils.http.HttpException
 import com.ashlikun.okhttputils.http.OkHttpUtils
+import com.ashlikun.okhttputils.http.response.HttpErrorCode
 import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.utils.main.ActivityUtils
 import com.ashlikun.utils.other.coroutines.taskLaunchMain
 import com.ashlikun.utils.ui.SuperToast
 import com.ashlikun.xrecycleview.PageHelpListener
 import com.ashlikun.xrecycleview.RefreshLayout
+import com.ashlikun.baseproject.libcore.R
+import com.ashlikun.baseproject.libcore.mvvm.viewmodel.BaseListViewModel
+import kotlinx.coroutines.CoroutineExceptionHandler
 
 /**
  * 作者　　: 李坤
  * 创建时间: 2018/12/25　13:43
  * 邮箱　　：496546144@qq.com
  *
- * 功能介绍：请求各种处理
+ * 功能介绍：请求各种状态处理
  * 1弹窗
  * 2布局切换
  * 3生命周期
  * 4失效view
+ *
+ * 使用
+ * 1：内部自动处理网络请求状态
+ * ------协程调用[launch]
+ * ------列表 调用[HttpUiHandle.setLoadingStatus]
+ * ------如果多个请求顺序执行，如有必要在下一个任务之前调用[HttpUiHandle.setLoadSwitchLoadingCanShow]
+ * 2：自己处理请求状态
+ * ------协程调用[launch] 传入 [HttpUiHandle.coroutineExceptionHandler]
+ * ------启动异步任务 [async]
+ * ------必须依次调用 [HttpUiHandle.start] -> 接口请求成功 -> [HttpUiHandle.success] -> 数据处理完成 -> [HttpUiHandle.completed]
  */
-class HttpCallbackHandle private constructor() {
+class HttpUiHandle private constructor() {
+    val coroutineExceptionHandler by lazy {
+        CoroutineExceptionHandler { _, error ->
+            error.printStackTrace()
+            if (error is HttpHandelResultException) {
+                //不显示toast
+                isErrorToastShow = false
+                //如果code全局处理的时候错误了，那么是不会走success的，这里就得自己处理UI设置为错误状态
+                error(ContextData().setErrCode(error.exception.code())
+                        .setTitle(error.exception.message())
+                        .setResId(R.drawable.material_service_error))
+            } else if (error is HttpException) {
+                error(ContextData().setErrCode(error.code())
+                        .setTitle(error.message())
+                        .setResId(R.drawable.material_service_error))
+            } else {
+                error(ContextData().setErrCode(HttpErrorCode.HTTP_UNKNOWN)
+                        .setTitle(error.message)
+                        .setResId(R.drawable.material_service_error))
+            }
+            completed()
+        }
+    }
+
     //是否接口请求完成了,请求的状态
     var isStatusCompleted = true
 
@@ -106,7 +144,7 @@ class HttpCallbackHandle private constructor() {
     fun isFirstRequest() = count() <= 1
 
     fun getTag() = tag ?: context
-    fun setTag(tag: Any): HttpCallbackHandle {
+    fun setTag(tag: Any): HttpUiHandle {
         this.tag = tag
         return this
     }
@@ -126,24 +164,24 @@ class HttpCallbackHandle private constructor() {
     }
 
 
-    inline fun set(funs: HttpCallbackHandle.() -> Unit): HttpCallbackHandle {
+    inline fun set(funs: HttpUiHandle.() -> Unit): HttpUiHandle {
         funs()
         return this
     }
 
 
-    fun setHint(hint: String = "加载中"): HttpCallbackHandle {
+    fun setHint(hint: String = "加载中"): HttpUiHandle {
         this.hint = hint
         return this
     }
 
 
-    fun setEnableView(vararg view: View?): HttpCallbackHandle {
+    fun setEnableView(vararg view: View?): HttpUiHandle {
         this.enableView = view
         return this
     }
 
-    fun setCancelable(cancelable: Boolean): HttpCallbackHandle {
+    fun setCancelable(cancelable: Boolean): HttpUiHandle {
         isCancelable = cancelable
         return this
     }
@@ -151,7 +189,7 @@ class HttpCallbackHandle private constructor() {
     /**
      * 错误的时候是否显示toast
      */
-    fun isToastShow(isToastShow: Boolean): HttpCallbackHandle {
+    fun isToastShow(isToastShow: Boolean): HttpUiHandle {
         this.isErrorToastShow = isToastShow
         return this
     }
@@ -160,7 +198,7 @@ class HttpCallbackHandle private constructor() {
     /**
      * 下拉刷新的监听
      */
-    fun setSwipeRefreshLayout(swipeRefreshLayout: RefreshLayout?): HttpCallbackHandle {
+    fun setSwipeRefreshLayout(swipeRefreshLayout: RefreshLayout?): HttpUiHandle {
         this.swipeRefreshLayout = swipeRefreshLayout
         return this
     }
@@ -168,13 +206,13 @@ class HttpCallbackHandle private constructor() {
     /**
      * 分页助手
      */
-    fun setPageHelpListener(pageHelpListener: PageHelpListener?): HttpCallbackHandle {
+    fun setPageHelpListener(pageHelpListener: PageHelpListener?): HttpUiHandle {
         this.pageHelpListener = pageHelpListener
         return this
     }
 
 
-    fun setContext(context: Context): HttpCallbackHandle {
+    fun setContext(context: Context): HttpUiHandle {
         this.context = context
         return this
     }
@@ -182,8 +220,16 @@ class HttpCallbackHandle private constructor() {
     /**
      * 重新加载的监听
      */
-    fun setLoadSwitchService(loadSwitchService: LoadSwitchService?): HttpCallbackHandle {
+    fun setLoadSwitchService(loadSwitchService: LoadSwitchService?): HttpUiHandle {
         this.loadSwitchService = loadSwitchService
+        return this
+    }
+
+    /**
+     * 再次请求
+     */
+    fun setLoadSwitchLoadingCanShow(): HttpUiHandle {
+        loadSwitchService?.isLoadingCanShow = true
         return this
     }
 
@@ -191,7 +237,7 @@ class HttpCallbackHandle private constructor() {
     /**
      * 显示加载的监听
      */
-    fun setShowLoadding(showLoadding: Boolean): HttpCallbackHandle {
+    fun setShowLoadding(showLoadding: Boolean): HttpUiHandle {
         isShowLoadding = showLoadding
         return this
     }
@@ -199,12 +245,12 @@ class HttpCallbackHandle private constructor() {
     /**
      * 自动处理  Code(接口是成功的)错误，布局切换
      */
-    fun setAutoHanderError(autoHanderError: Boolean): HttpCallbackHandle {
+    fun setAutoHanderError(autoHanderError: Boolean): HttpUiHandle {
         isAutoHanderError = autoHanderError
         return this
     }
 
-    fun setShowProgress(showProgress: Boolean): HttpCallbackHandle {
+    fun setShowProgress(showProgress: Boolean): HttpUiHandle {
         isShowProgress = showProgress
         return this
     }
@@ -212,7 +258,7 @@ class HttpCallbackHandle private constructor() {
     /**
      * 设置默默调用，不提示
      */
-    fun setNoTips(): HttpCallbackHandle {
+    fun setNoTips(): HttpUiHandle {
         setShowLoadding(false)
         isToastShow(false)
         return this
@@ -221,7 +267,7 @@ class HttpCallbackHandle private constructor() {
     /**
      * 设置加载框样式
      */
-    fun setLoadDialogStyle(): HttpCallbackHandle {
+    fun setLoadDialogStyle(): HttpUiHandle {
         if (getActivity()?.isFinishing == false) {
             if (loadDialog == null) {
                 loadDialog = LoadDialog(getActivity()!!)
@@ -233,7 +279,7 @@ class HttpCallbackHandle private constructor() {
     /**
      * 方法功能：设置下位刷新，底加载，布局切换
      */
-    fun setLoadingStatus(tag: Any? = this.tag): HttpCallbackHandle {
+    fun setLoadingStatus(tag: Any? = this.tag): HttpUiHandle {
         if (tag is BaseListViewModel) {
             tag?.run {
                 if (tag.swipeRefreshLayout != null) {
@@ -393,40 +439,40 @@ class HttpCallbackHandle private constructor() {
 
     companion object {
 
-        operator fun get(baseViewModel: BaseViewModel): HttpCallbackHandle {
+        operator fun get(baseViewModel: BaseViewModel): HttpUiHandle {
             val buider = get()
             buider.tag = baseViewModel
             return buider
         }
 
-        operator fun get(context: Context?): HttpCallbackHandle {
+        operator fun get(context: Context?): HttpUiHandle {
             val buider = get()
             buider.context = context
             return buider
         }
 
-        fun getNoTips(baseViewModel: BaseViewModel): HttpCallbackHandle {
+        fun getNoTips(baseViewModel: BaseViewModel): HttpUiHandle {
             val buider = get()
             buider.tag = baseViewModel
             buider.setNoTips()
             return buider
         }
 
-        fun getNoTips(context: Context?): HttpCallbackHandle {
+        fun getNoTips(context: Context?): HttpUiHandle {
             val buider = get()
             buider.context = context
             buider.setNoTips()
             return buider
         }
 
-        fun getNoTips(tag: Any? = null): HttpCallbackHandle {
+        fun getNoTips(tag: Any? = null): HttpUiHandle {
             val buider = get(tag)
             buider.setNoTips()
             return buider
         }
 
-        fun get(tag: Any? = null): HttpCallbackHandle {
-            val buider = HttpCallbackHandle()
+        fun get(tag: Any? = null): HttpUiHandle {
+            val buider = HttpUiHandle()
             buider.tag = tag
             return buider
         }

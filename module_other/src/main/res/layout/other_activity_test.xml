@@ -5,10 +5,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <com.ashlikun.supertoobar.SuperToolBar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.ashlikun.supertoobar.SuperToolBar>
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,14 +27,25 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dp_10"
                 android:text="测试" />
+
             <Button
                 android:id="@+id/ceshiButton2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dp_10"
                 android:text="测试" />
+            <Button
+                android:id="@+id/ceshiButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_10"
+                android:text="茅台抢购" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
 
+    <EditText
+        android:id="@+id/inputView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"></EditText>
 </LinearLayout>

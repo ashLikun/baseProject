@@ -100,6 +100,7 @@ dependencies {
 
     //webview封装
     api libs.XWebView
+    api libs.tbssdk
 
     //公共的Adapter
     api libs.CommonAdapter
@@ -176,6 +177,5 @@ dependencies {
     //极光推送
     api libs.jpush
     api libs.jcore
-    api 'com.squareup.retrofit2:retrofit:2.9.0'
 }
 

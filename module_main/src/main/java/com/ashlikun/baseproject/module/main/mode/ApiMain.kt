@@ -19,8 +19,8 @@ class ApiMain private constructor() : BaseApiService() {
     }
 
 
-    fun testx(handle: HttpCallbackHandle,
-             success: OnSuccess<HttpResult<String>>): ExecuteCall? {
+    fun testx(handle: HttpUiHandle,
+              success: OnSuccess<HttpResult<String>>): ExecuteCall? {
         return "index".requestGet()
                 .execute(handle, success)
     }

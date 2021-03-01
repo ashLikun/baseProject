@@ -19,8 +19,8 @@ class ApiOther : BaseApiService() {
         var api: ApiOther = ApiOther()
     }
 
-    fun testx(handle: HttpCallbackHandle,
-             success: OnSuccess<HttpResult<String>>): ExecuteCall? {
+    fun testx(handle: HttpUiHandle,
+              success: OnSuccess<HttpResult<String>>): ExecuteCall? {
         return "index".requestGet()
                 .execute(handle, success)
     }

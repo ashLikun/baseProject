@@ -1,13 +1,20 @@
 package com.ashlikun.baseproject.libcore.utils.http
 
+import com.ashlikun.baseproject.libcore.mode.javabean.HttpListResult
+import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.okhttputils.http.ExecuteCall
+import com.ashlikun.okhttputils.http.HttpException
 import com.ashlikun.okhttputils.http.request.HttpRequest
+import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.okhttputils.http.response.HttpResult
+import com.ashlikun.utils.other.MainHandle
+import com.namei.jinjihu.libcore.utils.http.*
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
+import com.ashlikun.baseproject.libcore.R
 
 /**
  * 作者　　: 李坤
@@ -22,7 +29,7 @@ open class BaseApiService {
     /**
      * 模板 异步
      */
-    fun test(handle: HttpCallbackHandle,
+    fun test(handle: HttpUiHandle,
              success: OnSuccess<HttpResult<String>>): ExecuteCall? {
         return "index".requestPost()
                 .execute(handle, success)
@@ -31,7 +38,7 @@ open class BaseApiService {
     /**
      * 模板 同步
      */
-    suspend fun testSync(handle: HttpCallbackHandle): HttpResult<List<String>>? {
+    suspend fun testSync(handle: HttpUiHandle): HttpResult<List<String>>? {
         return "index".requestPost()
                 .syncExecute(handle) {}
     }
@@ -41,7 +48,7 @@ open class BaseApiService {
  * 同步请求
  * @param data 为了方便获取请求的返回值Type，调用的地方不用具体实现
  */
-suspend fun <T> HttpRequest.syncExecute(handle: HttpCallbackHandle, resultType: Type): T? {
+suspend fun <T> HttpRequest.syncExecute(handle: HttpUiHandle?, resultType: Type): T {
     return suspendCancellableCoroutine { continuation ->
         var call: ExecuteCall? = null
         continuation.invokeOnCancellation {
@@ -49,8 +56,8 @@ suspend fun <T> HttpRequest.syncExecute(handle: HttpCallbackHandle, resultType: 
             call?.cancel()
         }
         val callback = SimpleHttpCallback<T>(handle)
-        if (tag == null) {
-            tag(handle.getTag())
+        if (tag == null && handle != null) {
+            tag(handle?.getTag())
         }
         callback.resultType = resultType
         callback.success = {
@@ -67,14 +74,63 @@ suspend fun <T> HttpRequest.syncExecute(handle: HttpCallbackHandle, resultType: 
  * 同步请求
  * @param data 为了方便获取请求的返回值Type，调用的地方不用具体实现
  */
-suspend fun <T> HttpRequest.syncExecute(handle: HttpCallbackHandle, data: OnSuccess<T>): T? {
+suspend fun <T> HttpRequest.syncExecute(handle: HttpUiHandle?, data: OnSuccess<T>): T {
     return syncExecute(handle, getType(data.javaClass)!!)
+}
+
+/**
+ * 同步请求 非协程
+ * @param data 为了方便获取请求的返回值Type，调用的地方不用具体实现
+ */
+fun <T> HttpRequest.syncExecute2(handle: HttpUiHandle?, data: OnSuccess<T>): T? {
+    MainHandle.post { handle?.start() }
+    if (tag == null) {
+        tag(handle?.getTag())
+    }
+    try {
+        val resultType = getType(data.javaClass)!!
+        val result = syncExecute(resultType) as T
+        val res = HttpManager.handelResult(result)
+
+        if (res == null) {
+            //成功时候对data为null的处理
+            if (result is HttpResponse && result.isSucceed) {
+                if (result is HttpResult<*>) {
+                    if (result.data == null) {
+                        result.data = HttpCallBack.getListOrArrayOrObject(resultType)
+                    }
+                } else if (result is HttpListResult<*>) {
+                    if (result.data == null) {
+                        (result as HttpListResult<in Any>).data = HttpCallBack.getListOrArrayOrObject(resultType)
+                    }
+                }
+            }
+            MainHandle.get().posts { handle?.success(result as Any) }
+            return result
+        } else {
+            //不显示toast
+            handle?.isErrorToastShow = false
+            MainHandle.post { handle?.success(result as Any) }
+            return null
+        }
+    } catch (error: HttpException) {
+        MainHandle.post {
+            handle?.error((ContextData().setErrCode(error.code())
+                    .setTitle(error.message())
+                    .setResId(R.drawable.material_service_error)))
+        }
+        return null
+    } finally {
+        MainHandle.post {
+            handle?.completed()
+        }
+    }
 }
 
 /**
  * kotlin方式的请求
  */
-fun <T> HttpRequest.execute(handle: HttpCallbackHandle,
+fun <T> HttpRequest.execute(handle: HttpUiHandle,
                             success: OnSuccess<T>? = null,
                             error: OnError? = null,
                             errorData: OnErrorData? = null,

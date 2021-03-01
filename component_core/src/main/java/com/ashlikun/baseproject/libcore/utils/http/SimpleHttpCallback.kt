@@ -1,12 +1,11 @@
 package com.ashlikun.baseproject.libcore.utils.http
 
+import com.ashlikun.baseproject.libcore.mode.javabean.HttpListResult
 import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.okhttputils.http.HttpException
 import com.ashlikun.okhttputils.http.cache.CacheEntity
-import com.ashlikun.okhttputils.http.response.HttpResult
-import com.ashlikun.baseproject.libcore.javabean.HttpListResult
 import com.ashlikun.okhttputils.http.response.HttpResponse
-
+import com.ashlikun.okhttputils.http.response.HttpResult
 
 /**
  * 成功的回调
@@ -15,8 +14,9 @@ typealias OnSuccess<T> = (result: T) -> Unit
 
 /**
  * 成功后的处理
+ * exception : 父类的处理结果
  */
-typealias OnSuccessHander<T> = (result: T) -> Boolean
+typealias OnSuccessHander<T> = (result: T, exception: HttpException?) -> HttpException?
 
 /**
  * 缓存返回成功
@@ -45,7 +45,7 @@ typealias OnErrorData = (data: ContextData) -> Unit
  *
  * 功能介绍：实现HttpCallBack
  */
-open class SimpleHttpCallback<T> constructor(handle: HttpCallbackHandle = HttpCallbackHandle.get())
+open class SimpleHttpCallback<T> constructor(handle: HttpUiHandle?)
     : HttpCallBack<T>(handle) {
     var success: OnSuccess<T>? = null
 
@@ -64,12 +64,6 @@ open class SimpleHttpCallback<T> constructor(handle: HttpCallbackHandle = HttpCa
     var error: OnError? = null
     var errorData: OnErrorData? = null
 
-    //自动处理  Code(接口是成功的)错误，布局切换
-    var isAutoHanderError: Boolean = true
-
-    override fun onSuccess(result: T, isHanderError: Boolean) {
-        super.onSuccess(result, isAutoHanderError)
-    }
 
     override fun onSuccess(result: T) {
         super.onSuccess(result)
@@ -112,8 +106,9 @@ open class SimpleHttpCallback<T> constructor(handle: HttpCallbackHandle = HttpCa
         cacheSuccess?.invoke(entity, result)
     }
 
-    override fun onSuccessHandelCode(result: T): Boolean {
-        return successHandelCode?.invoke(result) != false && super.onSuccessHandelCode(result)
+    override fun onSuccessHandelCode2(result: T): HttpException? {
+        val superRes = super.onSuccessHandelCode2(result)
+        return successHandelCode?.invoke(result, superRes) ?: superRes
     }
 
     override fun onError(error: HttpException) {

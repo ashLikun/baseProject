@@ -1,6 +1,7 @@
 package com.ashlikun.baseproject.common.mode.javabean
 
 import android.content.Intent
+import cn.jpush.android.api.NotificationMessage
 import com.ashlikun.baseproject.libcore.constant.EventBusKey
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 import com.ashlikun.gson.GsonHelper
@@ -54,7 +55,7 @@ class JpushJsonData {
     /**
      * 消息类型
      */
-    var type: Int = 0
+    var type: String = ""
 
     /**
      * 具体内容
@@ -81,40 +82,25 @@ class JpushJsonData {
      * 保存最新的数据
      */
     fun save() {
-        RouterManage.login()?.run {
-            if (isLogin()) {
-                userId = getUserId()
-                LiteOrmUtil.get().save(this)
-                addOrRemove(true)
-                EventBus.get(EventBusKey.EVENBUS_JPUSH_RECEIVER_SAVE).post(this)
-            }
-        }
+        userId = RouterManage.login()?.getUserId() ?: ""
+        LiteOrmUtil.get().save(this)
+        addOrRemove(true)
+        EventBus.get(EventBusKey.EVENBUS_JPUSH_RECEIVER_SAVE).post(this)
     }
 
     companion object {
 
-        fun getJpushData(intent: Intent): JpushJsonData? {
-//            val action = intent.action
-//            val bundle = intent.extras
-//            val EXTRA_EXTRA = bundle!!.getString(JPushInterface.EXTRA_EXTRA)
-//            val EXTRA_MSG_ID = bundle.getString(JPushInterface.EXTRA_MSG_ID)
-//            if (EXTRA_EXTRA == null) {
-//                return null
-//            }
-//            val extra = JpushJsonData.jsonParse(EXTRA_EXTRA)
-//            extra?.msgId = EXTRA_MSG_ID
-//            // extra.contentType = bundle.getString(JPushInterface.EXTRA_CONTENT_TYPE);
-//            //自定义消息
-//            if (JPushInterface.ACTION_MESSAGE_RECEIVED == action) {
-//                //   extra.title = bundle.getString(JPushInterface.EXTRA_TITLE);
-//                //  extra.message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
-//            } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED == action || JPushInterface.ACTION_NOTIFICATION_OPENED.equals(action)) {
-//                extra?.title = bundle.getString(JPushInterface.EXTRA_NOTIFICATION_TITLE)
-//                // extra.message = bundle.getString(JPushInterface.EXTRA_ALERT);
-//                extra?.notificationID = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID, 0)
-//            }
-            return JpushJsonData.jsonParse("")
+        fun getJpushData(message: NotificationMessage): JpushJsonData? {
+            if (message.notificationExtras == null) {
+                return null
+            }
+            val extra = jsonParse(message.notificationExtras)
+            extra?.msgId = message.msgId
+            extra?.title = message.notificationTitle
+            extra?.notificationID = message.notificationId
+            return extra
         }
+
 
         fun jsonParse(str: String): JpushJsonData? {
             var data: JpushJsonData? = null

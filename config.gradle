@@ -1,6 +1,6 @@
 ext {
     androidXVersion = '1.1.+'
-    frameVersion = "3.1.5"
+    frameVersion = "3.1.9"
     android = [
             applicationId    : "com.ashlikun.baseproject",
             compileSdkVersion: 30,
@@ -49,10 +49,10 @@ ext {
             //Fragment
             Fragment             : 'androidx.fragment:fragment:1.3.+',
             //基本架构
-            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:1.1.5",
+            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:1.1.9",
             multidex             : 'androidx.multidex:multidex:2.0.1',
             //webview封装
-            XWebView             : "com.github.ashLikun.XWebView:core:2.1.2",
+            XWebView             : "com.github.ashLikun.XWebView:core-x5:2.1.3",
             //alibaba的路由框架
             arouterapi           : "com.alibaba:arouter-api:+",
             aroutercompiler      : "com.alibaba:arouter-compiler:+",
@@ -73,7 +73,7 @@ ext {
             //封装的viewpager，banner，启动页
             XViewPager           : "com.github.ashLikun:XViewPager:2.1.5",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:3.7.5",
+            CommonUtils          : "com.github.ashLikun:CommonUtils:3.8.0",
             //公共的Adapter
             CommonAdapter        : "com.github.ashLikun:CommonAdapter:3.1.8",
             //TabLayout exclude group: 'com.android.support'
@@ -128,7 +128,7 @@ ext {
             //图片查看
             PhotoView            : "com.github.ashLikun:PhotoView:2.0.4",
             //照片处理
-            PhotoHander          : "com.github.ashLikun:PhotoHander:2.1.0",
+            PhotoHander          : "com.github.ashLikun:PhotoHander:2.1.1",
             //输入验证码
             VerificationCodeInput: "com.github.ashLikun:VerifyCodeView:1.0.0",
             //带圆角，边框的的ImageView
@@ -142,12 +142,12 @@ ext {
             ZxingUtils           : "com.github.ashLikun:ZxingUtils:2.0.2",
             ZxingCore            : "com.google.zxing:core:3.3.0",
             EasyPay              : "com.github.ashLikun:EasyPay:2.0.4",
-            //腾讯X5浏览器
-//            tbssdk               : "com.tencent.tbs.tbssdk:sdk:43903",
+            //腾讯X5浏览器 43986
+            tbssdk               : "com.tencent.tbs.tbssdk:sdk:+",
             // 极光推送
-            jpush                : 'cn.jiguang.sdk:jpush:3.5.8',
+            jpush                : 'cn.jiguang.sdk:jpush:3.9.1',
             // 极光推送
-            jcore                : 'cn.jiguang.sdk:jcore:2.3.0',
+            jcore                : 'cn.jiguang.sdk:jcore:2.6.0',
             //腾讯Bugly
             BugLy                : 'com.tencent.bugly:crashreport:latest.release',
 
