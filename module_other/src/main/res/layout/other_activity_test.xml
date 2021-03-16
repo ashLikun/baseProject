@@ -40,6 +40,9 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dp_10"
                 android:text="茅台抢购" />
+            <com.ashlikun.baseproject.module.other.widget.TestView
+                android:layout_width="@dimen/dp_100"
+                android:layout_height="@dimen/dp_100"></com.ashlikun.baseproject.module.other.widget.TestView>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

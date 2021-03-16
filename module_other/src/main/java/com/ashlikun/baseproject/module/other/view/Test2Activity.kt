@@ -20,7 +20,6 @@ import com.ashlikun.utils.encryption.RSAUtils
 import com.ashlikun.utils.encryption.SHAUtil
 import com.ashlikun.utils.other.DateUtils
 import com.ashlikun.utils.other.LogUtils
-import com.ashlikun.utils.other.coroutines.taskLaunch
 import com.ashlikun.utils.ui.ActivityManager
 import kotlinx.android.synthetic.main.other_activity_test.*
 import java.security.KeyFactory

@@ -1,9 +1,6 @@
 package com.ashlikun.baseproject.module.other.view
 
 import android.view.KeyEvent
-import android.webkit.*
-import android.webkit.WebChromeClient
-import android.webkit.WebView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.libcore.constant.RouterKey
 import com.ashlikun.baseproject.libcore.constant.RouterPath
@@ -13,6 +10,10 @@ import com.ashlikun.utils.other.LogUtils
 import com.ashlikun.xwebview.XWeb
 import com.ashlikun.xwebview.websetting.AbsXWebSettings
 import com.ashlikun.xwebview.websetting.IWebSettings
+import com.tencent.smtt.export.external.interfaces.ConsoleMessage
+import com.tencent.smtt.sdk.WebChromeClient
+import com.tencent.smtt.sdk.WebView
+import com.tencent.smtt.sdk.WebViewClient
 import kotlinx.android.synthetic.main.other_activity_or_fragment_webview.*
 
 /**

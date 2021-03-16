@@ -39,28 +39,32 @@ import kotlinx.coroutines.CoroutineExceptionHandler
  * ------如果多个请求顺序执行，如有必要在下一个任务之前调用[HttpUiHandle.setLoadSwitchLoadingCanShow]
  * 2：自己处理请求状态
  * ------协程调用[launch] 传入 [HttpUiHandle.coroutineExceptionHandler]
- * ------启动异步任务 [async]
+ * ------启动异步任务 协程 [async]
  * ------必须依次调用 [HttpUiHandle.start] -> 接口请求成功 -> [HttpUiHandle.success] -> 数据处理完成 -> [HttpUiHandle.completed]
  */
 class HttpUiHandle private constructor() {
     val coroutineExceptionHandler by lazy {
         CoroutineExceptionHandler { _, error ->
             error.printStackTrace()
-            if (error is HttpHandelResultException) {
-                //不显示toast
-                isErrorToastShow = false
-                //如果code全局处理的时候错误了，那么是不会走success的，这里就得自己处理UI设置为错误状态
-                error(ContextData().setErrCode(error.exception.code())
-                        .setTitle(error.exception.message())
-                        .setResId(R.drawable.material_service_error))
-            } else if (error is HttpException) {
-                error(ContextData().setErrCode(error.code())
-                        .setTitle(error.message())
-                        .setResId(R.drawable.material_service_error))
-            } else {
-                error(ContextData().setErrCode(HttpErrorCode.HTTP_UNKNOWN)
-                        .setTitle(error.message)
-                        .setResId(R.drawable.material_service_error))
+            when (error) {
+                is HttpHandelResultException -> {
+                    //不显示toast
+                    isErrorToastShow = false
+                    //如果code全局处理的时候错误了，那么是不会走success的，这里就得自己处理UI设置为错误状态
+                    error(ContextData().setErrCode(error.exception.code())
+                            .setTitle(error.exception.message())
+                            .setResId(R.drawable.material_service_error))
+                }
+                is HttpException -> {
+                    error(ContextData().setErrCode(error.code())
+                            .setTitle(error.message())
+                            .setResId(R.drawable.material_service_error))
+                }
+                else -> {
+                    error(ContextData().setErrCode(HttpErrorCode.HTTP_UNKNOWN)
+                            .setTitle(error.message)
+                            .setResId(R.drawable.material_service_error))
+                }
             }
             completed()
         }
