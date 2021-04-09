@@ -2,7 +2,11 @@ package com.ashlikun.baseproject.module.main.mode
 
 import com.ashlikun.baseproject.libcore.utils.http.*
 import com.ashlikun.okhttputils.http.ExecuteCall
+import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.okhttputils.http.response.HttpResult
+import com.ashlikun.okhttputils.retrofit.ACTION
+import com.ashlikun.okhttputils.retrofit.Field
+import com.ashlikun.okhttputils.retrofit.Retrofit
 
 /**
  * 作者　　: 李坤
@@ -13,18 +17,22 @@ import com.ashlikun.okhttputils.http.response.HttpResult
  * 功能介绍：请求mode类
  */
 
-class ApiMain private constructor() : BaseApiService() {
+interface ApiMain {
     companion object {
-        val api: ApiMain by lazy { ApiMain() }
+        val api: ApiMain by lazy { Retrofit.get().create(ApiMain::class.java) }
     }
 
-
-    fun testx(handle: HttpUiHandle,
-              success: OnSuccess<HttpResult<String>>): ExecuteCall? {
+    suspend fun testx(success: OnSuccess<HttpResult<String>>, handle: HttpUiHandle
+    ): ExecuteCall? {
         return "index".requestGet()
-                .execute(handle, success)
+                .syncExecute(handle, success)
     }
 
-
+    @ACTION("getNewToken")
+    suspend fun test(
+            @Field(key = "news_id")
+            tikit: Int,
+            handle: HttpUiHandle? = null,
+    ): HttpResponse
 
 }

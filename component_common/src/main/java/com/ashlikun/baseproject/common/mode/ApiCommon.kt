@@ -2,7 +2,11 @@ package com.ashlikun.baseproject.common.mode
 
 import com.ashlikun.baseproject.libcore.utils.http.*
 import com.ashlikun.okhttputils.http.ExecuteCall
+import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.okhttputils.http.response.HttpResult
+import com.ashlikun.okhttputils.retrofit.ACTION
+import com.ashlikun.okhttputils.retrofit.Field
+import com.ashlikun.okhttputils.retrofit.Retrofit
 
 /**
  * 作者　　: 李坤
@@ -13,15 +17,22 @@ import com.ashlikun.okhttputils.http.response.HttpResult
  * 功能介绍：请求mode类
  */
 
-class ApiCommon private constructor() : BaseApiService() {
+interface ApiCommon {
     companion object {
-        val api by lazy { ApiCommon() }
+        val api: ApiCommon by lazy { Retrofit.get().create(ApiCommon::class.java) }
     }
 
-
-    fun testx(handle: HttpUiHandle,
-              success: OnSuccess<HttpResult<String>>): ExecuteCall? {
+    suspend fun testx(handle: HttpUiHandle
+    ): HttpResponse? {
         return "index".requestGet()
-                .execute(handle, success)
+                .syncExecute(handle) {}
     }
+
+    @ACTION("getNewToken")
+    suspend fun test(
+            @Field(key = "news_id")
+            tikit: Int,
+            handle: HttpUiHandle? = null,
+    ): HttpResponse
+
 }

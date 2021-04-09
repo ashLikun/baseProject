@@ -2,7 +2,12 @@ package com.ashlikun.baseproject.module.other.mode
 
 import com.ashlikun.baseproject.libcore.utils.http.*
 import com.ashlikun.okhttputils.http.ExecuteCall
+import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.okhttputils.http.response.HttpResult
+import com.ashlikun.okhttputils.retrofit.ACTION
+import com.ashlikun.okhttputils.retrofit.Field
+import com.ashlikun.okhttputils.retrofit.Retrofit
+import com.ashlikun.orm.db.annotation.Default
 
 
 /**
@@ -14,15 +19,22 @@ import com.ashlikun.okhttputils.http.response.HttpResult
  * 功能介绍：请求mode类
  */
 
-class ApiOther : BaseApiService() {
+interface ApiOther {
     companion object {
-        var api: ApiOther = ApiOther()
+        val api: ApiOther by lazy { Retrofit.get().create(ApiOther::class.java) }
     }
 
-    fun testx(handle: HttpUiHandle,
-              success: OnSuccess<HttpResult<String>>): ExecuteCall? {
+    suspend fun testx(handle: HttpUiHandle
+    ): HttpResponse? {
         return "index".requestGet()
-                .execute(handle, success)
+                .syncExecute(handle) {}
     }
+
+    @ACTION("getNewToken")
+    suspend fun test(
+            @Field(key = "news_id")
+            tikit: Int,
+            handle: HttpUiHandle? = null,
+    ): HttpResponse
 
 }

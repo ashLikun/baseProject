@@ -1,9 +1,14 @@
 package com.ashlikun.baseproject.module.login.mode
 
+import com.ashlikun.baseproject.libcore.mode.ApiCore
 import com.ashlikun.baseproject.libcore.utils.http.*
 import com.ashlikun.baseproject.module.login.mode.javabean.UserData
 import com.ashlikun.okhttputils.http.ExecuteCall
+import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.okhttputils.http.response.HttpResult
+import com.ashlikun.okhttputils.retrofit.ACTION
+import com.ashlikun.okhttputils.retrofit.Field
+import com.ashlikun.okhttputils.retrofit.Retrofit
 
 /**
  * 作者　　: 李坤
@@ -14,11 +19,11 @@ import com.ashlikun.okhttputils.http.response.HttpResult
  * 功能介绍：请求mode类
  */
 
-class ApiLogin private constructor() : BaseApiService() {
-
+interface ApiLogin {
     companion object {
-        val api: ApiLogin by lazy { ApiLogin() }
+        val api: ApiLogin by lazy { Retrofit.get().create(ApiLogin::class.java) }
     }
+
 
     /**
      * 登录
@@ -31,19 +36,19 @@ class ApiLogin private constructor() : BaseApiService() {
                 .addParam("password", password)
                 .syncExecute(handle) {}
     }
-
-
-    fun testx(handle: HttpUiHandle,
-              success: OnSuccess<HttpResult<String>>): ExecuteCall? {
-        return "index".requestGet()
-                .execute(handle, success)
-    }
-
     /**
      * 模板 同步
      */
-    suspend fun testSyncx(handle: HttpUiHandle): HttpResult<String>? {
+    suspend fun test(handle: HttpUiHandle): HttpResult<String>? {
         return "index".requestGet()
                 .syncExecute(handle) {}
     }
+
+    @ACTION("getNewToken")
+    suspend fun test(
+            @Field(key = "news_id")
+            tikit: Int,
+            handle: HttpUiHandle? = null,
+    ): HttpResponse
+
 }

@@ -1,6 +1,8 @@
 package com.ashlikun.baseproject.libcore.mode
 
 import com.ashlikun.baseproject.libcore.utils.http.HttpUiHandle
+import com.ashlikun.baseproject.libcore.utils.http.requestGet
+import com.ashlikun.baseproject.libcore.utils.http.syncExecute
 import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.okhttputils.http.response.HttpResult
 import com.ashlikun.okhttputils.retrofit.ACTION
@@ -19,8 +21,14 @@ interface ApiCore {
         val api: ApiCore by lazy { Retrofit.get().create(ApiCore::class.java) }
     }
 
+    suspend fun testx(handle: HttpUiHandle
+    ): HttpResponse? {
+        return "index".requestGet()
+                .syncExecute(handle) {}
+    }
+
     @ACTION("getNewToken")
-    suspend fun getNewToken(
+    suspend fun test(
             @Field(key = "news_id")
             tikit: Int,
             handle: HttpUiHandle? = null,

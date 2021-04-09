@@ -1,6 +1,7 @@
 package com.ashlikun.baseproject.libcore.utils.http
 
 import com.ashlikun.okhttputils.http.ExecuteCall
+import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.okhttputils.http.response.HttpResult
 
 /**
@@ -16,10 +17,10 @@ open class BaseApiService {
     /**
      * 模板 异步
      */
-    fun test(handle: HttpUiHandle,
-             success: OnSuccess<HttpResult<String>>): ExecuteCall? {
-        return "index".requestPost()
-                .execute(handle, success)
+    suspend fun testx(handle: HttpUiHandle
+    ): HttpResponse? {
+        return "index".requestGet()
+                .syncExecute(handle) {}
     }
 
     /**

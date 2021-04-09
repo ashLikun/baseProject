@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,13 +8,15 @@
     <com.ashlikun.supertoobar.SuperToolBar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></com.ashlikun.supertoobar.SuperToolBar>
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"></com.ashlikun.supertoobar.SuperToolBar>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,12 +36,14 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dp_10"
                 android:text="测试" />
+
             <Button
                 android:id="@+id/ceshiButton3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dp_10"
                 android:text="茅台抢购" />
+
             <com.ashlikun.baseproject.module.other.widget.TestView
                 android:layout_width="@dimen/dp_100"
                 android:layout_height="@dimen/dp_100"></com.ashlikun.baseproject.module.other.widget.TestView>
@@ -47,8 +51,17 @@
     </androidx.core.widget.NestedScrollView>
 
 
+    <View
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="60:30"
+        android:background="@color/black_33"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/content"></View>
+
     <EditText
         android:id="@+id/inputView"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_40"></EditText>
-</LinearLayout>
+        android:layout_height="@dimen/dp_40"
+        app:layout_constraintBottom_toBottomOf="parent"></EditText>
+</androidx.constraintlayout.widget.ConstraintLayout>

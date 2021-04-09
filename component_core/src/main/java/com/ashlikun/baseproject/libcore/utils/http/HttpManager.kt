@@ -44,22 +44,17 @@ class HttpManager private constructor() {
             val responseStr = HttpUtils.getResponseToString(response)
             RuntimeException("request:\n$requestStr\nresponse:\n$responseStr \n$json", exception).postBugly()
         }
-        Retrofit.get().methodInvoke = { it, args ->
-            val requestParam = HttpRequestParam.create(it.url).setMethod(it.method)
-            it.params.forEach { itt ->
-                itt.apply(requestParam, args)
-            }
-            val handle = args?.find { it is HttpUiHandle? } as HttpUiHandle?
-            requestParam.syncExecute<Any>(handle, it.resultType)
-        }
-        Retrofit.get().createUrl = { url, action, path ->
-            if (url.isNullOrEmpty()) {
-                if (path.isNullOrEmpty()) {
-                    createUrl(action)
+        Retrofit.get().init(createUrl = {
+            if (it.url.isNullOrEmpty()) {
+                if (it.path.isNullOrEmpty()) {
+                    createUrl(it.action)
                 } else {
-                    createUrl(action, path)
+                    createUrl(it.action, it.path)
                 }
-            } else url
+            } else it.url
+        }, createRequest = { HttpRequestParam.create(it.url) }) { request, result, params ->
+            val handle = params?.find { it is HttpUiHandle? } as HttpUiHandle?
+            request.syncExecute<Any>(handle, result.resultType)
         }
         EventBus.get(EventBusKey.LOGIN).registerForever {
             setCommonParams();
@@ -143,6 +138,7 @@ class HttpManager private constructor() {
         fun createUrl(action: String? = null, path: String = BASE_PATH): String {
             return HttpManager.BASE_URL + path + "action=" + action
         }
+
         /**
          * 处理成功后的数据code
          * @return 如果错误会返回[HttpHandelResultException]

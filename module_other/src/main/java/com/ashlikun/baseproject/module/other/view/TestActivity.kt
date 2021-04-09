@@ -9,6 +9,7 @@ import com.ashlikun.baseproject.libcore.utils.http.HttpRequestParam
 import com.ashlikun.baseproject.libcore.utils.http.HttpUiHandle
 import com.ashlikun.baseproject.libcore.utils.http.syncExecute
 import com.ashlikun.baseproject.module.other.R
+import com.ashlikun.baseproject.module.other.mode.ApiOther
 import com.ashlikun.baseproject.module.other.utils.MaotaiUtils
 import com.ashlikun.core.activity.BaseActivity
 import com.ashlikun.core.mvvm.launch
@@ -38,6 +39,7 @@ class TestActivity : BaseActivity() {
     override fun getLayoutId(): Int {
         return R.layout.other_activity_test
     }
+
 
     override fun initView() {
         toolbar.setTitle("我是测试")
@@ -80,6 +82,10 @@ class TestActivity : BaseActivity() {
         }
         ViewCompat.setWindowInsetsAnimationCallback(inputView, cb)
         ceshiButton.setOnClickListener {
+            launch {
+                val aaa = ApiOther.api.test(111, HttpUiHandle.get())
+                LogUtils.e(aaa.json)
+            }
             //跳转
             startActivity(Intent(this, Test2Activity::class.java))
 //            WindowCompat.getInsetsController(window, inputView)?.show(WindowInsetsCompat.Type.ime())
@@ -132,6 +138,10 @@ class TestActivity : BaseActivity() {
         val aa = "https://api.946ys.com/OpenAPI/v1/private/getPrivateLimit?uid=82477708&token=10a7adae92222b6c6fabb33c3388d78f"
 
         ceshiButton2.setOnClickListener {
+            launch {
+                val aaa = ApiOther.api.testx( HttpUiHandle.get())
+                LogUtils.e(aaa?.json)
+            }
 //            AlertDialog.Builder(this)
 //                    .setCancelable(false)
 //                    .setMessage("确定退出当前账户吗？")
