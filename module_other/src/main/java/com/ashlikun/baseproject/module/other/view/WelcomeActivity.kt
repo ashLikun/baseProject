@@ -48,10 +48,7 @@ class WelcomeActivity : BaseActivity() {
 
 
     override fun initView() {
-        requestPermission(arrayOf(Manifest.permission.READ_PHONE_STATE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE)
-                , denied = {
+        requestPermission(arrayOf(Manifest.permission.READ_PHONE_STATE), denied = {
             SuperToast.get("获取权限失败").warn()
             finish()
         }) {
