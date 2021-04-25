@@ -32,7 +32,7 @@ interface ApiOther {
 
     @ACTION("getNewToken")
     suspend fun test(
-            @Field(key = "news_id")
+            @Field("news_id")
             tikit: Int,
             handle: HttpUiHandle? = null,
     ): HttpResponse
