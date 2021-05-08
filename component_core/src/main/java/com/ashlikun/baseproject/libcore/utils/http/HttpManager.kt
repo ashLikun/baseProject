@@ -53,7 +53,7 @@ class HttpManager private constructor() {
                 }
             } else it.url
         }, createRequest = { HttpRequestParam.create(it.url) }) { request, result, params ->
-            val handle = params?.find { it is HttpUiHandle? } as HttpUiHandle?
+            val handle = params?.find { it is HttpUiHandle } as HttpUiHandle?
             request.syncExecute<Any>(handle, result.resultType)
         }
         EventBus.get(EventBusKey.LOGIN).registerForever {

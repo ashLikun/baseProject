@@ -6,6 +6,7 @@ import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.okhttputils.http.response.HttpResult
 import com.ashlikun.okhttputils.retrofit.ACTION
 import com.ashlikun.okhttputils.retrofit.Field
+import com.ashlikun.okhttputils.retrofit.FieldNo
 import com.ashlikun.okhttputils.retrofit.Retrofit
 
 /**
@@ -18,20 +19,19 @@ import com.ashlikun.okhttputils.retrofit.Retrofit
  */
 
 interface ApiCommon {
+
     companion object {
         val api: ApiCommon by lazy { Retrofit.get().create(ApiCommon::class.java) }
     }
 
-    suspend fun testx(handle: HttpUiHandle
-    ): HttpResponse? {
+    suspend fun testx(handle: HttpUiHandle): HttpResponse? {
         return "index".requestGet()
                 .syncExecute(handle) {}
     }
 
-    @ACTION("getNewToken")
     suspend fun test(
-            @Field("news_id")
             tikit: Int,
+            @FieldNo
             handle: HttpUiHandle? = null,
     ): HttpResponse
 
