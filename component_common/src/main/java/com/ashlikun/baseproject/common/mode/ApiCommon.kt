@@ -26,7 +26,7 @@ interface ApiCommon {
 
     suspend fun testx(handle: HttpUiHandle): HttpResponse? {
         return "index".requestGet()
-                .syncExecute(handle) {}
+                .syncExecute(handle)
     }
 
     suspend fun test(

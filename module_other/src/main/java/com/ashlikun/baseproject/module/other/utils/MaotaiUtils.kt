@@ -1,11 +1,7 @@
 package com.ashlikun.baseproject.module.other.utils
 
-import com.ashlikun.baseproject.libcore.utils.http.HttpRequestParam
-import com.ashlikun.baseproject.libcore.utils.http.HttpUiHandle
-import com.ashlikun.baseproject.libcore.utils.http.syncExecute
 import com.ashlikun.gson.GsonHelper
 import com.ashlikun.utils.other.coroutines.taskLaunch
-import com.ashlikun.utils.other.coroutines.taskRepeat
 
 /**
  * 作者　　: 李坤

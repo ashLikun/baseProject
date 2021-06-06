@@ -35,14 +35,14 @@ interface ApiLogin {
         return "log.php".requestPost()
                 .addParam("username", telphone)
                 .addParam("password", password)
-                .syncExecute(handle) {}
+                .syncExecute(handle)
     }
     /**
      * 模板 同步
      */
     suspend fun test(handle: HttpUiHandle): HttpResult<String>? {
         return "index".requestGet()
-                .syncExecute(handle) {}
+                .syncExecute(handle)
     }
 
     suspend fun test(

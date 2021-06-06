@@ -4,9 +4,6 @@ import com.ashlikun.baseproject.libcore.utils.http.HttpUiHandle
 import com.ashlikun.baseproject.libcore.utils.http.requestGet
 import com.ashlikun.baseproject.libcore.utils.http.syncExecute
 import com.ashlikun.okhttputils.http.response.HttpResponse
-import com.ashlikun.okhttputils.http.response.HttpResult
-import com.ashlikun.okhttputils.retrofit.ACTION
-import com.ashlikun.okhttputils.retrofit.Field
 import com.ashlikun.okhttputils.retrofit.FieldNo
 import com.ashlikun.okhttputils.retrofit.Retrofit
 
@@ -25,7 +22,7 @@ interface ApiCore {
     suspend fun testx(handle: HttpUiHandle
     ): HttpResponse? {
         return "index".requestGet()
-                .syncExecute(handle) {}
+                .syncExecute(handle)
     }
 
     suspend fun test(

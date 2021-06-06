@@ -23,10 +23,10 @@ interface ApiMain {
         val api: ApiMain by lazy { Retrofit.get().create(ApiMain::class.java) }
     }
 
-    suspend fun testx(success: OnSuccess<HttpResult<String>>, handle: HttpUiHandle
+    suspend fun testx(handle: HttpUiHandle
     ): ExecuteCall? {
         return "index".requestGet()
-                .syncExecute(handle, success)
+                .syncExecute(handle)
     }
 
     suspend fun test(

@@ -192,7 +192,7 @@ class TestActivity : BaseActivity() {
                         .addHeader("x-tif-timestamp", "$timestamp")
                         .addHeader("x-tif-nonce", nonce)
                         .setContentJson(GsonHelper.getBuilderNotNull().create().toJson(body))
-                        .syncExecute<String>(HttpUiHandle[this], String::class.java)
+                        .syncExecute<String>(HttpUiHandle[this])
 
 
                 LogUtils.e(result2)

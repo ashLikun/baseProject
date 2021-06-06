@@ -20,7 +20,7 @@ open class BaseApiService {
     suspend fun testx(handle: HttpUiHandle
     ): HttpResponse? {
         return "index".requestGet()
-                .syncExecute(handle) {}
+                .syncExecute(handle)
     }
 
     /**
@@ -28,6 +28,6 @@ open class BaseApiService {
      */
     suspend fun testSync(handle: HttpUiHandle): HttpResult<List<String>>? {
         return "index".requestPost()
-                .syncExecute(handle) {}
+                .syncExecute(handle)
     }
 }

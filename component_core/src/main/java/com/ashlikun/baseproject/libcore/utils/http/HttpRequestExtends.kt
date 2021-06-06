@@ -14,6 +14,7 @@ import java.lang.reflect.Type
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import com.ashlikun.baseproject.libcore.R
+
 /**
  * 协程 同步请求
  * @param resultType 数据类型
@@ -52,16 +53,16 @@ suspend fun <T> HttpRequest.syncExecute(handle: HttpUiHandle?, resultType: Type)
  * 协程 同步请求
  * @param data 为了方便获取请求的返回值Type，调用的地方不用具体实现
  */
-suspend fun <T> HttpRequest.syncExecute(handle: HttpUiHandle?, data: OnSuccess<T>): T {
-    return syncExecute(handle, getType(data.javaClass)!!)
+suspend inline fun <reified T> HttpRequest.syncExecute(handle: HttpUiHandle?): T {
+    return syncExecute(handle, T::class.java)
 }
 
 /**
  * 非协程 同步请求
  * @param data 为了方便获取请求的返回值Type，调用的地方不用具体实现
  */
-fun <T> HttpRequest.syncExecute2(handle: HttpUiHandle?, data: OnSuccess<T>): T? {
-    return syncExecute2(handle, getType(data.javaClass)!!)
+inline fun <reified T> HttpRequest.syncExecute2(handle: HttpUiHandle?): T? {
+    return syncExecute2(handle, T::class.java)
 }
 
 /**
