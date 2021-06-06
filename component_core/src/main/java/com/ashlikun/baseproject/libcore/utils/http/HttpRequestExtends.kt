@@ -5,7 +5,6 @@ import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.okhttputils.http.ExecuteCall
 import com.ashlikun.okhttputils.http.HttpException
 import com.ashlikun.okhttputils.http.request.HttpRequest
-import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.okhttputils.http.response.HttpResult
 import com.ashlikun.utils.other.MainHandle
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -14,6 +13,7 @@ import java.lang.reflect.Type
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import com.ashlikun.baseproject.libcore.R
+import com.ashlikun.okhttputils.http.response.IHttpResponse
 
 /**
  * 协程 同步请求
@@ -80,7 +80,7 @@ fun <T> HttpRequest.syncExecute2(handle: HttpUiHandle?, resultType: Type): T? {
 
         if (res == null) {
             //成功时候对data为null的处理
-            if (result is HttpResponse && result.isSucceed) {
+            if (result is IHttpResponse && result.isSucceed) {
                 if (result is HttpResult<*>) {
                     if (result.data == null) {
                         result.data = HttpCallBack.getListOrArrayOrObject(resultType)

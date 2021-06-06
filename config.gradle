@@ -116,7 +116,7 @@ ext {
             //不同type的json解析,依赖于gson
             MultiTypeGson        : "com.github.ashLikun:MultiTypeGson:2.0.6",
             //基于Okhttp封装的
-            OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:2.5.8",
+            OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:2.5.9",
             //图片加载
             GlideUtils           : "com.github.ashLikun:GlideUtils:3.0.2",
             glide                : "com.github.bumptech.glide:glide:4.11.0",

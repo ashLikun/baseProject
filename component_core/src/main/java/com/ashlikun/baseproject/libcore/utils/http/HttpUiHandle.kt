@@ -11,7 +11,6 @@ import com.ashlikun.loadswitch.LoadSwitchService
 import com.ashlikun.okhttputils.http.HttpException
 import com.ashlikun.okhttputils.http.OkHttpUtils
 import com.ashlikun.okhttputils.http.response.HttpErrorCode
-import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.utils.main.ActivityUtils
 import com.ashlikun.utils.other.coroutines.taskLaunchMain
 import com.ashlikun.utils.ui.SuperToast
@@ -19,6 +18,7 @@ import com.ashlikun.xrecycleview.PageHelpListener
 import com.ashlikun.xrecycleview.RefreshLayout
 import com.ashlikun.baseproject.libcore.R
 import com.ashlikun.baseproject.libcore.mvvm.viewmodel.BaseListViewModel
+import com.ashlikun.okhttputils.http.response.IHttpResponse
 import kotlinx.coroutines.CoroutineExceptionHandler
 
 /**
@@ -391,11 +391,11 @@ class HttpUiHandle private constructor() {
      */
     fun success(result: Any) {
         pageHelpListener?.complete()
-        if (result is HttpResponse && isAutoHanderError) {
+        if (result is IHttpResponse && isAutoHanderError) {
             if (result.isSucceed) {
                 showContent()
             } else {
-                successCodeError(ContextData(result.getCode(), result.getMessage()))
+                successCodeError(ContextData(result.code, result.message))
             }
         } else {
             showContent()

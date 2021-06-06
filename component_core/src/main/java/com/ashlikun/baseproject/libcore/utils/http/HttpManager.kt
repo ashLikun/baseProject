@@ -20,6 +20,7 @@ import com.ashlikun.utils.ui.SuperToast
 import com.ashlikun.baseproject.libcore.constant.EventBusKey
 import com.ashlikun.baseproject.libcore.utils.http.interceptor.DefaultInterceptor
 import com.ashlikun.okhttputils.http.HttpException
+import com.ashlikun.okhttputils.http.response.IHttpResponse
 import com.ashlikun.okhttputils.retrofit.Retrofit
 import okhttp3.Cache
 import okhttp3.OkHttpClient
@@ -141,8 +142,8 @@ class HttpManager private constructor() {
          * */
         @JvmStatic
         fun <T> handelResult(responseBody: T): HttpHandelResultException? {
-            var response: HttpResponse? = null
-            if (responseBody is HttpResponse) {
+            var response: IHttpResponse? = null
+            if (responseBody is IHttpResponse) {
                 response = responseBody
             } else if (responseBody is String) {
                 response = HttpResponse()
@@ -191,7 +192,7 @@ class HttpManager private constructor() {
                         }
                         httpException = HttpException(response.code, response.message)
                     }
-                    response.getCode() == HttpCodeApp.SIGN_ERROR -> {
+                    response.code == HttpCodeApp.SIGN_ERROR -> {
                         SuperToast.get("签名错误").error()
                         httpException = HttpException(response.code, response.message)
                     }

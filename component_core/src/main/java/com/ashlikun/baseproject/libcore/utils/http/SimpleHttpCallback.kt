@@ -4,8 +4,8 @@ import com.ashlikun.baseproject.libcore.mode.javabean.HttpListResult
 import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.okhttputils.http.HttpException
 import com.ashlikun.okhttputils.http.cache.CacheEntity
-import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.okhttputils.http.response.HttpResult
+import com.ashlikun.okhttputils.http.response.IHttpResponse
 
 /**
  * 成功的回调
@@ -69,7 +69,7 @@ open class SimpleHttpCallback<T> constructor(handle: HttpUiHandle?)
         super.onSuccess(result)
         if (result is HttpResult<*> || result is HttpListResult<*>) {
             when {
-                (result as HttpResponse).isSucceed -> {
+                (result as IHttpResponse).isSucceed -> {
                     //成功时候对data为null的处理
                     if (result is HttpResult<*>) {
                         if (result.data == null) {

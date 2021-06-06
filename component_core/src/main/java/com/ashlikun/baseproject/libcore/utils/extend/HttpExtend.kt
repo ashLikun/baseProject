@@ -1,7 +1,7 @@
 package com.ashlikun.baseproject.libcore.utils.extend
 
 import com.ashlikun.loadswitch.ContextData
-import com.ashlikun.okhttputils.http.response.HttpResponse
+import com.ashlikun.okhttputils.http.response.IHttpResponse
 import com.ashlikun.utils.other.StringUtils
 import com.ashlikun.utils.ui.SuperToast
 
@@ -15,16 +15,16 @@ import com.ashlikun.utils.ui.SuperToast
 /**
  * 返回值的错误转化成 ContextData
  */
-fun HttpResponse.contextData() = ContextData(code, message)
-fun HttpResponse.toast(default: String? = null, isShowInfo: ((code: Int) -> Boolean)? = null) {
+fun IHttpResponse.contextData() = ContextData(code, message)
+fun IHttpResponse.toast(default: String? = null, isShowInfo: ((code: Int) -> Boolean)? = null) {
     showToast(default, isShowInfo)
 }
 
-fun HttpResponse.message(default: String) = StringUtils.dataFilter(getMessage(), default)
+fun IHttpResponse.message(default: String) = StringUtils.dataFilter(message, default)
 
-fun HttpResponse.getContextData() = ContextData(code, message("出错啦"))
+fun IHttpResponse.getContextData() = ContextData(code, message("出错啦"))
 
-fun HttpResponse.showToast(default: String? = null, isShowInfo: ((code: Int) -> Boolean)? = null) {
+fun IHttpResponse.showToast(default: String? = null, isShowInfo: ((code: Int) -> Boolean)? = null) {
     val info = if (isShowInfo == null) isSucceed else isShowInfo?.invoke(code)
     if (info) {
         SuperToast.showInfoMessage(message(default ?: ""))

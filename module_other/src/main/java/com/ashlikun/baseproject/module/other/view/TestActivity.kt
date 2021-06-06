@@ -14,7 +14,6 @@ import com.ashlikun.baseproject.module.other.utils.MaotaiUtils
 import com.ashlikun.core.activity.BaseActivity
 import com.ashlikun.core.mvvm.launch
 import com.ashlikun.gson.GsonHelper
-import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.utils.encryption.Md5Utils
 import com.ashlikun.utils.encryption.SHAUtil
 import com.ashlikun.utils.other.DateUtils
