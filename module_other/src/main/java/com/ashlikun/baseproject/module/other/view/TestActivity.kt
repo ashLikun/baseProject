@@ -139,8 +139,8 @@ class TestActivity : BaseActivity() {
 
         ceshiButton2.setOnClickListener {
             launch {
-                val aaa = ApiOther.api.testx( HttpUiHandle.get())
-                LogUtils.e(aaa?.json)
+//                val aaa = ApiOther.api.testx(HttpUiHandle.get())
+//                LogUtils.e(aaa?.json)
             }
 //            AlertDialog.Builder(this)
 //                    .setCancelable(false)
@@ -148,11 +148,12 @@ class TestActivity : BaseActivity() {
 //                    .setPositiveButton("残忍退出") { dialoog, which ->
 //                    }
 //                    .show()
-            val token = "OUMFBo2pG7FT5kxmrIly4YKFOZjdahsO"
-            val paasid = "jinjihuapplication"
+            val token = "xjWseiKzeNP1JLDZD5a94ai5AwdNdzo"
+            val paasid = "wechatinternationalprogram"
             val timestamp = System.currentTimeMillis() / 1000
             val time = DateUtils.getFormatTime(timestamp * 1000, "yyyy-MM-ddHH:mm:ss")
             val nonce = getRandomString(16)
+            //
             val signature = SHAUtil.getSha("${timestamp}${token}${nonce}${timestamp}")
             val appmark = "JinJiHu"
             val appword = "g5JUYcMAMnbTxCp3"
@@ -165,33 +166,37 @@ class TestActivity : BaseActivity() {
             )
 //https://one.sipac.gov.cn/szgyyqwsdt/szyqzwdt/dhlogin?ticket=745139bd4c70468aa8dfb198b52c8530283a3877e4a04c23bc19e590373fc6cf&gotoUrl=aHR0cHM6Ly9vbmUuc2lwYWMuZ292LmNuL3loengvbG9naW4vdXNlcmNlbnRlcl9zaG93LmRv            LogUtils.e("signature = ${signature}")
             launch {
-                val result = HttpRequestParam.create(url = "https://zwyyone.sipac.gov.cn/ebus/ywtbsfrz/usercenter/interfaces/jissso_packaging.do")
-                        .addHeader("x-tif-paasid", paasid)
-                        .addHeader("x-tif-signature", signature.toUpperCase())
-                        .addHeader("x-tif-timestamp", "$timestamp")
-                        .addHeader("x-tif-nonce", nonce)
-                        .setContentJson(GsonHelper.getBuilderNotNull().create().toJson(body))
-                        .syncExecute<String>(HttpUiHandle[this], String::class.java)
-                LogUtils.e(result)
-                val resultRes = HttpResponse(result)
-                var token = resultRes.getStringValue("data")
-                token = HttpResponse(token).getStringValue("token")
-//                val result = HttpRequestParam.create(url = "https://one.sipac.gov.cn/szgyyqwsdt/szyqzwdt/html/pages/default/index.html")
-//                        .setMethod("GET")
+//                val result = HttpRequestParam.create(url = "https://zwyyone.sipac.gov.cn/ebus/ywtbsfrz/usercenter/interfaces/jissso_packaging.do")
+//                        .addHeader("x-tif-paasid", paasid)
+//                        .addHeader("x-tif-signature", signature.toUpperCase())
+//                        .addHeader("x-tif-timestamp", "$timestamp")
+//                        .addHeader("x-tif-nonce", nonce)
+//                        .setContentJson(GsonHelper.getBuilderNotNull().create().toJson(body))
 //                        .syncExecute<String>(HttpUiHandle[this], String::class.java)
-                val body = mapOf(
-                        "appmark" to appmark,
-                        "time" to time,
-                        "servicename" to "findOutsideUserByToken",
-                        "sign" to Md5Utils.getMD5("$appmark$appword$time"),
-                        "params" to "{\"token\":\"${token}\"}",
+//                LogUtils.e(result)
+//                val resultRes = HttpResponse(result)
+//                var token = resultRes.getStringValue("data")
+//                token = HttpResponse(token).getStringValue("token")
+////                val result = HttpRequestParam.create(url = "https://one.sipac.gov.cn/szgyyqwsdt/szyqzwdt/html/pages/default/index.html")
+////                        .setMethod("GET")
+////                        .syncExecute<String>(HttpUiHandle[this], String::class.java)
+//                val body = mapOf(
+//                        "SERVETYPE " to "010102,010203",
+//                        "appmark" to appmark,
+//                        "time" to time,
+//                        "servicename" to "findOutsideUserByToken",
+//                        "sign" to Md5Utils.getMD5("$appmark$appword$time"),
+//                        "params" to "{\"token\":\"${token}\"}",
+//                )
+                val body2 = mapOf(
+                        "SERVETYPE " to "010102,010203"
                 )
-                val result2 = HttpRequestParam.create(url = "https://zwyyone.sipac.gov.cn/ebus/ywtbsfrz/usercenter/interfaces/jissso_packaging.do")
+                val result2 = HttpRequestParam.create(url = "https://zwyyone.sipac.gov.cn/ebus/ywtbsxk/getForeignItemList")
                         .addHeader("x-tif-paasid", paasid)
                         .addHeader("x-tif-signature", signature.toUpperCase())
                         .addHeader("x-tif-timestamp", "$timestamp")
                         .addHeader("x-tif-nonce", nonce)
-                        .setContentJson(GsonHelper.getBuilderNotNull().create().toJson(body))
+                        .setContentJson(GsonHelper.getBuilderNotNull().create().toJson(body2))
                         .syncExecute<String>(HttpUiHandle[this], String::class.java)
 
 

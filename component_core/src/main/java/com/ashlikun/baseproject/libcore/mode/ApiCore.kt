@@ -5,10 +5,10 @@ import com.ashlikun.baseproject.libcore.utils.http.requestGet
 import com.ashlikun.baseproject.libcore.utils.http.syncExecute
 import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.okhttputils.http.response.HttpResult
-import com.ashlikun.okhttputils.retrofit.ACTION
 import com.ashlikun.okhttputils.retrofit.Field
 import com.ashlikun.okhttputils.retrofit.FieldNo
 import com.ashlikun.okhttputils.retrofit.Retrofit
+import java.io.Serializable
 
 /**
  * 作者　　: 李坤
@@ -17,7 +17,8 @@ import com.ashlikun.okhttputils.retrofit.Retrofit
  *
  * 功能介绍：
  */
-interface ApiCore {
+
+interface ApiCore : ApiBase {
     companion object {
         val api: ApiCore by lazy { Retrofit.get().create(ApiCore::class.java) }
     }

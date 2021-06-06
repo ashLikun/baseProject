@@ -1,13 +1,14 @@
 package com.ashlikun.baseproject.common.mode
 
+import com.ashlikun.baseproject.libcore.mode.ApiBase
 import com.ashlikun.baseproject.libcore.utils.http.*
 import com.ashlikun.okhttputils.http.ExecuteCall
 import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.okhttputils.http.response.HttpResult
-import com.ashlikun.okhttputils.retrofit.ACTION
 import com.ashlikun.okhttputils.retrofit.Field
 import com.ashlikun.okhttputils.retrofit.FieldNo
 import com.ashlikun.okhttputils.retrofit.Retrofit
+import java.io.Serializable
 
 /**
  * 作者　　: 李坤
@@ -18,7 +19,7 @@ import com.ashlikun.okhttputils.retrofit.Retrofit
  * 功能介绍：请求mode类
  */
 
-interface ApiCommon {
+interface ApiCommon : ApiBase {
 
     companion object {
         val api: ApiCommon by lazy { Retrofit.get().create(ApiCommon::class.java) }
