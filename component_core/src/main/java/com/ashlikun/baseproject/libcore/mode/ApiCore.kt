@@ -14,7 +14,8 @@ import com.ashlikun.okhttputils.retrofit.Retrofit
  *
  * 功能介绍：
  */
-interface ApiCore {
+
+interface ApiCore : ApiBase {
     companion object {
         val api: ApiCore by lazy { Retrofit.get().create(ApiCore::class.java) }
     }

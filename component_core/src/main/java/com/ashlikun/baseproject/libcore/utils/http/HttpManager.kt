@@ -44,17 +44,12 @@ class HttpManager private constructor() {
             val responseStr = HttpUtils.getResponseToString(response)
             RuntimeException("request:\n$requestStr\nresponse:\n$responseStr \n$json", exception).postBugly()
         }
-        Retrofit.get().init(createUrl = {
-            if (it.url.isNullOrEmpty()) {
-                if (it.path.isNullOrEmpty()) {
-                    createUrl(it.action)
-                } else {
-                    createUrl(it.action, it.path)
-                }
-            } else it.url
-        }, createRequest = { HttpRequestParam.create(it.url) }) { request, result, params ->
+        Retrofit.get().init( createRequest = { HttpRequestParam.create(it.url) }) { request, result, params ->
             val handle = params?.find { it is HttpUiHandle } as HttpUiHandle?
             request.syncExecute<Any>(handle, result.resultType)
+        }
+        Retrofit.get().onProxyStart = { method, args ->
+            (args?.find { it is HttpUiHandle } as HttpUiHandle?)?.start()
         }
         EventBus.get(EventBusKey.LOGIN).registerForever {
             setCommonParams();
@@ -116,6 +111,7 @@ class HttpManager private constructor() {
     companion object {
         const val BASE_URL = "https://api-sip.510gow.com"
         const val BASE_PATH = "/interface?"
+        const val ACTION = "action"
 
         /**
          * 退出对话框是否显示,防止多次显示
