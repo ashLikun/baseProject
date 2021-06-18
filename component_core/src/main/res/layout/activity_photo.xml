@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.bm.library.PhotoView
+    <com.ashlikun.photoview.PhotoView
         android:id="@+id/img"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

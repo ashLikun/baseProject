@@ -1,10 +1,7 @@
 package com.ashlikun.baseproject.libcore.utils.extend
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.view.View
-import android.view.WindowInsets
 import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
@@ -12,16 +9,17 @@ import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Lifecycle
+import com.ashlikun.baseproject.libcore.R
 import com.ashlikun.core.activity.BaseActivity
 import com.ashlikun.core.fragment.BaseFragment
 import com.ashlikun.core.mvvm.BaseViewModel
 import com.ashlikun.loadswitch.ContextData
-import com.ashlikun.utils.ui.StatusBarCompat
-import permissions.dispatcher.PermissionUtils
-import com.ashlikun.baseproject.libcore.R
+import com.ashlikun.loadswitch.LoadSwitchService
 import com.ashlikun.utils.other.ClassUtils
+import com.ashlikun.utils.ui.StatusBarCompat
 import com.ashlikun.utils.ui.extend.hineIme
 import com.ashlikun.utils.ui.extend.showIme
+import permissions.dispatcher.PermissionUtils
 
 /**
  * 作者　　: 李坤
@@ -72,10 +70,8 @@ fun Activity.setStatusBarVisible(show: Boolean, statusBar: StatusBarCompat? = nu
     } else {
         window.hineIme()
     }
-    window.decorView.windowInsetsController?.show(WindowInsets.Type.statusBars())
     statusBar?.setStatusDarkColor()
 }
-
 
 fun <I, O> ComponentActivity.registerForActivityResultX(
         contract: ActivityResultContract<I, O>,
@@ -142,9 +138,9 @@ fun ComponentActivity.requestPermission(permission: Array<String>, showRationale
 /**
  * 启动activity,用新api registerForActivityResult
  */
-fun ComponentActivity.launchForActivityResult(intent: Intent, success: ((ActivityResult) -> Unit)): ActivityResultLauncher<Intent> {
+fun ComponentActivity.launchForActivityResult(intent: Intent, checkCode: Boolean = true, success: ((ActivityResult) -> Unit)): ActivityResultLauncher<Intent> {
     val launcher = registerForActivityResultX(ActivityResultContracts.StartActivityForResult()) {
-        if (it.resultCode == Activity.RESULT_OK) {
+        if (!checkCode || it.resultCode == Activity.RESULT_OK) {
             success.invoke(it)
         }
     }
@@ -157,6 +153,10 @@ fun BaseFragment.showEmpty(text: String = "什么都没有呢") {
 }
 
 fun BaseActivity.showEmpty(text: String = "什么都没有呢") {
+    showEmpty(ContextData(text).setButtonShow(false))
+}
+
+fun LoadSwitchService.showEmpty(text: String = "什么都没有呢") {
     showEmpty(ContextData(text).setButtonShow(false))
 }
 

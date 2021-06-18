@@ -9,6 +9,7 @@ import com.ashlikun.baseproject.libcore.utils.http.HttpRequestParam
 import com.ashlikun.baseproject.libcore.utils.http.HttpUiHandle
 import com.ashlikun.baseproject.libcore.utils.http.syncExecute
 import com.ashlikun.baseproject.module.other.R
+import com.ashlikun.baseproject.module.other.databinding.OtherActivityTestBinding
 import com.ashlikun.baseproject.module.other.mode.ApiOther
 import com.ashlikun.baseproject.module.other.utils.MaotaiUtils
 import com.ashlikun.core.activity.BaseActivity
@@ -18,15 +19,14 @@ import com.ashlikun.utils.encryption.Md5Utils
 import com.ashlikun.utils.encryption.SHAUtil
 import com.ashlikun.utils.other.DateUtils
 import com.ashlikun.utils.other.LogUtils
-import kotlinx.android.synthetic.main.other_activity_test.*
 import java.util.*
 
 
-/**
- * Created by yang on 2016/9/3.
- */
 @Route(path = RouterPath.TEST)
 class TestActivity : BaseActivity() {
+    val binding by lazy {
+        OtherActivityTestBinding.inflate(layoutInflater)
+    }
     val RESURL2 = listOf(
             "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4135477902,3355939884&fm=26&gp=0.jpg",
             "http://img1.cache.netease.com/catchpic/A/A0/A0153E1AEDA115EAE7061A0C7EBB69D2.jpg",
@@ -34,11 +34,6 @@ class TestActivity : BaseActivity() {
             "http://uploadfile.bizhizu.cn/up/03/50/95/0350955b21a20b6deceea4914b1cfeeb.jpg.source.jpg",
             "http://pic1.win4000.com/wallpaper/7/5860842b353da.jpg",
             "http://pic1.win4000.com/wallpaper/b/566a37b05aac3.jpg")
-
-    override fun getLayoutId(): Int {
-        return R.layout.other_activity_test
-    }
-
 
     override fun initView() {
         toolbar.setTitle("我是测试")
@@ -79,8 +74,8 @@ class TestActivity : BaseActivity() {
                 // 清理任何旧的状态。
             }
         }
-        ViewCompat.setWindowInsetsAnimationCallback(inputView, cb)
-        ceshiButton.setOnClickListener {
+        ViewCompat.setWindowInsetsAnimationCallback(binding.inputView, cb)
+        binding.ceshiButton.setOnClickListener {
             launch {
                 val aaa = ApiOther.api.test(111, HttpUiHandle.get())
                 LogUtils.e(aaa.json)
@@ -136,7 +131,7 @@ class TestActivity : BaseActivity() {
         val key = "10a7adae92222b6c6fabb33c3388d78f"
         val aa = "https://api.946ys.com/OpenAPI/v1/private/getPrivateLimit?uid=82477708&token=10a7adae92222b6c6fabb33c3388d78f"
 
-        ceshiButton2.setOnClickListener {
+        binding.ceshiButton2.setOnClickListener {
             launch {
 //                val aaa = ApiOther.api.testx(HttpUiHandle.get())
 //                LogUtils.e(aaa?.json)
@@ -201,7 +196,7 @@ class TestActivity : BaseActivity() {
 //                LogUtils.e(AESUtils.decrypt(HttpResponse(result2).getStringValue("data"), appmark))
             }
         }
-        ceshiButton3.setOnClickListener {
+        binding.ceshiButton3.setOnClickListener {
             MaotaiUtils.start()
         }
     }

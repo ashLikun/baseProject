@@ -6,11 +6,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.ashlikun.baseproject.module.other.R
+import com.ashlikun.baseproject.module.other.databinding.OtherActivityDownloadBinding
+import com.ashlikun.baseproject.module.other.databinding.OtherActivityImageLockBinding
 import com.ashlikun.okhttputils.http.download.DownloadManager
 import com.ashlikun.okhttputils.http.download.DownloadTask
 import com.ashlikun.okhttputils.http.download.DownloadTaskListener
 import com.ashlikun.utils.other.LogUtils
-import kotlinx.android.synthetic.main.other_activity_download.*
 import java.io.File
 
 /**
@@ -23,7 +24,9 @@ import java.io.File
 
 class DownLoadActivity : AppCompatActivity(), View.OnClickListener, DownloadTaskListener {
 
-
+    val binding by lazy {
+        OtherActivityDownloadBinding.inflate(layoutInflater)
+    }
     internal val downloadManager by lazy { DownloadManager.getInstance() }
 
     private val url_360 = "http://msoftdl.360.cn/mobilesafe/shouji360/360safesis/360StrongBox_1.0.9.1008.apk"
@@ -32,44 +35,59 @@ class DownLoadActivity : AppCompatActivity(), View.OnClickListener, DownloadTask
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.other_activity_download)
+        setContentView(binding.root)
         initView()
     }
 
     private fun initView() {
-        //----------第一组下载----------------
-        button.setOnClickListener(this)
-        buttonpause.setOnClickListener(this)
-        buttoncancel.setOnClickListener(this)
-        buttonresume.setOnClickListener(this)
-        //-------------第二组下载--------------
-        button1.setOnClickListener(this)
-        buttonpause1.setOnClickListener(this)
-        buttoncancel1.setOnClickListener(this)
-        buttonresume1.setOnClickListener(this)
+        binding.run {
+            //----------第一组下载----------------
+            button.setOnClickListener(this@DownLoadActivity)
+            buttonpause.setOnClickListener(this@DownLoadActivity)
+            buttoncancel.setOnClickListener(this@DownLoadActivity)
+            buttonresume.setOnClickListener(this@DownLoadActivity)
+            //-------------第二组下载--------------
+            button1.setOnClickListener(this@DownLoadActivity)
+            buttonpause1.setOnClickListener(this@DownLoadActivity)
+            buttoncancel1.setOnClickListener(this@DownLoadActivity)
+            buttonresume1.setOnClickListener(this@DownLoadActivity)
+        }
     }
 
     override fun onClick(v: View) {
-        if (button === v) {
-            download360()
-        } else if (buttoncancel === v) {
-            downloadManager.cancel(URL_360_ID)
-        } else if (buttonpause === v) {
-            downloadManager.pause(URL_360_ID)
-        } else if (buttonresume === v) {
-            downloadManager.resume(URL_360_ID)
+        binding.run {
+            when {
+                button === v -> {
+                    download360()
+                }
+                buttoncancel === v -> {
+                    downloadManager.cancel(URL_360_ID)
+                }
+                buttonpause === v -> {
+                    downloadManager.pause(URL_360_ID)
+                }
+                buttonresume === v -> {
+                    downloadManager.resume(URL_360_ID)
+                }
+            }
+
+            //-----------------第二组下载
+            when {
+                button1 === v -> {
+                    downloadQQ()
+                }
+                buttoncancel1 === v -> {
+                    downloadManager.cancel(URL_QQ_ID)
+                }
+                buttonpause1 === v -> {
+                    downloadManager.pause(URL_QQ_ID)
+                }
+                buttonresume1 === v -> {
+                    downloadManager.resume(URL_QQ_ID)
+                }
+            }
         }
 
-        //-----------------第二组下载
-        if (button1 === v) {
-            downloadQQ()
-        } else if (buttoncancel1 === v) {
-            downloadManager.cancel(URL_QQ_ID)
-        } else if (buttonpause1 === v) {
-            downloadManager.pause(URL_QQ_ID)
-        } else if (buttonresume1 === v) {
-            downloadManager.resume(URL_QQ_ID)
-        }
     }
 
     private fun download360() {
@@ -87,11 +105,11 @@ class DownLoadActivity : AppCompatActivity(), View.OnClickListener, DownloadTask
         LogUtils.i("onDownloading completedSize=" + completedSize + " ,totalSize=" + totalSize + " ,percent=" +
                 percent)
         if (downloadTask.id == URL_360_ID) {
-            progressBar.progress = percent.toInt()
-            tvStatus.text = "正在下载..." + percent.toInt() + "%"
+            binding.progressBar.progress = percent.toInt()
+            binding.tvStatus.text = "正在下载..." + percent.toInt() + "%"
         } else {
-            progressBar1.progress = percent.toInt()
-            tvStatus1.text = "正在下载..." + percent.toInt() + "%"
+            binding.progressBar1.progress = percent.toInt()
+            binding.tvStatus1.text = "正在下载..." + percent.toInt() + "%"
         }
 
     }
@@ -99,29 +117,29 @@ class DownLoadActivity : AppCompatActivity(), View.OnClickListener, DownloadTask
     override fun onPause(downloadTask: DownloadTask, completedSize: Long, totalSize: Long, percent: Double) {
         LogUtils.i("onPause=$completedSize ,totalSize=$totalSize ,percent=$percent")
         if (downloadTask.id == URL_360_ID) {
-            tvStatus.text = "下载已暂停,已下载：" + percent.toInt() + "%"
+            binding.tvStatus.text = "下载已暂停,已下载：" + percent.toInt() + "%"
         } else {
-            tvStatus1.text = "下载已暂停,已下载：" + percent.toInt() + "%"
+            binding.tvStatus1.text = "下载已暂停,已下载：" + percent.toInt() + "%"
         }
     }
 
     override fun onCancel(downloadTask: DownloadTask) {
         LogUtils.i("onCancel")
         if (downloadTask.id == URL_360_ID) {
-            tvStatus.text = "下载已取消"
-            progressBar.progress = 0
+            binding.tvStatus.text = "下载已取消"
+            binding.progressBar.progress = 0
         } else {
-            tvStatus1.text = "下载已取消"
-            progressBar1.progress = 0
+            binding.tvStatus1.text = "下载已取消"
+            binding.progressBar1.progress = 0
         }
     }
 
     override fun onDownloadSuccess(downloadTask: DownloadTask, file: File) {
         LogUtils.i("onDownloadSuccess file=" + file.absolutePath)
         if (downloadTask.id == URL_360_ID) {
-            tvStatus.text = "下载完成 path：" + file.absolutePath
+            binding.tvStatus.text = "下载完成 path：" + file.absolutePath
         } else {
-            tvStatus1.text = "下载完成 path：" + file.absolutePath
+            binding.tvStatus1.text = "下载完成 path：" + file.absolutePath
         }
 
 
@@ -130,9 +148,9 @@ class DownLoadActivity : AppCompatActivity(), View.OnClickListener, DownloadTask
     override fun onError(downloadTask: DownloadTask, errorCode: Int) {
         LogUtils.i("onError errorCode=$errorCode")
         if (downloadTask.id == url_360) {
-            tvStatus.text = "下载失败errorCode=$errorCode"
+            binding.tvStatus.text = "下载失败errorCode=$errorCode"
         } else {
-            tvStatus1.text = "下载失败errorCode=$errorCode"
+            binding.tvStatus1.text = "下载失败errorCode=$errorCode"
         }
     }
 

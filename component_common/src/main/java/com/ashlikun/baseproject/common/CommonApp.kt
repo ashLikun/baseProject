@@ -1,6 +1,7 @@
 package com.ashlikun.baseproject.common
 
 import android.content.res.Configuration
+import com.ashlikun.baseproject.libcore.AbsApplication
 import com.ashlikun.baseproject.libcore.IApplication
 
 /**
@@ -11,24 +12,7 @@ import com.ashlikun.baseproject.libcore.IApplication
  *
  * 功能介绍：本模块在发布时候的Application初始化
  */
-class CommonApp : IApplication {
-    override fun onCreate() {
+class CommonApp : AbsApplication() {
 
-    }
-
-    override fun onTerminate() {
-
-    }
-
-    override fun onLowMemory() {
-
-    }
-
-    override fun onTrimMemory(level: Int) {
-
-    }
-
-    override fun onConfigurationChanged(newConfig: Configuration) {
-
-    }
 }
+

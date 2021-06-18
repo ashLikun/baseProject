@@ -17,14 +17,12 @@ import com.ashlikun.okhttputils.http.OkHttpUtils
 import com.ashlikun.okhttputils.http.download.DownloadManager
 import com.ashlikun.orm.LiteOrmUtil
 import com.ashlikun.utils.AppUtils
-import com.ashlikun.utils.other.LogUtils
 import com.ashlikun.utils.other.file.FileUtils
 import com.ashlikun.utils.ui.SuperToast
 import com.didichuxing.doraemonkit.DoraemonKit
 import com.tencent.smtt.export.external.TbsCoreSettings
 import com.tencent.smtt.sdk.QbSdk
-import java.util.*
-
+import java.util.ArrayList
 
 /**
  * @author　　: 李坤
@@ -84,14 +82,14 @@ open class BaseApplication : MultiDexApplication() {
         DoraemonKit.install(this, FileUtils.getMetaValue(this, "DOKIT_PID"))
         //数据库
         LiteOrmUtil.init(this)
-        LiteOrmUtil.setVersionCode(BuildConfig.VERSION_CODE)
-        LiteOrmUtil.setIsDebug(BuildConfig.DEBUG)
+        LiteOrmUtil.setVersionCode(AppUtils.getVersionCode())
+        LiteOrmUtil.setIsDebug(AppUtils.isDebug())
         //路由
         RouterManage.init(AppUtils.getApp(), AppUtils.isDebug())
         //http
         HttpManager.get()
         DownloadManager.initPath(CacheUtils.appSDDownloadPath)
-        GlideUtils.setDEBUG(BuildConfig.DEBUG)
+        GlideUtils.setDEBUG(AppUtils.isDebug())
         //Glide图片加载使用一个okHttpClient
         GlideUtils.init(OkHttpUtils.getInstance().okHttpClient)
         //toast库

@@ -8,9 +8,9 @@ import com.ashlikun.baseproject.module.login.R
 import com.ashlikun.baseproject.module.login.mode.javabean.UserData
 import com.ashlikun.baseproject.module.login.viewmodel.LoginViewModel
 import com.ashlikun.baseproject.common.utils.jump.RouterJump
+import com.ashlikun.baseproject.module.login.databinding.LoginActivityLoginBinding
 import com.ashlikun.core.mvvm.BaseMvvmActivity
 import com.ashlikun.core.mvvm.IViewModel
-import kotlinx.android.synthetic.main.login_activity_login.*
 
 
 /**
@@ -24,10 +24,10 @@ import kotlinx.android.synthetic.main.login_activity_login.*
 @Route(path = RouterPath.LOGIN)
 @IViewModel(LoginViewModel::class)
 class LoginActivity : BaseMvvmActivity<LoginViewModel>() {
-
-    override fun getLayoutId(): Int {
-        return R.layout.login_activity_login
+    val binding by lazy {
+        LoginActivityLoginBinding.inflate(layoutInflater)
     }
+
 
     override fun initView() {
 
@@ -42,7 +42,7 @@ class LoginActivity : BaseMvvmActivity<LoginViewModel>() {
         viewModel.userData.observe(this, Observer {
             login(it)
         })
-        textView.setOnClickListener {
+        binding.textView.setOnClickListener {
 
         }
     }

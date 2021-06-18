@@ -1,4 +1,4 @@
-package com.nmlg.common.router
+package com.ashlikun.baseproject.module.other.router
 
 import android.content.Context
 import android.content.Intent

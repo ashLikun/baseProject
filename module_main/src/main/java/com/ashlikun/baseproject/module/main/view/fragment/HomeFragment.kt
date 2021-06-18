@@ -4,12 +4,11 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.common.mode.javabean.ImageData
 import com.ashlikun.baseproject.common.utils.jump.RouterJump
 import com.ashlikun.baseproject.libcore.constant.RouterPath
-import com.ashlikun.baseproject.module.main.R
+import com.ashlikun.baseproject.module.main.databinding.MainFragmentHomeBinding
 import com.ashlikun.baseproject.module.main.viewmodel.HomeViewModel
 import com.ashlikun.core.mvvm.BaseMvvmFragment
 import com.ashlikun.core.mvvm.IViewModel
 import com.ashlikun.loadswitch.ContextData
-import kotlinx.android.synthetic.main.main_fragment_home.*
 
 /**
  * 作者　　: 李坤
@@ -23,6 +22,9 @@ import kotlinx.android.synthetic.main.main_fragment_home.*
 @Route(path = RouterPath.FRAGMENT_HOME)
 class HomeFragment : BaseMvvmFragment<HomeViewModel>() {
 
+    val binding by lazy {
+        MainFragmentHomeBinding.inflate(layoutInflater)
+    }
     val RESURL2 = listOf(
             "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4135477902,3355939884&fm=26&gp=0.jpg",
             "http://img1.cache.netease.com/catchpic/A/A0/A0153E1AEDA115EAE7061A0C7EBB69D2.jpg",
@@ -31,19 +33,15 @@ class HomeFragment : BaseMvvmFragment<HomeViewModel>() {
             "http://pic1.win4000.com/wallpaper/7/5860842b353da.jpg",
             "http://pic1.win4000.com/wallpaper/b/566a37b05aac3.jpg")
 
-    override fun getLayoutId(): Int {
-        return R.layout.main_fragment_home
-    }
-
 
     override fun initView() {
         toolbar?.run {
             setTitle("首页")
         }
-        ceshiButton.setOnClickListener {
+        binding.ceshiButton.setOnClickListener {
             RouterJump.startLockImage(0, RESURL2.map { ImageData(it, it, 0) } as ArrayList, true)
         }
-        ceshi2Button.setOnClickListener {
+        binding.ceshi2Button.setOnClickListener {
             RouterJump.startTest()
         }
     }

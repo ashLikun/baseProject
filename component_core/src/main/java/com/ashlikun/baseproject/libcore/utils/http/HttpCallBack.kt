@@ -23,7 +23,9 @@ import java.lang.reflect.Array
 open class HttpCallBack<ResultType> constructor(val handle: HttpUiHandle?)
     : AbsCallback<ResultType>() {
 
-    //重写数据转换
+    /**
+     * 重写数据转换
+     */
     override fun convertResponse(response: Response?, gosn: Gson?): ResultType {
         return super.convertResponse(response, gosn)
     }

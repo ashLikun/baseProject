@@ -45,12 +45,13 @@ class HttpManager private constructor() {
             val responseStr = HttpUtils.getResponseToString(response)
             RuntimeException("request:\n$requestStr\nresponse:\n$responseStr \n$json", exception).postBugly()
         }
-        Retrofit.get().init( createRequest = { HttpRequestParam.create(it.url) }) { request, result, params ->
-            val handle = params?.find { it is HttpUiHandle } as HttpUiHandle?
-            request.syncExecute<Any>(handle, result.resultType)
+        Retrofit.get().init(createRequest = {
+            HttpRequestParam.create(it.url).parseGson(it)
+        }) { request, result, params ->
+            request.syncExecute<Any>(params?.find { it is HttpUiHandle } as? HttpUiHandle, result.resultType)
         }
         Retrofit.get().onProxyStart = { method, args ->
-            (args?.find { it is HttpUiHandle } as HttpUiHandle?)?.start()
+            (args?.find { it is HttpUiHandle } as? HttpUiHandle)?.start()
         }
         EventBus.get(EventBusKey.LOGIN).registerForever {
             setCommonParams();
@@ -129,11 +130,12 @@ class HttpManager private constructor() {
         }
 
         /**
-         * 创建Url
+         * 创建Url,这里会替换环境的HOST
          */
         @JvmStatic
-        fun createUrl(action: String? = null, path: String = BASE_PATH): String {
-            return HttpManager.BASE_URL + path + "action=" + action
+        fun createUrl(url: String? = null, action: String? = null, path: String = BASE_PATH): String {
+            return if (url.isNullOrEmpty()) BASE_URL + path + "action=" + action
+            else url
         }
 
         /**

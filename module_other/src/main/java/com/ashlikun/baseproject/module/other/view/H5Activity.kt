@@ -2,9 +2,13 @@ package com.ashlikun.baseproject.module.other.view
 
 import android.view.KeyEvent
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.ashlikun.baseproject.common.databinding.ViewLineItemBinding
 import com.ashlikun.baseproject.libcore.constant.RouterKey
 import com.ashlikun.baseproject.libcore.constant.RouterPath
+import com.ashlikun.baseproject.libcore.utils.extend.inflater
 import com.ashlikun.baseproject.module.other.R
+import com.ashlikun.baseproject.module.other.databinding.OtherActivityOrFragmentWebviewBinding
+import com.ashlikun.baseproject.module.other.databinding.OtherActivityWelcomBinding
 import com.ashlikun.core.activity.BaseActivity
 import com.ashlikun.utils.other.LogUtils
 import com.ashlikun.xwebview.XWeb
@@ -14,7 +18,6 @@ import com.tencent.smtt.export.external.interfaces.ConsoleMessage
 import com.tencent.smtt.sdk.WebChromeClient
 import com.tencent.smtt.sdk.WebView
 import com.tencent.smtt.sdk.WebViewClient
-import kotlinx.android.synthetic.main.other_activity_or_fragment_webview.*
 
 /**
  * 作者　　: 李坤
@@ -26,8 +29,11 @@ import kotlinx.android.synthetic.main.other_activity_or_fragment_webview.*
  */
 @Route(path = RouterPath.ACTIVITY_H5)
 class H5Activity : BaseActivity() {
+    val binding by lazy {
+        OtherActivityOrFragmentWebviewBinding.inflate(layoutInflater)
+    }
     private val xWeb: XWeb by lazy {
-        XWeb.with(webviewPar)
+        XWeb.with(binding.webviewPar)
                 .useDefaultIndicator()
                 .setWebWebSettings(webSettings)
                 .setWebChromeClient(mWebChromeClient)
@@ -77,9 +83,6 @@ class H5Activity : BaseActivity() {
         }
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.other_activity_or_fragment_webview
-    }
 
     override fun initView() {
         toolbar?.setBackImage(R.drawable.ic_close_black)

@@ -1,7 +1,5 @@
 package com.ashlikun.baseproject.common.view.activity
 
-import android.content.Intent
-import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import com.alibaba.android.arouter.facade.annotation.Autowired
@@ -10,6 +8,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.ashlikun.core.activity.BaseActivity
 import com.ashlikun.utils.ui.ResUtils
 import com.ashlikun.baseproject.common.R
+import com.ashlikun.baseproject.common.databinding.CommonActivityShowFragmentBinding
 import com.ashlikun.baseproject.libcore.constant.RouterKey
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 
@@ -27,6 +26,10 @@ import com.ashlikun.baseproject.libcore.constant.RouterPath
  */
 @Route(path = RouterPath.ACTIVITY_SHOW_FRAGMENT)
 class ShowFragmentActivity : BaseActivity() {
+    val binding by lazy {
+        CommonActivityShowFragmentBinding.inflate(layoutInflater)
+    }
+
     @Autowired(name = RouterKey.TARGET_FRAGMENT_PATH)
     @JvmField
     protected var fragmentPath: String? = null
@@ -38,8 +41,6 @@ class ShowFragmentActivity : BaseActivity() {
     @Autowired(name = RouterKey.STATUS_COLOR)
     @JvmField
     protected var statusColor = ResUtils.getColor(R.color.white)
-
-    override fun getLayoutId() = R.layout.common_activity_show_fragment
 
     override fun initView() {
         val fargment = ARouter.getInstance().build(fragmentPath)

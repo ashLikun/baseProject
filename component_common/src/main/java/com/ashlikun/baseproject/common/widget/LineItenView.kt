@@ -11,10 +11,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import com.ashlikun.baseproject.common.R
+import com.ashlikun.baseproject.common.databinding.ViewLineItemBinding
+import com.ashlikun.baseproject.libcore.utils.extend.inflater
 import com.ashlikun.utils.other.DimensUtils
 import com.ashlikun.utils.ui.DrawableUtils
 import com.ashlikun.utils.ui.ResUtils
-import kotlinx.android.synthetic.main.view_line_item.view.*
 
 /**
  * 作者　　: 李坤
@@ -39,6 +40,9 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
     private var title: CharSequence? = null
     private var subTitle: CharSequence? = null
 
+    val binding by lazy {
+        ViewLineItemBinding.inflate(inflater(), this)
+    }
 
     init {
         setWillNotDraw(false)
@@ -57,59 +61,61 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
     }
 
     private fun initView(context: Context, a: TypedArray) {
-        LayoutInflater.from(context).inflate(R.layout.view_line_item, this, true)
+        binding.run {
+            if (a.hasValue(R.styleable.LineItenView_liv_title_size)) {
+                titleView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                        a.getDimensionPixelSize(R.styleable.LineItenView_liv_title_size, 0).toFloat())
+            }
+            if (a.hasValue(R.styleable.LineItenView_liv_title_color)) {
+                titleView.setTextColor(a.getColor(R.styleable.LineItenView_liv_title_color, 0))
+            }
+            if (a.hasValue(R.styleable.LineItenView_liv_sub_title_size)) {
+                subTitleView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                        a.getDimensionPixelSize(R.styleable.LineItenView_liv_sub_title_size, 0).toFloat())
+            }
+            if (a.hasValue(R.styleable.LineItenView_liv_sub_title_color)) {
+                subTitleView.setTextColor(a.getColor(R.styleable.LineItenView_liv_sub_title_color, 0))
+            }
 
-        if (a.hasValue(R.styleable.LineItenView_liv_title_size)) {
-            titleView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                    a.getDimensionPixelSize(R.styleable.LineItenView_liv_title_size, 0).toFloat())
-        }
-        if (a.hasValue(R.styleable.LineItenView_liv_title_color)) {
-            titleView.setTextColor(a.getColor(R.styleable.LineItenView_liv_title_color, 0))
-        }
-        if (a.hasValue(R.styleable.LineItenView_liv_sub_title_size)) {
-            subTitleView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                    a.getDimensionPixelSize(R.styleable.LineItenView_liv_sub_title_size, 0).toFloat())
-        }
-        if (a.hasValue(R.styleable.LineItenView_liv_sub_title_color)) {
-            subTitleView.setTextColor(a.getColor(R.styleable.LineItenView_liv_sub_title_color, 0))
+            paint.isAntiAlias = true
+            paint.color = bottomLineColor
+
+            if (bottomLineSize > 0) {
+                setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom + bottomLineSize)
+            }
+            if (isShowArror) {
+                val drawable = ResUtils.getDrawable(R.drawable.ic_arrow_right)
+                subTitleView.compoundDrawablePadding = subDrawablePadding
+                DrawableUtils.createTextDraw(subTitleView, drawable)
+                        .location(3)
+                        .set()
+            } else {
+                subTitleView.setPadding(subTitleView.paddingLeft, subTitleView.paddingTop,
+                        subDrawablePadding, subTitleView.paddingBottom)
+            }
+
+            imageView.visibility = if (isShowIcon) View.VISIBLE else View.GONE
+            if (!isShowIcon) {
+                (titleView.layoutParams as LinearLayout.LayoutParams).setMargins(0, 0, 0, 0)
+            } else {
+                (titleView.layoutParams as LinearLayout.LayoutParams).setMargins(DimensUtils.dip2px(context, 12f), 0, 0, 0)
+            }
+            imageView.setImageResource(iconRes)
+            titleView.text = title
+            subTitleView.text = subTitle
         }
 
-        paint.isAntiAlias = true
-        paint.color = bottomLineColor
 
-        if (bottomLineSize > 0) {
-            setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom + bottomLineSize)
-        }
-        if (isShowArror) {
-            val drawable = ResUtils.getDrawable(R.drawable.ic_arrow_right)
-            subTitleView.compoundDrawablePadding = subDrawablePadding
-            DrawableUtils.createTextDraw(subTitleView, drawable)
-                    .location(3)
-                    .set()
-        } else {
-            subTitleView.setPadding(subTitleView.paddingLeft, subTitleView.paddingTop,
-                    subDrawablePadding, subTitleView.paddingBottom)
-        }
-
-        imageView.visibility = if (isShowIcon) View.VISIBLE else View.GONE
-        if (!isShowIcon) {
-            (titleView.layoutParams as LinearLayout.LayoutParams).setMargins(0, 0, 0, 0)
-        } else {
-            (titleView.layoutParams as LinearLayout.LayoutParams).setMargins(DimensUtils.dip2px(context, 12f), 0, 0, 0)
-        }
-        imageView.setImageResource(iconRes)
-        titleView.text = title
-        subTitleView.text = subTitle
     }
 
     fun setTitle(title: CharSequence) {
         this.title = title
-        titleView.text = title
+        binding.titleView.text = title
     }
 
     fun setSubTitle(title: CharSequence) {
         this.subTitle = title
-        subTitleView.text = title
+        binding.subTitleView.text = title
     }
 
 

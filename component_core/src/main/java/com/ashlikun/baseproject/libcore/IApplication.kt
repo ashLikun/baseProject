@@ -10,7 +10,9 @@ import android.content.res.Configuration
  * 功能介绍：其他模块需要实现这个接口才能走Application的初始化
  */
 interface IApplication {
+    fun onCreateBefore()
     fun onCreate()
+    fun onCreateAfter()
 
     fun onTerminate()
 
@@ -19,4 +21,33 @@ interface IApplication {
     fun onTrimMemory(level: Int)
 
     fun onConfigurationChanged(newConfig: Configuration)
+}
+
+abstract class AbsApplication : IApplication {
+    override fun onCreateBefore() {
+
+    }
+
+    override fun onCreate() {
+    }
+
+    override fun onCreateAfter() {
+
+    }
+
+    override fun onTerminate() {
+
+    }
+
+    override fun onLowMemory() {
+
+    }
+
+    override fun onTrimMemory(level: Int) {
+
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+
+    }
 }

@@ -6,8 +6,6 @@ if (currentModule.isRun) {
 }
 // 使用Kotlin插件
 apply plugin: 'kotlin-android'
-// 使用Kotlin Android扩展插件
-apply plugin: 'kotlin-android-extensions'
 //kapt插件
 apply plugin: 'kotlin-kapt'
 def sdk = rootProject.ext.sdk // SDK配置
@@ -61,17 +59,17 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
     }
-
-// To inline the bytecode built with JVM target 1.8 into
-// bytecode that is being built with JVM target 1.6. (e.g. navArgs)
-
 
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    viewBinding {
+        enabled = true
+    }
+
 
 }
 

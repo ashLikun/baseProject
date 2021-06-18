@@ -17,7 +17,7 @@ fun String.requestGet(): HttpRequestParam = HttpRequestParam.get(this)
 fun String.requestPost(): HttpRequestParam = HttpRequestParam.post(this)
 
 class HttpRequestParam private constructor(action: String? = null, path: String = HttpManager.BASE_PATH, url: String? = null) :
-        HttpRequest(if (url.isNullOrEmpty()) HttpManager.createUrl(action, path) else url) {
+        HttpRequest(HttpManager.createUrl(url, action, path)) {
     init {
         method = "POST"
         //时间戳公共不能放到统一的地方，这里每次初始化实例重新调用,保证最新时间戳

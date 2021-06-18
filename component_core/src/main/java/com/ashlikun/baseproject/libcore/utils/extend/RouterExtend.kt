@@ -1,11 +1,8 @@
 package com.ashlikun.baseproject.libcore.utils.extend
 
 import android.content.Context
-import android.os.Binder
 import android.os.Bundle
 import android.os.Parcelable
-import android.util.Size
-import android.util.SizeF
 import android.util.SparseArray
 import com.alibaba.android.arouter.facade.Postcard
 import com.alibaba.android.arouter.facade.callback.NavigationCallback
@@ -43,13 +40,11 @@ fun Postcard.addFlag(flag: Int): Postcard {
     return this
 }
 
-fun Postcard.navigation(
-        context: Context? = ActivityManager.getInstance().currentActivity(),
-        onArrival: OnNvCallback? = null,
-        onLost: OnNvCallback? = null,
-        onInterrupt: OnNvCallback? = null,
-        onFound: OnNvCallback? = null,
-) {
+fun Postcard.navigation(context: Context? = ActivityManager.getInstance().currentActivity(),
+                        onArrival: OnNvCallback? = null,
+                        onLost: OnNvCallback? = null,
+                        onInterrupt: OnNvCallback? = null,
+                        onFound: OnNvCallback? = null,) {
     navigation(context, if (onFound == null) null else object : NavigationCallback {
         override fun onFound(postcard: Postcard) {
             onFound?.invoke(postcard)

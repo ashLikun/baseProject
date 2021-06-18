@@ -1,4 +1,4 @@
-package com.nmlg.common.router
+package com.ashlikun.baseproject.common.router
 
 import android.content.Context
 import com.alibaba.android.arouter.facade.annotation.Route

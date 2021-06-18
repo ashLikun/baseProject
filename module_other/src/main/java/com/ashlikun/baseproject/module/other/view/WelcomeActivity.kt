@@ -16,8 +16,11 @@ import com.ashlikun.baseproject.libcore.utils.extend.noAnim
 import com.ashlikun.baseproject.libcore.utils.extend.requestPermission
 import com.ashlikun.baseproject.module.other.BuildConfig
 import com.ashlikun.baseproject.module.other.R
+import com.ashlikun.baseproject.module.other.databinding.OtherActivityTestBinding
+import com.ashlikun.baseproject.module.other.databinding.OtherActivityWelcomBinding
 import com.ashlikun.core.activity.BaseActivity
 import com.ashlikun.core.mvvm.launch
+import com.ashlikun.utils.AppUtils
 import com.ashlikun.utils.other.LogUtils
 import com.ashlikun.utils.other.SharedPreUtils
 import com.ashlikun.utils.other.ThreadUtils
@@ -27,7 +30,6 @@ import com.ashlikun.utils.ui.UiUtils
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.other_activity_welcom.*
 import kotlinx.coroutines.delay
 import java.util.concurrent.TimeUnit
 
@@ -42,8 +44,9 @@ import java.util.concurrent.TimeUnit
 
 @Route(path = RouterPath.WELCOME)
 class WelcomeActivity : BaseActivity() {
-
-
+    val binding by lazy {
+        OtherActivityWelcomBinding.inflate(layoutInflater)
+    }
     private val time = 2000L
 
 
@@ -65,10 +68,6 @@ class WelcomeActivity : BaseActivity() {
 
 
         }
-    }
-
-    override fun getLayoutId(): Int {
-        return R.layout.other_activity_welcom
     }
 
     override fun getStatusBarColor(): Int {
@@ -117,7 +116,7 @@ class WelcomeActivity : BaseActivity() {
     }
 
     private fun checkIsFirst(): Boolean {
-        if (SharedPreUtils.getInt(this, "Run", "VersionCode") != BuildConfig.VERSION_CODE) {
+        if (SharedPreUtils.getInt(this, "Run", "VersionCode") != AppUtils.getVersionCode()) {
 //            // 第一次
 //            SharedPreUtils.setKeyAndValue(this, "Run",
 //                    "VersionCode", BuildConfig.VERSION_CODE)

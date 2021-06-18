@@ -28,6 +28,7 @@ public inline fun <K> Map<out K, *>?.getInt(key: K): Int? = this?.get(key)?.toSt
 public inline fun <K> Map<out K, *>?.getString(key: K): String? = this?.get(key)?.toString()
 public inline fun <K> Map<out K, *>?.getFloat(key: K): Float? = this?.get(key)?.toString()?.toFloatOrNull()
 public inline fun <K> Map<out K, *>?.getBoolean(key: K): Boolean? = this?.get(key)?.toString()?.equals("true")
+
 inline fun Map<String, Any?>.bundle(): Bundle {
     val bundle = Bundle()
     forEach {

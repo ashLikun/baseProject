@@ -16,6 +16,7 @@ import com.ashlikun.baseproject.libcore.constant.RouterKey
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.utils.other.CacheUtils
 import com.ashlikun.baseproject.module.other.R
+import com.ashlikun.baseproject.module.other.databinding.OtherActivityImageLockBinding
 import com.ashlikun.core.activity.BaseActivity
 import com.ashlikun.glideutils.GlideLoad
 import com.ashlikun.glideutils.GlideUtils
@@ -34,7 +35,6 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import kotlinx.android.synthetic.main.other_activity_image_lock.*
 import java.io.File
 import java.util.*
 
@@ -56,6 +56,10 @@ import java.util.*
  */
 @Route(path = RouterPath.IMAGE_LOCK)
 class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener {
+    val binding by lazy {
+        OtherActivityImageLockBinding.inflate(layoutInflater)
+    }
+
     @Autowired(name = RouterKey.FLAG_DATA)
     lateinit var listDatas: ArrayList<ImageData>
 
@@ -71,13 +75,9 @@ class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener {
         object : ViewPager.SimpleOnPageChangeListener() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                textView.text = (position + 1).toString() + "/" + listDatas?.size
+                binding.textView.text = (position + 1).toString() + "/" + listDatas?.size
             }
         }
-    }
-
-    override fun getLayoutId(): Int {
-        return R.layout.other_activity_image_lock
     }
 
     override fun attachBaseContext(newBase: Context?) {
@@ -88,33 +88,34 @@ class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener {
     }
 
     override fun initView() {
-        Build.VERSION_CODES.GINGERBREAD_MR1
-        window.setBackgroundDrawableResource(R.color.translucent)
-        viewPager.setPages(adapter, listDatas)
-        textView.text = (position + 1).toString() + "/" + listDatas.size
-        if (position < listDatas.size) {
-            viewPager.setCurrentItem(position, false)
-        }
-        viewPager.addOnPageChangeListener(onPageChangCallback)
-        if (isShowDownload) {
-            actionDownLoad.visibility = View.VISIBLE
-            val drawable = GradientDrawable()
-            drawable.setColor(0x77666666)
-            drawable.cornerRadius = DimensUtils.dip2px(this, 3f).toFloat()
-            actionDownLoad.background = drawable
-            actionDownLoad.setOnClickListener {
-                val url = listDatas[viewPager.realPosition].getImageUrl()
-                GlideUtils.downloadBitmap(this, url) { file ->
-                    if (file != null && file.exists()) {
-                        var saveFile = File("${CacheUtils.appSDFilePath}${File.separator}${System.currentTimeMillis()}.jpg")
-                        if (FileIOUtils.copyFile(file, saveFile, false)) {
-                            SuperToast.showInfoMessage("图片已保存至 /${CacheUtils.rootName}/file 文件夹")
-                            BitmapUtil.updatePhotoMedia(this, saveFile)
+        binding.run {
+            window.setBackgroundDrawableResource(R.color.translucent)
+            viewPager.setPages(adapter, listDatas)
+            textView.text = (position + 1).toString() + "/" + listDatas.size
+            if (position < listDatas.size) {
+                viewPager.setCurrentItem(position, false)
+            }
+            viewPager.addOnPageChangeListener(onPageChangCallback)
+            if (isShowDownload) {
+                actionDownLoad.visibility = View.VISIBLE
+                val drawable = GradientDrawable()
+                drawable.setColor(0x77666666)
+                drawable.cornerRadius = DimensUtils.dip2px(this@ImageLockActivity, 3f).toFloat()
+                actionDownLoad.background = drawable
+                actionDownLoad.setOnClickListener {
+                    val url = listDatas[viewPager.realPosition].getImageUrl()
+                    GlideUtils.downloadBitmap(this@ImageLockActivity, url) { file ->
+                        if (file != null && file.exists()) {
+                            var saveFile = File("${CacheUtils.appSDFilePath}${File.separator}${System.currentTimeMillis()}.jpg")
+                            if (FileIOUtils.copyFile(file, saveFile, false)) {
+                                SuperToast.showInfoMessage("图片已保存至 /${CacheUtils.rootName}/file 文件夹")
+                                BitmapUtil.updatePhotoMedia(this@ImageLockActivity, saveFile)
+                            } else {
+                                SuperToast.showInfoMessage("图片保存失败")
+                            }
                         } else {
                             SuperToast.showInfoMessage("图片保存失败")
                         }
-                    } else {
-                        SuperToast.showInfoMessage("图片保存失败")
                     }
                 }
             }

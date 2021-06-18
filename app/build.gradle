@@ -1,8 +1,6 @@
 apply plugin: 'com.android.application'
 // 使用Kotlin插件
 apply plugin: 'kotlin-android'
-// 使用Kotlin Android扩展插件
-apply plugin: 'kotlin-android-extensions'
 //kapt插件
 apply plugin: 'kotlin-kapt'
 
@@ -118,8 +116,15 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+    viewBinding {
+        enabled = true
     }
 }
 

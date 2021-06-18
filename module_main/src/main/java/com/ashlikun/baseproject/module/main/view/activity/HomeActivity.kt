@@ -9,6 +9,8 @@ import com.ashlikun.baseproject.libcore.constant.RouterKey
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 import com.ashlikun.baseproject.module.main.R
+import com.ashlikun.baseproject.module.main.databinding.MainActivityHomeBinding
+import com.ashlikun.baseproject.module.main.databinding.MainFragmentHomeBinding
 import com.ashlikun.bottomnavigation.AHBottomNavigation
 import com.ashlikun.bottomnavigation.AHBottomNavigationItem
 import com.ashlikun.core.activity.BaseActivity
@@ -20,7 +22,6 @@ import com.ashlikun.utils.ui.ToastUtils
 import com.ashlikun.xviewpager.FragmentUtils
 import com.ashlikun.xviewpager.fragment.FragmentPagerAdapter
 import com.ashlikun.xviewpager.fragment.FragmentPagerItem
-import kotlinx.android.synthetic.main.main_activity_home.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 
@@ -33,7 +34,10 @@ import kotlinx.coroutines.MainScope
  * 功能介绍：
  */
 @Route(path = RouterPath.HOME)
-class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener, CoroutineScope by MainScope() {
+class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
+    val binding by lazy {
+        MainActivityHomeBinding.inflate(layoutInflater)
+    }
     private var exitTime: Long = 0
     var index = 0
     var cachePosition = -1
@@ -66,41 +70,41 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener, C
     }
 
     fun setCurrentItem(postion: Int) {
-        bottomNavigationBar.currentItem = postion
+        binding.bottomNavigationBar.currentItem = postion
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.main_activity_home
-    }
 
     override fun getStatusBarColor(): Int {
         return ResUtils.getColor(R.color.white)
     }
 
     override fun initView() {
-        bottomNavigationBar.accentColor = ResUtils.getColor(R.color.colorPrimary)
-        bottomNavigationBar.addItem(AHBottomNavigationItem.Builder(R.string.main_bottom_1,
-                R.mipmap.app_logo, R.mipmap.app_logo).builder())
-        bottomNavigationBar.addItem(AHBottomNavigationItem.Builder(R.string.main_bottom_2,
-                R.mipmap.app_logo, R.mipmap.app_logo).builder())
-        bottomNavigationBar.addItem(AHBottomNavigationItem.Builder(R.string.main_bottom_3,
-                R.mipmap.app_logo, R.mipmap.app_logo).builder())
-        bottomNavigationBar.defaultBackgroundColor = ResUtils.getColor(R.color.white)
-        bottomNavigationBar.titleState = AHBottomNavigation.TitleState.ALWAYS_SHOW
+        binding.run {
+            bottomNavigationBar.accentColor = ResUtils.getColor(R.color.colorPrimary)
+            bottomNavigationBar.addItem(AHBottomNavigationItem.Builder(R.string.main_bottom_1,
+                    R.mipmap.app_logo, R.mipmap.app_logo).builder())
+            bottomNavigationBar.addItem(AHBottomNavigationItem.Builder(R.string.main_bottom_2,
+                    R.mipmap.app_logo, R.mipmap.app_logo).builder())
+            bottomNavigationBar.addItem(AHBottomNavigationItem.Builder(R.string.main_bottom_3,
+                    R.mipmap.app_logo, R.mipmap.app_logo).builder())
+            bottomNavigationBar.defaultBackgroundColor = ResUtils.getColor(R.color.white)
+            bottomNavigationBar.titleState = AHBottomNavigation.TitleState.ALWAYS_SHOW
 
-        bottomNavigationBar.addOnTabSelectedListener(this)
-        //防止重复添加
-        FragmentUtils.removeAll(supportFragmentManager)
-        viewPager.offscreenPageLimit = adapter.count
-        viewPager.setAdapter(adapter)
-        //登录之后可以左右滑动
-        viewPager.setCanSlide(RouterManage.login()?.isLogin() ?: false)
-        //监听登录成功的通知
-        EventBus.get(EventBusKey.LOGIN).registerLifecycle(this, Observer<Any> {
+            bottomNavigationBar.addOnTabSelectedListener(this@HomeActivity)
+            //防止重复添加
+            FragmentUtils.removeAll(supportFragmentManager)
+            viewPager.offscreenPageLimit = adapter.count
+            viewPager.setAdapter(adapter)
             //登录之后可以左右滑动
             viewPager.setCanSlide(RouterManage.login()?.isLogin() ?: false)
-        })
-        bottomNavigationBar.setupWithViewPager(viewPager, false)
+            //监听登录成功的通知
+            EventBus.get(EventBusKey.LOGIN).registerLifecycle(this@HomeActivity, Observer<Any> {
+                //登录之后可以左右滑动
+                viewPager.setCanSlide(RouterManage.login()?.isLogin() ?: false)
+            })
+            bottomNavigationBar.setupWithViewPager(viewPager, false)
+        }
+
     }
 
 
