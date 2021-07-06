@@ -31,8 +31,8 @@ abstract class BaseListActivity<VM : BaseListViewModel> : BaseMvvmActivity<VM>()
     override fun baseInitView() {
         super.baseInitView()
         initRecyclerView()
-        viewModel.swipeRefreshLayout = getSwipeRefreshLayout()
-        viewModel.pageHelpListener = getPageHelpListener()
+        viewModel.swipeRefreshLayout = swipeRefreshLayout
+        viewModel.pageHelpListener = pageHelpListener
     }
 
     override fun initData() {
@@ -44,13 +44,13 @@ abstract class BaseListActivity<VM : BaseListViewModel> : BaseMvvmActivity<VM>()
 
     open fun initRecyclerView() {
         if (itemDecoration != null) {
-            getRecyclerView().addItemDecoration(itemDecoration!!)
+            recyclerView.addItemDecoration(itemDecoration!!)
         }
         //MultipleAdapter 自己设置 layoutManager 和 adapter
         if (adapter is BaseAdapter<*, *>) {
             if (layoutManager != null) {
-                getRecyclerView().layoutManager = layoutManager
-                getRecyclerView().adapter = adapter
+                recyclerView.layoutManager = layoutManager
+                recyclerView.adapter = adapter
             }
         }
         if (adapter is BaseAdapter<*, *> && this is OnItemClickListener<*>) {
@@ -58,7 +58,7 @@ abstract class BaseListActivity<VM : BaseListViewModel> : BaseMvvmActivity<VM>()
         }
     }
 
-    override fun getSwitchRoot(): View? = getRecyclerView()
+    override fun getSwitchRoot(): View? = recyclerView
 
     override fun clearData() {
         if (adapter is BaseAdapter<*, *>) {
@@ -66,7 +66,7 @@ abstract class BaseListActivity<VM : BaseListViewModel> : BaseMvvmActivity<VM>()
         } else if (adapter is MultipleAdapter) {
             (adapter as MultipleAdapter).clear()
             //如果使用动态(个数不一致)addAddpter，那么这里要重新设置adapter，不然RecyclerView的缓存会使Position错乱，点击事件错乱
-            getRecyclerView().adapter = adapter
+            recyclerView.adapter = adapter
         }
         scrollToPosition(0)
     }
@@ -75,10 +75,11 @@ abstract class BaseListActivity<VM : BaseListViewModel> : BaseMvvmActivity<VM>()
         adapter?.notifyDataSetChanged()
     }
 
-    open abstract fun getRecyclerView(): RecyclerView
-    open abstract fun getSwipeRefreshLayout(): RefreshLayout?
-    open abstract fun getPageHelpListener(): PageHelpListener?
+    open abstract val recyclerView: RecyclerView
+    open abstract val swipeRefreshLayout: RefreshLayout?
+    open abstract val pageHelpListener: PageHelpListener?
+
     open fun scrollToPosition(position: Int) {
-        getRecyclerView().scrollToPosition(position)
+        recyclerView.scrollToPosition(position)
     }
 }

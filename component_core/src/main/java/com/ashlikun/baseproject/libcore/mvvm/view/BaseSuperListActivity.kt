@@ -1,9 +1,11 @@
 package com.ashlikun.baseproject.libcore.mvvm.view
 
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import com.ashlikun.baseproject.libcore.mvvm.viewmodel.BaseListViewModel
-import com.ashlikun.baseproject.libcore.R
 import com.ashlikun.loadswitch.OnLoadSwitchClick
+import com.ashlikun.xrecycleview.PageHelpListener
+import com.ashlikun.xrecycleview.RefreshLayout
 import com.ashlikun.xrecycleview.SuperRecyclerView
 import com.ashlikun.xrecycleview.listener.RecycleViewSwipeListener
 
@@ -14,20 +16,22 @@ import com.ashlikun.xrecycleview.listener.RecycleViewSwipeListener
  *
  * 功能介绍：列表(SuperRecyclerView)界面父类
  */
-abstract class BaseSuperListActivity<VM : BaseListViewModel> : BaseListActivity<VM>()
-        , RecycleViewSwipeListener, OnLoadSwitchClick {
+abstract class BaseSuperListActivity<VM : BaseListViewModel> : BaseListActivity<VM>(), RecycleViewSwipeListener, OnLoadSwitchClick {
     override fun initRecyclerView() {
         //这个必须放到上面执行
-        getSuperRecyclerView().setOnRefreshListener(this@BaseSuperListActivity)
-        getSuperRecyclerView().setOnLoaddingListener(this@BaseSuperListActivity)
+        superRecyclerView.setOnRefreshListener(this@BaseSuperListActivity)
+        superRecyclerView.setOnLoaddingListener(this@BaseSuperListActivity)
         super.initRecyclerView()
     }
 
-    abstract fun getSuperRecyclerView(): SuperRecyclerView
+    open abstract val superRecyclerView: SuperRecyclerView
 
-    override fun getSwitchRoot(): View? = f(R.id.switchRoot) ?: getSuperRecyclerView()
-    override fun getSwipeRefreshLayout() = getSuperRecyclerView().refreshLayout!!
-    override fun getPageHelpListener() = getSuperRecyclerView().pageHelpListener!!
-    override fun getRecyclerView() = getSuperRecyclerView().recyclerView!!
+    override fun getSwitchRoot(): View? = switchRoot ?: superRecyclerView
 
+    override val swipeRefreshLayout: RefreshLayout?
+        get() = superRecyclerView.refreshLayout
+    override val pageHelpListener: PageHelpListener?
+        get() = superRecyclerView.pageHelpListener
+    override val recyclerView: RecyclerView
+        get() = superRecyclerView.recyclerView!!
 }

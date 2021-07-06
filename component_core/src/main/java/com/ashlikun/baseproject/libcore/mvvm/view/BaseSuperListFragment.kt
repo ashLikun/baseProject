@@ -1,9 +1,11 @@
 package com.ashlikun.baseproject.libcore.mvvm.view
 
 import android.view.View
-import com.ashlikun.baseproject.libcore.R
+import androidx.recyclerview.widget.RecyclerView
 import com.ashlikun.baseproject.libcore.mvvm.viewmodel.BaseListViewModel
 import com.ashlikun.loadswitch.OnLoadSwitchClick
+import com.ashlikun.xrecycleview.PageHelpListener
+import com.ashlikun.xrecycleview.RefreshLayout
 import com.ashlikun.xrecycleview.SuperRecyclerView
 import com.ashlikun.xrecycleview.listener.RecycleViewSwipeListener
 
@@ -17,14 +19,18 @@ import com.ashlikun.xrecycleview.listener.RecycleViewSwipeListener
 abstract class BaseSuperListFragment<VM : BaseListViewModel> : BaseListFragment<VM>(), RecycleViewSwipeListener, OnLoadSwitchClick {
     override fun initRecyclerView() {
         //这个必须放到上面执行
-        getSuperRecyclerView().setOnRefreshListener(this@BaseSuperListFragment)
-        getSuperRecyclerView().setOnLoaddingListener(this@BaseSuperListFragment)
+        superRecyclerView.setOnRefreshListener(this@BaseSuperListFragment)
+        superRecyclerView.setOnLoaddingListener(this@BaseSuperListFragment)
         super.initRecyclerView()
     }
 
-    abstract fun getSuperRecyclerView(): SuperRecyclerView
-    override fun getSwitchRoot(): View? = f(R.id.switchRoot) ?: getSuperRecyclerView()
-    override fun getSwipeRefreshLayout() = getSuperRecyclerView().refreshLayout!!
-    override fun getPageHelpListener() = getSuperRecyclerView().pageHelpListener!!
-    override fun getRecyclerView() = getSuperRecyclerView().recyclerView!!
+    open abstract val superRecyclerView: SuperRecyclerView
+
+    override fun getSwitchRoot(): View? = switchRoot ?: superRecyclerView
+    override val swipeRefreshLayout: RefreshLayout?
+        get() = superRecyclerView.refreshLayout
+    override val pageHelpListener: PageHelpListener?
+        get() = superRecyclerView.pageHelpListener
+    override val recyclerView: RecyclerView
+        get() = superRecyclerView.recyclerView!!
 }
