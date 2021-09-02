@@ -19,6 +19,8 @@ import com.ashlikun.utils.encryption.Md5Utils
 import com.ashlikun.utils.encryption.SHAUtil
 import com.ashlikun.utils.other.DateUtils
 import com.ashlikun.utils.other.LogUtils
+import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram
+import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import java.util.*
 
 
@@ -132,6 +134,13 @@ class TestActivity : BaseActivity() {
         val aa = "https://api.946ys.com/OpenAPI/v1/private/getPrivateLimit?uid=82477708&token=10a7adae92222b6c6fabb33c3388d78f"
 
         binding.ceshiButton2.setOnClickListener {
+            val appId = "youAppId" // 填应用AppId
+            val api = WXAPIFactory.createWXAPI(this, appId)
+            val req = WXLaunchMiniProgram.Req()
+            req.userName = "gh_f8655b8d651c" // 填小程序原始id
+            req.path = "pages/tabBar/home?token=youToken" //拉起小程序页面的可带参路径，不填默认拉起小程序首页
+            req.miniprogramType = WXLaunchMiniProgram.Req.MINIPTOGRAM_TYPE_RELEASE // 可选打开 开发版，体验版和正式版
+            api.sendReq(req)
             launch {
 //                val aaa = ApiOther.api.testx(HttpUiHandle.get())
 //                LogUtils.e(aaa?.json)

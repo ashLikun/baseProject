@@ -53,6 +53,7 @@ dependencies {
     kapt libs.glideCompiler
     api libs.kotlin
     api libs.design
+    api libs.core
     api libs.lifecycleViewmodelKtx
     api libs.lifecycleRuntimeKtx
 
@@ -185,5 +186,7 @@ dependencies {
     //极光推送
     api libs.jpush
     api libs.jcore
+    //wechat
+    api libs.wechat
 }
 
