@@ -13,7 +13,7 @@ import java.io.Serializable
  *
  * 功能介绍：
  */
-@Url(url = HttpManager.BASE_URL, method = "POST")
+@Url(url = HttpManager.URL_PROD, method = "POST")
 @Path(HttpManager.BASE_PATH)
 @Action(HttpManager.ACTION)
 interface ApiBase : Serializable {

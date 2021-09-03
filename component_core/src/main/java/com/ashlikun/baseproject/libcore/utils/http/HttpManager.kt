@@ -19,6 +19,7 @@ import com.ashlikun.utils.ui.ActivityManager
 import com.ashlikun.utils.ui.SuperToast
 import com.ashlikun.baseproject.libcore.constant.EventBusKey
 import com.ashlikun.baseproject.libcore.utils.http.interceptor.DefaultInterceptor
+import com.ashlikun.baseproject.libcore.utils.other.AppConfig
 import com.ashlikun.okhttputils.http.HttpException
 import com.ashlikun.okhttputils.http.response.IHttpResponse
 import com.ashlikun.okhttputils.retrofit.Retrofit
@@ -111,9 +112,12 @@ class HttpManager private constructor() {
     }
 
     companion object {
-        const val BASE_URL = "https://api-sip.510gow.com"
+        const val URL_PROD = "https://api-sip.510gow.com"
+        const val URL_TEST = "https://tapi-sip.510gow.com"
         const val BASE_PATH = "/interface?"
         const val ACTION = "action"
+        val BASE_URL = if (AppConfig.isBeta || AppConfig.isDebug) URL_TEST else URL_PROD
+
 
         /**
          * 退出对话框是否显示,防止多次显示
@@ -135,8 +139,10 @@ class HttpManager private constructor() {
         @JvmStatic
         fun createUrl(url: String? = null, action: String? = null, path: String = BASE_PATH): String {
             return if (url.isNullOrEmpty()) BASE_URL + path + "action=" + action
-            else url
+            else if (AppConfig.isBeta || AppConfig.isDebug) url.replace(URL_PROD, BASE_URL).replace(URL_TEST, BASE_URL)
+            else url.replace(URL_TEST, BASE_URL)
         }
+
 
         /**
          * 处理成功后的数据code

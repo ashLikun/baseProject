@@ -6,7 +6,9 @@ import com.ashlikun.okhttputils.http.HttpUtils
 import com.ashlikun.okhttputils.http.request.HttpRequest
 import com.ashlikun.okhttputils.http.response.IHttpResponse
 import com.ashlikun.okhttputils.retrofit.HttpServiceMethod
+import com.ashlikun.okhttputils.retrofit.Parse
 import com.google.gson.Gson
+import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
 /**
@@ -16,6 +18,14 @@ import java.lang.reflect.Type
  *
  * 功能介绍：
  */
+
+/**
+ * 简化Parse
+ */
+@Target(AnnotationTarget.FUNCTION, AnnotationTarget.CLASS)
+@Retention(AnnotationRetention.RUNTIME)
+@Parse(MultiTypeResult.parseType)
+annotation class ParseMulti
 
 /**
  * 多样式的gson
@@ -30,7 +40,7 @@ inline fun MultiTypeGsonBuilder.autoRegister(cls: Type, typeName: String = "type
  * 实现这个接口自动实现全局多样式
  * 泛型就是主体数据
  */
-interface MultiTypeResult<Data> : IHttpResponse {
+interface MultiTypeResult<D> : IHttpResponse {
     companion object {
         const val parseType = "MultiTypeResult"
     }
@@ -46,16 +56,23 @@ interface MultiTypeResult<Data> : IHttpResponse {
  * 获取解析数据的Gson,用于多样式
  */
 fun HttpRequest.parseGson(it: HttpServiceMethod<*>): HttpRequest {
-    var type = HttpUtils.getType(it.resultType as Class<*>)
-    if (type is List<*>) {
-        type = HttpUtils.getType(type as Class<*>)
-    }
     val gson = when (it.parseType) {
         MultiTypeResult.parseType -> GsonHelper.getMultiTypeNotNull()
-                .autoRegister(type)
+                .autoRegister(getArgType(it.resultType))
         else -> null
     }
     return parseGson(gson)
+}
+
+/**
+ * 获取泛型里面的类型
+ */
+fun getArgType(type: Type): Type {
+    return if (type is ParameterizedType && type.actualTypeArguments.isNotEmpty()) {
+        getArgType(type.actualTypeArguments[0])
+    } else {
+        type
+    }
 }
 
 object GsonUtils {
