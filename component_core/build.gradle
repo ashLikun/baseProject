@@ -52,6 +52,7 @@ dependencies {
     kapt libs.aroutercompiler
     kapt libs.glideCompiler
     api libs.kotlin
+    api libs.kotlinReflect
     api libs.design
     api libs.lifecycleViewmodelKtx
     api libs.lifecycleRuntimeKtx

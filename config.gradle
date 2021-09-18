@@ -40,7 +40,8 @@ ext {
             MAP_KEY: "03c6da12f537654eac8f71ea54f2f41c"
     ]
     dependencies = [
-            kotlin               : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
+            kotlin               : "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
+            kotlinReflect        : "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version",
             design               : "com.google.android.material:material:$androidXVersion",
             //约束布局
             ConstraintLayout     : 'androidx.constraintlayout:constraintlayout:2.1.0',
