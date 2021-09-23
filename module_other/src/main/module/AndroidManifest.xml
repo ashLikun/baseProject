@@ -32,7 +32,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.OtherTheme"></activity>
         <activity
-            android:name=".view.WebViewActivity"
+            android:name=".view.H5Activity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.OtherTheme"></activity>
