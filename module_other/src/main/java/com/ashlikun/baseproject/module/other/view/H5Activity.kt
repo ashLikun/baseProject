@@ -10,6 +10,7 @@ import com.ashlikun.baseproject.module.other.R
 import com.ashlikun.baseproject.module.other.databinding.OtherActivityOrFragmentWebviewBinding
 import com.ashlikun.baseproject.module.other.databinding.OtherActivityWelcomBinding
 import com.ashlikun.core.activity.BaseActivity
+import com.ashlikun.core.mvvm.launch
 import com.ashlikun.utils.other.LogUtils
 import com.ashlikun.xwebview.XWeb
 import com.ashlikun.xwebview.websetting.AbsXWebSettings
@@ -45,6 +46,7 @@ class H5Activity : BaseActivity() {
 
     //其他参数
     private val otherParams: Map<String, Any?> by lazy {
+        launch {  }
         intent.getSerializableExtra(RouterKey.FLAG_DATA) as HashMap<String, Any?>? ?: hashMapOf()
     }
     private val mTitle: String by lazy {

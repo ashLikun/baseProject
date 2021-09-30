@@ -74,7 +74,7 @@ ext {
             //自定义的下拉刷新
             RefreshLayout        : "com.github.ashLikun:RefreshLayout:2.0.4",
             //封装的viewpager，banner，启动页
-            XViewPager           : "com.github.ashLikun:XViewPager:2.1.5",
+            XViewPager           : "com.github.ashLikun:XViewPager:2.1.6",
             //公共的工具
             CommonUtils          : "com.github.ashLikun:CommonUtils:3.8.0",
             //公共的Adapter
