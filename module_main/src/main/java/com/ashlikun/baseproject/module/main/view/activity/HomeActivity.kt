@@ -1,7 +1,12 @@
 package com.ashlikun.baseproject.module.main.view.activity
 
+import android.app.AppOpsManager
+import android.app.usage.UsageStatsManager
 import android.content.Context
 import android.content.Intent
+import android.os.Process
+import android.provider.Settings
+import androidx.core.app.AppOpsManagerCompat
 import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.libcore.constant.EventBusKey
@@ -10,11 +15,13 @@ import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 import com.ashlikun.baseproject.module.main.R
 import com.ashlikun.baseproject.module.main.databinding.MainActivityHomeBinding
-import com.ashlikun.baseproject.module.main.databinding.MainFragmentHomeBinding
 import com.ashlikun.bottomnavigation.AHBottomNavigation
 import com.ashlikun.bottomnavigation.AHBottomNavigationItem
 import com.ashlikun.core.activity.BaseActivity
+import com.ashlikun.core.mvvm.launch
 import com.ashlikun.livedatabus.EventBus
+import com.ashlikun.utils.AppUtils
+import com.ashlikun.utils.other.LogUtils
 import com.ashlikun.utils.ui.ActivityManager
 import com.ashlikun.utils.ui.ResUtils
 import com.ashlikun.utils.ui.SuperToast
@@ -22,8 +29,8 @@ import com.ashlikun.utils.ui.ToastUtils
 import com.ashlikun.xviewpager.FragmentUtils
 import com.ashlikun.xviewpager.fragment.FragmentPagerAdapter
 import com.ashlikun.xviewpager.fragment.FragmentPagerItem
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+
 
 /**
  * 作者　　: 李坤
@@ -104,7 +111,57 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
             })
             bottomNavigationBar.setupWithViewPager(viewPager, false)
         }
+        val mode = AppOpsManagerCompat.noteOp(this, AppOpsManager.OPSTR_GET_USAGE_STATS, Process.myUid(), this.packageName)
+        val granted = mode == AppOpsManagerCompat.MODE_ALLOWED
+        if (!granted) {
+            startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
+        }
+        launch(delayTime = 1000) {
+            while (true) {
 
+                val m = AppUtils.getApp().getSystemService(USAGE_STATS_SERVICE) as UsageStatsManager
+                if (m != null) {
+                    val now = System.currentTimeMillis()
+                    //获取60秒之内的应用数据
+                    val stats = m.queryUsageStats(UsageStatsManager.INTERVAL_BEST, now - 6000 * 1000, now)
+                    LogUtils.e("Running app number in last 60 seconds : " + stats!!.size)
+                    //取得最近运行的一个app，即当前运行的app
+                    if (stats.isEmpty()) {
+                        var j = 0
+                        for (i in stats.indices) {
+                            if (stats[i].lastTimeUsed > stats[j].lastTimeUsed) {
+                                j = i
+                            }
+                            var packageInfo = AppUtils.getApp().packageManager.getPackageInfo(stats[j].packageName, 0)
+                            val appName = packageInfo.applicationInfo.loadLabel(AppUtils.getApp().packageManager).toString()
+                            LogUtils.e("top running app is : $appName")
+                        }
+                    }
+                }
+
+//                // Get a list of running apps
+//                // Get a list of running apps
+//                val processes = AndroidProcesses.getRunningAppProcesses()
+//
+//                for (process in processes) {
+//                    // Get some information about the process
+//                    val processName = process.name
+//                    val stat = process.stat()
+//                    val pid = stat.pid
+//                    val parentProcessId = stat.ppid()
+//                    val startTime = stat.stime()
+//                    val policy = stat.policy()
+//                    val state = stat.state()
+//                    val statm = process.statm()
+//                    val totalSizeOfProcess = statm.size
+//                    val residentSetSize = statm.residentSetSize
+//                    val packageInfo = process.getPackageInfo(AppUtils.getApp(), 0)
+//                    val appName = packageInfo.applicationInfo.loadLabel(AppUtils.getApp().packageManager).toString()
+//                    LogUtils.e("appName${appName}${processName}")
+//                }
+                delay(1000)
+            }
+        }
     }
 
 

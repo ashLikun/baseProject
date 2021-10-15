@@ -188,5 +188,6 @@ dependencies {
     api libs.jcore
     //wechat
     api libs.wechat
+    api 'com.jaredrummler:android-processes:1.1.1'
 }
 
