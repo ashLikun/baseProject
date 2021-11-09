@@ -155,8 +155,8 @@ ext {
             //腾讯Bugly
             BugLy                : 'com.tencent.bugly:crashreport:latest.release',
 
-            shareQQ              : 'com.umeng.umsdk:share-qq:7.0.2',
-            shareSina            : 'com.sina.weibo.sdk:core:4.4.3:openDefaultRelease@aar',
+            shareQQ              : 'com.tencent.tauth:qqopensdk:3.53.0',
+            shareSina            : 'io.github.sinaweibosdk:core:11.11.1@aar',
 
             //RangeSeekBar 进度条
             RangeSeekBar         : 'com.github.Jay-Goo:RangeSeekBar:v3.0.0',
