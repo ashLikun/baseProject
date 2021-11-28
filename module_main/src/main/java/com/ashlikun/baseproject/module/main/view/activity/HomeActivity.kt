@@ -8,6 +8,7 @@ import android.os.Process
 import android.provider.Settings
 import androidx.core.app.AppOpsManagerCompat
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.libcore.constant.EventBusKey
 import com.ashlikun.baseproject.libcore.constant.RouterKey
@@ -30,6 +31,7 @@ import com.ashlikun.xviewpager.FragmentUtils
 import com.ashlikun.xviewpager.fragment.FragmentPagerAdapter
 import com.ashlikun.xviewpager.fragment.FragmentPagerItem
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 /**
@@ -58,6 +60,7 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
     }
 
     override fun parseIntent(intent: Intent) {
+        launch {  }
         super.parseIntent(intent)
         ActivityManager.getInstance().currentActivity()
         intent?.run {
