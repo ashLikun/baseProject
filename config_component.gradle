@@ -28,17 +28,18 @@ ext {
 }
 ext.changRun = { currentModule, sdk, config ->
     println currentModule
+
     if (currentModule.isRun) {
-        for (Map.Entry o : sdk) {
-            println o
-            if (o.value == config.applicationId) {
-                o.value = currentModule.applicationId
+        sdk.each { it ->
+            println it
+            if (it.value == config.applicationId) {
+                it.value = currentModule.applicationId
             }
         }
-        for (Map.Entry o : config) {
-            println o
-            if (o.value == config.applicationId) {
-                o.value = currentModule.applicationId
+        config.each { it ->
+            println it
+            if (it.value == config.applicationId) {
+                it.value = currentModule.applicationId
             }
         }
 

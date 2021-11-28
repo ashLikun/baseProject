@@ -18,7 +18,7 @@ import com.ashlikun.core.mvvm.launch
 class LoginViewModel : BaseViewModel() {
     var phone = ""
     var password = ""
-    val userData: MutableLiveData<UserData> by lazy {
+    val userData by lazy {
         get(UserData.javaClass) as MutableLiveData<UserData>
     }
 
@@ -33,7 +33,7 @@ class LoginViewModel : BaseViewModel() {
                 it.getData().save()
                 userData.postValue(it.getData())
             } else {
-                it.showToast ()
+                it.showToast()
             }
         }
     }

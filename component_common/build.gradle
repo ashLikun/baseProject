@@ -1,23 +1,24 @@
-apply plugin: 'com.android.library'
-// 使用Kotlin插件
-apply plugin: 'kotlin-android'
-//kapt插件
-apply plugin: 'kotlin-kapt'
+plugins {
+    id 'com.android.library'
+    // 使用Kotlin插件
+    id 'kotlin-android'
+    //kapt插件
+    id 'kotlin-kapt'
+}
 def sdk = rootProject.ext.sdk // SDK配置
 def config = rootProject.ext.android // 工程配置
 def libs = rootProject.ext.dependencies // 库依赖
 android {
-    compileSdkVersion config.compileSdkVersion
+    compileSdk config.compileSdk
     defaultConfig {
-        minSdkVersion config.minSdkVersion
-        targetSdkVersion config.targetSdkVersion
+        minSdk config.minSdk
+        targetSdk config.targetSdk
 
         kapt {
             arguments {
                 arg("AROUTER_MODULE_NAME", project.getName())
             }
         }
-        //向清单文件注入参数
         manifestPlaceholders = sdk
     }
 

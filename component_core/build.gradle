@@ -1,18 +1,19 @@
-apply plugin: 'com.android.library'
-// 使用Kotlin插件
-apply plugin: 'kotlin-android'
-//kapt插件
-apply plugin: 'kotlin-kapt'
+plugins {
+    id 'com.android.library'
+    // 使用Kotlin插件
+    id 'kotlin-android'
+    //kapt插件
+    id 'kotlin-kapt'
+}
 
 def config = rootProject.ext.android // 工程配置
 def libs = rootProject.ext.dependencies // 库依赖
 apply from: file('.././configs_module_common.gradle')
 android {
-    compileSdkVersion config.compileSdkVersion
-    buildToolsVersion config.buildToolsVersion
+    compileSdk config.compileSdk
     defaultConfig {
-        minSdkVersion config.minSdkVersion
-        targetSdkVersion config.targetSdkVersion
+        minSdk config.minSdk
+        targetSdk config.targetSdk
         versionCode config.versionCode
         versionName config.versionName
         kapt {
@@ -20,6 +21,8 @@ android {
                 arg("AROUTER_MODULE_NAME", project.getName())
             }
         }
+        //向清单文件注入参数
+        manifestPlaceholders = sdk
     }
     /**
      * java插件引入了一个概念叫做SourceSets 通过修改SourceSets中的属性
@@ -51,12 +54,11 @@ dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
     kapt libs.aroutercompiler
     kapt libs.glideCompiler
-    api libs.kotlin
-    api libs.kotlinReflect
+    api libs.ktx
+    api libs.appcompat
     api libs.design
     api libs.lifecycleViewmodelKtx
     api libs.lifecycleRuntimeKtx
-
     //mvp
     api libs.CustomMvvm
     api libs.multidex

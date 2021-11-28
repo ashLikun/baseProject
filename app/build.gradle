@@ -1,8 +1,10 @@
-apply plugin: 'com.android.application'
-// 使用Kotlin插件
-apply plugin: 'kotlin-android'
-//kapt插件
-apply plugin: 'kotlin-kapt'
+plugins {
+    id 'com.android.application'
+    // 使用Kotlin插件
+    id 'kotlin-android'
+    //kapt插件
+    id 'kotlin-kapt'
+}
 
 def config = rootProject.ext.android // 工程配置
 def sdk = rootProject.ext.sdk // SDK配置
@@ -20,12 +22,11 @@ android {
         }
     }
     rootProject.ext.loadSigningConfigs(this)
-    compileSdkVersion config.compileSdkVersion
-    buildToolsVersion config.buildToolsVersion
+    compileSdk config.compileSdk
     defaultConfig {
         applicationId config.applicationId
-        minSdkVersion config.minSdkVersion
-        targetSdkVersion config.targetSdkVersion
+        minSdk config.minSdk
+        targetSdk config.targetSdk
         versionCode config.versionCode
         versionName config.versionName
         flavorDimensions config.flavorDimensions

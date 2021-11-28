@@ -8,6 +8,7 @@ if (currentModule.isRun) {
 apply plugin: 'kotlin-android'
 //kapt插件
 apply plugin: 'kotlin-kapt'
+
 def sdk = rootProject.ext.sdk // SDK配置
 def config = rootProject.ext.android // 工程配置
 def libs = rootProject.ext.dependencies // 库依赖
@@ -15,16 +16,15 @@ apply from: file('.././configs_module_common.gradle')
 
 android {
     rootProject.ext.changRun(currentModule, sdk, config)
-    compileSdkVersion config.compileSdkVersion
-    buildToolsVersion config.buildToolsVersion
+    compileSdk config.compileSdk
     defaultConfig {
         if (currentModule.isRun) {
             // 当前组件独立运行，需要设置applicationId,和主包的id不一样
             applicationId config.applicationId
             //applicationIdSuffix ".login"
         }
-        minSdkVersion config.minSdkVersion
-        targetSdkVersion config.targetSdkVersion
+        minSdk config.minSdk
+        targetSdk config.targetSdk
         versionCode config.versionCode
         versionName config.versionName
         multiDexEnabled true
