@@ -18,9 +18,7 @@ import com.ashlikun.core.mvvm.launch
 class LoginViewModel : BaseViewModel() {
     var phone = ""
     var password = ""
-    val userData by lazy {
-        get(UserData.javaClass) as MutableLiveData<UserData>
-    }
+    val userData = get(UserData::class)
 
     /**
      *用户登录	UserLogin	Mobile：手机号码

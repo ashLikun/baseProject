@@ -62,6 +62,8 @@ dependencies {
     //mvp
     api libs.CustomMvvm
     api libs.multidex
+    //datastore
+    api libs.datastorePre
     //约束布局
     api libs.ConstraintLayout
     //Fragment

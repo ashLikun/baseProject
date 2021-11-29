@@ -39,9 +39,9 @@ class LoginActivity : BaseMvvmActivity<LoginViewModel>() {
         //        editHelper.addEditHelperData(new EditHelper.EditHelperData(dataBind.passwordTil,
         //                Validators.getLengthSRegex(6, dataBind.passwordTil.getCounterMaxLength()), "密码6-20位"));
         //        dataBind.setPresenter(presenter);
-        viewModel.userData.observe(this, Observer {
+        viewModel.userData.observe(this) {
             login(it)
-        })
+        }
         binding.textView.setOnClickListener {
 
         }

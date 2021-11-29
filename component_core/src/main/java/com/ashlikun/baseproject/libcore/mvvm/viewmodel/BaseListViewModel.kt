@@ -23,8 +23,8 @@ abstract class BaseListViewModel : BaseViewModel() {
     var pageHelpListener: PageHelpListener? = null
 
     //滚动列表
-    val scrollPosition: MutableLiveData<Int> by lazy {
-        MutableLiveData<Int>()
+    val scrollPosition by lazy {
+        get("scrollPosition", Int::class)
     }
     val pageHelp: PageHelp?
         get() = pageHelpListener?.pageHelp
