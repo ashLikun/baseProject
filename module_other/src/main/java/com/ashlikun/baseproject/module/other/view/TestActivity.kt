@@ -40,43 +40,43 @@ class TestActivity : BaseActivity() {
     override fun initView() {
         toolbar.setTitle("我是测试")
         //非常重要，没有这句话监听无法生效
-        val cb = object : WindowInsetsAnimationCompat.Callback(DISPATCH_MODE_CONTINUE_ON_SUBTREE) {
-
-            override fun onPrepare(animation: WindowInsetsAnimationCompat) {
-                LogUtils.e("onPrepare")
-                // #1: 第一，onPrepare 被调用会允许应用记录当前布局的任何状态
-            }
-
-            // #2: 在 onPrepare 之后，正常的 WindowInsets 会被下发到视图层次
-            // 结构中，它包含了结束状态。这意味着您的视图的
-            // OnApplyWindowInsetsListener 会被调用，这会导致一个布局传递
-            // 以反映结束状态
-
-            override fun onStart(
-                    animation: WindowInsetsAnimationCompat,
-                    bounds: WindowInsetsAnimationCompat.BoundsCompat
-            ): WindowInsetsAnimationCompat.BoundsCompat {
-                LogUtils.e("onStart")
-                // #3: 接下来是 onStart ，这个会在动画开始的时候被调用。
-                // 这允许应用记录下视图的目标状态或者结束状态
-                return bounds
-            }
-
-            override fun onProgress(insets: WindowInsetsCompat, runningAnimations: MutableList<WindowInsetsAnimationCompat>): WindowInsetsCompat {
-                LogUtils.e("onProgress")
-                // #4: 接下来是一个很重要的调用：onProgress 。这个会在动画中每次视窗属性
-                // 更改的时候被调用。在软键盘的这个例子中，这个调用会发生在软键盘在屏幕
-                // 上滑动的时候。
-                return insets
-            }
-
-            override fun onEnd(animation: WindowInsetsAnimationCompat) {
-                LogUtils.e("onEnd")
-                // #5: 最后 onEnd 在动画已经结束的时候被调用。使用这个来
-                // 清理任何旧的状态。
-            }
-        }
-        ViewCompat.setWindowInsetsAnimationCallback(binding.inputView, cb)
+//        val cb = object : WindowInsetsAnimationCompat.Callback(DISPATCH_MODE_CONTINUE_ON_SUBTREE) {
+//
+//            override fun onPrepare(animation: WindowInsetsAnimationCompat) {
+//                LogUtils.e("onPrepare")
+//                // #1: 第一，onPrepare 被调用会允许应用记录当前布局的任何状态
+//            }
+//
+//            // #2: 在 onPrepare 之后，正常的 WindowInsets 会被下发到视图层次
+//            // 结构中，它包含了结束状态。这意味着您的视图的
+//            // OnApplyWindowInsetsListener 会被调用，这会导致一个布局传递
+//            // 以反映结束状态
+//
+//            override fun onStart(
+//                    animation: WindowInsetsAnimationCompat,
+//                    bounds: WindowInsetsAnimationCompat.BoundsCompat
+//            ): WindowInsetsAnimationCompat.BoundsCompat {
+//                LogUtils.e("onStart")
+//                // #3: 接下来是 onStart ，这个会在动画开始的时候被调用。
+//                // 这允许应用记录下视图的目标状态或者结束状态
+//                return bounds
+//            }
+//
+//            override fun onProgress(insets: WindowInsetsCompat, runningAnimations: MutableList<WindowInsetsAnimationCompat>): WindowInsetsCompat {
+//                LogUtils.e("onProgress")
+//                // #4: 接下来是一个很重要的调用：onProgress 。这个会在动画中每次视窗属性
+//                // 更改的时候被调用。在软键盘的这个例子中，这个调用会发生在软键盘在屏幕
+//                // 上滑动的时候。
+//                return insets
+//            }
+//
+//            override fun onEnd(animation: WindowInsetsAnimationCompat) {
+//                LogUtils.e("onEnd")
+//                // #5: 最后 onEnd 在动画已经结束的时候被调用。使用这个来
+//                // 清理任何旧的状态。
+//            }
+//        }
+//        ViewCompat.setWindowInsetsAnimationCallback(binding.inputView, cb)
         binding.ceshiButton.setOnClickListener {
             launch {
                 val aaa = ApiOther.api.test(111, HttpUiHandle.get())

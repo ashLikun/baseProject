@@ -8,7 +8,6 @@ plugins {
 
 def config = rootProject.ext.android // 工程配置
 def libs = rootProject.ext.dependencies // 库依赖
-apply from: file('.././configs_module_common.gradle')
 android {
     compileSdk config.compileSdk
     defaultConfig {
