@@ -58,15 +58,22 @@ dependencies {
     api libs.design
     api libs.lifecycleViewmodelKtx
     api libs.lifecycleRuntimeKtx
-    //mvp
-    api libs.CustomMvvm
-    api libs.multidex
+    api libs.lifecycleLiveDataKtx
     //datastore
     api libs.datastorePre
     //约束布局
-    api libs.ConstraintLayout
+    api libs.constraintLayout
+    //协调布局
+    api libs.coordinatorLayout
     //Fragment
     api libs.Fragment
+    //Activity
+    api libs.Activity
+
+
+    //mvvm
+    api libs.CustomMvvm
+    api libs.multidex
 
     //alibaba的路由框架
     api libs.arouterapi
