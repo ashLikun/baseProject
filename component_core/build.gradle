@@ -56,6 +56,8 @@ dependencies {
     api libs.ktx
     //Kotlin 反射相关
     api libs.kotlinReflect
+    //KotlinxCoroutines
+    api libs.KotlinxCoroutines
     api libs.appcompat
     api libs.design
     api libs.lifecycleViewmodelKtx
