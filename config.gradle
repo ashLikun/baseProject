@@ -42,7 +42,7 @@ ext {
             ktx                  : "androidx.core:core-ktx:1.7.+",
             kotlinReflect        : "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version",
             //kotlin的协程
-            KotlinxCoroutines    : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_version",
+            KotlinxCoroutines    : "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0",
             appcompat            : "androidx.appcompat:appcompat:1.4.+",
             design               : "com.google.android.material:material:1.5+",
             //约束布局
@@ -156,8 +156,8 @@ ext {
             ZxingUtils           : "com.github.ashLikun:ZxingUtils:2.0.2",
             ZxingCore            : "com.google.zxing:core:3.3.0",
             EasyPay              : "com.github.ashLikun:EasyPay:2.0.4",
-            //腾讯X5浏览器 43986
-            tbssdk               : "com.tencent.tbs.tbssdk:sdk:+",
+            //腾讯X5浏览器 44136
+            tbssdk               : "com.tencent.tbs:tbssdk:44136",
             // 极光推送
             jpush                : 'cn.jiguang.sdk:jpush:4.4.5',
             // 极光推送

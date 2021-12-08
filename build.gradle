@@ -5,6 +5,7 @@ apply from: file('./configs_signing.gradle')
 buildscript {
     ext.kotlin_version = '1.6.0'
     repositories {
+        jcenter()
         google()
         mavenCentral()
     }
@@ -19,6 +20,7 @@ buildscript {
 
 allprojects {
     repositories {
+        jcenter()
         google()
         //jitpack
         maven { url "https://jitpack.io" }
