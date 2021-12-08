@@ -52,15 +52,14 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
     var cachePosition = -1
     val adapter: FragmentPagerAdapter by lazy {
         FragmentPagerAdapter.Builder.create(supportFragmentManager)
-                .addItem(FragmentPagerItem.get(RouterPath.FRAGMENT_HOME))
-                .addItem(FragmentPagerItem.get(RouterPath.FRAGMENT_HOME))
-                .addItem(FragmentPagerItem.get(RouterPath.FRAGMENT_HOME))
-                .setCache(true)
-                .build()
+            .addItem(FragmentPagerItem.get(RouterPath.FRAGMENT_HOME))
+            .addItem(FragmentPagerItem.get(RouterPath.FRAGMENT_HOME))
+            .addItem(FragmentPagerItem.get(RouterPath.FRAGMENT_HOME))
+            .setCache(true)
+            .build()
     }
 
     override fun parseIntent(intent: Intent) {
-        launch {  }
         super.parseIntent(intent)
         ActivityManager.getInstance().currentActivity()
         intent?.run {
@@ -91,12 +90,24 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
     override fun initView() {
         binding.run {
             bottomNavigationBar.accentColor = ResUtils.getColor(R.color.colorPrimary)
-            bottomNavigationBar.addItem(AHBottomNavigationItem.Builder(R.string.main_bottom_1,
-                    R.mipmap.app_logo, R.mipmap.app_logo).builder())
-            bottomNavigationBar.addItem(AHBottomNavigationItem.Builder(R.string.main_bottom_2,
-                    R.mipmap.app_logo, R.mipmap.app_logo).builder())
-            bottomNavigationBar.addItem(AHBottomNavigationItem.Builder(R.string.main_bottom_3,
-                    R.mipmap.app_logo, R.mipmap.app_logo).builder())
+            bottomNavigationBar.addItem(
+                AHBottomNavigationItem.Builder(
+                    R.string.main_bottom_1,
+                    R.mipmap.app_logo, R.mipmap.app_logo
+                ).builder()
+            )
+            bottomNavigationBar.addItem(
+                AHBottomNavigationItem.Builder(
+                    R.string.main_bottom_2,
+                    R.mipmap.app_logo, R.mipmap.app_logo
+                ).builder()
+            )
+            bottomNavigationBar.addItem(
+                AHBottomNavigationItem.Builder(
+                    R.string.main_bottom_3,
+                    R.mipmap.app_logo, R.mipmap.app_logo
+                ).builder()
+            )
             bottomNavigationBar.defaultBackgroundColor = ResUtils.getColor(R.color.white)
             bottomNavigationBar.titleState = AHBottomNavigation.TitleState.ALWAYS_SHOW
 
@@ -114,7 +125,12 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
             })
             bottomNavigationBar.setupWithViewPager(viewPager, false)
         }
-        val mode = AppOpsManagerCompat.noteOp(this, AppOpsManager.OPSTR_GET_USAGE_STATS, Process.myUid(), this.packageName)
+        val mode = AppOpsManagerCompat.noteOp(
+            this,
+            AppOpsManager.OPSTR_GET_USAGE_STATS,
+            Process.myUid(),
+            this.packageName
+        )
         val granted = mode == AppOpsManagerCompat.MODE_ALLOWED
         if (!granted) {
             startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
@@ -126,7 +142,8 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
                 if (m != null) {
                     val now = System.currentTimeMillis()
                     //获取60秒之内的应用数据
-                    val stats = m.queryUsageStats(UsageStatsManager.INTERVAL_BEST, now - 6000 * 1000, now)
+                    val stats =
+                        m.queryUsageStats(UsageStatsManager.INTERVAL_BEST, now - 6000 * 1000, now)
                     LogUtils.e("Running app number in last 60 seconds : " + stats!!.size)
                     //取得最近运行的一个app，即当前运行的app
                     if (stats.isEmpty()) {
@@ -135,8 +152,13 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
                             if (stats[i].lastTimeUsed > stats[j].lastTimeUsed) {
                                 j = i
                             }
-                            var packageInfo = AppUtils.getApp().packageManager.getPackageInfo(stats[j].packageName, 0)
-                            val appName = packageInfo.applicationInfo.loadLabel(AppUtils.getApp().packageManager).toString()
+                            var packageInfo = AppUtils.getApp().packageManager.getPackageInfo(
+                                stats[j].packageName,
+                                0
+                            )
+                            val appName =
+                                packageInfo.applicationInfo.loadLabel(AppUtils.getApp().packageManager)
+                                    .toString()
                             LogUtils.e("top running app is : $appName")
                         }
                     }

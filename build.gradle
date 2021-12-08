@@ -3,12 +3,10 @@ apply from: file('./config.gradle')
 apply from: file('./config_component.gradle')
 apply from: file('./configs_signing.gradle')
 buildscript {
-    ext.kotlin_version = '1.5.21'
-    //kotlin协程版本
-    ext.kotlinx_coroutines = '1.3.3'
+    ext.kotlin_version = '1.6.0'
     repositories {
-        jcenter()
         google()
+        mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.0.3'
@@ -21,7 +19,6 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
         google()
         //jitpack
         maven { url "https://jitpack.io" }

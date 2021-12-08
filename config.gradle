@@ -40,6 +40,7 @@ ext {
     ]
     dependencies = [
             ktx                  : "androidx.core:core-ktx:1.7.+",
+            kotlinReflect        : "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version",
             appcompat            : "androidx.appcompat:appcompat:1.4.+",
             design               : "com.google.android.material:material:1.5+",
             //约束布局
@@ -119,8 +120,6 @@ ext {
             rxandroid            : "io.reactivex.rxjava2:rxandroid:2.1.1",
             rxjava               : "io.reactivex.rxjava2:rxjava:x.y.z",
             RxLife               : "com.github.ashLikun:RxLife:1.0.2",
-            //kotlin的协程
-            KotlinxCoroutines    : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines",
             //okhttp
             okhttp               : "com.squareup.okhttp3:okhttp:4.+",
             gson                 : "com.google.code.gson:gson:2.8.5",

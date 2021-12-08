@@ -54,6 +54,8 @@ dependencies {
     kapt libs.aroutercompiler
     kapt libs.glideCompiler
     api libs.ktx
+    //Kotlin 反射相关
+    api libs.kotlinReflect
     api libs.appcompat
     api libs.design
     api libs.lifecycleViewmodelKtx
@@ -165,8 +167,6 @@ dependencies {
     api libs.rxjava
     api libs.RxLife
 
-    //KotlinxCoroutines
-    api libs.KotlinxCoroutines
 
     //okhttp
     api libs.okhttp
