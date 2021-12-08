@@ -3,7 +3,7 @@ ext {
     lifecycleVersion = "2.4.+"
     android = [
             applicationId   : "com.ashlikun.baseproject",
-            compileSdk      : 30,
+            compileSdk      : 31,
             versionCode     : 1,
             versionName     : "1.0.0",
             targetSdk       : 28,
