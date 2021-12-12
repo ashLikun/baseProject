@@ -44,7 +44,6 @@ open class BaseApplication : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
         initLib()
-
         //布局切换管理器
         LoadSwitch.BASE_EMPTY_LAYOUT_ID = R.layout.base_load_empty
         LoadSwitch.BASE_RETRY_LAYOUT_ID = R.layout.base_load_retry
