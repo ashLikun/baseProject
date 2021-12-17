@@ -78,9 +78,9 @@ ext {
             //事件总线
             EventBus             : "com.github.ashLikun:LiveDataVBus:2.0.1",
             //数据库
-            LiteOrm              : "com.github.ashLikun:LiteOrm:2.0.1",
+            LiteOrm              : "com.github.ashLikun:LiteOrm:2.0.2",
             //封装的RecycleView
-            XRecycleView         : "com.github.ashLikun:XRecycleView:2.1.9",
+            XRecycleView         : "com.github.ashLikun:XRecycleView:3.0.2",
             //动画菜单,可以不用
             AnimationMenu        : "com.github.ashLikun:AnimationMenu:2.0.0",
             //自定义的下拉刷新
@@ -88,9 +88,9 @@ ext {
             //封装的viewpager，banner，启动页
             XViewPager           : "com.github.ashLikun:XViewPager:2.1.6",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:3.8.0",
+            CommonUtils          : "com.github.ashLikun:CommonUtils:4.0.0",
             //公共的Adapter
-            CommonAdapter        : "com.github.ashLikun:CommonAdapter:4.1.2",
+            CommonAdapter        : "com.github.ashLikun:CommonAdapter:4.1.3",
             //Google官方改造
             XTabLayout           : "com.github.ashLikun:XTabLayout2:1.0.5",
             //功能更加丰富
@@ -123,7 +123,7 @@ ext {
             rxjava               : "io.reactivex.rxjava2:rxjava:x.y.z",
             RxLife               : "com.github.ashLikun:RxLife:1.0.2",
             //okhttp
-            okhttp               : "com.squareup.okhttp3:okhttp:4.+",
+            okhttp               : "com.squareup.okhttp3:okhttp:4.9.3",
             gson                 : "com.google.code.gson:gson:2.8.5",
             //不同type的json解析,依赖于gson
             MultiTypeGson        : "com.github.ashLikun:MultiTypeGson:2.0.7",
