@@ -16,7 +16,7 @@ import com.ashlikun.utils.AppUtils
  * 解决官方的smoothScrollToPosition 滚动后不对其的bug
  */
 fun RecyclerView.LayoutManager.smoothScrollToPositionAlign(position: Int, speed: Float = 25f, onStart: (() -> Unit)? = null, onStop: (() -> Unit)? = null) {
-    val linearSmoothScroller = object : LinearSmoothScroller(AppUtils.getApp()) {
+    val linearSmoothScroller = object : LinearSmoothScroller(AppUtils.app()) {
         //返回滑动一个pixel需要多少毫秒
         override fun calculateSpeedPerPixel(displayMetrics: DisplayMetrics?): Float {
             //这边可以自定义进行控制速度

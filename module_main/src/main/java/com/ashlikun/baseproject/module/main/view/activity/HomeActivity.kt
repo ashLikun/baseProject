@@ -8,7 +8,6 @@ import android.os.Process
 import android.provider.Settings
 import androidx.core.app.AppOpsManagerCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.libcore.constant.EventBusKey
 import com.ashlikun.baseproject.libcore.constant.RouterKey
@@ -24,14 +23,11 @@ import com.ashlikun.livedatabus.EventBus
 import com.ashlikun.utils.AppUtils
 import com.ashlikun.utils.other.LogUtils
 import com.ashlikun.utils.ui.ActivityManager
-import com.ashlikun.utils.ui.ResUtils
-import com.ashlikun.utils.ui.SuperToast
-import com.ashlikun.utils.ui.ToastUtils
+import com.ashlikun.utils.ui.extend.resColor
+import com.ashlikun.utils.ui.modal.SuperToast
 import com.ashlikun.xviewpager.FragmentUtils
 import com.ashlikun.xviewpager.fragment.FragmentPagerAdapter
 import com.ashlikun.xviewpager.fragment.FragmentPagerItem
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 
 /**
@@ -44,9 +40,11 @@ import kotlinx.coroutines.launch
  */
 @Route(path = RouterPath.HOME)
 class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
-    val binding by lazy {
+    override val binding by lazy {
         MainActivityHomeBinding.inflate(layoutInflater)
     }
+    override val statusBarColor = R.color.white.resColor
+
     private var exitTime: Long = 0
     var index = 0
     var cachePosition = -1
@@ -61,7 +59,6 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
 
     override fun parseIntent(intent: Intent) {
         super.parseIntent(intent)
-        ActivityManager.getInstance().currentActivity()
         intent?.run {
             index = getIntExtra(RouterKey.FLAG_INDEX, -1)
         }
@@ -83,13 +80,9 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
     }
 
 
-    override fun getStatusBarColor(): Int {
-        return ResUtils.getColor(R.color.white)
-    }
-
     override fun initView() {
         binding.run {
-            bottomNavigationBar.accentColor = ResUtils.getColor(R.color.colorPrimary)
+            bottomNavigationBar.accentColor = R.color.colorPrimary.resColor
             bottomNavigationBar.addItem(
                 AHBottomNavigationItem.Builder(
                     R.string.main_bottom_1,
@@ -108,7 +101,7 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
                     R.mipmap.app_logo, R.mipmap.app_logo
                 ).builder()
             )
-            bottomNavigationBar.defaultBackgroundColor = ResUtils.getColor(R.color.white)
+            bottomNavigationBar.defaultBackgroundColor = R.color.white.resColor
             bottomNavigationBar.titleState = AHBottomNavigation.TitleState.ALWAYS_SHOW
 
             bottomNavigationBar.addOnTabSelectedListener(this@HomeActivity)
@@ -138,7 +131,7 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
         launch(delayTime = 1000) {
             while (true) {
 
-                val m = AppUtils.getApp().getSystemService(USAGE_STATS_SERVICE) as UsageStatsManager
+                val m = AppUtils.app.getSystemService(USAGE_STATS_SERVICE) as UsageStatsManager
                 if (m != null) {
                     val now = System.currentTimeMillis()
                     //获取60秒之内的应用数据
@@ -152,12 +145,12 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
                             if (stats[i].lastTimeUsed > stats[j].lastTimeUsed) {
                                 j = i
                             }
-                            var packageInfo = AppUtils.getApp().packageManager.getPackageInfo(
+                            var packageInfo = AppUtils.app.packageManager.getPackageInfo(
                                 stats[j].packageName,
                                 0
                             )
                             val appName =
-                                packageInfo.applicationInfo.loadLabel(AppUtils.getApp().packageManager)
+                                packageInfo.applicationInfo.loadLabel(AppUtils.app.packageManager)
                                     .toString()
                             LogUtils.e("top running app is : $appName")
                         }
@@ -180,8 +173,8 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
 //                    val statm = process.statm()
 //                    val totalSizeOfProcess = statm.size
 //                    val residentSetSize = statm.residentSetSize
-//                    val packageInfo = process.getPackageInfo(AppUtils.getApp(), 0)
-//                    val appName = packageInfo.applicationInfo.loadLabel(AppUtils.getApp().packageManager).toString()
+//                    val packageInfo = process.getPackageInfo(AppUtils.app(), 0)
+//                    val appName = packageInfo.applicationInfo.loadLabel(AppUtils.app().packageManager).toString()
 //                    LogUtils.e("appName${appName}${processName}")
 //                }
                 delay(1000)

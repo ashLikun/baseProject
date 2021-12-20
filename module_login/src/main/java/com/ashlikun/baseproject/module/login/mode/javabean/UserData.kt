@@ -18,7 +18,7 @@ import com.ashlikun.orm.db.enums.AssignType
 import com.ashlikun.orm.db.model.ColumnsValue
 import com.ashlikun.orm.db.model.ConflictAlgorithm
 import com.ashlikun.utils.other.StringUtils
-import com.ashlikun.utils.ui.SuperToast
+import com.ashlikun.utils.ui.modal.SuperToast
 import com.google.gson.annotations.SerializedName
 
 /**

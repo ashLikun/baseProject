@@ -16,6 +16,7 @@ class HttpPageResult<T> : HttpResult<T>() {
      * 当前是服务器数据的第几页
      */
     var currentPage = 1
+
     /**
      * 一共多少页
      */

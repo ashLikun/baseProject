@@ -25,7 +25,7 @@ import com.ashlikun.utils.other.LogUtils
 import com.ashlikun.utils.other.SharedPreUtils
 import com.ashlikun.utils.other.ThreadUtils
 import com.ashlikun.utils.ui.ActivityManager
-import com.ashlikun.utils.ui.SuperToast
+import com.ashlikun.utils.ui.modal.SuperToast
 import com.ashlikun.utils.ui.UiUtils
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -134,7 +134,7 @@ class WelcomeActivity : BaseActivity() {
      * 创建时间: 2016/12/26 17:05
      *
      *
-     * 方法功能：获取用户所有信息
+     * 获取用户所有信息
      * 1跳转登陆或者首页，2：不跳转
      */
     fun getServiceUser(): Int {

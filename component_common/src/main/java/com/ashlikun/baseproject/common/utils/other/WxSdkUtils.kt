@@ -3,7 +3,7 @@ package com.ashlikun.baseproject.common.utils.other
 import android.app.Activity
 import com.ashlikun.utils.AppUtils
 import com.ashlikun.utils.other.StringUtils
-import com.ashlikun.utils.ui.SuperToast
+import com.ashlikun.utils.ui.modal.SuperToast
 
 
 /**
@@ -25,7 +25,7 @@ object WxSdkUtils {
 //     */
 //    val wxApi: IWXAPI
 //        get() {
-//            val api = WXAPIFactory.createWXAPI(AppUtils.getApp(), APP_ID)
+//            val api = WXAPIFactory.createWXAPI(AppUtils.app(), APP_ID)
 //            api.registerApp(APP_ID)
 //            return api
 //        }

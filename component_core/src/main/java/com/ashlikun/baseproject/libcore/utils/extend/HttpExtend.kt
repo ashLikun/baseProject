@@ -4,7 +4,7 @@ import com.ashlikun.baseproject.libcore.utils.http.HttpCodeApp
 import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.utils.other.StringUtils
-import com.ashlikun.utils.ui.SuperToast
+import com.ashlikun.utils.ui.modal.SuperToast
 
 /**
  * 作者　　: 李坤

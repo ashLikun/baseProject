@@ -31,14 +31,14 @@ open class HttpCallBack<ResultType> constructor(val handle: HttpUiHandle?)
     }
 
     /**
-     * 方法功能：请求开始
+     * 请求开始
      */
     override fun onStart() {
         handle?.start()
     }
 
     /**
-     * 方法功能：请求完成
+     * 请求完成
      */
     override fun onCompleted() {
         handle?.completed()
@@ -48,7 +48,7 @@ open class HttpCallBack<ResultType> constructor(val handle: HttpUiHandle?)
      * 作者　　: 李坤
      * 创建时间: 2016/12/27 15:24
      *
-     * 方法功能：处理完后的错误数据
+     * 处理完后的错误数据
      */
 
     open fun onError(data: ContextData) {
@@ -56,7 +56,7 @@ open class HttpCallBack<ResultType> constructor(val handle: HttpUiHandle?)
     }
 
     /**
-     * 方法功能：请求出错
+     * 请求出错
      */
     override fun onError(error: HttpException) {
         LogUtils.wtf(error)
@@ -66,7 +66,7 @@ open class HttpCallBack<ResultType> constructor(val handle: HttpUiHandle?)
     }
 
     /**
-     * 方法功能：运行与子线程
+     * 运行与子线程
      */
 
     override fun onSuccessSubThread(result: ResultType) {
@@ -74,7 +74,7 @@ open class HttpCallBack<ResultType> constructor(val handle: HttpUiHandle?)
     }
 
     /**
-     * 方法功能：请求成功
+     * 请求成功
      */
     override fun onSuccess(result: ResultType) {
         onSuccess(result, false)
@@ -103,7 +103,7 @@ open class HttpCallBack<ResultType> constructor(val handle: HttpUiHandle?)
     }
 
     /**
-     * 方法功能： 是否对错误信息处理
+     *  是否对错误信息处理
      */
     open fun onSuccess(result: ResultType, isHanderError: Boolean) {
         handle?.success(result as Any)

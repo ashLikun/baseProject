@@ -19,7 +19,7 @@ import com.google.gson.JsonSyntaxException
  * 邮箱　　：496546144@qq.com
  *
  *
- * 方法功能：拉起app的或者推送
+ * 拉起app的或者推送
  */
 @Table("JpushJsonData")
 class JpushJsonData {
@@ -120,11 +120,11 @@ class JpushJsonData {
          */
         fun addOrRemove(isAdd: Boolean) {
 //            if (isAdd) {
-//                SharedPreUtils.setKeyAndValue(AppUtils.getApp(), SpKey.JPUSH_NUMBER,
-//                        SharedPreUtils.getInt(AppUtils.getApp(), SpKey.JPUSH_NUMBER) + 1)
+//                SharedPreUtils.setKeyAndValue(AppUtils.app(), SpKey.JPUSH_NUMBER,
+//                        SharedPreUtils.getInt(AppUtils.app(), SpKey.JPUSH_NUMBER) + 1)
 //            } else {
-//                val number = SharedPreUtils.getInt(AppUtils.getApp(), SpKey.JPUSH_NUMBER) - 1
-//                SharedPreUtils.setKeyAndValue(AppUtils.getApp(), SpKey.JPUSH_NUMBER,
+//                val number = SharedPreUtils.getInt(AppUtils.app(), SpKey.JPUSH_NUMBER) - 1
+//                SharedPreUtils.setKeyAndValue(AppUtils.app(), SpKey.JPUSH_NUMBER,
 //                        Math.max(number, 0))
 //            }
 //            EventBus.get(EvenBusKey.EVENBUS_JPUSH_RECEIVER_SAVE).post(JpushJsonData())
@@ -137,7 +137,7 @@ class JpushJsonData {
 //            RouterManage.getLogin().run {
 //                if (isLogin()) {
 //                    LiteOrmUtil.get().delete(JpushJsonData::class.java)
-//                    SharedPreUtils.setKeyAndValue(AppUtils.getApp(), SpKey.JPUSH_NUMBER, 0)
+//                    SharedPreUtils.setKeyAndValue(AppUtils.app(), SpKey.JPUSH_NUMBER, 0)
 //                    EventBus.get(EvenBusKey.EVENBUS_JPUSH_RECEIVER_SAVE).post(JpushJsonData())
 //                }
 //            }

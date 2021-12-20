@@ -24,10 +24,10 @@ fun Throwable?.postBugly() {
  */
 fun initBugly() {
     if (!AppUtils.isDebug()) {
-        val strategy = CrashReport.UserStrategy(AppUtils.getApp())
+        val strategy = CrashReport.UserStrategy(AppUtils.app())
         strategy.appPackageName = AppUtils.getPackageName()
         strategy.appVersion = AppUtils.getVersionName()
-        strategy.appChannel = FileUtils.getMetaValue(AppUtils.getApp(), "UMENG_CHANNEL")
-        CrashReport.initCrashReport(AppUtils.getApp(), FileUtils.getMetaValue(AppUtils.getApp(), "BUGLY_APPKEY"), AppUtils.isDebug(), strategy)
+        strategy.appChannel = FileUtils.getMetaValue(AppUtils.app(), "UMENG_CHANNEL")
+        CrashReport.initCrashReport(AppUtils.app(), FileUtils.getMetaValue(AppUtils.app(), "BUGLY_APPKEY"), AppUtils.isDebug(), strategy)
     }
 }

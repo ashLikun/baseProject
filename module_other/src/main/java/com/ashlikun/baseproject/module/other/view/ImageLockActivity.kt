@@ -26,7 +26,7 @@ import com.ashlikun.utils.other.DimensUtils
 import com.ashlikun.utils.other.file.FileIOUtils
 import com.ashlikun.utils.ui.BitmapUtil
 import com.ashlikun.utils.ui.StatusBarCompat
-import com.ashlikun.utils.ui.SuperToast
+import com.ashlikun.utils.ui.modal.SuperToast
 import com.ashlikun.utils.ui.UiUtils
 import com.ashlikun.xviewpager.adapter.BasePageAdapter
 import com.ashlikun.xviewpager.listener.ViewPageHelperListener

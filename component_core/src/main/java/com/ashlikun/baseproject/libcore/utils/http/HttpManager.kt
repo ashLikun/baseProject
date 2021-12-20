@@ -3,26 +3,24 @@ package com.ashlikun.baseproject.libcore.utils.http
 import android.app.Activity
 import android.os.Looper
 import androidx.appcompat.app.AlertDialog
-import com.ashlikun.livedatabus.EventBus
+import com.ashlikun.baseproject.libcore.constant.EventBusKey
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
+import com.ashlikun.baseproject.libcore.utils.http.interceptor.DefaultInterceptor
+import com.ashlikun.baseproject.libcore.utils.other.AppConfig
 import com.ashlikun.baseproject.libcore.utils.other.CacheUtils
 import com.ashlikun.baseproject.libcore.utils.other.postBugly
+import com.ashlikun.livedatabus.EventBus
+import com.ashlikun.okhttputils.http.HttpException
 import com.ashlikun.okhttputils.http.HttpUtils
 import com.ashlikun.okhttputils.http.OkHttpUtils
 import com.ashlikun.okhttputils.http.response.HttpResponse
-import com.ashlikun.utils.AppUtils
-import com.ashlikun.utils.other.DeviceUtil
-import com.ashlikun.utils.other.MainHandle
-import com.ashlikun.utils.other.StringUtils
-import com.ashlikun.utils.other.file.FileUtils
-import com.ashlikun.utils.ui.ActivityManager
-import com.ashlikun.utils.ui.SuperToast
-import com.ashlikun.baseproject.libcore.constant.EventBusKey
-import com.ashlikun.baseproject.libcore.utils.http.interceptor.DefaultInterceptor
-import com.ashlikun.baseproject.libcore.utils.other.AppConfig
-import com.ashlikun.okhttputils.http.HttpException
 import com.ashlikun.okhttputils.http.response.IHttpResponse
 import com.ashlikun.okhttputils.retrofit.Retrofit
+import com.ashlikun.utils.AppUtils
+import com.ashlikun.utils.other.MainHandle
+import com.ashlikun.utils.other.file.FileUtils
+import com.ashlikun.utils.ui.ActivityManager
+import com.ashlikun.utils.ui.modal.SuperToast
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import java.io.File
@@ -44,12 +42,16 @@ class HttpManager private constructor() {
         OkHttpUtils.setOnDataParseError { code, exception, response, json ->
             val requestStr = HttpUtils.getRequestToString(response.request)
             val responseStr = HttpUtils.getResponseToString(response)
-            RuntimeException("request:\n$requestStr\nresponse:\n$responseStr \n$json", exception).postBugly()
+            RuntimeException(
+                "request:\n$requestStr\nresponse:\n$responseStr \n$json",
+                exception
+            ).postBugly()
         }
         Retrofit.get().init(createRequest = {
             HttpRequestParam.create(it.url).parseGson(it)
         }) { request, result, params ->
-            request.syncExecute<Any>(params?.find { it is HttpUiHandle } as? HttpUiHandle, result.resultType)
+            request.syncExecute<Any>(params?.find { it is HttpUiHandle } as? HttpUiHandle,
+                result.resultType)
         }
         Retrofit.get().onProxyStart = { method, args ->
             (args?.find { it is HttpUiHandle } as? HttpUiHandle)?.start()
@@ -95,7 +97,7 @@ class HttpManager private constructor() {
         //公共拦截器
         builder.addInterceptor(DefaultInterceptor())
         //防止抓包
-        if (!AppUtils.isDebug()) {
+        if (!AppUtils.isDebug) {
             builder.proxy(Proxy.NO_PROXY)
         }
         return builder
@@ -137,9 +139,14 @@ class HttpManager private constructor() {
          * 创建Url,这里会替换环境的HOST
          */
         @JvmStatic
-        fun createUrl(url: String? = null, action: String? = null, path: String = BASE_PATH): String {
+        fun createUrl(
+            url: String? = null,
+            action: String? = null,
+            path: String = BASE_PATH
+        ): String {
             return if (url.isNullOrEmpty()) BASE_URL + path + "action=" + action
-            else if (AppConfig.isBeta || AppConfig.isDebug) url.replace(URL_PROD, BASE_URL).replace(URL_TEST, BASE_URL)
+            else if (AppConfig.isBeta || AppConfig.isDebug) url.replace(URL_PROD, BASE_URL)
+                .replace(URL_TEST, BASE_URL)
             else url.replace(URL_TEST, BASE_URL)
         }
 
@@ -165,16 +172,22 @@ class HttpManager private constructor() {
                     response.code == HttpCodeApp.TOKEN_ERROR -> {
 
                         RouterManage.login()?.exit()
-                        val activity = ActivityManager.getForegroundActivity()
+                        val activity = ActivityManager.foregroundActivity
                         if (activity != null && !activity.isFinishing) {
                             if (Looper.getMainLooper() != Looper.myLooper()) {
-                                MainHandle.post { showTokenErrorDialog(activity, response.getMessage(), response.code) }
+                                MainHandle.post {
+                                    showTokenErrorDialog(
+                                        activity,
+                                        response.message,
+                                        response.code
+                                    )
+                                }
                             } else {
-                                showTokenErrorDialog(activity, response.getMessage(), response.code)
+                                showTokenErrorDialog(activity, response.message, response.code)
                             }
                         } else {
-                            SuperToast.get(response.getMessage()).error()
-                            if (response.getCode() == HttpCodeApp.TOKEN_ERROR) {
+                            SuperToast.get(response.message).error()
+                            if (response.code == HttpCodeApp.TOKEN_ERROR) {
                                 RouterManage.login()?.exitLogin()
                                 RouterManage.login()?.startLogin()
                             }
@@ -184,16 +197,22 @@ class HttpManager private constructor() {
                     response.code == HttpCodeApp.NO_LOGIN -> {
 
                         RouterManage.login()?.exit()
-                        val activity = ActivityManager.getForegroundActivity()
+                        val activity = ActivityManager.foregroundActivity
                         if (activity != null && !activity.isFinishing) {
                             if (Looper.getMainLooper() != Looper.myLooper()) {
-                                MainHandle.post { showTokenErrorDialog(activity, response.getMessage(), response.code) }
+                                MainHandle.post {
+                                    showTokenErrorDialog(
+                                        activity,
+                                        response.message,
+                                        response.code
+                                    )
+                                }
                             } else {
-                                showTokenErrorDialog(activity, response.getMessage(), response.code)
+                                showTokenErrorDialog(activity, response.message, response.code)
                             }
                         } else {
-                            SuperToast.get(response.getMessage()).error()
-                            if (response.getCode() == HttpCodeApp.NO_LOGIN) {
+                            SuperToast.get(response.message).error()
+                            if (response.code == HttpCodeApp.NO_LOGIN) {
                                 RouterManage.login()?.exitLogin()
                                 RouterManage.login()?.startLogin()
                             }
@@ -219,20 +238,20 @@ class HttpManager private constructor() {
             }
             IS_LOGIN_OUT_DIALOG_SHOW = true
             AlertDialog.Builder(activity)
-                    .setCancelable(false)
-                    .setTitle("账号异常")
-                    .setOnDismissListener { IS_LOGIN_OUT_DIALOG_SHOW = false }
-                    .setMessage(message)
-                    .setPositiveButton("知道了") { dialoog, which ->
-                        if (code == HttpCodeApp.TOKEN_ERROR) {
-                            RouterManage.login()?.exitLogin()
-                            RouterManage.login()?.startLogin()
-                        }
-                        if (code == HttpCodeApp.NO_LOGIN) {
-                            RouterManage.login()?.startLogin()
-                        }
+                .setCancelable(false)
+                .setTitle("账号异常")
+                .setOnDismissListener { IS_LOGIN_OUT_DIALOG_SHOW = false }
+                .setMessage(message)
+                .setPositiveButton("知道了") { dialoog, which ->
+                    if (code == HttpCodeApp.TOKEN_ERROR) {
+                        RouterManage.login()?.exitLogin()
+                        RouterManage.login()?.startLogin()
                     }
-                    .show()
+                    if (code == HttpCodeApp.NO_LOGIN) {
+                        RouterManage.login()?.startLogin()
+                    }
+                }
+                .show()
         }
     }
 
@@ -242,9 +261,5 @@ class HttpManager private constructor() {
 /**
  * 接口成功处理code时候的错误
  */
-class HttpHandelResultException(var exception: HttpException) : HttpException(20009, "全局错误") {
-    init {
-        originalException = exception
-    }
-
-}
+class HttpHandelResultException(var exception: HttpException) :
+    HttpException(20009, "全局错误", exception)

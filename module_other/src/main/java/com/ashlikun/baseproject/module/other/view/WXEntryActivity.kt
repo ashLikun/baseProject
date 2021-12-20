@@ -2,7 +2,7 @@ package com.ashlikun.baseproject.module.other.view
 //
 //import android.content.Intent
 //import com.ashlikun.core.activity.BaseActivity
-//import com.ashlikun.utils.ui.SuperToast
+//import com.ashlikun.utils.ui.modal.SuperToast
 //import com.ashlikun.baseproject.common.utils.other.WxSdkUtils
 //import com.tencent.mm.opensdk.modelbase.BaseReq
 //import com.tencent.mm.opensdk.modelbase.BaseResp

@@ -1,6 +1,6 @@
 package com.ashlikun.baseproject.libcore.utils.extend
 
-import com.ashlikun.utils.ui.SuperToast
+import com.ashlikun.utils.ui.modal.SuperToast
 
 /**
  * 作者　　: 李坤

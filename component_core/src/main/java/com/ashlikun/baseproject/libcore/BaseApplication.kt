@@ -18,7 +18,7 @@ import com.ashlikun.okhttputils.http.download.DownloadManager
 import com.ashlikun.orm.LiteOrmUtil
 import com.ashlikun.utils.AppUtils
 import com.ashlikun.utils.other.file.FileUtils
-import com.ashlikun.utils.ui.SuperToast
+import com.ashlikun.utils.ui.modal.SuperToast
 import com.didichuxing.doraemonkit.DoraemonKit
 import com.tencent.smtt.export.external.TbsCoreSettings
 import com.tencent.smtt.sdk.QbSdk
@@ -70,27 +70,27 @@ open class BaseApplication : MultiDexApplication() {
     private fun initLib() {
         //app工具
         AppUtils.init(this)
-        AppUtils.setDebug(BuildConfig.DEBUG)
+        AppUtils.isDebug = BuildConfig.DEBUG
         CacheUtils.init(resources.getString(R.string.app_name_letter))
         //异常捕获
         AppCrashConfig.Builder.create(this)
-                .eventListener(AppCrashEventListener())
-                .isDebug(AppUtils.isDebug())
-                .apply()
+            .eventListener(AppCrashEventListener())
+            .isDebug(AppUtils.isDebug)
+            .apply()
         //开发助手
-        DoraemonKit.install(this, FileUtils.getMetaValue(this, "DOKIT_PID"))
+        DoraemonKit.install(this, FileUtils.getMetaValue("DOKIT_PID"))
         //数据库
         LiteOrmUtil.init(this)
-        LiteOrmUtil.setVersionCode(AppUtils.getVersionCode())
-        LiteOrmUtil.setIsDebug(AppUtils.isDebug())
+        LiteOrmUtil.setVersionCode(AppUtils.versionCode)
+        LiteOrmUtil.setIsDebug(AppUtils.isDebug)
         //路由
-        RouterManage.init(AppUtils.getApp(), AppUtils.isDebug())
+        RouterManage.init(AppUtils.app, AppUtils.isDebug)
         //http
         HttpManager.get()
         DownloadManager.initPath(CacheUtils.appSDDownloadPath)
-        GlideUtils.setDEBUG(AppUtils.isDebug())
+        GlideUtils.setDEBUG(AppUtils.isDebug)
         //Glide图片加载使用一个okHttpClient
-        GlideUtils.init(OkHttpUtils.getInstance().okHttpClient)
+        GlideUtils.init(OkHttpUtils.get().okHttpClient)
         //toast库
         SuperToast.setGravity(Gravity.CENTER)
         //腾讯Bugly
@@ -101,8 +101,12 @@ open class BaseApplication : MultiDexApplication() {
 
     private fun initX5Tbs() {
         // 初始化X5内核时候的配置
-        QbSdk.initTbsSettings(mapOf(TbsCoreSettings.TBS_SETTINGS_USE_SPEEDY_CLASSLOADER to true,
-                TbsCoreSettings.TBS_SETTINGS_USE_DEXLOADER_SERVICE to true))
+        QbSdk.initTbsSettings(
+            mapOf(
+                TbsCoreSettings.TBS_SETTINGS_USE_SPEEDY_CLASSLOADER to true,
+                TbsCoreSettings.TBS_SETTINGS_USE_DEXLOADER_SERVICE to true
+            )
+        )
         QbSdk.initX5Environment(this, object : QbSdk.PreInitCallback {
             override fun onCoreInitFinished() {
                 Log.e("QbSdk", "内核加载成功")
