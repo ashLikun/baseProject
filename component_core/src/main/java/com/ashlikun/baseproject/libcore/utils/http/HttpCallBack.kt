@@ -26,7 +26,7 @@ open class HttpCallBack<ResultType> constructor(val handle: HttpUiHandle?)
     /**
      * 重写数据转换
      */
-    override fun convertResponse(response: Response?, gosn: Gson?): ResultType {
+    override fun convertResponse(response: Response, gosn: Gson): ResultType {
         return super.convertResponse(response, gosn)
     }
 
@@ -60,8 +60,8 @@ open class HttpCallBack<ResultType> constructor(val handle: HttpUiHandle?)
      */
     override fun onError(error: HttpException) {
         LogUtils.wtf(error)
-        onError(ContextData().setErrCode(error.code())
-                .setTitle(error.message())
+        onError(ContextData().setErrCode(error.code)
+                .setTitle(error.message)
                 .setResId(R.drawable.material_service_error))
     }
 
@@ -95,8 +95,8 @@ open class HttpCallBack<ResultType> constructor(val handle: HttpUiHandle?)
             //不显示toast
             handle?.isErrorToastShow = false
             //如果code全局处理的时候错误了，那么是不会走success的，这里就得自己处理UI设置为错误状态
-            handle?.error(ContextData().setErrCode(res.exception.code())
-                    .setTitle(res.exception.message())
+            handle?.error(ContextData().setErrCode(res.exception.code)
+                    .setTitle(res.exception.message)
                     .setResId(R.drawable.material_service_error))
         }
         return res
@@ -113,7 +113,7 @@ open class HttpCallBack<ResultType> constructor(val handle: HttpUiHandle?)
         /**
          * 获取当前泛型内部data->list或者数组  或者 对象
          */
-        fun getListOrArrayOrObject(resultType: Type): Any? {
+        fun getListOrArrayOrObject(resultType: Type?): Any? {
             try {
                 var res = classToListOrArrayOrObject(resultType)
                 return res?.newInstance()

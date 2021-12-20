@@ -20,7 +20,7 @@ open class HttpListResult<T> : HttpResponse() {
     override fun toString(): String {
         return "HttpResult{" +
                 "json='" + json + '\'' +
-                ", httpcode=" + httpcode +
+                ", httpcode=" + httpCode +
                 ", code=" + code +
                 ", message='" + message + '\'' +
                 '}'

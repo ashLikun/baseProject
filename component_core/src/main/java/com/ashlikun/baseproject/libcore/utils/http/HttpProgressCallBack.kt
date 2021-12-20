@@ -5,11 +5,12 @@ import com.ashlikun.baseproject.libcore.utils.http.HttpUiHandle
 import com.ashlikun.okhttputils.http.callback.ProgressCallBack
 import com.ashlikun.utils.other.LogUtils
 
-abstract class HttpProgressCallBack<ResultType>(private var buider2: HttpUiHandle = HttpUiHandle.get()) : HttpCallBack<ResultType>(buider2), ProgressCallBack {
+abstract class HttpProgressCallBack<ResultType>(private var buider: HttpUiHandle = HttpUiHandle.get()) : HttpCallBack<ResultType>(buider), ProgressCallBack {
     /**
      * 下载或者上传 回调的频率  ms
      */
-    var rateVar: Long = 500
+    override val progressRate: Long = 500
+
 
     fun onStart(isCompress: Boolean) {
         LogUtils.e("onStart2")
@@ -23,12 +24,7 @@ abstract class HttpProgressCallBack<ResultType>(private var buider2: HttpUiHandl
         LogUtils.e("onStart")
     }
 
-    override fun getRate(): Long {
-        return rateVar
-    }
-
-    override fun onLoading(progress: Long, total: Long, done: Boolean, isUpdate: Boolean) {
-        LogUtils.e("onLoading")
+    override fun invoke(progress: Long, total: Long, done: Boolean, isUpdate: Boolean) {
         onLoading(progress, total, done, isUpdate, false)
     }
 

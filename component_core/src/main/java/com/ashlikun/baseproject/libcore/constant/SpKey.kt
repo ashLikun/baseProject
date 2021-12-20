@@ -11,18 +11,22 @@ package com.ashlikun.baseproject.libcore.constant
 object SpKey {
     const val RUN = "Run"
     const val VERSION_CODE = "VersionCode"
+
     /**
      * 地址搜索历史的key
      */
     const val SEARCH_ADDRESS = "SEARCH_ADDRESS"
+
     /**
      * 搜索
      */
     const val SEARCH = "SEARCH"
+
     /**
      * 是否开始消息推送
      */
     const val OPEN_MESSAGE = "OPEN_MESSAGE"
+
     /**
      * 推送的消息条数
      */

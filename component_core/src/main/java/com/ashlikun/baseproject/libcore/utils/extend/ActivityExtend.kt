@@ -16,9 +16,9 @@ import com.ashlikun.core.mvvm.BaseViewModel
 import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.loadswitch.LoadSwitchService
 import com.ashlikun.utils.other.ClassUtils
-import com.ashlikun.utils.ui.StatusBarCompat
 import com.ashlikun.utils.ui.extend.hineIme
 import com.ashlikun.utils.ui.extend.showIme
+import com.ashlikun.utils.ui.status.StatusBarCompat
 import permissions.dispatcher.PermissionUtils
 
 /**
@@ -80,14 +80,14 @@ fun <I, O> ComponentActivity.registerForActivityResultX(
     //反射修改字段
     if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
         oldStatus = lifecycle.currentState
-        ClassUtils.setField(lifecycle, "mState", Lifecycle.State.CREATED)
+        ClassUtils.setFieldValue(lifecycle, "mState", Lifecycle.State.CREATED)
     }
     //这段注册代码源码里面做了限制，必须在onStart之前，所以反射修改字段，骗过注册
     val launcher = registerForActivityResult(contract) {
         callback.invoke(it)
     }
     if (oldStatus != null) {
-        ClassUtils.setField(lifecycle, "mState", oldStatus)
+        ClassUtils.setFieldValue(lifecycle, "mState", oldStatus)
     }
     return launcher
 }

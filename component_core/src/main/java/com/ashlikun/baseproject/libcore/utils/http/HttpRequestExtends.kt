@@ -27,8 +27,8 @@ suspend fun <T> HttpRequest.syncExecute(handle: HttpUiHandle?, resultType: Type)
             call?.cancel()
         }
         val callback = SimpleHttpCallback<T>(handle)
-        if (tag == null && handle != null) {
-            tag(handle?.getTag())
+        if (tag == null) {
+            tag = handle?.tag
         }
         callback.resultType = resultType
         //全局处理code的时候
@@ -72,7 +72,7 @@ inline fun <reified T> HttpRequest.syncExecute2(handle: HttpUiHandle?): T? {
 fun <T> HttpRequest.syncExecute2(handle: HttpUiHandle?, resultType: Type): T? {
     MainHandle.post { handle?.start() }
     if (tag == null) {
-        tag(handle?.getTag())
+        tag = handle?.tag
     }
     try {
         val result = syncExecute(resultType) as T
@@ -83,7 +83,7 @@ fun <T> HttpRequest.syncExecute2(handle: HttpUiHandle?, resultType: Type): T? {
             if (result is IHttpResponse && result.isSucceed) {
                 if (result is HttpResult<*>) {
                     if (result.data == null) {
-                        result.data = HttpCallBack.getListOrArrayOrObject(resultType)
+                        (result as HttpResult<in Any>).data = HttpCallBack.getListOrArrayOrObject(resultType)
                     }
                 } else if (result is HttpListResult<*>) {
                     if (result.data == null) {
@@ -101,8 +101,8 @@ fun <T> HttpRequest.syncExecute2(handle: HttpUiHandle?, resultType: Type): T? {
         }
     } catch (error: HttpException) {
         MainHandle.post {
-            handle?.error((ContextData().setErrCode(error.code())
-                    .setTitle(error.message())
+            handle?.error((ContextData().setErrCode(error.code)
+                    .setTitle(error.message)
                     .setResId(R.drawable.material_service_error)))
         }
         return null
@@ -128,7 +128,7 @@ fun <T> HttpRequest.execute(handle: HttpUiHandle,
 ): ExecuteCall {
     val callback = SimpleHttpCallback<T>(handle)
     if (tag == null) {
-        tag(handle.getTag())
+        tag = handle?.tag
     }
     //由于SimpleHttpCallback的泛型这里无法直接指定，只能通过其他参数获取
     val type = success?.javaClass ?: successSubThread?.javaClass

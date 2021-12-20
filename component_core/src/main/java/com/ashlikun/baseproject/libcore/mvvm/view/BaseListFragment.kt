@@ -4,7 +4,6 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ashlikun.adapter.recyclerview.BaseAdapter
-import com.ashlikun.adapter.recyclerview.click.OnItemClickListener
 import com.ashlikun.adapter.recyclerview.vlayout.MultipleAdapter
 import com.ashlikun.baseproject.libcore.mvvm.viewmodel.BaseListViewModel
 import com.ashlikun.core.mvvm.BaseMvvmFragment
@@ -23,6 +22,10 @@ import com.ashlikun.xrecycleview.listener.RecycleViewSwipeListener
 abstract class BaseListFragment<VM : BaseListViewModel> : BaseMvvmFragment<VM>(), RecycleViewSwipeListener, OnLoadSwitchClick {
     open val itemDecoration: RecyclerView.ItemDecoration? = null
     abstract val adapter: RecyclerView.Adapter<*>
+
+    override val switchRoot: View?
+        get() = recyclerView
+
     open val layoutManager: RecyclerView.LayoutManager by lazy {
         LinearLayoutManager(context)
     }
@@ -45,12 +48,8 @@ abstract class BaseListFragment<VM : BaseListViewModel> : BaseMvvmFragment<VM>()
                 recyclerView.adapter = adapter
             }
         }
-        if (adapter is BaseAdapter<*, *> && this is OnItemClickListener<*>) {
-            (adapter as BaseAdapter<*, *>)?.setOnItemClickListener(this)
-        }
     }
 
-    override fun getSwitchRoot(): View? = recyclerView
 
     override fun clearData() {
         if (adapter is BaseAdapter<*, *>) {

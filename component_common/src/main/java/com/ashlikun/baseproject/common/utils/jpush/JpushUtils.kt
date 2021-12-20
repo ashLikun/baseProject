@@ -32,7 +32,7 @@ object JpushUtils {
     private var cacheData: JpushJsonData? = null
 
     fun init(application: Application) {
-        JPushInterface.setDebugMode(AppUtils.isDebug())
+        JPushInterface.setDebugMode(AppUtils.isDebug)
         JPushInterface.init(application)
         RouterManage.login()?.run {
             if (isLogin()) setAlias() else deleteAlias()

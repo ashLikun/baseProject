@@ -17,6 +17,10 @@ import com.ashlikun.xrecycleview.listener.RecycleViewSwipeListener
  * 功能介绍：列表(SuperRecyclerView)界面父类
  */
 abstract class BaseSuperListActivity<VM : BaseListViewModel> : BaseListActivity<VM>(), RecycleViewSwipeListener, OnLoadSwitchClick {
+
+    override val switchRoot: View?
+        get() = superRecyclerView
+
     override fun initRecyclerView() {
         //这个必须放到上面执行
         superRecyclerView.setOnRefreshListener(this@BaseSuperListActivity)
@@ -26,7 +30,6 @@ abstract class BaseSuperListActivity<VM : BaseListViewModel> : BaseListActivity<
 
     open abstract val superRecyclerView: SuperRecyclerView
 
-    override fun getSwitchRoot(): View? = switchRoot ?: superRecyclerView
 
     override val swipeRefreshLayout: RefreshLayout?
         get() = superRecyclerView.refreshLayout

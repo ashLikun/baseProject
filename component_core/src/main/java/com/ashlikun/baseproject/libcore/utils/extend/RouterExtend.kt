@@ -40,11 +40,13 @@ fun Postcard.addFlag(flag: Int): Postcard {
     return this
 }
 
-fun Postcard.navigation(context: Context? = ActivityManager.getInstance().currentActivity(),
-                        onArrival: OnNvCallback? = null,
-                        onLost: OnNvCallback? = null,
-                        onInterrupt: OnNvCallback? = null,
-                        onFound: OnNvCallback? = null,) {
+fun Postcard.navigation(
+        context: Context? = ActivityManager.get().currentActivity(),
+        onArrival: OnNvCallback? = null,
+        onLost: OnNvCallback? = null,
+        onInterrupt: OnNvCallback? = null,
+        onFound: OnNvCallback? = null,
+) {
     navigation(context, if (onFound == null) null else object : NavigationCallback {
         override fun onFound(postcard: Postcard) {
             onFound?.invoke(postcard)

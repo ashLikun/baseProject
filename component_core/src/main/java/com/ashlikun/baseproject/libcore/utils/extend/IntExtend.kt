@@ -10,7 +10,7 @@ import com.ashlikun.utils.ui.modal.SuperToast
  * 功能介绍：
  */
 inline fun Int?.isNullOrEmpty() = this == null || this == 0
-fun Int?.checkNullOrEmpty(message:String = "参数错误"): Boolean {
+fun Int?.checkNullOrEmpty(message: String = "参数错误"): Boolean {
     if (isNullOrEmpty()) {
         SuperToast.showErrorMessage(message)
         return false

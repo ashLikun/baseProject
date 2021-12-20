@@ -14,7 +14,7 @@ import com.tencent.bugly.crashreport.CrashReport
  */
 fun Throwable?.postBugly() {
     //正式环境上传错误
-    if (this != null && !AppUtils.isDebug()) {
+    if (this != null && !AppUtils.isDebug) {
         CrashReport.postCatchedException(this)
     }
 }
@@ -23,11 +23,11 @@ fun Throwable?.postBugly() {
  * 初始化Bugly
  */
 fun initBugly() {
-    if (!AppUtils.isDebug()) {
-        val strategy = CrashReport.UserStrategy(AppUtils.app())
-        strategy.appPackageName = AppUtils.getPackageName()
-        strategy.appVersion = AppUtils.getVersionName()
-        strategy.appChannel = FileUtils.getMetaValue(AppUtils.app(), "UMENG_CHANNEL")
-        CrashReport.initCrashReport(AppUtils.app(), FileUtils.getMetaValue(AppUtils.app(), "BUGLY_APPKEY"), AppUtils.isDebug(), strategy)
+    if (!AppUtils.isDebug) {
+        val strategy = CrashReport.UserStrategy(AppUtils.app)
+        strategy.appPackageName = AppUtils.packageName
+        strategy.appVersion = AppUtils.versionName
+        strategy.appChannel = FileUtils.getMetaValue("UMENG_CHANNEL")
+        CrashReport.initCrashReport(AppUtils.app, FileUtils.getMetaValue("BUGLY_APPKEY"), AppUtils.isDebug, strategy)
     }
 }

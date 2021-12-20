@@ -9,7 +9,7 @@ import com.ashlikun.utils.ui.modal.SuperToast
  *
  * 功能介绍：
  */
-fun String?.checkNullOrEmpty(message:String = "参数错误"): Boolean {
+fun String?.checkNullOrEmpty(message: String = "参数错误"): Boolean {
     if (isNullOrEmpty()) {
         SuperToast.showErrorMessage(message)
         return false

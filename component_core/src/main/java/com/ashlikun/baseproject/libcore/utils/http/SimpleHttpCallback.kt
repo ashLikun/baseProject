@@ -73,7 +73,7 @@ open class SimpleHttpCallback<T> constructor(handle: HttpUiHandle?)
                     //成功时候对data为null的处理
                     if (result is HttpResult<*>) {
                         if (result.data == null) {
-                            result.data = getListOrArrayOrObject(resultType)
+                            (result as HttpResult<in Any>).data = getListOrArrayOrObject(resultType)
                         }
                         when {
                             result.data != null -> success?.invoke(result)

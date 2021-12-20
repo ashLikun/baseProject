@@ -23,7 +23,7 @@ fun HttpResponse.toast(default: String? = null, isShowInfo: ((code: Int) -> Bool
     showToast(default, isShowInfo)
 }
 
-fun HttpResponse.message(default: String) = StringUtils.dataFilter(getMessage(), default)
+fun HttpResponse.message(default: String) = StringUtils.dataFilter(message, default)
 
 fun HttpResponse.getContextData() = ContextData(code, message("出错啦"))
 
