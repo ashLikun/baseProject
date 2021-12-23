@@ -1,11 +1,9 @@
 package com.ashlikun.baseproject.libcore.dialog
 
 import android.content.Context
-import android.graphics.drawable.GradientDrawable
 import android.view.WindowManager
-import com.ashlikun.customdialog.LoadDialog
-import com.ashlikun.utils.other.DimensUtils
 import com.ashlikun.baseproject.libcore.R
+import com.ashlikun.customdialog.LoadDialog
 
 /**
  * 作者　　: 李坤

@@ -40,13 +40,13 @@ object JpushUtils {
     }
 
     fun deleteAlias() {
-        JPushInterface.deleteAlias(AppUtils.app(), JPUSH_ALIAS_DELETE_ID)
+        JPushInterface.deleteAlias(AppUtils.app, JPUSH_ALIAS_DELETE_ID)
     }
 
     fun setAlias() {
         RouterManage.login()?.run {
             if (isLogin()) {
-                JPushInterface.setAlias(AppUtils.app(), JPUSH_ALIAS_SET_ID, getUserId())
+                JPushInterface.setAlias(AppUtils.app, JPUSH_ALIAS_SET_ID, getUserId())
             }
         }
     }
@@ -54,13 +54,13 @@ object JpushUtils {
     fun setTags(tags: Set<String>) {
         RouterManage.login()?.run {
             if (isLogin()) {
-                JPushInterface.setTags(AppUtils.app(), JPUSH_TAGS_SET_ID, tags)
+                JPushInterface.setTags(AppUtils.app, JPUSH_TAGS_SET_ID, tags)
             }
         }
     }
 
     fun deleteTags() {
-        JPushInterface.deleteAlias(AppUtils.app(), JPUSH_TAGS_DELETE_ID)
+        JPushInterface.deleteAlias(AppUtils.app, JPUSH_TAGS_DELETE_ID)
     }
 
     fun clearAliasAndTags() {
@@ -93,7 +93,7 @@ object JpushUtils {
             SuperToast.get("无效的跳转").info()
             return
         }
-        val runStatus = ActivityUtils.appBackgoundToForeground(context)
+        val runStatus = ActivityUtils.appBackgoundToForeground()
         if (runStatus == 2) {
             //app未启动
             cacheData = data

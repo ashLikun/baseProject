@@ -1,6 +1,5 @@
 package com.ashlikun.baseproject.common.mode.javabean
 
-import android.content.Intent
 import cn.jpush.android.api.NotificationMessage
 import com.ashlikun.baseproject.libcore.constant.EventBusKey
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
@@ -120,11 +119,11 @@ class JpushJsonData {
          */
         fun addOrRemove(isAdd: Boolean) {
 //            if (isAdd) {
-//                SharedPreUtils.setKeyAndValue(AppUtils.app(), SpKey.JPUSH_NUMBER,
-//                        SharedPreUtils.getInt(AppUtils.app(), SpKey.JPUSH_NUMBER) + 1)
+//                StoreUtils.setKeyAndValue(AppUtils.app(), SpKey.JPUSH_NUMBER,
+//                        StoreUtils.getInt(AppUtils.app(), SpKey.JPUSH_NUMBER) + 1)
 //            } else {
-//                val number = SharedPreUtils.getInt(AppUtils.app(), SpKey.JPUSH_NUMBER) - 1
-//                SharedPreUtils.setKeyAndValue(AppUtils.app(), SpKey.JPUSH_NUMBER,
+//                val number = StoreUtils.getInt(AppUtils.app(), SpKey.JPUSH_NUMBER) - 1
+//                StoreUtils.setKeyAndValue(AppUtils.app(), SpKey.JPUSH_NUMBER,
 //                        Math.max(number, 0))
 //            }
 //            EventBus.get(EvenBusKey.EVENBUS_JPUSH_RECEIVER_SAVE).post(JpushJsonData())
@@ -137,7 +136,7 @@ class JpushJsonData {
 //            RouterManage.getLogin().run {
 //                if (isLogin()) {
 //                    LiteOrmUtil.get().delete(JpushJsonData::class.java)
-//                    SharedPreUtils.setKeyAndValue(AppUtils.app(), SpKey.JPUSH_NUMBER, 0)
+//                    StoreUtils.setKeyAndValue(AppUtils.app(), SpKey.JPUSH_NUMBER, 0)
 //                    EventBus.get(EvenBusKey.EVENBUS_JPUSH_RECEIVER_SAVE).post(JpushJsonData())
 //                }
 //            }

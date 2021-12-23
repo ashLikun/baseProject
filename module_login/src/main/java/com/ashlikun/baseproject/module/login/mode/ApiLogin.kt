@@ -1,16 +1,15 @@
 package com.ashlikun.baseproject.module.login.mode
 
 import com.ashlikun.baseproject.libcore.mode.ApiBase
-import com.ashlikun.baseproject.libcore.mode.ApiCore
-import com.ashlikun.baseproject.libcore.utils.http.*
+import com.ashlikun.baseproject.libcore.utils.http.HttpUiHandle
+import com.ashlikun.baseproject.libcore.utils.http.requestGet
+import com.ashlikun.baseproject.libcore.utils.http.requestPost
+import com.ashlikun.baseproject.libcore.utils.http.syncExecute
 import com.ashlikun.baseproject.module.login.mode.javabean.UserData
-import com.ashlikun.okhttputils.http.ExecuteCall
 import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.okhttputils.http.response.HttpResult
-import com.ashlikun.okhttputils.retrofit.Field
 import com.ashlikun.okhttputils.retrofit.FieldNo
 import com.ashlikun.okhttputils.retrofit.Retrofit
-import java.io.Serializable
 
 /**
  * 作者　　: 李坤

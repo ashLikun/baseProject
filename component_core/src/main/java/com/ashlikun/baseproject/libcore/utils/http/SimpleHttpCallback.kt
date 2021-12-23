@@ -45,8 +45,7 @@ typealias OnErrorData = (data: ContextData) -> Unit
  *
  * 功能介绍：实现HttpCallBack
  */
-open class SimpleHttpCallback<T> constructor(handle: HttpUiHandle?)
-    : HttpCallBack<T>(handle) {
+open class SimpleHttpCallback<T> constructor(handle: HttpUiHandle?) : HttpCallBack<T>(handle) {
     var success: OnSuccess<T>? = null
 
     /**
@@ -72,20 +71,22 @@ open class SimpleHttpCallback<T> constructor(handle: HttpUiHandle?)
                 (result as IHttpResponse).isSucceed -> {
                     //成功时候对data为null的处理
                     if (result is HttpResult<*>) {
-                        if (result.data == null) {
-                            (result as HttpResult<in Any>).data = getListOrArrayOrObject(resultType)
-                        }
                         when {
                             result.data != null -> success?.invoke(result)
-                            else -> onError(HttpException(HttpCodeApp.NO_DATA_ERROR, HttpCodeApp.NO_DATA_ERROR_MSG))
+                            else -> onError(
+                                HttpException(
+                                    HttpCodeApp.NO_DATA_ERROR, HttpCodeApp.NO_DATA_ERROR_MSG
+                                )
+                            )
                         }
                     } else if (result is HttpListResult<*>) {
-                        if (result.data == null) {
-                            (result as HttpListResult<in Any>).data = getListOrArrayOrObject(resultType)
-                        }
                         when {
                             result.data != null -> success?.invoke(result)
-                            else -> onError(HttpException(HttpCodeApp.NO_DATA_ERROR, HttpCodeApp.NO_DATA_ERROR_MSG))
+                            else -> onError(
+                                HttpException(
+                                    HttpCodeApp.NO_DATA_ERROR, HttpCodeApp.NO_DATA_ERROR_MSG
+                                )
+                            )
                         }
                     }
                 }

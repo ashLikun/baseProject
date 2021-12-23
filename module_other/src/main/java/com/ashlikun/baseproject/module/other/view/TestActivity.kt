@@ -1,15 +1,11 @@
 package com.ashlikun.baseproject.module.other.view
 
 import android.content.Intent
-import android.os.Looper
-import androidx.core.view.*
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.ashlikun.adapter.recyclerview.vlayout.MultipleAdapter
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.utils.http.HttpRequestParam
 import com.ashlikun.baseproject.libcore.utils.http.HttpUiHandle
 import com.ashlikun.baseproject.libcore.utils.http.syncExecute
-import com.ashlikun.baseproject.module.other.R
 import com.ashlikun.baseproject.module.other.databinding.OtherActivityTestBinding
 import com.ashlikun.baseproject.module.other.mode.ApiOther
 import com.ashlikun.baseproject.module.other.utils.MaotaiUtils
@@ -27,7 +23,7 @@ import java.util.*
 
 @Route(path = RouterPath.TEST)
 class TestActivity : BaseActivity() {
-    val binding by lazy {
+    override val binding by lazy {
         OtherActivityTestBinding.inflate(layoutInflater)
     }
     val RESURL2 = listOf(
@@ -40,7 +36,7 @@ class TestActivity : BaseActivity() {
     )
 
     override fun initView() {
-        toolbar.setTitle("我是测试")
+        toolbar?.setTitle("我是测试")
         //非常重要，没有这句话监听无法生效
 //        val cb = object : WindowInsetsAnimationCompat.Callback(DISPATCH_MODE_CONTINUE_ON_SUBTREE) {
 //
@@ -244,7 +240,7 @@ class TestActivity : BaseActivity() {
 //        }
     }
 
-    override fun onNewIntent(intent: Intent?) {
+    override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
     }
 

@@ -2,8 +2,6 @@ package com.ashlikun.baseproject.libcore.utils.http
 
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 import com.ashlikun.okhttputils.http.request.HttpRequest
-import com.ashlikun.utils.encryption.Md5Utils
-import com.ashlikun.utils.other.LogUtils
 import com.ashlikun.xrecycleview.PageHelp
 
 /**

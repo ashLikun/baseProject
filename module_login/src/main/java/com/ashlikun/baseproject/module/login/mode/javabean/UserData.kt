@@ -17,7 +17,6 @@ import com.ashlikun.orm.db.assit.WhereBuilder
 import com.ashlikun.orm.db.enums.AssignType
 import com.ashlikun.orm.db.model.ColumnsValue
 import com.ashlikun.orm.db.model.ConflictAlgorithm
-import com.ashlikun.utils.other.StringUtils
 import com.ashlikun.utils.ui.modal.SuperToast
 import com.google.gson.annotations.SerializedName
 
@@ -37,18 +36,13 @@ class UserData {
      */
     @PrimaryKey(AssignType.BY_MYSELF)
     @SerializedName("id")
-    var id: String? = null
-        private set
-        get() = StringUtils.dataFilter(field, "")
+    var id: String = ""
 
     @SerializedName("user_name")
-    var userName: String? = null
-        private set
+    var userName: String = ""
 
     @Column("token")
-    var token: String? = null
-        private set
-        get() = StringUtils.dataFilter(field, "")
+    var token: String = ""
 
     /**
      * 是否是当前登录的用户（这样就不用sb保存用户ID）
@@ -65,13 +59,19 @@ class UserData {
         try {
             //清除其他登录的用户
             if (userData != null) {
-                LiteOrmUtil.get().update(WhereBuilder.create(UserData::class.java).where("isLogin = ?", true), ColumnsValue(arrayOf("isLogin"),
-                        arrayOf(false)), ConflictAlgorithm.None)
+                LiteOrmUtil.get().update(
+                    WhereBuilder.create(UserData::class.java).where("isLogin = ?", true),
+                    ColumnsValue(
+                        arrayOf("isLogin"),
+                        arrayOf(false)
+                    ),
+                    ConflictAlgorithm.None
+                )
             }
             //设置数据库当前登录的用户
             isLogin = true
             LiteOrmUtil.get().save(this)
-            UserData.userData = this
+            userData = this
             //发送通知
             EventBus.get(EventBusKey.LOGIN).post()
             //设置推送别名
@@ -93,8 +93,9 @@ class UserData {
             get() = if (field == null) try {
 
                 val list = LiteOrmUtil.get().query(
-                        QueryBuilder(UserData::class.java).where("isLogin=?", true)
-                                .limit(0, 1))
+                    QueryBuilder(UserData::class.java).where("isLogin=?", true)
+                        .limit(0, 1)
+                )
                 if (list == null || list.isEmpty()) {
                     null
                 } else {
@@ -148,7 +149,11 @@ class UserData {
 
         fun exit(): Boolean {
             //清除其他登录的用户
-            val res = LiteOrmUtil.get().update(WhereBuilder.create(UserData::class.java).where("isLogin=?", true), ColumnsValue(arrayOf("isLogin"), arrayOf(false)), ConflictAlgorithm.None)
+            val res = LiteOrmUtil.get().update(
+                WhereBuilder.create(UserData::class.java).where("isLogin=?", true),
+                ColumnsValue(arrayOf("isLogin"), arrayOf(false)),
+                ConflictAlgorithm.None
+            )
             userData = null
             if (res > 0) {
                 //发送退出广播
@@ -167,14 +172,14 @@ class UserData {
          */
         fun exit(context: Context) {
             AlertDialog.Builder(context)
-                    .setCancelable(false)
-                    .setTitle("提示")
-                    .setMessage("确认退出登录吗？")
-                    .setPositiveButton("残忍退出") { dialoog ->
-                        exitLogin()
-                    }
-                    .setNegativeButton("继续使用")
-                    .show()
+                .setCancelable(false)
+                .setTitle("提示")
+                .setMessage("确认退出登录吗？")
+                .setPositiveButton("残忍退出") { dialoog ->
+                    exitLogin()
+                }
+                .setNegativeButton("继续使用")
+                .show()
         }
     }
 

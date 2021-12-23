@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import com.ashlikun.baseproject.common.mode.javabean.JpushJsonData
 import com.ashlikun.baseproject.common.utils.jpush.JpushUtils
-import com.ashlikun.utils.other.StringUtils
 
 /**
  * 作者　　: 李坤
@@ -44,7 +43,7 @@ object PullJumpManage {
      */
     fun check(intent: Intent?): Boolean {
         intent?.data?.run {
-            return StringUtils.isEquals(intent.data?.host, "com.baseproject")
+            return intent.data?.host?.equals("com.baseproject") ?: false
         }
         return false
 

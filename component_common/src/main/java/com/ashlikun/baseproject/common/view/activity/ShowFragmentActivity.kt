@@ -5,12 +5,12 @@ import androidx.lifecycle.Lifecycle
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
-import com.ashlikun.core.activity.BaseActivity
-import com.ashlikun.utils.ui.ResUtils
 import com.ashlikun.baseproject.common.R
 import com.ashlikun.baseproject.common.databinding.CommonActivityShowFragmentBinding
 import com.ashlikun.baseproject.libcore.constant.RouterKey
 import com.ashlikun.baseproject.libcore.constant.RouterPath
+import com.ashlikun.core.activity.BaseActivity
+import com.ashlikun.utils.ui.extend.resColor
 
 /**
  * 作者　　: 李坤
@@ -26,34 +26,33 @@ import com.ashlikun.baseproject.libcore.constant.RouterPath
  */
 @Route(path = RouterPath.ACTIVITY_SHOW_FRAGMENT)
 class ShowFragmentActivity : BaseActivity() {
-    val binding by lazy {
+    override val binding by lazy {
         CommonActivityShowFragmentBinding.inflate(layoutInflater)
     }
 
+    @JvmField
     @Autowired(name = RouterKey.TARGET_FRAGMENT_PATH)
-    @JvmField
-    protected var fragmentPath: String? = null
+    var fragmentPath: String? = null
 
+    @JvmField
     @Autowired(name = RouterKey.STATUS_TRANS)
-    @JvmField
-    protected var isStatusTrans = true
+    var statusTranslucent = true
 
-    @Autowired(name = RouterKey.STATUS_COLOR)
     @JvmField
-    protected var statusColor = ResUtils.getColor(R.color.white)
+    @Autowired(name = RouterKey.STATUS_COLOR)
+    var barColor = R.color.white.resColor
+
+    override val statusBarColor = barColor
+    override val isStatusTranslucent = statusTranslucent
 
     override fun initView() {
         val fargment = ARouter.getInstance().build(fragmentPath)
-                .with(intent.extras)
-                .withBoolean(RouterKey.FLAG_BACK, true)
-                .navigation() as Fragment
+            .with(intent.extras)
+            .withBoolean(RouterKey.FLAG_BACK, true)
+            .navigation() as Fragment
         val ft = supportFragmentManager.beginTransaction()
         ft.replace(R.id.fragment, fargment)
         ft.setMaxLifecycle(fargment, Lifecycle.State.RESUMED)
         ft.commitNow()
     }
-
-    override fun isStatusTranslucent() = isStatusTrans
-
-    override fun getStatusBarColor() = statusColor
 }

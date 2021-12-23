@@ -1,11 +1,10 @@
-package com.namei.jinjihu.libcore.utils.http
+package com.ashlikun.baseproject.libcore.utils.http
 
-import com.ashlikun.baseproject.libcore.utils.http.HttpCallBack
-import com.ashlikun.baseproject.libcore.utils.http.HttpUiHandle
 import com.ashlikun.okhttputils.http.callback.ProgressCallBack
 import com.ashlikun.utils.other.LogUtils
 
-abstract class HttpProgressCallBack<ResultType>(private var buider: HttpUiHandle = HttpUiHandle.get()) : HttpCallBack<ResultType>(buider), ProgressCallBack {
+abstract class HttpProgressCallBack<ResultType>(private var buider: HttpUiHandle = HttpUiHandle.get()) :
+    HttpCallBack<ResultType>(buider), ProgressCallBack {
     /**
      * 下载或者上传 回调的频率  ms
      */
@@ -28,7 +27,13 @@ abstract class HttpProgressCallBack<ResultType>(private var buider: HttpUiHandle
         onLoading(progress, total, done, isUpdate, false)
     }
 
-    fun onLoading(progress: Long, total: Long, done: Boolean, isUpdate: Boolean, isCompress: Boolean) {
+    fun onLoading(
+        progress: Long,
+        total: Long,
+        done: Boolean,
+        isUpdate: Boolean,
+        isCompress: Boolean
+    ) {
         if (done) {
             handle?.dismissUi()
             return

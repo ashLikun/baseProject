@@ -1,9 +1,7 @@
 package com.ashlikun.baseproject.libcore.utils.other
 
-import android.os.Environment
 import com.ashlikun.gson.StringNullAdapter
 import com.ashlikun.utils.AppUtils
-import com.ashlikun.utils.other.file.FileUtils
 import com.ashlikun.utils.other.file.PathUtils
 import java.io.File
 

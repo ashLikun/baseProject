@@ -1,14 +1,7 @@
 package com.ashlikun.baseproject.common.utils.extend
 
-import android.os.Binder
-import android.os.Bundle
-import android.os.Parcelable
-import android.util.Size
-import android.util.SizeF
-import android.util.SparseArray
 import com.alibaba.android.arouter.facade.Postcard
 import com.ashlikun.baseproject.common.R
-import java.io.Serializable
 
 /**
  * 作者　　: 李坤

@@ -1,6 +1,5 @@
 package com.ashlikun.baseproject.module.other.utils
 
-import com.ashlikun.gson.GsonHelper
 import com.ashlikun.utils.other.coroutines.taskLaunch
 
 /**

@@ -9,6 +9,10 @@ import com.google.gson.Gson
 import okhttp3.Response
 import java.lang.reflect.*
 import java.lang.reflect.Array
+import kotlin.Any
+import kotlin.Boolean
+import kotlin.Exception
+import kotlin.IllegalArgumentException
 
 /**
  * @author　　: 李坤

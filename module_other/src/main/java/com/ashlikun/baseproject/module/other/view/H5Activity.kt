@@ -2,19 +2,15 @@ package com.ashlikun.baseproject.module.other.view
 
 import android.view.KeyEvent
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.ashlikun.baseproject.common.databinding.ViewLineItemBinding
 import com.ashlikun.baseproject.libcore.constant.RouterKey
 import com.ashlikun.baseproject.libcore.constant.RouterPath
-import com.ashlikun.baseproject.libcore.utils.extend.inflater
 import com.ashlikun.baseproject.module.other.R
 import com.ashlikun.baseproject.module.other.databinding.OtherActivityOrFragmentWebviewBinding
-import com.ashlikun.baseproject.module.other.databinding.OtherActivityWelcomBinding
 import com.ashlikun.core.activity.BaseActivity
 import com.ashlikun.core.mvvm.launch
 import com.ashlikun.utils.other.LogUtils
 import com.ashlikun.xwebview.XWeb
 import com.ashlikun.xwebview.websetting.AbsXWebSettings
-import com.ashlikun.xwebview.websetting.IWebSettings
 import com.tencent.smtt.export.external.interfaces.ConsoleMessage
 import com.tencent.smtt.sdk.WebChromeClient
 import com.tencent.smtt.sdk.WebView
@@ -30,23 +26,23 @@ import com.tencent.smtt.sdk.WebViewClient
  */
 @Route(path = RouterPath.ACTIVITY_H5)
 class H5Activity : BaseActivity() {
-    val binding by lazy {
+    override val binding by lazy {
         OtherActivityOrFragmentWebviewBinding.inflate(layoutInflater)
     }
     private val xWeb: XWeb by lazy {
         XWeb.with(binding.webviewPar)
-                .useDefaultIndicator()
-                .setWebWebSettings(webSettings)
-                .setWebChromeClient(mWebChromeClient)
-                .setWebViewClient(mWebViewClient)
-                .createWeb()
-                .ready()
-                .go(url)
+            .useDefaultIndicator()
+            .setWebWebSettings(webSettings)
+            .setWebChromeClient(mWebChromeClient)
+            .setWebViewClient(mWebViewClient)
+            .createWeb()
+            .ready()
+            .go(url)
     }
 
     //其他参数
     private val otherParams: Map<String, Any?> by lazy {
-        launch {  }
+        launch { }
         intent.getSerializableExtra(RouterKey.FLAG_DATA) as HashMap<String, Any?>? ?: hashMapOf()
     }
     private val mTitle: String by lazy {

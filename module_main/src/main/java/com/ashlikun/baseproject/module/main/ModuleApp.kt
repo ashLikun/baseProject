@@ -1,9 +1,6 @@
 package com.ashlikun.baseproject.module.main
 
-import android.content.res.Configuration
 import com.ashlikun.baseproject.libcore.AbsApplication
-
-import com.ashlikun.baseproject.libcore.IApplication
 
 /**
  * 作者　　: 李坤

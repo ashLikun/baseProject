@@ -1,22 +1,22 @@
 package com.ashlikun.baseproject.libcore.utils.http
 
+import com.ashlikun.baseproject.libcore.R
 import com.ashlikun.baseproject.libcore.mode.javabean.HttpListResult
 import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.okhttputils.http.ExecuteCall
 import com.ashlikun.okhttputils.http.HttpException
 import com.ashlikun.okhttputils.http.request.HttpRequest
 import com.ashlikun.okhttputils.http.response.HttpResult
+import com.ashlikun.okhttputils.http.response.IHttpResponse
 import com.ashlikun.utils.other.MainHandle
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
-import com.ashlikun.baseproject.libcore.R
-import com.ashlikun.okhttputils.http.response.IHttpResponse
 
 /**
- * 协程 同步请求
+ * 协程 同步请求,Retorfit 是使用这种的
  * @param resultType 数据类型
  */
 suspend fun <T> HttpRequest.syncExecute(handle: HttpUiHandle?, resultType: Type): T {
@@ -83,11 +83,13 @@ fun <T> HttpRequest.syncExecute2(handle: HttpUiHandle?, resultType: Type): T? {
             if (result is IHttpResponse && result.isSucceed) {
                 if (result is HttpResult<*>) {
                     if (result.data == null) {
-                        (result as HttpResult<in Any>).data = HttpCallBack.getListOrArrayOrObject(resultType)
+                        (result as HttpResult<in Any>).data =
+                            HttpCallBack.getListOrArrayOrObject(resultType)
                     }
                 } else if (result is HttpListResult<*>) {
                     if (result.data == null) {
-                        (result as HttpListResult<in Any>).data = HttpCallBack.getListOrArrayOrObject(resultType)
+                        (result as HttpListResult<in Any>).data =
+                            HttpCallBack.getListOrArrayOrObject(resultType)
                     }
                 }
             }
@@ -101,9 +103,11 @@ fun <T> HttpRequest.syncExecute2(handle: HttpUiHandle?, resultType: Type): T? {
         }
     } catch (error: HttpException) {
         MainHandle.post {
-            handle?.error((ContextData().setErrCode(error.code)
+            handle?.error(
+                (ContextData().setErrCode(error.code)
                     .setTitle(error.message)
-                    .setResId(R.drawable.material_service_error)))
+                    .setResId(R.drawable.material_service_error))
+            )
         }
         return null
     } finally {
@@ -116,15 +120,16 @@ fun <T> HttpRequest.syncExecute2(handle: HttpUiHandle?, resultType: Type): T? {
 /**
  * 回调方式请求
  */
-fun <T> HttpRequest.execute(handle: HttpUiHandle,
-                            success: OnSuccess<T>? = null,
-                            error: OnError? = null,
-                            errorData: OnErrorData? = null,
-                            successSubThread: OnSuccess<T>? = null,
-                            cacheSuccess: OnCacheSuccess<T>? = null,
-                            successHandelCode: OnSuccessHander<T>? = null,
-                            completed: OnArgs? = null,
-                            start: OnArgs? = null
+fun <T> HttpRequest.execute(
+    handle: HttpUiHandle,
+    success: OnSuccess<T>? = null,
+    error: OnError? = null,
+    errorData: OnErrorData? = null,
+    successSubThread: OnSuccess<T>? = null,
+    cacheSuccess: OnCacheSuccess<T>? = null,
+    successHandelCode: OnSuccessHander<T>? = null,
+    completed: OnArgs? = null,
+    start: OnArgs? = null
 ): ExecuteCall {
     val callback = SimpleHttpCallback<T>(handle)
     if (tag == null) {

@@ -2,8 +2,6 @@ package com.ashlikun.baseproject.libcore.utils.extend
 
 import android.view.LayoutInflater
 import android.view.View
-import com.ashlikun.loadswitch.ContextData
-import com.ashlikun.okhttputils.http.response.HttpResponse
 
 /**
  * 作者　　: 李坤

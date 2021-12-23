@@ -1,15 +1,12 @@
 package com.ashlikun.baseproject.module.other.mode
 
 import com.ashlikun.baseproject.libcore.mode.ApiBase
-import com.ashlikun.baseproject.libcore.utils.http.*
-import com.ashlikun.okhttputils.http.ExecuteCall
+import com.ashlikun.baseproject.libcore.utils.http.HttpUiHandle
+import com.ashlikun.baseproject.libcore.utils.http.requestGet
+import com.ashlikun.baseproject.libcore.utils.http.syncExecute
 import com.ashlikun.okhttputils.http.response.HttpResponse
-import com.ashlikun.okhttputils.http.response.HttpResult
-import com.ashlikun.okhttputils.retrofit.Field
 import com.ashlikun.okhttputils.retrofit.FieldNo
 import com.ashlikun.okhttputils.retrofit.Retrofit
-import com.ashlikun.orm.db.annotation.Default
-import java.io.Serializable
 
 
 /**

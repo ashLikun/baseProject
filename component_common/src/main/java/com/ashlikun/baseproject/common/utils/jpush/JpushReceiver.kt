@@ -2,7 +2,6 @@ package com.ashlikun.baseproject.common.utils.jpush
 
 import android.content.Context
 import cn.jpush.android.api.CustomMessage
-import cn.jpush.android.api.JPushInterface
 import cn.jpush.android.api.JPushMessage
 import cn.jpush.android.api.NotificationMessage
 import cn.jpush.android.service.JPushMessageReceiver
@@ -10,7 +9,7 @@ import com.ashlikun.baseproject.common.mode.javabean.JpushJsonData
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
 import com.ashlikun.utils.other.LogUtils
 import com.ashlikun.utils.other.coroutines.taskLaunchMain
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Job
 
 /**
  * 作者　　: 李坤

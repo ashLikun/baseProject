@@ -1,7 +1,6 @@
 package com.ashlikun.baseproject.libcore.mvvm.viewmodel
 
 
-import androidx.lifecycle.MutableLiveData
 import com.ashlikun.core.mvvm.BaseViewModel
 import com.ashlikun.xrecycleview.PageHelp
 import com.ashlikun.xrecycleview.PageHelpListener
@@ -23,11 +22,12 @@ abstract class BaseListViewModel : BaseViewModel() {
     var pageHelpListener: PageHelpListener? = null
 
     //滚动列表
-    val scrollPosition by lazy {
-        get("scrollPosition", Int::class)
-    }
+    val scrollPosition = get<Int>()
+
     val pageHelp: PageHelp?
         get() = pageHelpListener?.pageHelp
+    val page: Int
+        get() = pageHelpListener?.pageHelp?.currentPage ?: 0
 
     fun cleanPage() {
         pageHelpListener?.pageHelp?.clear()

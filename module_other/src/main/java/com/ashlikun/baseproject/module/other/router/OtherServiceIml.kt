@@ -1,7 +1,6 @@
 package com.ashlikun.baseproject.module.other.router
 
 import android.content.Context
-import android.content.Intent
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.libarouter.service.IOtherService

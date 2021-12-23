@@ -1,10 +1,5 @@
 package com.ashlikun.baseproject.common.utils.other
 
-import android.app.Activity
-import com.ashlikun.utils.AppUtils
-import com.ashlikun.utils.other.StringUtils
-import com.ashlikun.utils.ui.modal.SuperToast
-
 
 /**
  * 作者　　: 李坤

@@ -1,7 +1,5 @@
 package com.ashlikun.baseproject.common.mode.javabean;
 
-import com.ashlikun.utils.other.StringUtils;
-
 /**
  * 作者　　: 李坤
  * 创建时间: 2018/10/25　21:13
@@ -24,9 +22,6 @@ public class WxLoginParams {
     public String scope;
 
     public boolean check() {
-        if (StringUtils.isEmpty(appid)) {
-            return false;
-        }
-        return true;
+        return appid.isEmpty();
     }
 }

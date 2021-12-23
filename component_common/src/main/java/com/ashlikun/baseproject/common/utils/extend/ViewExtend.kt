@@ -1,11 +1,12 @@
 package com.ashlikun.baseproject.common.utils.extend
 
+//import androidx.constraintlayout.widget.Group
 import android.view.MotionEvent
 import android.view.View
-//import androidx.constraintlayout.widget.Group
 import androidx.drawerlayout.widget.DrawerLayout
-import com.ashlikun.utils.other.ClassUtils
-import com.ashlikun.utils.ui.ScreenInfoUtils
+import com.ashlikun.utils.other.getFieldValue
+import com.ashlikun.utils.other.setFieldValue
+import com.ashlikun.utils.ui.ScreenUtils
 
 /**
  * 作者　　: 李坤
@@ -21,10 +22,13 @@ import com.ashlikun.utils.ui.ScreenInfoUtils
 //        rootView.findViewById<View>(id).setOnClickListener(listener)
 //    }
 //}
-
-fun DrawerLayout.setEdgeSize(size: Int = ScreenInfoUtils.width() / 2) {
-    ClassUtils.setField(ClassUtils.getField(this, "mRightDragger"), "mEdgeSize", size)
+/**
+ * 设置抽屉大小
+ */
+fun DrawerLayout.setEdgeSize(size: Int = ScreenUtils.width() / 2) {
+    this.getFieldValue("mRightDragger")?.setFieldValue("mEdgeSize", size)
 }
+
 
 fun View?.isTouchPoint(xAxis: Float, yAxis: Float): Boolean {
     if (this == null) {
@@ -52,7 +56,10 @@ fun View?.touchEventToLocation(motionEvent: MotionEvent): MotionEvent {
 /**
  * 防止多次点击
  */
-inline fun View?.setOnSingleClickListener(delayMillis: Long = 500, crossinline onClick: (view: View) -> Unit) {
+inline fun View?.setOnSingleClickListener(
+    delayMillis: Long = 500,
+    crossinline onClick: (view: View) -> Unit
+) {
     this?.setOnClickListener {
         this.isClickable = false
         onClick(this)

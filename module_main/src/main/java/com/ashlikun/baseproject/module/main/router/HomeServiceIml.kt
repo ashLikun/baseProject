@@ -31,7 +31,7 @@ class HomeServiceIml : IHomeService {
      * @return
      */
     override fun isHomeStart(): Boolean {
-        return ActivityManager.getInstance().getTagActivity<HomeActivity>(HomeActivity::class.java) != null
+        return ActivityManager.get().getTagActivity<HomeActivity>(HomeActivity::class.java) != null
     }
 
 

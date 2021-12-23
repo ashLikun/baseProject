@@ -12,26 +12,19 @@ import com.ashlikun.baseproject.common.utils.jump.PullJumpManage
 import com.ashlikun.baseproject.common.utils.jump.RouterJump
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
-import com.ashlikun.baseproject.libcore.utils.extend.noAnim
 import com.ashlikun.baseproject.libcore.utils.extend.requestPermission
-import com.ashlikun.baseproject.module.other.BuildConfig
 import com.ashlikun.baseproject.module.other.R
-import com.ashlikun.baseproject.module.other.databinding.OtherActivityTestBinding
 import com.ashlikun.baseproject.module.other.databinding.OtherActivityWelcomBinding
 import com.ashlikun.core.activity.BaseActivity
 import com.ashlikun.core.mvvm.launch
 import com.ashlikun.utils.AppUtils
 import com.ashlikun.utils.other.LogUtils
-import com.ashlikun.utils.other.SharedPreUtils
 import com.ashlikun.utils.other.ThreadUtils
+import com.ashlikun.utils.other.store.StoreUtils
 import com.ashlikun.utils.ui.ActivityManager
-import com.ashlikun.utils.ui.modal.SuperToast
 import com.ashlikun.utils.ui.UiUtils
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.delay
-import java.util.concurrent.TimeUnit
+import com.ashlikun.utils.ui.extend.resColor
+import com.ashlikun.utils.ui.modal.SuperToast
 
 /**
  * @author　　: 李坤
@@ -44,11 +37,12 @@ import java.util.concurrent.TimeUnit
 
 @Route(path = RouterPath.WELCOME)
 class WelcomeActivity : BaseActivity() {
-    val binding by lazy {
+    override val binding by lazy {
         OtherActivityWelcomBinding.inflate(layoutInflater)
     }
+    override val statusBarColor = R.color.translucent.resColor
+    override val isStatusTranslucent = true
     private val time = 2000L
-
 
     override fun initView() {
         requestPermission(arrayOf(Manifest.permission.READ_PHONE_STATE), denied = {
@@ -57,25 +51,17 @@ class WelcomeActivity : BaseActivity() {
         }) {
             initViewOnPermiss()
             launch(delayTime = time) {
-                LogUtils.e(ThreadUtils.isMainThread())
+                LogUtils.e(ThreadUtils.isMainThread)
                 when {
                     checkIsFirst() -> RouterJump.startLaunch()
                     else -> RouterJump.startHome(0)
                 }
-                LogUtils.e(ThreadUtils.isMainThread())
+                LogUtils.e(ThreadUtils.isMainThread)
                 finish()
             }
 
 
         }
-    }
-
-    override fun getStatusBarColor(): Int {
-        return R.color.translucent
-    }
-
-    override fun isStatusTranslucent(): Boolean {
-        return true
     }
 
 
@@ -88,12 +74,12 @@ class WelcomeActivity : BaseActivity() {
         val scaleX = ObjectAnimator.ofFloat(UiUtils.getDecorView(this), "scaleX", 0.7f, 1.4f, 1f)
         val scaleY = ObjectAnimator.ofFloat(UiUtils.getDecorView(this), "scaleY", 0.7f, 1.4f, 1f)
         val alpha = ObjectAnimator.ofFloat(UiUtils.getDecorView(this), "alpha", 0.8f, 1f)
-        scaleX.duration = time.toLong()
+        scaleX.duration = time
 
-        scaleY.duration = time.toLong()
-        alpha.duration = time.toLong()
+        scaleY.duration = time
+        alpha.duration = time
         animSet.interpolator = DecelerateInterpolator()
-        animSet.duration = time.toLong()
+        animSet.duration = time
         animSet.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationStart(animation: Animator) {}
 
@@ -109,16 +95,16 @@ class WelcomeActivity : BaseActivity() {
         //如果首页已经启动了，那么久不用启动首页
         if (RouterManage.home()?.isHomeStart() == true) {
             //这里是为了后续跳转使用的topactivity用的是以前的Activity栈，防止返回后回到微信或者浏览器
-            ActivityManager.getInstance().exitActivity(this)
+            ActivityManager.get().exitActivity(this)
             //处理拉起App数据
             PullJumpManage.handleCachePush(this)
         }
     }
 
     private fun checkIsFirst(): Boolean {
-        if (SharedPreUtils.getInt(this, "Run", "VersionCode") != AppUtils.getVersionCode()) {
+        if (StoreUtils.getInt("VersionCode", name = "Run") != AppUtils.versionCode) {
 //            // 第一次
-//            SharedPreUtils.setKeyAndValue(this, "Run",
+//            StoreUtils.setKeyAndValue(this, "Run",
 //                    "VersionCode", BuildConfig.VERSION_CODE)
 //            val intent = Intent(this, LeadActivity::class.java)
 //            startActivity(intent)

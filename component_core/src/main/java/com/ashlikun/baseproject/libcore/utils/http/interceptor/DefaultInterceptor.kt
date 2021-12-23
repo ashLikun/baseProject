@@ -1,12 +1,7 @@
 package com.ashlikun.baseproject.libcore.utils.http.interceptor
 
-import com.ashlikun.baseproject.libcore.libarouter.RouterManage
-import com.ashlikun.utils.AppUtils
-import com.ashlikun.utils.other.DeviceUtil
-import com.ashlikun.utils.other.StringUtils
 import okhttp3.Interceptor
 import okhttp3.Response
-import java.net.URLEncoder
 
 
 /**

@@ -1,14 +1,12 @@
 package com.ashlikun.baseproject.module.login.view.activity
 
-import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.ashlikun.baseproject.common.utils.jump.RouterJump
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.utils.http.interceptor.LoginInterceptor
-import com.ashlikun.baseproject.module.login.R
+import com.ashlikun.baseproject.module.login.databinding.LoginActivityLoginBinding
 import com.ashlikun.baseproject.module.login.mode.javabean.UserData
 import com.ashlikun.baseproject.module.login.viewmodel.LoginViewModel
-import com.ashlikun.baseproject.common.utils.jump.RouterJump
-import com.ashlikun.baseproject.module.login.databinding.LoginActivityLoginBinding
 import com.ashlikun.core.mvvm.BaseMvvmActivity
 import com.ashlikun.core.mvvm.IViewModel
 
@@ -24,7 +22,7 @@ import com.ashlikun.core.mvvm.IViewModel
 @Route(path = RouterPath.LOGIN)
 @IViewModel(LoginViewModel::class)
 class LoginActivity : BaseMvvmActivity<LoginViewModel>() {
-    val binding by lazy {
+    override val binding by lazy {
         LoginActivityLoginBinding.inflate(layoutInflater)
     }
 

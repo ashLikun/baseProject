@@ -63,8 +63,6 @@ dependencies {
     api libs.lifecycleViewmodelKtx
     api libs.lifecycleRuntimeKtx
     api libs.lifecycleLiveDataKtx
-    //datastore
-    api libs.datastorePre
     //约束布局
     api libs.constraintLayout
     //协调布局
@@ -109,6 +107,9 @@ dependencies {
     //数据库
     api libs.LiteOrm
 
+    //MMKV
+    api libs.MMKV
+
     //封装的RecycleView
     api libs.XRecycleView
     //自定义的下拉刷新
@@ -137,7 +138,7 @@ dependencies {
     api(libs.vlayout) {
         transitive = true
     }
-    api libs.MultiTypeGson
+
     //习惯的对话框
     api libs.CustomDialog
     //圆形的进度条
@@ -173,6 +174,7 @@ dependencies {
     //okhttp
     api libs.okhttp
     api libs.gson
+    api libs.MultiTypeGson
 
     //基于Okhttp封装的
     api libs.OkHttpUtils

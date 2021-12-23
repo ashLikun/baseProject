@@ -22,7 +22,7 @@ import com.ashlikun.utils.ui.modal.SuperToast
 import com.didichuxing.doraemonkit.DoraemonKit
 import com.tencent.smtt.export.external.TbsCoreSettings
 import com.tencent.smtt.sdk.QbSdk
-import java.util.ArrayList
+import java.util.*
 
 /**
  * @author　　: 李坤
@@ -53,7 +53,6 @@ open class BaseApplication : MultiDexApplication() {
         for (a in applications) {
             a.onCreate()
         }
-
     }
 
     /**

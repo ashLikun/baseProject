@@ -15,15 +15,26 @@ import com.ashlikun.utils.AppUtils
 /**
  * 解决官方的smoothScrollToPosition 滚动后不对其的bug
  */
-fun RecyclerView.LayoutManager.smoothScrollToPositionAlign(position: Int, speed: Float = 25f, onStart: (() -> Unit)? = null, onStop: (() -> Unit)? = null) {
-    val linearSmoothScroller = object : LinearSmoothScroller(AppUtils.app()) {
+fun RecyclerView.LayoutManager.smoothScrollToPositionAlign(
+    position: Int,
+    speed: Float = 25f,
+    onStart: (() -> Unit)? = null,
+    onStop: (() -> Unit)? = null
+) {
+    val linearSmoothScroller = object : LinearSmoothScroller(AppUtils.app) {
         //返回滑动一个pixel需要多少毫秒
         override fun calculateSpeedPerPixel(displayMetrics: DisplayMetrics?): Float {
             //这边可以自定义进行控制速度
             return speed / (displayMetrics?.densityDpi?.toFloat() ?: 1f)
         }
 
-        override fun calculateDtToFit(viewStart: Int, viewEnd: Int, boxStart: Int, boxEnd: Int, snapPreference: Int): Int {
+        override fun calculateDtToFit(
+            viewStart: Int,
+            viewEnd: Int,
+            boxStart: Int,
+            boxEnd: Int,
+            snapPreference: Int
+        ): Int {
             //保证准确的滑动到指定位置，返回的就是我们item置顶需要的偏移量
             return boxStart - viewStart
         }

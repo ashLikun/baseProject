@@ -5,9 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.ashlikun.baseproject.module.other.R
 import com.ashlikun.baseproject.module.other.databinding.OtherActivityDownloadBinding
-import com.ashlikun.baseproject.module.other.databinding.OtherActivityImageLockBinding
 import com.ashlikun.okhttputils.http.download.DownloadManager
 import com.ashlikun.okhttputils.http.download.DownloadTask
 import com.ashlikun.okhttputils.http.download.DownloadTaskListener
@@ -27,11 +25,13 @@ class DownLoadActivity : AppCompatActivity(), View.OnClickListener, DownloadTask
     val binding by lazy {
         OtherActivityDownloadBinding.inflate(layoutInflater)
     }
-    internal val downloadManager by lazy { DownloadManager.getInstance() }
+    internal val downloadManager by lazy { DownloadManager.get() }
 
-    private val url_360 = "http://msoftdl.360.cn/mobilesafe/shouji360/360safesis/360StrongBox_1.0.9.1008.apk"
+    private val url_360 =
+        "http://msoftdl.360.cn/mobilesafe/shouji360/360safesis/360StrongBox_1.0.9.1008.apk"
 
-    private val url_qq = "http://221.228.67.156/dd.myapp.com/16891/62B928C30FE677EDEEA9C504486444E9" + ".apk?mkey=5736f6098218f3cf&f=1b58&c=0&fsname=com.tencent.mobileqq_6.3.3_358.apk&p=.apk"
+    private val url_qq =
+        "http://221.228.67.156/dd.myapp.com/16891/62B928C30FE677EDEEA9C504486444E9" + ".apk?mkey=5736f6098218f3cf&f=1b58&c=0&fsname=com.tencent.mobileqq_6.3.3_358.apk&p=.apk"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,19 +91,32 @@ class DownLoadActivity : AppCompatActivity(), View.OnClickListener, DownloadTask
     }
 
     private fun download360() {
-        val task = DownloadTask.Builder().setId(URL_360_ID).setUrl(url_360).setListener(this).build()
-        downloadManager.addDownloadTask(task)
+        downloadManager.addDownloadTask(
+            DownloadTask(
+                id = URL_360_ID, url = url_360, listener = this
+            )
+        )
     }
 
     private fun downloadQQ() {
-        val task = DownloadTask.Builder().setId(URL_QQ_ID).setUrl(url_qq).setListener(this).build()
-        downloadManager.addDownloadTask(task)
+        downloadManager.addDownloadTask(
+            DownloadTask(
+                id = URL_QQ_ID, url = url_qq, listener = this
+            )
+        )
     }
 
     //=========================================================================
-    override fun onDownloading(downloadTask: DownloadTask, completedSize: Long, totalSize: Long, percent: Double) {
-        LogUtils.i("onDownloading completedSize=" + completedSize + " ,totalSize=" + totalSize + " ,percent=" +
-                percent)
+    override fun onDownloading(
+        downloadTask: DownloadTask,
+        completedSize: Long,
+        totalSize: Long,
+        percent: Double
+    ) {
+        LogUtils.i(
+            "onDownloading completedSize=" + completedSize + " ,totalSize=" + totalSize + " ,percent=" +
+                    percent
+        )
         if (downloadTask.id == URL_360_ID) {
             binding.progressBar.progress = percent.toInt()
             binding.tvStatus.text = "正在下载..." + percent.toInt() + "%"
@@ -114,7 +127,12 @@ class DownLoadActivity : AppCompatActivity(), View.OnClickListener, DownloadTask
 
     }
 
-    override fun onPause(downloadTask: DownloadTask, completedSize: Long, totalSize: Long, percent: Double) {
+    override fun onPause(
+        downloadTask: DownloadTask,
+        completedSize: Long,
+        totalSize: Long,
+        percent: Double
+    ) {
         LogUtils.i("onPause=$completedSize ,totalSize=$totalSize ,percent=$percent")
         if (downloadTask.id == URL_360_ID) {
             binding.tvStatus.text = "下载已暂停,已下载：" + percent.toInt() + "%"

@@ -52,23 +52,23 @@ class HttpUiHandle private constructor() {
                     isErrorToastShow = false
                     //如果code全局处理的时候错误了，那么是不会走success的，这里就得自己处理UI设置为错误状态
                     error(
-                            ContextData().setErrCode(error.exception.code)
-                                    .setTitle(error.exception.message)
-                                    .setResId(R.drawable.material_service_error)
+                        ContextData().setErrCode(error.exception.code)
+                            .setTitle(error.exception.message)
+                            .setResId(R.drawable.material_service_error)
                     )
                 }
                 is HttpException -> {
                     error(
-                            ContextData().setErrCode(error.code)
-                                    .setTitle(error.message)
-                                    .setResId(R.drawable.material_service_error)
+                        ContextData().setErrCode(error.code)
+                            .setTitle(error.message)
+                            .setResId(R.drawable.material_service_error)
                     )
                 }
                 else -> {
                     error(
-                            ContextData().setErrCode(HttpErrorCode.HTTP_UNKNOWN)
-                                    .setTitle(error.message)
-                                    .setResId(R.drawable.material_service_error)
+                        ContextData().setErrCode(HttpErrorCode.HTTP_UNKNOWN)
+                            .setTitle(error.message)
+                            .setResId(R.drawable.material_service_error)
                     )
                 }
             }
@@ -153,7 +153,6 @@ class HttpUiHandle private constructor() {
      * @return
      */
     fun isFirstRequest() = count() <= 1
-
     fun setTag(tag: Any): HttpUiHandle {
         this.tag = tag
         return this
@@ -162,7 +161,7 @@ class HttpUiHandle private constructor() {
     /**
      * 统计同一个tag的请求数量
      */
-    fun count(): Int = tag?.run { OkHttpUtils.get().countRequest(this) } ?: 0
+    fun count(): Int = tag?.let { OkHttpUtils.get().countRequest(it) } ?: 0
 
     /**
      * 设置View的使能
