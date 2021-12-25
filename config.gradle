@@ -62,7 +62,7 @@ ext {
 
 
             //基本架构
-            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:2.2.0",
+            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:2.2.1",
             //多个Dex
             multidex             : 'androidx.multidex:multidex:2.0.1',
             //webview封装
@@ -81,8 +81,8 @@ ext {
             //MMKV
             MMKV                 : 'com.tencent:mmkv:1.2.11',
 
-            //封装的RecycleView
-            XRecycleView         : "com.github.ashLikun:XRecycleView:3.0.2",
+            //封装的RecycleViewFr
+            XRecycleView         : "com.github.ashLikun:XRecycleView:3.0.4",
             //动画菜单,可以不用
             AnimationMenu        : "com.github.ashLikun:AnimationMenu:2.0.0",
             //自定义的下拉刷新
@@ -90,9 +90,9 @@ ext {
             //封装的viewpager，banner，启动页
             XViewPager           : "com.github.ashLikun:XViewPager:2.1.6",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:4.0.7",
+            CommonUtils          : "com.github.ashLikun:CommonUtils:4.1.5",
             //公共的Adapter
-            CommonAdapter        : "com.github.ashLikun:CommonAdapter:4.2.0",
+            CommonAdapter        : "com.github.ashLikun:CommonAdapter:4.2.8",
             //Google官方改造
             XTabLayout           : "com.github.ashLikun:XTabLayout2:1.0.5",
             //功能更加丰富
