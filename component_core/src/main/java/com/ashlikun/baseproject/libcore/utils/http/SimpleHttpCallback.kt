@@ -74,18 +74,18 @@ open class SimpleHttpCallback<T> constructor(handle: HttpUiHandle?) : HttpCallBa
                         when {
                             result.data != null -> success?.invoke(result)
                             else -> onError(
-                                HttpException(
-                                    HttpCodeApp.NO_DATA_ERROR, HttpCodeApp.NO_DATA_ERROR_MSG
-                                )
+                                    HttpException(
+                                            HttpCodeApp.NO_DATA_ERROR, HttpCodeApp.NO_DATA_ERROR_MSG
+                                    )
                             )
                         }
                     } else if (result is HttpListResult<*>) {
                         when {
                             result.data != null -> success?.invoke(result)
                             else -> onError(
-                                HttpException(
-                                    HttpCodeApp.NO_DATA_ERROR, HttpCodeApp.NO_DATA_ERROR_MSG
-                                )
+                                    HttpException(
+                                            HttpCodeApp.NO_DATA_ERROR, HttpCodeApp.NO_DATA_ERROR_MSG
+                                    )
                             )
                         }
                     }

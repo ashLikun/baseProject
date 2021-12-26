@@ -79,20 +79,6 @@ fun <T> HttpRequest.syncExecute2(handle: HttpUiHandle?, resultType: Type): T? {
         val res = HttpManager.handelResult(result)
 
         if (res == null) {
-            //成功时候对data为null的处理
-            if (result is IHttpResponse && result.isSucceed) {
-                if (result is HttpResult<*>) {
-                    if (result.data == null) {
-                        (result as HttpResult<in Any>).data =
-                            HttpCallBack.getListOrArrayOrObject(resultType)
-                    }
-                } else if (result is HttpListResult<*>) {
-                    if (result.data == null) {
-                        (result as HttpListResult<in Any>).data =
-                            HttpCallBack.getListOrArrayOrObject(resultType)
-                    }
-                }
-            }
             MainHandle.get().posts { handle?.success(result as Any) }
             return result
         } else {
@@ -104,9 +90,9 @@ fun <T> HttpRequest.syncExecute2(handle: HttpUiHandle?, resultType: Type): T? {
     } catch (error: HttpException) {
         MainHandle.post {
             handle?.error(
-                (ContextData().setErrCode(error.code)
-                    .setTitle(error.message)
-                    .setResId(R.drawable.material_service_error))
+                    (ContextData().setErrCode(error.code)
+                            .setTitle(error.message)
+                            .setResId(R.drawable.material_service_error))
             )
         }
         return null
@@ -121,15 +107,15 @@ fun <T> HttpRequest.syncExecute2(handle: HttpUiHandle?, resultType: Type): T? {
  * 回调方式请求
  */
 fun <T> HttpRequest.execute(
-    handle: HttpUiHandle,
-    success: OnSuccess<T>? = null,
-    error: OnError? = null,
-    errorData: OnErrorData? = null,
-    successSubThread: OnSuccess<T>? = null,
-    cacheSuccess: OnCacheSuccess<T>? = null,
-    successHandelCode: OnSuccessHander<T>? = null,
-    completed: OnArgs? = null,
-    start: OnArgs? = null
+        handle: HttpUiHandle,
+        success: OnSuccess<T>? = null,
+        error: OnError? = null,
+        errorData: OnErrorData? = null,
+        successSubThread: OnSuccess<T>? = null,
+        cacheSuccess: OnCacheSuccess<T>? = null,
+        successHandelCode: OnSuccessHander<T>? = null,
+        completed: OnArgs? = null,
+        start: OnArgs? = null
 ): ExecuteCall {
     val callback = SimpleHttpCallback<T>(handle)
     if (tag == null) {

@@ -57,8 +57,8 @@ fun View?.touchEventToLocation(motionEvent: MotionEvent): MotionEvent {
  * 防止多次点击
  */
 inline fun View?.setOnSingleClickListener(
-    delayMillis: Long = 500,
-    crossinline onClick: (view: View) -> Unit
+        delayMillis: Long = 500,
+        crossinline onClick: (view: View) -> Unit
 ) {
     this?.setOnClickListener {
         this.isClickable = false

@@ -7,6 +7,6 @@ import com.ashlikun.core.mvvm.launch
 class HomeViewModel : BaseViewModel() {
     override fun onCreate() {
         super.onCreate()
-        launch {  }
+        launch { }
     }
 }

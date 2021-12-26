@@ -4,7 +4,7 @@ import com.ashlikun.okhttputils.http.callback.ProgressCallBack
 import com.ashlikun.utils.other.LogUtils
 
 abstract class HttpProgressCallBack<ResultType>(private var buider: HttpUiHandle = HttpUiHandle.get()) :
-    HttpCallBack<ResultType>(buider), ProgressCallBack {
+        HttpCallBack<ResultType>(buider), ProgressCallBack {
     /**
      * 下载或者上传 回调的频率  ms
      */
@@ -28,11 +28,11 @@ abstract class HttpProgressCallBack<ResultType>(private var buider: HttpUiHandle
     }
 
     fun onLoading(
-        progress: Long,
-        total: Long,
-        done: Boolean,
-        isUpdate: Boolean,
-        isCompress: Boolean
+            progress: Long,
+            total: Long,
+            done: Boolean,
+            isUpdate: Boolean,
+            isCompress: Boolean
     ) {
         if (done) {
             handle?.dismissUi()

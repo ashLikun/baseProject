@@ -23,10 +23,12 @@ class ImageData(image: String = StringNullAdapter.NULL,
      * 图片ID
      */
     var id: Int = 0
+
     /**
      * 图片地址
      */
     var image: String = StringNullAdapter.NULL
+
     /**
      * 缩略图地址
      */
@@ -41,8 +43,8 @@ class ImageData(image: String = StringNullAdapter.NULL,
 
     constructor(parcel: Parcel) : this() {
         id = parcel.readInt()
-        image = parcel.readString()?:""
-        thumbImage = parcel.readString()?:""
+        image = parcel.readString() ?: ""
+        thumbImage = parcel.readString() ?: ""
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

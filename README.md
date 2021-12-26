@@ -1,11 +1,11 @@
 # **Frame**
+
 项目的基本框架
 
-
-
 ### 1.用法
+
 使用前，对于Android Studio的用户，可以选择添加:
-    
+
 	compile 'com.github.ashLikun.frame:adapter:1.0.9'//万能适配器
 	compile 'com.github.ashLikun.frame:adapterDatabind:1.0.9'//databind万能适配器
 	compile 'com.github.ashLikun.frame:xrecycleview:1.0.9'//封装recycleView

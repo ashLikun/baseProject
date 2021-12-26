@@ -9,6 +9,7 @@ import com.ashlikun.okhttputils.http.response.IHttpResponse
 import com.ashlikun.okhttputils.retrofit.HttpServiceMethod
 import com.ashlikun.okhttputils.retrofit.Parse
 import com.google.gson.Gson
+import okhttp3.Response
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
@@ -46,7 +47,7 @@ interface MultiTypeResult<D> : IHttpResponse {
         const val parseType = "MultiTypeResult"
     }
 
-    override fun <T : Any?> parseData(gson: Gson, json: String?, type: Type?): T {
+    override fun <T> parseData(gson: Gson, json: String, type: Type, response: Response?): T {
         return GsonHelper.getMultiTypeNotNull()
                 .autoRegister(HttpUtils.getType(this::class.java))
                 .fromJson(json, type)

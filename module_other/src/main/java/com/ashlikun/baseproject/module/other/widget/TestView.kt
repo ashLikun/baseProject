@@ -17,7 +17,7 @@ import com.ashlikun.utils.ui.image.BitmapUtil
 class TestView
 @JvmOverloads
 constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    View(context, attrs, defStyleAttr) {
+        View(context, attrs, defStyleAttr) {
     var paint: Paint = Paint()
     var bitmaoA: Bitmap? = null
     var bitmaoB: Bitmap? = null

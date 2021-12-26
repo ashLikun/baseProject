@@ -52,11 +52,11 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
     var cachePosition = -1
     val adapter: FragmentPagerAdapter by lazy {
         FragmentPagerAdapter.Builder.create(supportFragmentManager)
-            .addItem(FragmentPagerItem.get(RouterPath.FRAGMENT_HOME))
-            .addItem(FragmentPagerItem.get(RouterPath.FRAGMENT_HOME))
-            .addItem(FragmentPagerItem.get(RouterPath.FRAGMENT_HOME))
-            .setCache(true)
-            .build()
+                .addItem(FragmentPagerItem.get(RouterPath.FRAGMENT_HOME))
+                .addItem(FragmentPagerItem.get(RouterPath.FRAGMENT_HOME))
+                .addItem(FragmentPagerItem.get(RouterPath.FRAGMENT_HOME))
+                .setCache(true)
+                .build()
     }
 
     override fun parseIntent(intent: Intent) {
@@ -86,22 +86,22 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
         binding.run {
             bottomNavigationBar.accentColor = R.color.colorPrimary.resColor
             bottomNavigationBar.addItem(
-                AHBottomNavigationItem.Builder(
-                    R.string.main_bottom_1,
-                    R.mipmap.app_logo, R.mipmap.app_logo
-                ).builder()
+                    AHBottomNavigationItem.Builder(
+                            R.string.main_bottom_1,
+                            R.mipmap.app_logo, R.mipmap.app_logo
+                    ).builder()
             )
             bottomNavigationBar.addItem(
-                AHBottomNavigationItem.Builder(
-                    R.string.main_bottom_2,
-                    R.mipmap.app_logo, R.mipmap.app_logo
-                ).builder()
+                    AHBottomNavigationItem.Builder(
+                            R.string.main_bottom_2,
+                            R.mipmap.app_logo, R.mipmap.app_logo
+                    ).builder()
             )
             bottomNavigationBar.addItem(
-                AHBottomNavigationItem.Builder(
-                    R.string.main_bottom_3,
-                    R.mipmap.app_logo, R.mipmap.app_logo
-                ).builder()
+                    AHBottomNavigationItem.Builder(
+                            R.string.main_bottom_3,
+                            R.mipmap.app_logo, R.mipmap.app_logo
+                    ).builder()
             )
             bottomNavigationBar.defaultBackgroundColor = R.color.white.resColor
             bottomNavigationBar.titleState = AHBottomNavigation.TitleState.ALWAYS_SHOW
@@ -121,10 +121,10 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
             bottomNavigationBar.setupWithViewPager(viewPager, false)
         }
         val mode = AppOpsManagerCompat.noteOp(
-            this,
-            AppOpsManager.OPSTR_GET_USAGE_STATS,
-            Process.myUid(),
-            this.packageName
+                this,
+                AppOpsManager.OPSTR_GET_USAGE_STATS,
+                Process.myUid(),
+                this.packageName
         )
         val granted = mode == AppOpsManagerCompat.MODE_ALLOWED
         if (!granted) {
@@ -138,7 +138,7 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
                     val now = System.currentTimeMillis()
                     //获取60秒之内的应用数据
                     val stats =
-                        m.queryUsageStats(UsageStatsManager.INTERVAL_BEST, now - 6000 * 1000, now)
+                            m.queryUsageStats(UsageStatsManager.INTERVAL_BEST, now - 6000 * 1000, now)
                     LogUtils.e("Running app number in last 60 seconds : " + stats!!.size)
                     //取得最近运行的一个app，即当前运行的app
                     if (stats.isEmpty()) {
@@ -148,12 +148,12 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
                                 j = i
                             }
                             var packageInfo = AppUtils.app.packageManager.getPackageInfo(
-                                stats[j].packageName,
-                                0
+                                    stats[j].packageName,
+                                    0
                             )
                             val appName =
-                                packageInfo.applicationInfo.loadLabel(AppUtils.app.packageManager)
-                                    .toString()
+                                    packageInfo.applicationInfo.loadLabel(AppUtils.app.packageManager)
+                                            .toString()
                             LogUtils.e("top running app is : $appName")
                         }
                     }

@@ -90,7 +90,7 @@ ext {
             //封装的viewpager，banner，启动页
             XViewPager           : "com.github.ashLikun:XViewPager:2.1.6",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:4.1.5",
+            CommonUtils          : "com.github.ashLikun:CommonUtils:4.1.6",
             //公共的Adapter
             CommonAdapter        : "com.github.ashLikun:CommonAdapter:4.2.8",
             //Google官方改造
@@ -130,7 +130,7 @@ ext {
             //不同type的json解析,依赖于gson
             MultiTypeGson        : "com.github.ashLikun:MultiTypeGson:2.0.7",
             //基于Okhttp封装的
-            OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:3.0.6",
+            OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:3.0.7",
             //图片加载
             GlideUtils           : "com.github.ashLikun:GlideUtils:3.0.2",
             glide                : "com.github.bumptech.glide:glide:4.11.0",

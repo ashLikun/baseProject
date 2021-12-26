@@ -31,13 +31,13 @@ class H5Activity : BaseActivity() {
     }
     private val xWeb: XWeb by lazy {
         XWeb.with(binding.webviewPar)
-            .useDefaultIndicator()
-            .setWebWebSettings(webSettings)
-            .setWebChromeClient(mWebChromeClient)
-            .setWebViewClient(mWebViewClient)
-            .createWeb()
-            .ready()
-            .go(url)
+                .useDefaultIndicator()
+                .setWebWebSettings(webSettings)
+                .setWebChromeClient(mWebChromeClient)
+                .setWebViewClient(mWebViewClient)
+                .createWeb()
+                .ready()
+                .go(url)
     }
 
     //其他参数

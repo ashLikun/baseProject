@@ -17,7 +17,7 @@ import com.ashlikun.xrecycleview.listener.RecycleViewSwipeListener
  * 功能介绍：列表(SuperRecyclerView)界面父类
  */
 abstract class BaseSuperListFragment<VM : BaseListViewModel> : BaseListFragment<VM>(),
-    RecycleViewSwipeListener, OnLoadSwitchClick {
+        RecycleViewSwipeListener, OnLoadSwitchClick {
 
     override val switchRoot: View?
         get() = xRecyclerView

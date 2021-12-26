@@ -27,33 +27,33 @@ object CacheUtils {
     //appsd卡缓存路径(Android/data/pageName/cache)删除应用会删除这个目录，不用动态申请权限
     val appSDCachePath = StringNullAdapter.NULL
         get() = check(
-            if (field.isNullOrEmpty()) {
-                PathUtils.externalAppCache
-            } else field
+                if (field.isNullOrEmpty()) {
+                    PathUtils.externalAppCache
+                } else field
         )
 
     //appsd卡文件路径(Android/data/pageName/files)删除应用会删除这个目录，不用动态申请权限
     val appSDFilePath = StringNullAdapter.NULL
         get() = check(
-            if (field.isNullOrEmpty()) {
-                PathUtils.externalAppFiles
-            } else field
+                if (field.isNullOrEmpty()) {
+                    PathUtils.externalAppFiles
+                } else field
         )
 
     //appsd卡DCIM路径(Android/data/pageName/files/DCIM)删除应用会删除这个目录，不用动态申请权限
     val appSDDcimPath = StringNullAdapter.NULL
         get() = check(
-            if (field.isNullOrEmpty()) {
-                PathUtils.externalAppDcim
-            } else field
+                if (field.isNullOrEmpty()) {
+                    PathUtils.externalAppDcim
+                } else field
         )
 
     //appsd卡下载路径(Android/data/pageName/files/DCIM)删除应用会删除这个目录，不用动态申请权限
     val appSDDownloadPath = StringNullAdapter.NULL
         get() = check(
-            if (field.isNullOrEmpty()) {
-                PathUtils.externalAppDownload
-            } else field
+                if (field.isNullOrEmpty()) {
+                    PathUtils.externalAppDownload
+                } else field
         )
 
     //app sd 缓存路径，删除应用会删除这个目录，不用动态申请权限
@@ -63,18 +63,18 @@ object CacheUtils {
     //sd卡dcim路径，需要权限
     val sdDcimPath = StringNullAdapter.NULL
         get() = check(
-            if (field.isNullOrEmpty()) {
-                PathUtils.externalDcim + File.separator + rootName
-            } else field
+                if (field.isNullOrEmpty()) {
+                    PathUtils.externalDcim + File.separator + rootName
+                } else field
         )
 
 
     //sd卡路径，需要权限,不建议使用
     val sdPath = StringNullAdapter.NULL
         get() = check(
-            if (field.isNullOrEmpty()) {
-                PathUtils.externalStorage
-            } else field
+                if (field.isNullOrEmpty()) {
+                    PathUtils.externalStorage
+                } else field
         )
 
 

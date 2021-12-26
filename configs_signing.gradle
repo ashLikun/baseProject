@@ -13,10 +13,10 @@ ext.loadSigningConfigs = { project ->
             project.android.signingConfigs.release.storePassword = props['RELEASE_STORE_PASSWORD']
             project.android.signingConfigs.release.keyAlias = props['RELEASE_KEY_ALIAS']
             project.android.signingConfigs.release.keyPassword = props['RELEASE_KEY_PASSWORD']
-            println  "  loadSigningConfigs  release  "
+            println "  loadSigningConfigs  release  "
         } else {
             project.android.buildTypes.release.signingConfig = null
-            println  "  loadSigningConfigs  release   null "
+            println "  loadSigningConfigs  release   null "
         }
         if (props != null && props.containsKey('DEBUG_STORE_FILE') && props.containsKey('RELEASE_STORE_PASSWORD') &&
                 props.containsKey('RELEASE_KEY_ALIAS') && props.containsKey('RELEASE_KEY_PASSWORD')) {
@@ -24,10 +24,10 @@ ext.loadSigningConfigs = { project ->
             project.android.signingConfigs.debug.storePassword = props['RELEASE_STORE_PASSWORD']
             project.android.signingConfigs.debug.keyAlias = props['RELEASE_KEY_ALIAS']
             project.android.signingConfigs.debug.keyPassword = props['RELEASE_KEY_PASSWORD']
-            println  "  loadSigningConfigs  debug "
+            println "  loadSigningConfigs  debug "
         } else {
             project.android.buildTypes.debug.signingConfig = null
-            println  "  loadSigningConfigs  debug null"
+            println "  loadSigningConfigs  debug null"
         }
     } else {
         project.android.buildTypes.release.signingConfig = null

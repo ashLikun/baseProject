@@ -60,12 +60,12 @@ class UserData {
             //清除其他登录的用户
             if (userData != null) {
                 LiteOrmUtil.get().update(
-                    WhereBuilder.create(UserData::class.java).where("isLogin = ?", true),
-                    ColumnsValue(
-                        arrayOf("isLogin"),
-                        arrayOf(false)
-                    ),
-                    ConflictAlgorithm.None
+                        WhereBuilder.create(UserData::class.java).where("isLogin = ?", true),
+                        ColumnsValue(
+                                arrayOf("isLogin"),
+                                arrayOf(false)
+                        ),
+                        ConflictAlgorithm.None
                 )
             }
             //设置数据库当前登录的用户
@@ -93,8 +93,8 @@ class UserData {
             get() = if (field == null) try {
 
                 val list = LiteOrmUtil.get().query(
-                    QueryBuilder(UserData::class.java).where("isLogin=?", true)
-                        .limit(0, 1)
+                        QueryBuilder(UserData::class.java).where("isLogin=?", true)
+                                .limit(0, 1)
                 )
                 if (list == null || list.isEmpty()) {
                     null
@@ -150,9 +150,9 @@ class UserData {
         fun exit(): Boolean {
             //清除其他登录的用户
             val res = LiteOrmUtil.get().update(
-                WhereBuilder.create(UserData::class.java).where("isLogin=?", true),
-                ColumnsValue(arrayOf("isLogin"), arrayOf(false)),
-                ConflictAlgorithm.None
+                    WhereBuilder.create(UserData::class.java).where("isLogin=?", true),
+                    ColumnsValue(arrayOf("isLogin"), arrayOf(false)),
+                    ConflictAlgorithm.None
             )
             userData = null
             if (res > 0) {
@@ -172,14 +172,14 @@ class UserData {
          */
         fun exit(context: Context) {
             AlertDialog.Builder(context)
-                .setCancelable(false)
-                .setTitle("提示")
-                .setMessage("确认退出登录吗？")
-                .setPositiveButton("残忍退出") { dialoog ->
-                    exitLogin()
-                }
-                .setNegativeButton("继续使用")
-                .show()
+                    .setCancelable(false)
+                    .setTitle("提示")
+                    .setMessage("确认退出登录吗？")
+                    .setPositiveButton("残忍退出") { dialoog ->
+                        exitLogin()
+                    }
+                    .setNegativeButton("继续使用")
+                    .show()
         }
     }
 

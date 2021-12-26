@@ -5,6 +5,7 @@
 
     android:orientation="vertical">
     com.ashlikun.xviewpager
+
     <com.ashlikun.xviewpager.view.XViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"

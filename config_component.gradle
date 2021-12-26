@@ -1,47 +1,47 @@
 ext {
-  /**
-   * 配置组件
-   */
-  modules = [
-          //main组件
-          main : [
-                  //是否是单组件运行
-                  isRun        : false,
-                  name         : "main",
-                  applicationId: "${android.applicationId}.module.main",
-          ],
-          //登陆组件
-          login: [
-                  //是否是单组件运行
-                  isRun        : false,
-                  name         : "login",
-                  applicationId: "${android.applicationId}.module.login",
-          ],
-          //其他一些组件
-          other: [
-                  //是否是单组件运行
-                  isRun        : false,
-                  name         : "other",
-                  applicationId: "${android.applicationId}.module.other",
-          ]
-  ]
+    /**
+     * 配置组件
+     */
+    modules = [
+            //main组件
+            main : [
+                    //是否是单组件运行
+                    isRun        : false,
+                    name         : "main",
+                    applicationId: "${android.applicationId}.module.main",
+            ],
+            //登陆组件
+            login: [
+                    //是否是单组件运行
+                    isRun        : false,
+                    name         : "login",
+                    applicationId: "${android.applicationId}.module.login",
+            ],
+            //其他一些组件
+            other: [
+                    //是否是单组件运行
+                    isRun        : false,
+                    name         : "other",
+                    applicationId: "${android.applicationId}.module.other",
+            ]
+    ]
 }
 ext.changRun = { currentModule, sdk, config ->
-  println currentModule
+    println currentModule
 
-  if (currentModule.isRun) {
-    sdk.each { it ->
-      println it
-      if (it.value == config.applicationId) {
-        it.value = currentModule.applicationId
-      }
-    }
-    config.each { it ->
-      println it
-      if (it.value == config.applicationId) {
-        it.value = currentModule.applicationId
-      }
-    }
+    if (currentModule.isRun) {
+        sdk.each { it ->
+            println it
+            if (it.value == config.applicationId) {
+                it.value = currentModule.applicationId
+            }
+        }
+        config.each { it ->
+            println it
+            if (it.value == config.applicationId) {
+                it.value = currentModule.applicationId
+            }
+        }
 
-  }
+    }
 }

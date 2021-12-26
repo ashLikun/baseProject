@@ -22,15 +22,15 @@ import java.lang.reflect.Field
  * * （3）滑动appbarLayout，无法通过手指按下让其停止滑动
  */
 class AppBarLayoutBehavior @JvmOverloads constructor(context: Context?, attrs: AttributeSet?) :
-    AppBarLayout.Behavior(context, attrs) {
+        AppBarLayout.Behavior(context, attrs) {
     private var isFlinging = false
     private var shouldBlockNestedScroll = false
 
 
     override fun onInterceptTouchEvent(
-        parent: CoordinatorLayout,
-        child: AppBarLayout,
-        ev: MotionEvent
+            parent: CoordinatorLayout,
+            child: AppBarLayout,
+            ev: MotionEvent
     ): Boolean {
         d("onInterceptTouchEvent:" + child.totalScrollRange)
         shouldBlockNestedScroll = false
@@ -108,33 +108,33 @@ class AppBarLayoutBehavior @JvmOverloads constructor(context: Context?, attrs: A
     }
 
     override fun onStartNestedScroll(
-        parent: CoordinatorLayout,
-        child: AppBarLayout,
-        directTargetChild: View,
-        target: View,
-        nestedScrollAxes: Int,
-        type: Int
+            parent: CoordinatorLayout,
+            child: AppBarLayout,
+            directTargetChild: View,
+            target: View,
+            nestedScrollAxes: Int,
+            type: Int
     ): Boolean {
         d("onStartNestedScroll")
         stopAppbarLayoutFling(child)
         return super.onStartNestedScroll(
-            parent,
-            child,
-            directTargetChild,
-            target,
-            nestedScrollAxes,
-            type
+                parent,
+                child,
+                directTargetChild,
+                target,
+                nestedScrollAxes,
+                type
         )
     }
 
     override fun onNestedPreScroll(
-        coordinatorLayout: CoordinatorLayout,
-        child: AppBarLayout,
-        target: View,
-        dx: Int,
-        dy: Int,
-        consumed: IntArray,
-        type: Int
+            coordinatorLayout: CoordinatorLayout,
+            child: AppBarLayout,
+            target: View,
+            dx: Int,
+            dy: Int,
+            consumed: IntArray,
+            type: Int
     ) {
         d("onNestedPreScroll:" + child.totalScrollRange + " ,dx:" + dx + " ,dy:" + dy + " ,type:" + type)
         //type返回1时，表示当前target处于非touch的滑动，
@@ -149,40 +149,40 @@ class AppBarLayoutBehavior @JvmOverloads constructor(context: Context?, attrs: A
     }
 
     override fun onNestedScroll(
-        coordinatorLayout: CoordinatorLayout,
-        child: AppBarLayout,
-        target: View,
-        dxConsumed: Int,
-        dyConsumed: Int,
-        dxUnconsumed: Int,
-        dyUnconsumed: Int,
-        type: Int,
-        consumed: IntArray
+            coordinatorLayout: CoordinatorLayout,
+            child: AppBarLayout,
+            target: View,
+            dxConsumed: Int,
+            dyConsumed: Int,
+            dxUnconsumed: Int,
+            dyUnconsumed: Int,
+            type: Int,
+            consumed: IntArray
     ) {
         d(
-            "onNestedScroll: target:" + target.javaClass + " ," + child.totalScrollRange + " ,dxConsumed:"
-                    + dxConsumed + " ,dyConsumed:" + dyConsumed + " " + ",type:" + type
+                "onNestedScroll: target:" + target.javaClass + " ," + child.totalScrollRange + " ,dxConsumed:"
+                        + dxConsumed + " ,dyConsumed:" + dyConsumed + " " + ",type:" + type
         )
         if (!shouldBlockNestedScroll) {
             super.onNestedScroll(
-                coordinatorLayout,
-                child,
-                target,
-                dxConsumed,
-                dyConsumed,
-                dxUnconsumed,
-                dyUnconsumed,
-                type,
-                consumed
+                    coordinatorLayout,
+                    child,
+                    target,
+                    dxConsumed,
+                    dyConsumed,
+                    dxUnconsumed,
+                    dyUnconsumed,
+                    type,
+                    consumed
             )
         }
     }
 
     override fun onStopNestedScroll(
-        coordinatorLayout: CoordinatorLayout,
-        abl: AppBarLayout,
-        target: View,
-        type: Int
+            coordinatorLayout: CoordinatorLayout,
+            abl: AppBarLayout,
+            target: View,
+            type: Int
     ) {
         d("onStopNestedScroll")
         super.onStopNestedScroll(coordinatorLayout, abl, target, type)

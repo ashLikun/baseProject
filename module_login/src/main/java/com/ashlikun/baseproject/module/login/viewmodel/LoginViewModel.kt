@@ -17,7 +17,7 @@ import com.ashlikun.core.mvvm.launch
 class LoginViewModel : BaseViewModel() {
     var phone = ""
     var password = ""
-    val userData = get(UserData::class)
+    val userData = get<UserData>()
 
     /**
      *用户登录	UserLogin	Mobile：手机号码

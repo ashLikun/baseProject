@@ -47,9 +47,9 @@ class ShowFragmentActivity : BaseActivity() {
 
     override fun initView() {
         val fargment = ARouter.getInstance().build(fragmentPath)
-            .with(intent.extras)
-            .withBoolean(RouterKey.FLAG_BACK, true)
-            .navigation() as Fragment
+                .with(intent.extras)
+                .withBoolean(RouterKey.FLAG_BACK, true)
+                .navigation() as Fragment
         val ft = supportFragmentManager.beginTransaction()
         ft.replace(R.id.fragment, fargment)
         ft.setMaxLifecycle(fargment, Lifecycle.State.RESUMED)

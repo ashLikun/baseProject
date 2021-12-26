@@ -48,30 +48,30 @@ class ShareParams : Serializable {
                 if (type == 2) {
                     //单独分享图片就用大图
                     val bitmap: Bitmap = Glide.with(AppUtils.app).asBitmap().load(img)
-                        .submit(ScreenUtils.width, ScreenUtils.height).get()
+                            .submit(ScreenUtils.width, ScreenUtils.height).get()
                     e.onNext(bitmap)
                 } else if (type == 1) {
                     //其他情况，缩略图
                     //一定要压缩，不然会分享失败
                     val bitmap: Bitmap = Glide.with(AppUtils.app).asBitmap().load(img)
-                        .submit(THUMB_SIZE, THUMB_SIZE).get()
+                            .submit(THUMB_SIZE, THUMB_SIZE).get()
                     e.onNext(bitmap)
                 }
             } catch (t: Throwable) {
             }
             e.onComplete()
         } as ObservableOnSubscribe<Bitmap>?).subscribeOn(Schedulers.io())
-            .doOnError { throwable: Throwable? -> imgBitmap = null }
-            .subscribe { bitmap: Bitmap? ->
-                //图片加载成功
-                imgBitmap = bitmap
-            }
+                .doOnError { throwable: Throwable? -> imgBitmap = null }
+                .subscribe { bitmap: Bitmap? ->
+                    //图片加载成功
+                    imgBitmap = bitmap
+                }
     }
 
     fun check(): Boolean {
         if (imgBitmap == null) {
             imgBitmap =
-                BitmapUtil.decodeResource(R.mipmap.app_logo, THUMB_SIZE, THUMB_SIZE)
+                    BitmapUtil.decodeResource(R.mipmap.app_logo, THUMB_SIZE, THUMB_SIZE)
         }
         if (type != 1 && type != 2) {
             return false
