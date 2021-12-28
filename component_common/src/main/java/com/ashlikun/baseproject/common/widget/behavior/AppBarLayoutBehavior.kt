@@ -6,6 +6,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.OverScroller
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.ashlikun.utils.other.ClassUtils
 import com.ashlikun.utils.other.LogUtils.d
 import com.google.android.material.appbar.AppBarLayout
 import java.lang.reflect.Field
@@ -21,16 +22,18 @@ import java.lang.reflect.Field
  * * （2）快速滑动appbarLayout到折叠状态下，立马下滑，会出现抖动的问题
  * * （3）滑动appbarLayout，无法通过手指按下让其停止滑动
  */
-class AppBarLayoutBehavior @JvmOverloads constructor(context: Context?, attrs: AttributeSet?) :
-        AppBarLayout.Behavior(context, attrs) {
+class AppBarLayoutBehavior @JvmOverloads constructor(
+    context: Context? = null,
+    attrs: AttributeSet? = null
+) : AppBarLayout.Behavior(context, attrs) {
     private var isFlinging = false
     private var shouldBlockNestedScroll = false
 
 
     override fun onInterceptTouchEvent(
-            parent: CoordinatorLayout,
-            child: AppBarLayout,
-            ev: MotionEvent
+        parent: CoordinatorLayout,
+        child: AppBarLayout,
+        ev: MotionEvent
     ): Boolean {
         d("onInterceptTouchEvent:" + child.totalScrollRange)
         shouldBlockNestedScroll = false
@@ -42,41 +45,23 @@ class AppBarLayoutBehavior @JvmOverloads constructor(context: Context?, attrs: A
                 stopAppbarLayoutFling(child)
         }
         return super.onInterceptTouchEvent(parent, child, ev)
-    }// 可能是28及以上版本// support design 27及以下版本
+    }
 
     /**
      * 反射获取私有的flingRunnable 属性，考虑support 28以后变量名修改的问题
      *
      * @return Field
      */
-    @get:Throws(NoSuchFieldException::class)
-    private val flingRunnableField: Field
-        private get() = try {
-            // support design 27及以下版本
-            val headerBehaviorType: Class<*> = this.javaClass.superclass.superclass
-            headerBehaviorType.getDeclaredField("mFlingRunnable")
-        } catch (e: NoSuchFieldException) {
-            // 可能是28及以上版本
-            val headerBehaviorType: Class<*> = this.javaClass.superclass.superclass.superclass
-            headerBehaviorType.getDeclaredField("flingRunnable")
-        }// 可能是28及以上版本// support design 27及以下版本
+    private val flingRunnableField: Field?
+        get() =  // support design 27及以下版本,可能是28及以上版本
+            ClassUtils.getField(this.javaClass.superclass, "flingRunnable")
 
     /**
      * 反射获取私有的scroller 属性，考虑support 28以后变量名修改的问题
-     *
-     * @return Field
      */
-    @get:Throws(NoSuchFieldException::class)
-    private val scrollerField: Field
-        private get() = try {
-            // support design 27及以下版本
-            val headerBehaviorType: Class<*> = this.javaClass.superclass.superclass
-            headerBehaviorType.getDeclaredField("mScroller")
-        } catch (e: NoSuchFieldException) {
-            // 可能是28及以上版本
-            val headerBehaviorType: Class<*> = this.javaClass.superclass.superclass.superclass
-            headerBehaviorType.getDeclaredField("scroller")
-        }
+    private val scrollerField: Field? = null
+        get() = // support design 27及以下版本
+            field ?: ClassUtils.getField(this.javaClass.superclass, "scroller")
 
     /**
      * 停止appbarLayout的fling事件
@@ -86,16 +71,16 @@ class AppBarLayoutBehavior @JvmOverloads constructor(context: Context?, attrs: A
     private fun stopAppbarLayoutFling(appBarLayout: AppBarLayout) {
         //通过反射拿到HeaderBehavior中的flingRunnable变量
         try {
-            val flingRunnableField = flingRunnableField
-            val scrollerField = scrollerField
+            val flingRunnableField = flingRunnableField ?: return
+            val scrollerField = scrollerField ?: return
             flingRunnableField.isAccessible = true
             scrollerField.isAccessible = true
-            val flingRunnable = flingRunnableField[this] as Runnable
-            val overScroller = scrollerField[this] as OverScroller
+            val flingRunnable = flingRunnableField.get(this) as Runnable?
+            val overScroller = scrollerField.get(this) as OverScroller?
             if (flingRunnable != null) {
                 d("存在flingRunnable")
                 appBarLayout.removeCallbacks(flingRunnable)
-                flingRunnableField[this] = null
+                flingRunnableField.set(this, null)
             }
             if (overScroller != null && !overScroller.isFinished) {
                 overScroller.abortAnimation()
@@ -108,33 +93,33 @@ class AppBarLayoutBehavior @JvmOverloads constructor(context: Context?, attrs: A
     }
 
     override fun onStartNestedScroll(
-            parent: CoordinatorLayout,
-            child: AppBarLayout,
-            directTargetChild: View,
-            target: View,
-            nestedScrollAxes: Int,
-            type: Int
+        parent: CoordinatorLayout,
+        child: AppBarLayout,
+        directTargetChild: View,
+        target: View,
+        nestedScrollAxes: Int,
+        type: Int
     ): Boolean {
         d("onStartNestedScroll")
         stopAppbarLayoutFling(child)
         return super.onStartNestedScroll(
-                parent,
-                child,
-                directTargetChild,
-                target,
-                nestedScrollAxes,
-                type
+            parent,
+            child,
+            directTargetChild,
+            target,
+            nestedScrollAxes,
+            type
         )
     }
 
     override fun onNestedPreScroll(
-            coordinatorLayout: CoordinatorLayout,
-            child: AppBarLayout,
-            target: View,
-            dx: Int,
-            dy: Int,
-            consumed: IntArray,
-            type: Int
+        coordinatorLayout: CoordinatorLayout,
+        child: AppBarLayout,
+        target: View,
+        dx: Int,
+        dy: Int,
+        consumed: IntArray,
+        type: Int
     ) {
         d("onNestedPreScroll:" + child.totalScrollRange + " ,dx:" + dx + " ,dy:" + dy + " ,type:" + type)
         //type返回1时，表示当前target处于非touch的滑动，
@@ -149,40 +134,40 @@ class AppBarLayoutBehavior @JvmOverloads constructor(context: Context?, attrs: A
     }
 
     override fun onNestedScroll(
-            coordinatorLayout: CoordinatorLayout,
-            child: AppBarLayout,
-            target: View,
-            dxConsumed: Int,
-            dyConsumed: Int,
-            dxUnconsumed: Int,
-            dyUnconsumed: Int,
-            type: Int,
-            consumed: IntArray
+        coordinatorLayout: CoordinatorLayout,
+        child: AppBarLayout,
+        target: View,
+        dxConsumed: Int,
+        dyConsumed: Int,
+        dxUnconsumed: Int,
+        dyUnconsumed: Int,
+        type: Int,
+        consumed: IntArray
     ) {
         d(
-                "onNestedScroll: target:" + target.javaClass + " ," + child.totalScrollRange + " ,dxConsumed:"
-                        + dxConsumed + " ,dyConsumed:" + dyConsumed + " " + ",type:" + type
+            "onNestedScroll: target:" + target.javaClass + " ," + child.totalScrollRange + " ,dxConsumed:"
+                    + dxConsumed + " ,dyConsumed:" + dyConsumed + " " + ",type:" + type
         )
         if (!shouldBlockNestedScroll) {
             super.onNestedScroll(
-                    coordinatorLayout,
-                    child,
-                    target,
-                    dxConsumed,
-                    dyConsumed,
-                    dxUnconsumed,
-                    dyUnconsumed,
-                    type,
-                    consumed
+                coordinatorLayout,
+                child,
+                target,
+                dxConsumed,
+                dyConsumed,
+                dxUnconsumed,
+                dyUnconsumed,
+                type,
+                consumed
             )
         }
     }
 
     override fun onStopNestedScroll(
-            coordinatorLayout: CoordinatorLayout,
-            abl: AppBarLayout,
-            target: View,
-            type: Int
+        coordinatorLayout: CoordinatorLayout,
+        abl: AppBarLayout,
+        target: View,
+        type: Int
     ) {
         d("onStopNestedScroll")
         super.onStopNestedScroll(coordinatorLayout, abl, target, type)

@@ -14,7 +14,7 @@ import com.ashlikun.customdialog.LoadDialog
  */
 class LoadTransDialog(context: Context) : LoadDialog(context) {
 
-    override fun initWindowParams(params: WindowManager.LayoutParams?) {
+    override fun initWindowParams(params: WindowManager.LayoutParams) {
         super.initWindowParams(params)
         window?.setBackgroundDrawableResource(R.color.translucent)
     }

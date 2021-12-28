@@ -15,7 +15,7 @@ import com.ashlikun.utils.other.DimensUtils
  */
 class LoadBackDialog(context: Context) : LoadDialog(context) {
 
-    override fun initWindowParams(params: WindowManager.LayoutParams?) {
+    override fun initWindowParams(params: WindowManager.LayoutParams) {
         super.initWindowParams(params)
         window?.setBackgroundDrawable(getGradientDrawable2())
     }

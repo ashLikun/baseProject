@@ -27,10 +27,11 @@ open class HttpListResult<T> : HttpResponse() {
         get() = data!!
 
     override fun <M> parseData(gson: Gson, json: String, type: Type, response: Response?): M {
-        return (super.parseData(gson, json, type, response) as M).also {
+        return (super.parseData(gson, json, type, response) as M).apply {
+            this as HttpListResult<T>
             //防止data是null
-            if (isSucceed) {
-                data = (data ?: ClassUtils.getListOrArrayOrObject(type)) as T
+            if (this.isSucceed) {
+                this.data = (this.data ?: ClassUtils.getListOrArrayOrObject(type)) as T?
             }
         }
     }
