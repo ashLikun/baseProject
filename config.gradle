@@ -62,7 +62,7 @@ ext {
 
 
             //基本架构
-            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:2.2.3",
+            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:2.2.5",
             //多个Dex
             multidex             : 'androidx.multidex:multidex:2.0.1',
             //webview封装

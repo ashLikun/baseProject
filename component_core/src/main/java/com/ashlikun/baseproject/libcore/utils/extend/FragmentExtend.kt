@@ -17,27 +17,7 @@ import permissions.dispatcher.PermissionUtils
  *
  * 功能介绍：Fragment相关扩展方法
  */
-/**
- * 请求权限
- */
-fun <I, O> Fragment.registerForActivityResultX(
-        contract: ActivityResultContract<I, O>,
-        callback: (O) -> Unit): ActivityResultLauncher<I> {
-    var oldStatus: Lifecycle.State? = null
-    //反射修改字段
-    if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
-        oldStatus = lifecycle.currentState
-        ClassUtils.setFieldValue(lifecycle, "mState", Lifecycle.State.CREATED)
-    }
-    //这段注册代码源码里面做了限制，必须在onStart之前，所以反射修改字段，骗过注册
-    val launcher = registerForActivityResult(contract) {
-        callback.invoke(it)
-    }
-    if (oldStatus != null) {
-        ClassUtils.setFieldValue(lifecycle, "mState", oldStatus)
-    }
-    return launcher
-}
+
 
 fun Fragment.requestPermission(permission: Array<String>, showRationaleMessage: String? = null, denied: (() -> Unit)? = null, success: (() -> Unit)): ActivityResultLauncher<Array<String>> {
     val launcher = registerForActivityResultX(ActivityResultContracts.RequestMultiplePermissions()) {

@@ -22,6 +22,10 @@ import com.google.gson.JsonSyntaxException
  */
 @Table("JpushJsonData")
 class JpushJsonData {
+    @Transient
+    @PrimaryKey(value = AssignType.AUTO_INCREMENT)
+    var id: Int = 0
+
     @PrimaryKey(AssignType.BY_MYSELF)
     @Transient
     var userId: String = ""//用户id

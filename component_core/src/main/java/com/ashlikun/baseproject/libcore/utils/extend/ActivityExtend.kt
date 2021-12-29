@@ -29,33 +29,7 @@ import permissions.dispatcher.PermissionUtils
  * 功能介绍：Activity相关扩展方法
  */
 
-/**
- * 当前窗口亮度
- * 范围为0~1.0,1.0时为最亮，-1为系统默认设置
- */
-var Activity.windowBrightness
-    get() = window.attributes.screenBrightness
-    set(brightness) {
-        //小于0或大于1.0默认为系统亮度
-        window.attributes = window.attributes.apply {
-            screenBrightness = if (brightness >= 1.0 || brightness < 0) -1.0F else brightness
-        }
-    }
 
-/**
- * 防止activity退出的时候动画重叠
- */
-fun Activity.finishNoAnim() {
-    overridePendingTransition(0, 0)
-    finish()
-}
-
-/**
- * 关闭activity动画
- */
-fun Activity.noAnim() {
-    overridePendingTransition(0, 0)
-}
 
 /**
  * 关闭activity动画
@@ -64,33 +38,6 @@ fun Activity.noExitAnim() {
     overridePendingTransition(R.anim.activity_open_enter, 0)
 }
 
-fun Activity.setStatusBarVisible(show: Boolean, statusBar: StatusBarCompat? = null) {
-    if (show) {
-        window.showIme()
-    } else {
-        window.hineIme()
-    }
-    statusBar?.setStatusDarkColor()
-}
-
-fun <I, O> ComponentActivity.registerForActivityResultX(
-        contract: ActivityResultContract<I, O>,
-        callback: (O) -> Unit): ActivityResultLauncher<I> {
-    var oldStatus: Lifecycle.State? = null
-    //反射修改字段
-    if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
-        oldStatus = lifecycle.currentState
-        ClassUtils.setFieldValue(lifecycle, "mState", Lifecycle.State.CREATED)
-    }
-    //这段注册代码源码里面做了限制，必须在onStart之前，所以反射修改字段，骗过注册
-    val launcher = registerForActivityResult(contract) {
-        callback.invoke(it)
-    }
-    if (oldStatus != null) {
-        ClassUtils.setFieldValue(lifecycle, "mState", oldStatus)
-    }
-    return launcher
-}
 
 /**
  * 请求权限
@@ -135,18 +82,6 @@ fun ComponentActivity.requestPermission(permission: Array<String>, showRationale
     return launcher
 }
 
-/**
- * 启动activity,用新api registerForActivityResult
- */
-fun ComponentActivity.launchForActivityResult(intent: Intent, checkCode: Boolean = true, success: ((ActivityResult) -> Unit)): ActivityResultLauncher<Intent> {
-    val launcher = registerForActivityResultX(ActivityResultContracts.StartActivityForResult()) {
-        if (!checkCode || it.resultCode == Activity.RESULT_OK) {
-            success.invoke(it)
-        }
-    }
-    launcher.launch(intent)
-    return launcher
-}
 
 fun BaseFragment.showEmpty(text: String = "什么都没有呢") {
     showEmpty(ContextData(text).setButtonShow(false))
