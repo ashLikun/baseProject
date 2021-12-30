@@ -58,9 +58,12 @@
         <!-- 该广播需要继承 JPush 提供的 JPushMessageReceiver 类, 并如下新增一个 Intent-Filter -->
         <receiver
             android:name=".utils.jpush.JpushReceiver"
-            android:enabled="true">
+            android:enabled="true"
+            android:exported="false">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
+                <!--需要配置这个,并且不调用super.onNotifyMessageOpened，不然打开就是重新启动应用-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
                 <category android:name="${applicationId}" />
             </intent-filter>
         </receiver>
@@ -70,7 +73,8 @@
         <service
             android:name=".utils.jpush.MyJpushService"
             android:enabled="true"
-            android:exported="false">
+            android:exported="false"
+            android:process=":pushcore">
             <intent-filter>
                 <action android:name="cn.jiguang.user.service.action" />
             </intent-filter>

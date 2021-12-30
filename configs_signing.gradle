@@ -3,7 +3,7 @@ apply plugin: 'java'
  * 加载签名配置文件
  */
 ext.loadSigningConfigs = { project ->
-    def Properties props = new Properties()
+    def props = new Properties()
     def propFile = file('local.properties')
     if (propFile.canRead()) {
         props.load(new FileInputStream(propFile))
@@ -31,5 +31,6 @@ ext.loadSigningConfigs = { project ->
         }
     } else {
         project.android.buildTypes.release.signingConfig = null
+        project.android.buildTypes.debug.signingConfig = null
     }
 }

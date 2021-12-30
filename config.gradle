@@ -1,6 +1,6 @@
 ext {
     frameVersion = "3.1.9"
-    lifecycleVersion = "2.4.+"
+    lifecycleVersion = "2.4.0"
     android = [
             applicationId   : "com.ashlikun.baseproject",
             compileSdk      : 31,
@@ -43,8 +43,8 @@ ext {
             kotlinReflect        : "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version",
             //kotlin的协程
             KotlinxCoroutines    : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version",
-            appcompat            : "androidx.appcompat:appcompat:1.4.+",
-            design               : "com.google.android.material:material:1.5+",
+            appcompat            : "androidx.appcompat:appcompat:1.4.0",
+            design               : "com.google.android.material:material:1.5.+",
             //约束布局
             constraintLayout     : 'androidx.constraintlayout:constraintlayout:2.1.+',
             //协调布局
@@ -56,9 +56,9 @@ ext {
             //LiveData
             lifecycleLiveDataKtx : "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion",
             //Activity
-            Activity             : 'androidx.activity:activity-ktx:1.4.+',
+            Activity             : 'androidx.activity:activity-ktx:1.4.0',
             //Fragment
-            Fragment             : 'androidx.fragment:fragment-ktx:1.4.+',
+            Fragment             : 'androidx.fragment:fragment-ktx:1.4.0',
 
 
             //基本架构
@@ -161,7 +161,7 @@ ext {
             //腾讯X5浏览器 44136  http://soft.imtt.qq.com/browser/tes/feedback.html 显示000000表示加载的是系统内核，显示大于零的数字表示加载了x5内核（该数字是x5内核版本号）
             tbssdk               : "com.tencent.tbs:tbssdk:44136",
             // 极光推送
-            jpush                : 'cn.jiguang.sdk:jpush:4.4.5',
+            jpush                : 'cn.jiguang.sdk:jpush:4.5.0',
             // 极光推送
             jcore                : 'cn.jiguang.sdk:jcore:3.1.0',
             //腾讯Bugly
