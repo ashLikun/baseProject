@@ -18,36 +18,38 @@
 #-keepclasswithmembers 如果类拥有了某成员 保证类和成员不会被混淆
 
 #--------------------------------------------基本指令 start------------------------------------------------#
-#根据https://www.zhihu.com/question/46649910,进行修改,解决问题:warning: Ignoring InnerClasses attribute for an anonymous inner class
--keepattributes EnclosingMethod
-
-#指定代码的压缩级别
+# 设置混淆的压缩比率 0 ~ 7
 -optimizationpasses 5
-
-#混淆时不会产生形形色色的类名(混淆时不使用大小写混合类名)
-#-dontusemixedcaseclassnames
-
-#不去忽略非公共的库类
+# 混淆后类名都为小写   Aa aA
+-dontusemixedcaseclassnames
+# 指定不去忽略非公共库的类
 -dontskipnonpubliclibraryclasses
-#指定不忽略非public类里面的成员和方法
--dontskipnonpubliclibraryclassmembers
- #优化  不优化输入的类文件
+# 不优化输入的类文件
 -dontoptimize
-#虚拟机相关不混淆
--dontwarn dalvik.**
- #预校验
+# 不做预校验的操作
 -dontpreverify
-
- #混淆时是否记录日志
+# 混淆时不记录日志
 -verbose
-
-
- # 混淆时所采用的算法
+# 保留代码行号，方便异常信息的追踪
+-keepattributes SourceFile,LineNumberTable
+# 混淆采用的算法.
 -optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
+# dump文件列出apk包内所有class的内部结构
+-dump /build/proguard/class_files.txt
+# seeds.txt文件列出未混淆的类和成员
+-printseeds /build/proguard/seeds.txt
+# usage.txt文件列出从apk中删除的代码
+-printusage /build/proguard/unused.txt
+# mapping文件列出混淆前后的映射
+-printmapping /build/proguard/mapping.txt
+# 忽略警告 不加的话某些情况下打包会报错中断
+-ignorewarnings
 #--------------------------------------------基本指令 end------------------------------------------------#
 
 #--------------------------------------------默认保留区 start--------------------------------------------------#
+# 避免混淆Android基本组件，下面是兼容性比较高的规则
 -keep public class * extends android.app.Activity
+-keep public class * extends android.app.Fragment
 -keep public class * extends android.app.Application
 -keep public class * extends android.app.Service
 -keep public class * extends android.content.BroadcastReceiver
@@ -56,12 +58,15 @@
 -keep public class * extends android.preference.Preference
 -keep public class * extends android.view.View
 -keep public class com.android.vending.licensing.ILicensingService
-#supper包混淆
+# 保留support下的所有类及其内部类
 -keep class android.support.** {*;}
--keep interface android.support.** { *; }
+-keep interface android.support.** {*;}
+-keep public class * extends android.support.v4.**
+-keep public class * extends android.support.v7.**
+-keep public class * extends android.support.annotation.**
 -dontwarn android.support.**
 -dontwarn android.os.**
-#AndroidX混淆
+# 保留androidx下的所有类及其内部类
 -keep class com.google.android.material.** {*;}
 -keep class androidx.** {*;}
 -keep public class * extends androidx.**
@@ -112,8 +117,13 @@
     void *(**On*Event);
 }
 
-
-
+#kotlin 相关
+-dontwarn kotlin.**
+-keep class kotlin.** { *; }
+-keep interface kotlin.** { *; }
+#保留 kotlin.Metadata 注解从而在保留项目上维持元数据
+-keep class kotlin.Metadata { *; }
+-keepattributes RuntimeVisibleAnnotations
 #枚举不被混淆
 -keepclassmembers enum * {*;}
 # Parcelable 不被混淆
@@ -121,6 +131,8 @@
   public static final android.os.Parcelable$Creator *;
 }
 # 保留Serializable序列化的类不被混淆
+-keep interface * extends java.io.Serializable { *; }
+-keep public class * implements java.io.Serializable {*;}
 -keepclassmembers class * implements java.io.Serializable {
     static final long serialVersionUID;
     private static final java.io.ObjectStreamField[] serialPersistentFields;
@@ -132,7 +144,10 @@
     java.lang.Object writeReplace();
     java.lang.Object readResolve();
 }
+
 #排除所有注解类
+-dontwarn android.annotation
+-keepattributes *Annotation*
 -keep class * extends java.lang.annotation.Annotation { *; }
 -keep interface * extends java.lang.annotation.Annotation { *; }
 -keepattributes SourceFile,LineNumberTable
@@ -179,9 +194,7 @@
 
 #-----------------------------------------定制区-------------------------------------------#
 #-----------------------------------------1:实体类 start-------------------------------------------#
-
 -keep class com.ashlikun.baseproject.**.*javabean*.** {*;}
-
 #-----------------------------------------1:实体类 end-------------------------------------------#
 
 
@@ -193,6 +206,7 @@
 -dontwarn okio.**
 -keepattributes Signature
 -keepattributes *Annotation*
+-keep class com.ashlikun.okhttputils.** {*; }
 # JSR 305 annotations are for embedding nullability information.
 -dontwarn javax.annotation.**
 # A resource is loaded with a relative path so the package of this class must be preserved.
@@ -346,6 +360,40 @@
 -dontwarn com.tencent.smtt.**
 -keep class com.tencent.smtt.** { *; }
 -keep class com.tencent.tbs.** {*;}
+#mob shared
+-keep class cn.sharesdk.**{*;}
+-keep class com.sina.**{*;}
+-keep class com.mob.**{*;}
+-keep class com.bytedance.**{*;}
+-dontwarn cn.sharesdk.**
+-dontwarn com.sina.**
+-dontwarn com.mob.**
+#Mob Share
+-keep class cn.sharesdk.**{*;}
+-keep class com.sina.**{*;}
+-keep class com.mob.**{*;}
+-keep class com.bytedance.**{*;}
+-dontwarn cn.sharesdk.**
+-dontwarn com.sina.**
+-dontwarn com.mob.**
+#weibo SDK
+-keep class com.sina.weibo.sdk.** { *; }
+#讯飞语音
+-keep class com.iflytek.**{*;}
+-keepattributes Signature
+#标贝语音合成
+-keep class com.databaker.synthesizer.bean.** { *; }
+-keep public class com.databaker.synthesizer.BakerConstants{*;}
+-keep public class com.databaker.synthesizer.BakerSynthesizer{*;}
+-keep public class com.databaker.synthesizer.BakerCallback{*;}
+-keep public class com.databaker.synthesizer.SynthesizerCallback{*;}
+-keep public class com.databaker.synthesizer.BakerMediaCallback{*;}
+-keep public class com.databaker.synthesizer.BaseMediaCallback{*;}
+#腾讯直播
+-keep class com.tencent.** { *; }
+#ijkplay
+-keep class tv.danmaku.ijk.** { *; }
+-dontwarn tv.danmaku.ijk.**
 #---------------------------------------------------------------------------
 
 #-----------------------------------------2:第三方库 end-------------------------------------------#

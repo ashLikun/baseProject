@@ -83,7 +83,7 @@ android {
             //移除无用的资源文件
             shrinkResources false
             //设置混淆配置文件
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             //versionNameSuffix
             //  versionNameSuffix "_内测"
             //applicationIdSuffix-测试版本使用debug作为后缀
@@ -109,8 +109,8 @@ android {
         }
     }
     lintOptions {
-        checkReleaseBuilds true
-        abortOnError true
+        checkReleaseBuilds false
+        abortOnError false
     }
     sourceSets {
         main {

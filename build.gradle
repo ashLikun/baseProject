@@ -11,7 +11,8 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.3'
+        //7.0  kotlin/Metadata 被去除，导致混淆后反射无法获取接口方法参数名称，retrofit就不能代理，注意，等7.1+就可以了
+        classpath 'com.android.tools.build:gradle:4.2.0'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
