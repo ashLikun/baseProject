@@ -3,7 +3,7 @@ apply from: file('./config.gradle')
 apply from: file('./config_component.gradle')
 apply from: file('./configs_signing.gradle')
 buildscript {
-    ext.kotlin_version = '1.6.0'
+    ext.kotlin_version = '1.6.10'
     ext.coroutine_version = '1.5.2'
     repositories {
         google()
@@ -12,7 +12,7 @@ buildscript {
     }
     dependencies {
         //7.0  kotlin/Metadata 被去除，导致混淆后反射无法获取接口方法参数名称，retrofit就不能代理，注意，等7.1+就可以了
-        classpath 'com.android.tools.build:gradle:4.2.0'
+        classpath 'com.android.tools.build:gradle:7.1.1'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }

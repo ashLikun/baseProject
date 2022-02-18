@@ -3,6 +3,7 @@
     <color name="colorPrimary">#ff1e82d2</color>
     <color name="colorPrimaryDark">#ff1e82d2</color>
     <color name="colorAccent">#ff1e82d2</color>
+    <color name="colorPrimaryVariant">#ff1e82d2</color>
     <!--状态栏颜色-->
     <color name="statusColorCustom">#FFF54343</color>
     <!--加载框背景-->

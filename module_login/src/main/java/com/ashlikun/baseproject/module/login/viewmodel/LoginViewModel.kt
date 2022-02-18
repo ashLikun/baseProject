@@ -1,11 +1,20 @@
 package com.ashlikun.baseproject.module.login.viewmodel
 
+import androidx.lifecycle.asLiveData
 import com.ashlikun.baseproject.libcore.utils.extend.showToast
 import com.ashlikun.baseproject.libcore.utils.http.HttpUiHandle
 import com.ashlikun.baseproject.module.login.mode.ApiLogin
 import com.ashlikun.baseproject.module.login.mode.javabean.UserData
 import com.ashlikun.core.mvvm.BaseViewModel
 import com.ashlikun.core.mvvm.launch
+import com.ashlikun.livedatabus.EventBus
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.launch
+import kotlin.time.measureTime
 
 /**
  * @author　　: 李坤

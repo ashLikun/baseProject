@@ -5,7 +5,6 @@ plugins {
     //kapt插件
     id 'kotlin-kapt'
 }
-
 def config = rootProject.ext.android // 工程配置
 def sdk = rootProject.ext.sdk // SDK配置
 def libs = rootProject.ext.dependencies // 库依赖

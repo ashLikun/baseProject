@@ -45,9 +45,9 @@ open class BaseApplication : MultiDexApplication() {
         super.onCreate()
         initLib()
         //布局切换管理器
-        LoadSwitch.BASE_EMPTY_LAYOUT_ID = R.layout.base_load_empty
-        LoadSwitch.BASE_RETRY_LAYOUT_ID = R.layout.base_load_retry
-        LoadSwitch.BASE_LOADING_LAYOUT_ID = R.layout.base_load_loading
+//        LoadSwitch.BASE_EMPTY_LAYOUT_ID = R2.layout.base_load_empty
+//        LoadSwitch.BASE_RETRY_LAYOUT_ID = R2.layout.base_load_retry
+//        LoadSwitch.BASE_LOADING_LAYOUT_ID = R2.layout.base_load_loading
 
         //activity创建管理器
         for (a in applications) {
@@ -73,9 +73,9 @@ open class BaseApplication : MultiDexApplication() {
         CacheUtils.init(resources.getString(R.string.app_name_letter))
         //异常捕获
         AppCrashConfig.Builder.create(this)
-                .eventListener(AppCrashEventListener())
-                .isDebug(AppUtils.isDebug)
-                .apply()
+            .eventListener(AppCrashEventListener())
+            .isDebug(AppUtils.isDebug)
+            .apply()
         //开发助手
         DoraemonKit.install(this, FileUtils.getMetaValue("DOKIT_PID"))
         //数据库
@@ -101,10 +101,10 @@ open class BaseApplication : MultiDexApplication() {
     private fun initX5Tbs() {
         // 初始化X5内核时候的配置
         QbSdk.initTbsSettings(
-                mapOf(
-                        TbsCoreSettings.TBS_SETTINGS_USE_SPEEDY_CLASSLOADER to true,
-                        TbsCoreSettings.TBS_SETTINGS_USE_DEXLOADER_SERVICE to true
-                )
+            mapOf(
+                TbsCoreSettings.TBS_SETTINGS_USE_SPEEDY_CLASSLOADER to true,
+                TbsCoreSettings.TBS_SETTINGS_USE_DEXLOADER_SERVICE to true
+            )
         )
         QbSdk.initX5Environment(this, object : QbSdk.PreInitCallback {
             override fun onCoreInitFinished() {

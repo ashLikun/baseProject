@@ -1,13 +1,10 @@
 package com.ashlikun.baseproject.libcore.utils.http
 
 import com.ashlikun.baseproject.libcore.R
-import com.ashlikun.baseproject.libcore.mode.javabean.HttpListResult
 import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.okhttputils.http.ExecuteCall
 import com.ashlikun.okhttputils.http.HttpException
 import com.ashlikun.okhttputils.http.request.HttpRequest
-import com.ashlikun.okhttputils.http.response.HttpResult
-import com.ashlikun.okhttputils.http.response.IHttpResponse
 import com.ashlikun.utils.other.MainHandle
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.lang.reflect.ParameterizedType

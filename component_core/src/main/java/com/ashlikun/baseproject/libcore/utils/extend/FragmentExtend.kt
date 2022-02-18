@@ -1,13 +1,11 @@
 package com.ashlikun.baseproject.libcore.utils.extend
 
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
 import com.ashlikun.baseproject.libcore.R
-import com.ashlikun.utils.other.ClassUtils
+import com.ashlikun.core.registerForActivityResultX
 import permissions.dispatcher.PermissionUtils
 
 /**

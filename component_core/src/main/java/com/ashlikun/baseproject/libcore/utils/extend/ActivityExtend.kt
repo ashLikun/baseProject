@@ -1,24 +1,17 @@
 package com.ashlikun.baseproject.libcore.utils.extend
 
 import android.app.Activity
-import android.content.Intent
 import androidx.activity.ComponentActivity
-import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.Lifecycle
 import com.ashlikun.baseproject.libcore.R
 import com.ashlikun.core.activity.BaseActivity
 import com.ashlikun.core.fragment.BaseFragment
 import com.ashlikun.core.mvvm.BaseViewModel
+import com.ashlikun.core.registerForActivityResultX
 import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.loadswitch.LoadSwitchService
-import com.ashlikun.utils.other.ClassUtils
-import com.ashlikun.utils.ui.extend.hineIme
-import com.ashlikun.utils.ui.extend.showIme
-import com.ashlikun.utils.ui.status.StatusBarCompat
 import permissions.dispatcher.PermissionUtils
 
 /**

@@ -1,5 +1,10 @@
 package com.ashlikun.baseproject.module.login.view.activity
 
+import android.content.Intent
+import android.os.Binder
+import android.os.Bundle
+import android.view.MotionEvent
+import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.common.utils.jump.RouterJump
 import com.ashlikun.baseproject.libcore.constant.RouterPath
@@ -9,6 +14,7 @@ import com.ashlikun.baseproject.module.login.mode.javabean.UserData
 import com.ashlikun.baseproject.module.login.viewmodel.LoginViewModel
 import com.ashlikun.core.mvvm.BaseMvvmActivity
 import com.ashlikun.core.mvvm.IViewModel
+import dalvik.system.DexClassLoader
 
 
 /**
@@ -26,9 +32,14 @@ class LoginActivity : BaseMvvmActivity<LoginViewModel>() {
         LoginActivityLoginBinding.inflate(layoutInflater)
     }
 
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        return super.onTouchEvent(event)
+    }
 
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        return super.dispatchTouchEvent(ev)
+    }
     override fun initView() {
-
         toolbar!!.setTitle("登录")
         toolbar!!.setBack(this)
 
