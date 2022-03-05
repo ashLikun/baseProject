@@ -29,7 +29,6 @@ import kotlinx.coroutines.launch
 @IViewModel(HomeViewModel::class)
 @Route(path = RouterPath.FRAGMENT_HOME)
 class HomeFragment : BaseMvvmFragment<HomeViewModel>() {
-
     override val binding by lazy {
         MainFragmentHomeBinding.inflate(layoutInflater)
     }
