@@ -14,6 +14,7 @@ import com.ashlikun.baseproject.module.login.mode.javabean.UserData
 import com.ashlikun.baseproject.module.login.viewmodel.LoginViewModel
 import com.ashlikun.core.mvvm.BaseMvvmActivity
 import com.ashlikun.core.mvvm.IViewModel
+import com.ashlikun.utils.other.MainHandle
 import dalvik.system.DexClassLoader
 
 
@@ -40,6 +41,9 @@ class LoginActivity : BaseMvvmActivity<LoginViewModel>() {
         return super.dispatchTouchEvent(ev)
     }
     override fun initView() {
+        MainHandle.get().postDelayeds(
+
+        )
         toolbar!!.setTitle("登录")
         toolbar!!.setBack(this)
 

@@ -67,7 +67,6 @@ object RouterJump {
      * [Intent.FLAG_ACTIVITY_REORDER_TO_FRONT]:如果已经启动了四个Activity：A，B，C和D，在D Activity里，想再启动一个Actvity B，但不变成A,B,C,D,B，而是希望是A,C,D,B
      * @param index -1:默认页
      */
-    @JvmOverloads
     fun startHome(index: Int = -1) = start(
             path = RouterPath.HOME, mapOf(RouterKey.FLAG_INDEX to index),
             flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
