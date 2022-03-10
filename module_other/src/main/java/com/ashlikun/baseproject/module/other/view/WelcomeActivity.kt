@@ -45,10 +45,10 @@ class WelcomeActivity : BaseActivity() {
     private val time = 2000L
 
     override fun initView() {
-        requestPermission(arrayOf(Manifest.permission.READ_PHONE_STATE), denied = {
-            SuperToast.get("获取权限失败").warn()
-            finish()
-        }) {
+//        requestPermission(arrayOf(Manifest.permission.READ_PHONE_STATE), denied = {
+//            SuperToast.get("获取权限失败").warn()
+//            finish()
+//        }) {
             initViewOnPermiss()
             launch(delayTime = time) {
                 LogUtils.e(ThreadUtils.isMainThread)
@@ -61,7 +61,7 @@ class WelcomeActivity : BaseActivity() {
             }
 
 
-        }
+//        }
     }
 
 

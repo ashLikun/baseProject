@@ -17,7 +17,9 @@ import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.okhttputils.http.response.IHttpResponse
 import com.ashlikun.okhttputils.retrofit.Retrofit
 import com.ashlikun.utils.AppUtils
+import com.ashlikun.utils.other.DeviceUtil
 import com.ashlikun.utils.other.MainHandle
+import com.ashlikun.utils.other.StringUtils
 import com.ashlikun.utils.other.file.FileUtils
 import com.ashlikun.utils.ui.ActivityManager
 import com.ashlikun.utils.ui.modal.SuperToast
@@ -67,14 +69,20 @@ class HttpManager private constructor() {
 
     fun setCommonParams() {
         //公共参数
-//        OkHttpUtils.getInstance().commonParams = mapOf(
-//                "uid" to (RouterManage.login()?.getUserId() ?: ""),
-//                "sessionid" to (RouterManage.login()?.getToken() ?: ""),
-//                "os" to "android",
-//                "sdkVersion" to "${DeviceUtil.getSystemVersion()}",
-//                "osVersion" to StringUtils.dataFilter(DeviceUtil.getSystemModel(), DeviceUtil.getDeviceBrand()),
-//                "devid" to DeviceUtil.getSoleDeviceId(),
-//                "appVersion" to AppUtils.getVersionName())
+        OkHttpUtils.get().commonParams = mutableMapOf(
+            "uid" to (RouterManage.login()?.getUserId() ?: ""),
+            "sessionid" to (RouterManage.login()?.getToken() ?: ""),
+            "os" to "android",
+            "osBrand" to StringUtils.dataFilter(
+                DeviceUtil.systemModel,
+                DeviceUtil.deviceBrand
+            ),
+            "osVersion" to "${DeviceUtil.systemVersion}",
+            "devid" to DeviceUtil.soleDeviceId,
+            "appVersionCode" to AppUtils.versionCode,
+            "appVersion" to AppUtils.versionName,
+            "appKey" to "5fb39a50c59a9"
+        )
     }
 
     fun getCacheDir(): File {

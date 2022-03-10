@@ -41,9 +41,7 @@ class LoginActivity : BaseMvvmActivity<LoginViewModel>() {
         return super.dispatchTouchEvent(ev)
     }
     override fun initView() {
-        MainHandle.get().postDelayeds(
 
-        )
         toolbar!!.setTitle("登录")
         toolbar!!.setBack(this)
 

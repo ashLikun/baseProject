@@ -62,7 +62,7 @@ ext {
 
 
             //基本架构
-            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:2.2.5",
+            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:2.2.7",
             //多个Dex
             multidex             : 'androidx.multidex:multidex:2.0.1',
             //webview封装
@@ -75,7 +75,7 @@ ext {
             //简单的PopupWindow
             EasyPopupWindow      : "com.github.ashLikun:EasyPopupWindow:2.0.0",
             //事件总线
-            EventBus             : "com.github.ashLikun:LiveDataVBus:2.0.1",
+            EventBus             : "com.github.ashLikun:LiveDataVBus:2.0.2",
             //数据库
             LiteOrm              : "com.github.ashLikun:LiteOrm:2.0.2",
             //MMKV
@@ -90,7 +90,7 @@ ext {
             //封装的viewpager，banner，启动页
             XViewPager           : "com.github.ashLikun:XViewPager:2.1.6",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:4.1.8",
+            CommonUtils          : "com.github.ashLikun:CommonUtils:4.1.9",
             //公共的Adapter
             CommonAdapter        : "com.github.ashLikun:CommonAdapter:4.3.5",
             //Google官方改造
