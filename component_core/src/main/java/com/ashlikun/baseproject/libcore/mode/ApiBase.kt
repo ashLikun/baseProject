@@ -1,7 +1,11 @@
 package com.ashlikun.baseproject.libcore.mode
 
-import com.ashlikun.baseproject.libcore.utils.http.HttpManager
+import com.ashlikun.baseproject.libcore.utils.http.*
+import com.ashlikun.okhttputils.http.ExecuteCall
+import com.ashlikun.okhttputils.http.response.HttpResponse
+import com.ashlikun.okhttputils.http.response.HttpResult
 import com.ashlikun.okhttputils.retrofit.Action
+import com.ashlikun.okhttputils.retrofit.FieldNo
 import com.ashlikun.okhttputils.retrofit.Path
 import com.ashlikun.okhttputils.retrofit.Url
 import java.io.Serializable
@@ -22,5 +26,26 @@ interface ApiBase : Serializable {
      */
     companion object {
         const val method = "POST"
+    }
+
+    /**
+     * retrofit+协成方式
+     */
+    suspend fun test(
+        tikit: Int,
+        @FieldNo
+        handle: HttpUiHandle? = null,
+    ): HttpResponse
+
+    /**
+     * 回调方式
+     * 这里可以使用缓存
+     */
+    fun testxCall(
+        handle: HttpUiHandle,
+        success: OnSuccess<HttpResult<String>>
+    ): ExecuteCall? {
+        return "index".requestPost()
+            .execute(handle, success)
     }
 }

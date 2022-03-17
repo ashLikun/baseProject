@@ -34,6 +34,8 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "arm64-v8a", "x86"
         }
+        // 适配默认语言"en-rUS"
+        resConfigs "zh-rCN"
         multiDexEnabled true
         kapt {
             arguments {

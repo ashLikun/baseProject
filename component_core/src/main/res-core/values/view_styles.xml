@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="BaseDialogButtonStyle">
+    <style name="BaseDialogButtonStyle" parent="@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush">
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textSize">@dimen/dp_16</item>
     </style>
 
-    <style name="BaseDialogTitleStyle">
+    <style name="BaseDialogTitleStyle" parent="@style/RtlOverlay.DialogWindowTitle.AppCompat">
         <item name="android:textColor">@color/black_33</item>
-        <item name="android:textSize">@dimen/dp_16</item>
+        <item name="android:textSize">@dimen/dp_18</item>
     </style>
 
 </resources>
