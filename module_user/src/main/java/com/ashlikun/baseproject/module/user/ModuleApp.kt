@@ -1,4 +1,4 @@
-package com.ashlikun.baseproject.module.module_name
+package com.ashlikun.baseproject.module.user
 
 import com.ashlikun.baseproject.libcore.AbsApplication
 

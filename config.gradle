@@ -88,9 +88,9 @@ ext {
             //自定义的下拉刷新
             RefreshLayout        : "com.github.ashLikun:RefreshLayout:2.0.4",
             //封装的viewpager，banner，启动页
-            XViewPager           : "com.github.ashLikun:XViewPager:2.1.7",
+            XViewPager           : "com.github.ashLikun:XViewPager:2.1.9",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:4.1.9",
+            CommonUtils          : "com.github.ashLikun:CommonUtils:4.2.2",
             //公共的Adapter
             CommonAdapter        : "com.github.ashLikun:CommonAdapter:4.3.5",
             //Google官方改造

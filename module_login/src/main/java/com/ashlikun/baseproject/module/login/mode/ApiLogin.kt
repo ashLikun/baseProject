@@ -46,10 +46,5 @@ interface ApiLogin : ApiBase {
                 .syncExecute(handle)
     }
 
-    suspend fun test(
-            tikit: Int,
-            @FieldNo
-            handle: HttpUiHandle? = null,
-    ): HttpResponse
 
 }

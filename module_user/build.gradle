@@ -1,4 +1,4 @@
-def currentModule = rootProject.ext.modules.main // 当前的module
+def currentModule = rootProject.ext.modules.user // 当前的module
 if (currentModule.isRun) {
     apply plugin: 'com.android.application'
 } else {

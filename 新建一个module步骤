@@ -6,4 +6,4 @@
 6:配置好gradle   1:新建的模块gradle第一行module名称     2：app gradle里面加上依赖    3:settings.gradle加上本模块
 7:填写好说明文档
 8：在app的application(MyApp)添加...module名字/ModuleApp。
-9:添加javabean混淆
+9:添加javabean混淆（非必要）

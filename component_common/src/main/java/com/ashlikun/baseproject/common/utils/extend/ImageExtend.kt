@@ -34,8 +34,8 @@ import kotlin.math.min
  */
 
 fun ImageView.getDefaultTransformation(
-        radiusDp: Float = 0f,
-        cornerType: RoundedCornersTransformation.CornerType = RoundedCornersTransformation.CornerType.ALL
+    radiusDp: Float = 0f,
+    cornerType: RoundedCornersTransformation.CornerType = RoundedCornersTransformation.CornerType.ALL
 ): MultiTransformation<Bitmap>? {
     val st = when (scaleType) {
         ScaleType.CENTER_CROP -> CenterCrop()
@@ -45,8 +45,8 @@ fun ImageView.getDefaultTransformation(
     }
     if (radiusDp > 0) {
         return MultiTransformation(
-                st,
-                RoundedCornersTransformation(DimensUtils.dip2px(radiusDp), 0, cornerType)
+            st,
+            RoundedCornersTransformation(DimensUtils.dip2px(radiusDp), 0, cornerType)
         )
     }
     return MultiTransformation(st)
@@ -58,22 +58,22 @@ fun ImageView.getDefaultTransformation(
  * @param placeholderDp 占位图宽度大小 dp
  */
 fun ImageView.show(
-        path: String,
-        radiusDp: Float = 0f,
-        isPlaceholder: Boolean = false,
-        showBgColorRes: Int = R.color.color_f5f5f5,
-        requestOptions: RequestOptions? = null,
-        requestListener: RequestListener<Drawable>? = null
+    path: String?,
+    radiusDp: Float = 0f,
+    isPlaceholder: Boolean = false,
+    showBgColorRes: Int = R.color.color_f5f5f5,
+    requestOptions: RequestOptions? = null,
+    requestListener: RequestListener<Drawable>? = null
 ) {
     var options = requestOptions ?: RequestOptions()
     if (isPlaceholder) {
         try {
             val drawable = BitmapDrawable(
-                    resources,
-                    BitmapFactory.decodeResource(
-                            context.resources,
-                            R.drawable.material_default_image_1_1
-                    )
+                resources,
+                BitmapFactory.decodeResource(
+                    context.resources,
+                    R.drawable.material_default_image_1_1
+                )
             )
             val layerDrawable = PlaceholderDrawable(drawable)
             layerDrawable.setColor(showBgColorRes.resColor)
@@ -95,23 +95,23 @@ fun ImageView.show(
     }
 
     GlideLoad.with(this)
-            .load(path)
-            .options(options)
-            .requestListener(requestListener)
-            .show(this)
+        .load(path ?: "")
+        .options(options)
+        .requestListener(requestListener)
+        .show(this)
 }
 
 fun ImageView.showCircle(
-        path: String,
-        showBgColorRes: Int = R.color.color_f5f5f5,
-        isPlaceholder: Boolean = true
+    path: String,
+    showBgColorRes: Int = R.color.color_f5f5f5,
+    isPlaceholder: Boolean = true
 ) {
     show(path, 150f, isPlaceholder, showBgColorRes, GlideUtils.getCircleOptions())
 }
 
 fun ImageView.showPlace(
-        path: String, radiusDp: Float = 0f, isPlaceholder: Boolean = true,
-        showBgColor: Int = R.color.color_f5f5f5, requestOptions: RequestOptions? = null
+    path: String?, radiusDp: Float = 0f, isPlaceholder: Boolean = true,
+    showBgColor: Int = R.color.color_f5f5f5, requestOptions: RequestOptions? = null
 ) {
     show(path, radiusDp, isPlaceholder, showBgColor, requestOptions)
 }
@@ -120,9 +120,9 @@ fun ImageView.showPlace(
  * 设置SimpleDraweeView  上面蒙层
  */
 fun ImageView.isShowMengcheng(
-        radiusDp: Float = 0f,
-        color: Int = 0x80000000.toInt(),
-        isMengCheng: Boolean = true
+    radiusDp: Float = 0f,
+    color: Int = 0x80000000.toInt(),
+    isMengCheng: Boolean = true
 ) {
     if (isMengCheng) {
         visibility = View.VISIBLE
@@ -137,9 +137,9 @@ fun ImageView.isShowMengcheng(
 }
 
 class PlaceholderDrawable(
-        var placeholder: Drawable,
-        orientation: Orientation = Orientation.TOP_BOTTOM,
-        colors: IntArray? = null
+    var placeholder: Drawable,
+    orientation: Orientation = Orientation.TOP_BOTTOM,
+    colors: IntArray? = null
 ) : GradientDrawable(orientation, colors) {
     override fun onBoundsChange(r: Rect) {
         super.onBoundsChange(r)

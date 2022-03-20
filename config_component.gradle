@@ -17,6 +17,13 @@ ext {
                     name         : "login",
                     applicationId: "${android.applicationId}.module.login",
             ],
+            //用户组件
+            user: [
+                    //是否是单组件运行
+                    isRun        : false,
+                    name         : "user",
+                    applicationId: "${android.applicationId}.module.user",
+            ],
             //其他一些组件
             other: [
                     //是否是单组件运行

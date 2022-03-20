@@ -18,6 +18,7 @@ class MyApp : BaseApplication() {
         //创建，每次新建一个module时候都要在这里添加
         addApplication(com.ashlikun.baseproject.common.CommonApp())
         addApplication(com.ashlikun.baseproject.module.main.ModuleApp())
+        addApplication(com.ashlikun.baseproject.module.user.ModuleApp())
         addApplication(com.ashlikun.baseproject.module.login.ModuleApp())
         addApplication(com.ashlikun.baseproject.module.other.ModuleApp())
         super.onCreate()

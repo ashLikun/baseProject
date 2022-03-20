@@ -19,11 +19,11 @@ import com.ashlikun.xviewpager.view.BannerViewPager
 
 open class BannerImagePagerListener : ViewPageHelperListener<IBannerData> {
 
-    override fun createView(context: Context?, banner: BannerViewPager?, data: IBannerData, position: Int): View {
+    override fun createView(context: Context, banner: BannerViewPager, data: IBannerData?, position: Int): View {
         val aa = ImageView(context)
         aa.scaleType = ImageView.ScaleType.CENTER_CROP
         aa.layoutParams = RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.MATCH_PARENT)
-        aa.showPlace(data.getImageUrl())
+        aa.showPlace(data?.getImageUrl())
         return aa
     }
 }

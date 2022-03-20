@@ -127,7 +127,7 @@ class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener {
             override fun createView(
                     context: Context,
                     banner: BannerViewPager,
-                    data: ImageData,
+                    data: ImageData?,
                     position: Int
             ): View {
                 val view =
@@ -138,7 +138,7 @@ class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener {
                 }
                 view.findViewById<ScaleFinishView>(R.id.scaleFinishView)
                         ?.setOnSwipeListener(this@ImageLockActivity)
-                photoView?.show(data.image, requestListener = object : RequestListener<Drawable> {
+                photoView?.show(data?.image, requestListener = object : RequestListener<Drawable> {
                     override fun onLoadFailed(
                             e: GlideException?,
                             model: Any?,

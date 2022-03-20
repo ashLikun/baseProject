@@ -141,6 +141,10 @@ dependencies {
     if (!moudles.main.isRun) {
         implementation project(':module_main')
     }
+    //用户模块
+    if (!moudles.user.isRun) {
+        implementation project(':module_user')
+    }
     //登录模块
     if (!moudles.login.isRun) {
         implementation project(':module_login')
