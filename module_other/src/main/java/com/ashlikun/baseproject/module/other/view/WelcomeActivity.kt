@@ -16,6 +16,7 @@ import com.ashlikun.baseproject.libcore.utils.extend.requestPermission
 import com.ashlikun.baseproject.module.other.R
 import com.ashlikun.baseproject.module.other.databinding.OtherActivityWelcomBinding
 import com.ashlikun.core.activity.BaseActivity
+import com.ashlikun.core.finishNoAnim
 import com.ashlikun.core.mvvm.launch
 import com.ashlikun.utils.AppUtils
 import com.ashlikun.utils.other.LogUtils
@@ -25,6 +26,7 @@ import com.ashlikun.utils.ui.ActivityManager
 import com.ashlikun.utils.ui.UiUtils
 import com.ashlikun.utils.ui.extend.resColor
 import com.ashlikun.utils.ui.modal.SuperToast
+import kotlinx.coroutines.delay
 
 /**
  * @author　　: 李坤
@@ -42,23 +44,22 @@ class WelcomeActivity : BaseActivity() {
     }
     override val statusBarColor = R.color.translucent.resColor
     override val isStatusTranslucent = true
-    private val time = 2000L
+    private val time = 1000L
 
     override fun initView() {
 //        requestPermission(arrayOf(Manifest.permission.READ_PHONE_STATE), denied = {
 //            SuperToast.get("获取权限失败").warn()
 //            finish()
 //        }) {
-            initViewOnPermiss()
-            launch(delayTime = time) {
-                LogUtils.e(ThreadUtils.isMainThread)
-                when {
-                    checkIsFirst() -> RouterJump.startLaunch()
-                    else -> RouterJump.startHome(0)
-                }
-                LogUtils.e(ThreadUtils.isMainThread)
-                finish()
+        initViewOnPermiss()
+        launch(delayTime = time) {
+            when {
+                checkIsFirst() -> RouterJump.startLaunch()
+                else -> RouterJump.startHome(0)
             }
+            delay(2000)
+            finishNoAnim()
+        }
 
 
 //        }

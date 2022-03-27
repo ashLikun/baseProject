@@ -109,6 +109,8 @@ dependencies {
 
     //MMKV
     api libs.MMKV
+    //autosize 屏幕适配
+    api libs.Autosize
 
     //封装的RecycleView
     api libs.XRecycleView

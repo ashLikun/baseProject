@@ -1,5 +1,5 @@
 ext {
-    frameVersion = "3.1.9"
+    frameVersion = "3.2.3"
     lifecycleVersion = "2.4.0"
     android = [
             applicationId   : "com.ashlikun.baseproject",
@@ -22,6 +22,8 @@ ext {
             JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
             BUGLY_APPKEY : "f28e3effd0", //腾讯bugly
             DOKIT_PID    : "f2ab59a864aabba32dd5ebeddac76c83", //滴滴的开发助手,https://www.dokit.cn/
+            AUTO_SIZE_WIDTH : 360, //屏幕适配
+            AUTO_SIZE_HEIGHT: 360, //屏幕适配高度，这里正常无效，当以高度为标准才有效
     ]
 
     /**
@@ -80,6 +82,8 @@ ext {
             LiteOrm              : "com.github.ashLikun:LiteOrm:2.0.2",
             //MMKV
             MMKV                 : 'com.tencent:mmkv:1.2.11',
+            //autosize 屏幕适配
+            Autosize             : 'me.jessyan:autosize:1.2.1',
 
             //封装的RecycleViewFr
             XRecycleView         : "com.github.ashLikun:XRecycleView:3.0.4",
@@ -88,11 +92,11 @@ ext {
             //自定义的下拉刷新
             RefreshLayout        : "com.github.ashLikun:RefreshLayout:2.0.4",
             //封装的viewpager，banner，启动页
-            XViewPager           : "com.github.ashLikun:XViewPager:2.1.9",
+            XViewPager           : "com.github.ashLikun:XViewPager:2.2.4",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:4.2.2",
+            CommonUtils          : "com.github.ashLikun:CommonUtils:4.2.4",
             //公共的Adapter
-            CommonAdapter        : "com.github.ashLikun:CommonAdapter:4.3.5",
+            CommonAdapter        : "com.github.ashLikun:CommonAdapter:4.3.7",
             //Google官方改造
             XTabLayout           : "com.github.ashLikun:XTabLayout2:1.0.5",
             //功能更加丰富
@@ -108,7 +112,7 @@ ext {
             //布局切换
             LoadSwitch           : "com.github.ashLikun:LoadSwitch:2.0.8",
             //兼容的View
-            CompatView           : "com.github.ashLikun:CompatView:2.0.7",
+            CompatView           : "com.github.ashLikun:CompatView:2.0.9",
             //错误捕获
             AppCrashDispose      : "com.github.ashLikun:AppCrashDispose:2.0.1",
             //app内存溢出捕获

@@ -14,45 +14,55 @@ import kotlin.coroutines.resumeWithException
 
 /**
  * 协程 同步请求,Retorfit 是使用这种的
- * @param resultType 数据类型
- */
-suspend fun <T> HttpRequest.syncExecute(handle: HttpUiHandle?, resultType: Type): T {
-    return suspendCancellableCoroutine { continuation ->
-        var call: ExecuteCall? = null
-        continuation.invokeOnCancellation {
-            //当协程被取消的时候，取消网络请求
-            call?.cancel()
-        }
-        val callback = SimpleHttpCallback<T>(handle)
-        if (tag == null) {
-            tag = handle?.tag
-        }
-        callback.resultType = resultType
-        //全局处理code的时候
-        callback.successHandelCode = { result, exception ->
-            //处理失败的时候是不会走成功的方法的
-            if (exception != null) {
-                continuation.resumeWithException(exception)
-            }
-            exception
-        }
-        callback.success = {
-            continuation.resume(it)
-        }
-        callback.error = {
-            continuation.resumeWithException(it)
-        }
-        call = execute(callback)
-    }
-}
-
-/**
- * 协程 同步请求
- * @param data 为了方便获取请求的返回值Type，调用的地方不用具体实现
+ * 使用回调方式转成协成的同步请求
+ * @param T 为了方便获取请求的返回值Type，调用的地方不用具体实现
  */
 suspend inline fun <reified T> HttpRequest.syncExecute(handle: HttpUiHandle?): T {
     return syncExecute(handle, T::class.java)
 }
+
+/**
+ * 协程 同步请求,Retorfit 是使用这种的
+ * 使用回调方式转成协成的同步请求
+ * @param resultType 数据类型
+ */
+suspend fun <T> HttpRequest.syncExecute(handle: HttpUiHandle?, resultType: Type): T {
+    return suspendCancellableCoroutine { continuation ->
+        try {
+            var call: ExecuteCall? = null
+            continuation.invokeOnCancellation {
+                //当协程被取消的时候，取消网络请求
+                call?.cancel()
+            }
+            val callback = SimpleHttpCallback<T>(handle)
+            if (tag == null) {
+                tag = handle?.tag
+            }
+            callback.resultType = resultType
+            //全局处理code的时候
+            callback.successHandelCode = { result, exception ->
+                //处理失败的时候是不会走成功的方法的
+                if (exception != null) {
+                    continuation.resumeWithException(exception)
+                }
+                exception
+            }
+            callback.success = {
+                continuation.resume(it)
+            }
+            callback.error = {
+                continuation.resumeWithException(it)
+            }
+            call = execute(callback)
+        } catch (e: Exception) {
+            //处理异常
+            handle?.error(ContextData(e.message))
+            handle?.completed()
+            continuation.resumeWithException(e)
+        }
+    }
+}
+
 
 /**
  * 非协程 同步请求
@@ -87,9 +97,9 @@ fun <T> HttpRequest.syncExecute2(handle: HttpUiHandle?, resultType: Type): T? {
     } catch (error: HttpException) {
         MainHandle.post {
             handle?.error(
-                    (ContextData().setErrCode(error.code)
-                            .setTitle(error.message)
-                            .setResId(R.drawable.material_service_error))
+                (ContextData().setErrCode(error.code)
+                    .setTitle(error.message)
+                    .setResId(R.drawable.material_service_error))
             )
         }
         return null
@@ -104,15 +114,15 @@ fun <T> HttpRequest.syncExecute2(handle: HttpUiHandle?, resultType: Type): T? {
  * 回调方式请求
  */
 fun <T> HttpRequest.execute(
-        handle: HttpUiHandle,
-        success: OnSuccess<T>? = null,
-        error: OnError? = null,
-        errorData: OnErrorData? = null,
-        successSubThread: OnSuccess<T>? = null,
-        cacheSuccess: OnCacheSuccess<T>? = null,
-        successHandelCode: OnSuccessHander<T>? = null,
-        completed: OnArgs? = null,
-        start: OnArgs? = null
+    handle: HttpUiHandle,
+    success: OnSuccess<T>? = null,
+    error: OnError? = null,
+    errorData: OnErrorData? = null,
+    successSubThread: OnSuccess<T>? = null,
+    cacheSuccess: OnCacheSuccess<T>? = null,
+    successHandelCode: OnSuccessHander<T>? = null,
+    completed: OnArgs? = null,
+    start: OnArgs? = null
 ): ExecuteCall {
     val callback = SimpleHttpCallback<T>(handle)
     if (tag == null) {

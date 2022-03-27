@@ -6,6 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Process
 import android.provider.Settings
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.app.AppOpsManagerCompat
 import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -22,6 +24,7 @@ import com.ashlikun.core.mvvm.launch
 import com.ashlikun.livedatabus.EventBus
 import com.ashlikun.utils.AppUtils
 import com.ashlikun.utils.other.LogUtils
+import com.ashlikun.utils.other.coroutines.taskLaunchMain
 import com.ashlikun.utils.ui.ActivityManager
 import com.ashlikun.utils.ui.extend.resColor
 import com.ashlikun.utils.ui.modal.SuperToast
@@ -29,7 +32,10 @@ import com.ashlikun.utils.ui.modal.ToastUtils
 import com.ashlikun.xviewpager.FragmentUtils
 import com.ashlikun.xviewpager.fragment.FragmentPagerAdapter
 import com.ashlikun.xviewpager.fragment.FragmentPagerItem
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 
 
 /**
@@ -61,6 +67,12 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
 
     override fun parseIntent(intent: Intent) {
         super.parseIntent(intent)
+        launch {  }
+        taskLaunchMain {  }
+        MainScope().launch {
+
+        }
+        flow<String> {  }
         intent?.run {
             index = getIntExtra(RouterKey.FLAG_INDEX, -1)
         }

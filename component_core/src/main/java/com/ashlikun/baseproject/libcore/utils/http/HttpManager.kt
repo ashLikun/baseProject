@@ -45,15 +45,15 @@ class HttpManager private constructor() {
             val requestStr = HttpUtils.getRequestToString(response.request)
             val responseStr = HttpUtils.getResponseToString(response)
             RuntimeException(
-                    "request:\n$requestStr\nresponse:\n$responseStr \n$json",
-                    exception
+                "request:\n$requestStr\nresponse:\n$responseStr \n$json",
+                exception
             ).postBugly()
         }
         Retrofit.get().init(createRequest = {
             HttpRequestParam.create(it.url).parseGson(it)
         }) { request, result, params ->
             request.syncExecute<Any>(params?.find { it is HttpUiHandle } as? HttpUiHandle,
-                    result.resultType)
+                result.resultType)
         }
         Retrofit.get().onProxyStart = { method, args ->
             (args?.find { it is HttpUiHandle } as? HttpUiHandle)?.start()
@@ -122,10 +122,17 @@ class HttpManager private constructor() {
     }
 
     companion object {
+        //正式环境，注解使用
         const val URL_PROD = "https://api-sip.510gow.com"
+
+        //测试环境，注解使用
         const val URL_TEST = "https://tapi-sip.510gow.com"
+
+        //基础path
         const val BASE_PATH = "/interface?"
         const val ACTION = "action"
+
+        //服务器地址，任何地方代码使用
         val BASE_URL = if (AppConfig.isBeta || AppConfig.isDebug) URL_TEST else URL_PROD
 
 
@@ -148,14 +155,12 @@ class HttpManager private constructor() {
          */
         @JvmStatic
         fun createUrl(
-                url: String? = null,
-                action: String? = null,
-                path: String = BASE_PATH
+            url: String? = null,
+            action: String? = null,
+            path: String = BASE_PATH
         ): String {
             return if (url.isNullOrEmpty()) BASE_URL + path + "action=" + action
-            else if (AppConfig.isBeta || AppConfig.isDebug) url.replace(URL_PROD, BASE_URL)
-                    .replace(URL_TEST, BASE_URL)
-            else url.replace(URL_TEST, BASE_URL)
+            else url.replace(URL_PROD, BASE_URL).replace(URL_TEST, BASE_URL)
         }
 
 
@@ -185,9 +190,9 @@ class HttpManager private constructor() {
                             if (Looper.getMainLooper() != Looper.myLooper()) {
                                 MainHandle.post {
                                     showTokenErrorDialog(
-                                            activity,
-                                            response.message,
-                                            response.code
+                                        activity,
+                                        response.message,
+                                        response.code
                                     )
                                 }
                             } else {
@@ -210,9 +215,9 @@ class HttpManager private constructor() {
                             if (Looper.getMainLooper() != Looper.myLooper()) {
                                 MainHandle.post {
                                     showTokenErrorDialog(
-                                            activity,
-                                            response.message,
-                                            response.code
+                                        activity,
+                                        response.message,
+                                        response.code
                                     )
                                 }
                             } else {
@@ -246,20 +251,20 @@ class HttpManager private constructor() {
             }
             IS_LOGIN_OUT_DIALOG_SHOW = true
             AlertDialog.Builder(activity)
-                    .setCancelable(false)
-                    .setTitle("账号异常")
-                    .setOnDismissListener { IS_LOGIN_OUT_DIALOG_SHOW = false }
-                    .setMessage(message)
-                    .setPositiveButton("知道了") { dialoog, which ->
-                        if (code == HttpCodeApp.TOKEN_ERROR) {
-                            RouterManage.login()?.exitLogin()
-                            RouterManage.login()?.startLogin()
-                        }
-                        if (code == HttpCodeApp.NO_LOGIN) {
-                            RouterManage.login()?.startLogin()
-                        }
+                .setCancelable(false)
+                .setTitle("账号异常")
+                .setOnDismissListener { IS_LOGIN_OUT_DIALOG_SHOW = false }
+                .setMessage(message)
+                .setPositiveButton("知道了") { dialoog, which ->
+                    if (code == HttpCodeApp.TOKEN_ERROR) {
+                        RouterManage.login()?.exitLogin()
+                        RouterManage.login()?.startLogin()
                     }
-                    .show()
+                    if (code == HttpCodeApp.NO_LOGIN) {
+                        RouterManage.login()?.startLogin()
+                    }
+                }
+                .show()
         }
     }
 
@@ -270,4 +275,4 @@ class HttpManager private constructor() {
  * 接口成功处理code时候的错误
  */
 class HttpHandelResultException(var exception: HttpException) :
-        HttpException(20009, "全局错误", exception)
+    HttpException(20009, "全局错误", exception)

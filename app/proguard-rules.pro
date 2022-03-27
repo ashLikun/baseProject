@@ -94,6 +94,13 @@
     public static **[] values();
     public static ** valueOf(java.lang.String);
 }
+#databinding
+-keep class android.databinding.** { *; }
+
+-keepclassmembers class * implements androidx.viewbinding.ViewBinding {
+  public static ** inflate(...);
+  public static ** bind(***);
+}
 #自定义View不混淆
 -keep public class * extends android.view.View{
     *** get*();
