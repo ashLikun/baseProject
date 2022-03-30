@@ -148,7 +148,7 @@ ext {
             //图片查看
             PhotoView            : "com.github.ashLikun:PhotoView:2.0.4",
             //照片处理
-            PhotoHander          : "com.github.ashLikun:PhotoHander:2.1.1",
+            PhotoHander          : "com.github.ashLikun:PhotoHander:2.1.2",
             //输入验证码
             VerificationCodeInput: "com.github.ashLikun:VerifyCodeView:1.0.0",
             //带圆角，边框的的ImageView
