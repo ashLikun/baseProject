@@ -64,7 +64,7 @@ ext {
 
 
             //基本架构
-            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:2.2.9",
+            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:2.3.0",
             //多个Dex
             multidex             : 'androidx.multidex:multidex:2.0.1',
             //webview封装
@@ -104,7 +104,7 @@ ext {
             //阿里的vlayout
             vlayout              : "com.alibaba.android:vlayout:1.2.36@aar",
             //习惯的对话框
-            CustomDialog         : "com.github.ashLikun:CustomDialog:3.0.2",
+            CustomDialog         : "com.github.ashLikun:CustomDialog:3.0.3",
             //圆形的进度条
             CircleProgressView   : "com.github.ashLikun:CircleProgressView:2.0.1",
             //LayoutManage
