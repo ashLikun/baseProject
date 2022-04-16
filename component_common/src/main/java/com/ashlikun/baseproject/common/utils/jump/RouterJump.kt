@@ -28,16 +28,16 @@ object RouterJump {
      * 启动任何页面
      */
     fun start(
-            path: String,
-            params: Map<String, Any?>? = null,
-            greenChannel: Boolean = false,
-            flags: Int? = null,
-            navigation: ARouterNavigation = {
-                it.navigation(topActivity())
-            }
+        path: String,
+        params: Map<String, Any?>? = null,
+        greenChannel: Boolean = false,
+        flags: Int? = null,
+        navigation: ARouterNavigation = {
+            it.navigation(topActivity())
+        }
     ): Any? {
         val aouter = ARouter.getInstance().build(path)
-                .withMap(params)
+            .withMap(params)
         if (flags != null) {
             aouter.withFlags(flags)
         }
@@ -52,8 +52,8 @@ object RouterJump {
      * 启动App
      */
     fun startApp() = start(
-            path = RouterPath.WELCOME,
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
+        path = RouterPath.WELCOME,
+        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
     )
 
     /**
@@ -67,8 +67,8 @@ object RouterJump {
      * @param index -1:默认页
      */
     fun startHome(index: Int = -1) = start(
-            path = RouterPath.HOME, mapOf(RouterKey.FLAG_INDEX to index),
-            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+        path = RouterPath.HOME, mapOf(RouterKey.FLAG_INDEX to index),
+        flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
     )
 
     /**
@@ -76,8 +76,8 @@ object RouterJump {
      */
     fun startLogin() {
         ARouter.getInstance().build(RouterPath.LOGIN)
-                .withFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-                .navigation(topActivity())
+            .withFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            .navigation(topActivity())
     }
 
     /**
@@ -85,7 +85,7 @@ object RouterJump {
      */
     fun startTest() {
         ARouter.getInstance().build(RouterPath.TEST)
-                .navigation(topActivity())
+            .navigation(topActivity())
     }
 
     /**
@@ -94,19 +94,19 @@ object RouterJump {
      * @param isShowDownload 是否显示下载
      */
     fun startLockImage(
-            position: Int,
-            listDatas: ArrayList<ImageData>?,
-            isShowDownload: Boolean = false
+        position: Int,
+        listDatas: ArrayList<ImageData>?,
+        isShowDownload: Boolean = false
     ) {
         if (listDatas == null || listDatas.isEmpty()) {
             SuperToast.showErrorMessage("没有对应的图片")
             return
         }
         ARouter.getInstance().build(RouterPath.IMAGE_LOCK)
-                .withParcelableArrayList(RouterKey.FLAG_DATA, listDatas)
-                .withInt(RouterKey.FLAG_POSITION, position)
-                .withBoolean(RouterKey.FLAG_SHOW_DOWNLOAD, isShowDownload)
-                .navigation(topActivity())
+            .withParcelableArrayList(RouterKey.FLAG_DATA, listDatas)
+            .withInt(RouterKey.FLAG_POSITION, position)
+            .withBoolean(RouterKey.FLAG_SHOW_DOWNLOAD, isShowDownload)
+            .navigation(topActivity())
     }
 
     /**
@@ -117,9 +117,9 @@ object RouterJump {
             return
         }
         ARouter.getInstance().build(RouterPath.ACTIVITY_H5)
-                .withString(RouterKey.FLAG_URL, url)
-                .withString(RouterKey.FLAG_TITLE, title)
-                .withSerializable(RouterKey.FLAG_DATA, otherParams as Serializable?)
-                .navigation(topActivity())
+            .withString(RouterKey.FLAG_URL, url)
+            .withString(RouterKey.FLAG_TITLE, title)
+            .withSerializable(RouterKey.FLAG_DATA, otherParams as Serializable?)
+            .navigation(topActivity())
     }
 }

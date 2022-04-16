@@ -10,25 +10,22 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        app:layout_behavior=".widget.behavior.AppBarLayoutBehavior"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_behavior=".widget.behavior.AppBarLayoutBehavior">
 
         <com.ashlikun.supertoobar.SuperToolBar
             android:id="@+id/toolbar"
             style="@style/SuperToolBar.Main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|enterAlways"></com.ashlikun.supertoobar.SuperToolBar>
-
+            app:layout_scrollFlags="scroll|enterAlways" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.ashlikun.xrecycleview.SuperRecyclerView
         android:id="@+id/superRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-    </com.ashlikun.xrecycleview.SuperRecyclerView>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

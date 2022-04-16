@@ -19,22 +19,21 @@
 
         </com.ashlikun.supertoobar.SuperToolBar>
 
-        <com.ashlikun.xtablayout.XTabLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        <com.ashlikun.xtablayout.XTabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            app:tabIndicatorColor="@color/colorPrimary"
-            app:tabSelectedTextColor="@color/colorPrimary"
-            app:tabTextColor="@color/text_color" />
+            app:xTabIndicatorColor="@color/colorPrimary"
+            app:xTabSelectedTextColor="@color/colorPrimary"
+            app:xTabTextColor="@color/text_color" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.ashlikun.xviewpager.view.XViewPager
         android:id="@+id/viewPage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"></com.ashlikun.xviewpager.view.XViewPager>
-
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 

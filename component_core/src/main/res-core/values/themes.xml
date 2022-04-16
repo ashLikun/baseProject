@@ -1,7 +1,7 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="AppTheme" parent="BaseTheme"></style>
-    <!--Base.V7.Theme.AppCompat.Light-->
+
     <style name="BaseTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -19,6 +19,7 @@
         <item name="alertDialogTheme">@style/BaseAlertDialogTheme</item>
         <item name="android:alertDialogTheme">@style/BaseAlertDialogTheme</item>
         <item name="dialogTheme">@style/BaseDialogTheme</item>
+        <item name="android:datePickerMode">spinner</item>
         <item name="android:dialogTheme">@style/BaseDialogTheme</item>
         <!--<item name="android:requiresFadingEdge">vertical</item>-->
         <item name="colorError">@color/design_textinput_error_color_light</item>
@@ -33,7 +34,7 @@
     <style name="AppTheme.PhotoHander">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:statusBarColor">@color/colorPrimary</item>
-        <item name="android:windowAnimationStyle">@style/MainAnimation</item>
+        <item name="android:windowAnimationStyle">@style/OtherAnimation</item>
     </style>
     <!--背景颜色白色-->
     <style name="AppTheme.OtherTheme.White">
@@ -74,9 +75,9 @@
     </style>
 
     <style name="BaseDialogTheme" parent="@style/ThemeOverlay.MaterialComponents.Dialog">
-        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/dp_14</item>
-        <item name="android:background">@color/white</item>
+        <item name="android:background">@color/activity_backgound</item>
         <item name="android:buttonStyle">@style/BaseDialogButtonStyle</item>
     </style>
 

@@ -10,15 +10,13 @@
         android:id="@+id/toolbar"
         style="@style/SuperToolBar.Main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></com.ashlikun.supertoobar.SuperToolBar>
+        android:layout_height="wrap_content" />
 
     <com.ashlikun.xrecycleview.SuperRecyclerView
         android:id="@+id/superRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-    </com.ashlikun.xrecycleview.SuperRecyclerView>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
 </LinearLayout>
