@@ -86,7 +86,7 @@ ext {
             Autosize             : 'me.jessyan:autosize:1.2.1',
 
             //封装的RecycleViewFr
-            XRecycleView         : "com.github.ashLikun:XRecycleView:3.0.4",
+            XRecycleView         : "com.github.ashLikun:XRecycleView:3.0.5",
             //动画菜单,可以不用
             AnimationMenu        : "com.github.ashLikun:AnimationMenu:2.0.0",
             //自定义的下拉刷新
