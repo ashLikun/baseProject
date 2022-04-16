@@ -31,7 +31,6 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import java.io.File
-import java.util.*
 
 /**
  * 作者　　: 李坤
@@ -81,8 +80,8 @@ class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener {
         //当<item name="android:windowBackground">@color/translucent</item> 的时候Activity的动画可能不执行
         //这里需要在开始和结束的时候手动调用
         overridePendingTransition(
-                R.anim.mis_anim_fragment_lookphotp_in,
-                R.anim.mis_anim_fragment_lookphotp_out
+            R.anim.mis_anim_fragment_lookphotp_in,
+            R.anim.mis_anim_fragment_lookphotp_out
         )
     }
 
@@ -106,7 +105,7 @@ class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener {
                     GlideUtils.downloadBitmap(this@ImageLockActivity, url) { file ->
                         if (file != null && file.exists()) {
                             var saveFile =
-                                    File("${CacheUtils.appSDFilePath}${File.separator}${System.currentTimeMillis()}.jpg")
+                                File("${CacheUtils.appSDFilePath}${File.separator}${System.currentTimeMillis()}.jpg")
                             if (FileIOUtils.copyFile(file, saveFile, false)) {
                                 SuperToast.showInfoMessage("图片已保存至 /${CacheUtils.rootName}/file 文件夹")
                                 BitmapUtil.updatePhotoMedia(this@ImageLockActivity, saveFile)
@@ -125,36 +124,36 @@ class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener {
     val adapter by lazy {
         object : ViewPageHelperListener<ImageData> {
             override fun createView(
-                    context: Context,
-                    banner: BannerViewPager,
-                    data: ImageData?,
-                    position: Int
+                context: Context,
+                banner: BannerViewPager,
+                data: ImageData,
+                position: Int
             ): View {
                 val view =
-                        UiUtils.getInflaterView(this@ImageLockActivity, R.layout.other_item_image_lock)
+                    UiUtils.getInflaterView(this@ImageLockActivity, R.layout.other_item_image_lock)
                 val photoView = view.findViewById<PhotoView>(R.id.photoView)
                 photoView.setOnClickListener { view ->
                     finish()
                 }
                 view.findViewById<ScaleFinishView>(R.id.scaleFinishView)
-                        ?.setOnSwipeListener(this@ImageLockActivity)
-                photoView?.show(data?.image, requestListener = object : RequestListener<Drawable> {
+                    ?.setOnSwipeListener(this@ImageLockActivity)
+                photoView?.show(data.image, requestListener = object : RequestListener<Drawable> {
                     override fun onLoadFailed(
-                            e: GlideException?,
-                            model: Any?,
-                            target: Target<Drawable>?,
-                            isFirstResource: Boolean
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        isFirstResource: Boolean
                     ): Boolean {
                         view.findViewById<View>(R.id.progressView)?.visibility = View.GONE
                         return false
                     }
 
                     override fun onResourceReady(
-                            resource: Drawable,
-                            model: Any?,
-                            target: Target<Drawable>?,
-                            dataSource: DataSource?,
-                            isFirstResource: Boolean
+                        resource: Drawable,
+                        model: Any?,
+                        target: Target<Drawable>?,
+                        dataSource: DataSource?,
+                        isFirstResource: Boolean
                     ): Boolean {
                         view.findViewById<View>(R.id.progressView)?.visibility = View.GONE
                         val imgBili = resource.intrinsicHeight / (resource.intrinsicWidth * 1f)
@@ -188,8 +187,8 @@ class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener {
     override fun finish() {
         super.finish()
         overridePendingTransition(
-                R.anim.mis_anim_fragment_lookphotp_in,
-                R.anim.mis_anim_fragment_lookphotp_out
+            R.anim.mis_anim_fragment_lookphotp_in,
+            R.anim.mis_anim_fragment_lookphotp_out
         )
     }
 }

@@ -1,15 +1,7 @@
 package com.ashlikun.baseproject.module.main.view.activity
 
-import android.app.AppOpsManager
-import android.app.usage.UsageStatsManager
 import android.content.Context
 import android.content.Intent
-import android.os.Process
-import android.provider.Settings
-import android.view.View
-import android.view.ViewGroup
-import androidx.core.app.AppOpsManagerCompat
-import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.libcore.constant.EventBusKey
 import com.ashlikun.baseproject.libcore.constant.RouterKey
@@ -21,10 +13,10 @@ import com.ashlikun.bottomnavigation.AHBottomNavigation
 import com.ashlikun.bottomnavigation.AHBottomNavigationItem
 import com.ashlikun.core.activity.BaseActivity
 import com.ashlikun.core.mvvm.launch
-import com.ashlikun.livedatabus.EventBus
-import com.ashlikun.utils.AppUtils
-import com.ashlikun.utils.other.LogUtils
+import com.ashlikun.livedatabus.bus
 import com.ashlikun.utils.other.coroutines.taskLaunchMain
+import com.ashlikun.utils.other.logg
+import com.ashlikun.utils.other.logge
 import com.ashlikun.utils.ui.ActivityManager
 import com.ashlikun.utils.ui.extend.resColor
 import com.ashlikun.utils.ui.modal.SuperToast
@@ -33,7 +25,6 @@ import com.ashlikun.xviewpager.FragmentUtils
 import com.ashlikun.xviewpager.fragment.FragmentPagerAdapter
 import com.ashlikun.xviewpager.fragment.FragmentPagerItem
 import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
@@ -58,21 +49,21 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
     var cachePosition = -1
     val adapter: FragmentPagerAdapter by lazy {
         FragmentPagerAdapter.Builder.create(supportFragmentManager)
-                .addItem(FragmentPagerItem.get(RouterPath.FRAGMENT_HOME))
-                .addItem(FragmentPagerItem.get(RouterPath.FRAGMENT_HOME))
-                .addItem(FragmentPagerItem.get(RouterPath.FRAGMENT_HOME))
-                .setCache(true)
-                .build()
+            .addItem(FragmentPagerItem.get(RouterPath.FRAGMENT_HOME))
+            .addItem(FragmentPagerItem.get(RouterPath.FRAGMENT_HOME))
+            .addItem(FragmentPagerItem.get(RouterPath.FRAGMENT_HOME))
+            .setCache(true)
+            .build()
     }
 
     override fun parseIntent(intent: Intent) {
         super.parseIntent(intent)
-        launch {  }
-        taskLaunchMain {  }
+        launch { }
+        taskLaunchMain { }
         MainScope().launch {
 
         }
-        flow<String> {  }
+        flow<String> { }
         intent?.run {
             index = getIntExtra(RouterKey.FLAG_INDEX, -1)
         }
@@ -98,22 +89,22 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
         binding.run {
             bottomNavigationBar.accentColor = R.color.colorPrimary.resColor
             bottomNavigationBar.addItem(
-                    AHBottomNavigationItem.Builder(
-                            R.string.main_bottom_1,
-                            R.mipmap.app_logo, R.mipmap.app_logo
-                    ).builder()
+                AHBottomNavigationItem.Builder(
+                    R.string.main_bottom_1,
+                    R.mipmap.app_logo, R.mipmap.app_logo
+                ).builder()
             )
             bottomNavigationBar.addItem(
-                    AHBottomNavigationItem.Builder(
-                            R.string.main_bottom_2,
-                            R.mipmap.app_logo, R.mipmap.app_logo
-                    ).builder()
+                AHBottomNavigationItem.Builder(
+                    R.string.main_bottom_2,
+                    R.mipmap.app_logo, R.mipmap.app_logo
+                ).builder()
             )
             bottomNavigationBar.addItem(
-                    AHBottomNavigationItem.Builder(
-                            R.string.main_bottom_3,
-                            R.mipmap.app_logo, R.mipmap.app_logo
-                    ).builder()
+                AHBottomNavigationItem.Builder(
+                    R.string.main_bottom_3,
+                    R.mipmap.app_logo, R.mipmap.app_logo
+                ).builder()
             )
             bottomNavigationBar.defaultBackgroundColor = R.color.white.resColor
             bottomNavigationBar.titleState = AHBottomNavigation.TitleState.ALWAYS_SHOW
@@ -126,73 +117,10 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
             //登录之后可以左右滑动
             viewPager.setCanSlide(RouterManage.login()?.isLogin() ?: false)
             //监听登录成功的通知
-            EventBus.get(EventBusKey.LOGIN).registerLifecycle(this@HomeActivity, Observer<Any> {
-                //登录之后可以左右滑动
+            EventBusKey.LOGIN.bus(requireActivity) {
                 viewPager.setCanSlide(RouterManage.login()?.isLogin() ?: false)
-            })
-            bottomNavigationBar.setupWithViewPager(viewPager, false)
-        }
-        val mode = AppOpsManagerCompat.noteOp(
-                this,
-                AppOpsManager.OPSTR_GET_USAGE_STATS,
-                Process.myUid(),
-                this.packageName
-        )
-        val granted = mode == AppOpsManagerCompat.MODE_ALLOWED
-        if (!granted) {
-            startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
-        }
-        launch(delayTime = 1000) {
-            while (true) {
-
-                val m = AppUtils.app.getSystemService(USAGE_STATS_SERVICE) as UsageStatsManager
-                if (m != null) {
-                    val now = System.currentTimeMillis()
-                    //获取60秒之内的应用数据
-                    val stats =
-                            m.queryUsageStats(UsageStatsManager.INTERVAL_BEST, now - 6000 * 1000, now)
-                    LogUtils.e("Running app number in last 60 seconds : " + stats!!.size)
-                    //取得最近运行的一个app，即当前运行的app
-                    if (stats.isEmpty()) {
-                        var j = 0
-                        for (i in stats.indices) {
-                            if (stats[i].lastTimeUsed > stats[j].lastTimeUsed) {
-                                j = i
-                            }
-                            var packageInfo = AppUtils.app.packageManager.getPackageInfo(
-                                    stats[j].packageName,
-                                    0
-                            )
-                            val appName =
-                                    packageInfo.applicationInfo.loadLabel(AppUtils.app.packageManager)
-                                            .toString()
-                            LogUtils.e("top running app is : $appName")
-                        }
-                    }
-                }
-
-//                // Get a list of running apps
-//                // Get a list of running apps
-//                val processes = AndroidProcesses.getRunningAppProcesses()
-//
-//                for (process in processes) {
-//                    // Get some information about the process
-//                    val processName = process.name
-//                    val stat = process.stat()
-//                    val pid = stat.pid
-//                    val parentProcessId = stat.ppid()
-//                    val startTime = stat.stime()
-//                    val policy = stat.policy()
-//                    val state = stat.state()
-//                    val statm = process.statm()
-//                    val totalSizeOfProcess = statm.size
-//                    val residentSetSize = statm.residentSetSize
-//                    val packageInfo = process.getPackageInfo(AppUtils.app(), 0)
-//                    val appName = packageInfo.applicationInfo.loadLabel(AppUtils.app().packageManager).toString()
-//                    LogUtils.e("appName${appName}${processName}")
-//                }
-                delay(1000)
             }
+            bottomNavigationBar.setupWithViewPager(viewPager, false)
         }
     }
 
@@ -209,7 +137,7 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
         } else {
             // 退出
             ActivityManager.get().exitAllActivity()
-            ToastUtils.getMyToast().cancel()
+            ToastUtils.cancel()
         }
     }
 
@@ -250,6 +178,16 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
 
     override fun onResume() {
         super.onResume()
+        "onResume".logge()
+    }
 
+    override fun onPause() {
+        super.onPause()
+        "onPause".logge()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        "onStop".logge()
     }
 }

@@ -45,10 +45,6 @@ android {
         //向清单文件注入参数
         manifestPlaceholders = sdk
     }
-    dexOptions {
-        javaMaxHeapSize "4g"
-        jumboMode = true
-    }
     buildTypes {
         release {
             //自定义属性   BuildConfig.LOG_DEBUG

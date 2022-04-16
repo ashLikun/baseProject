@@ -4,7 +4,6 @@ import com.ashlikun.baseproject.libcore.utils.http.HttpUiHandle
 import com.ashlikun.baseproject.libcore.utils.http.requestGet
 import com.ashlikun.baseproject.libcore.utils.http.syncExecute
 import com.ashlikun.okhttputils.http.response.HttpResponse
-import com.ashlikun.okhttputils.retrofit.FieldNo
 import com.ashlikun.okhttputils.retrofit.Retrofit
 
 /**

@@ -6,9 +6,7 @@ import com.ashlikun.baseproject.libcore.utils.http.requestGet
 import com.ashlikun.baseproject.libcore.utils.http.requestPost
 import com.ashlikun.baseproject.libcore.utils.http.syncExecute
 import com.ashlikun.baseproject.module.login.mode.javabean.UserData
-import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.okhttputils.http.response.HttpResult
-import com.ashlikun.okhttputils.retrofit.FieldNo
 import com.ashlikun.okhttputils.retrofit.Retrofit
 
 /**

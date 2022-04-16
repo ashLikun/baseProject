@@ -1,6 +1,5 @@
 package com.ashlikun.baseproject.module.main.view.fragment
 
-import androidx.lifecycle.lifecycleScope
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.common.mode.javabean.ImageData
 import com.ashlikun.baseproject.common.utils.jump.RouterJump
@@ -10,13 +9,6 @@ import com.ashlikun.baseproject.module.main.viewmodel.HomeViewModel
 import com.ashlikun.core.mvvm.BaseMvvmFragment
 import com.ashlikun.core.mvvm.IViewModel
 import com.ashlikun.loadswitch.ContextData
-import com.ashlikun.rxlife.scope.LifecycleScope
-import com.ashlikun.utils.other.coroutines.taskLaunch
-import com.ashlikun.utils.other.coroutines.taskLaunchMain
-import com.google.android.material.badge.BadgeDrawable
-import com.google.android.material.badge.BadgeUtils
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
 
 /**
  * 作者　　: 李坤

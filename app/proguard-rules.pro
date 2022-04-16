@@ -35,13 +35,13 @@
 # 混淆采用的算法.
 -optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
 # dump文件列出apk包内所有class的内部结构
--dump /build/proguard/class_files.txt
+-dump ./build/proguard/class_files.txt
 # seeds.txt文件列出未混淆的类和成员
--printseeds /build/proguard/seeds.txt
+-printseeds ./build/proguard/seeds.txt
 # usage.txt文件列出从apk中删除的代码
--printusage /build/proguard/unused.txt
+-printusage ./build/proguard/unused.txt
 # mapping文件列出混淆前后的映射
--printmapping /build/proguard/mapping.txt
+-printmapping ./build/proguard/mapping.txt
 # 忽略警告 不加的话某些情况下打包会报错中断
 -ignorewarnings
 #--------------------------------------------基本指令 end------------------------------------------------#

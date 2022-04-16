@@ -1,6 +1,5 @@
 package com.ashlikun.baseproject.module.other.view
 
-import android.Manifest
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
@@ -12,20 +11,16 @@ import com.ashlikun.baseproject.common.utils.jump.PullJumpManage
 import com.ashlikun.baseproject.common.utils.jump.RouterJump
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.libarouter.RouterManage
-import com.ashlikun.baseproject.libcore.utils.extend.requestPermission
 import com.ashlikun.baseproject.module.other.R
 import com.ashlikun.baseproject.module.other.databinding.OtherActivityWelcomBinding
 import com.ashlikun.core.activity.BaseActivity
 import com.ashlikun.core.finishNoAnim
 import com.ashlikun.core.mvvm.launch
 import com.ashlikun.utils.AppUtils
-import com.ashlikun.utils.other.LogUtils
-import com.ashlikun.utils.other.ThreadUtils
 import com.ashlikun.utils.other.store.StoreUtils
 import com.ashlikun.utils.ui.ActivityManager
 import com.ashlikun.utils.ui.UiUtils
 import com.ashlikun.utils.ui.extend.resColor
-import com.ashlikun.utils.ui.modal.SuperToast
 import kotlinx.coroutines.delay
 
 /**

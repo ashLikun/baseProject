@@ -1,8 +1,8 @@
 package com.ashlikun.baseproject.module.debug;
 
+import com.ashlikun.baseproject.common.CommonApp;
 import com.ashlikun.baseproject.libcore.BaseApplication;
 import com.ashlikun.baseproject.module.main.ModuleApp;
-import com.ashlikun.baseproject.common.CommonApp;
 
 /**
  * 作者　　: 李坤

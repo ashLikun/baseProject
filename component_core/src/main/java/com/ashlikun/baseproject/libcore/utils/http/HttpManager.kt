@@ -9,7 +9,7 @@ import com.ashlikun.baseproject.libcore.utils.http.interceptor.DefaultIntercepto
 import com.ashlikun.baseproject.libcore.utils.other.AppConfig
 import com.ashlikun.baseproject.libcore.utils.other.CacheUtils
 import com.ashlikun.baseproject.libcore.utils.other.postBugly
-import com.ashlikun.livedatabus.EventBus
+import com.ashlikun.livedatabus.busForever
 import com.ashlikun.okhttputils.http.HttpException
 import com.ashlikun.okhttputils.http.HttpUtils
 import com.ashlikun.okhttputils.http.OkHttpUtils
@@ -58,11 +58,11 @@ class HttpManager private constructor() {
         Retrofit.get().onProxyStart = { method, args ->
             (args?.find { it is HttpUiHandle } as? HttpUiHandle)?.start()
         }
-        EventBus.get(EventBusKey.LOGIN).registerForever {
-            setCommonParams();
+        EventBusKey.LOGIN.busForever {
+            setCommonParams()
         }
-        EventBus.get(EventBusKey.EXIT_LOGIN).registerForever {
-            setCommonParams();
+        EventBusKey.EXIT_LOGIN.busForever {
+            setCommonParams()
         }
         setCommonParams()
     }

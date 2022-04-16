@@ -86,7 +86,7 @@ fun <T> HttpRequest.syncExecute2(handle: HttpUiHandle?, resultType: Type): T? {
         val res = HttpManager.handelResult(result)
 
         if (res == null) {
-            MainHandle.get().posts { handle?.success(result as Any) }
+            MainHandle.get().post { handle?.success(result as Any) }
             return result
         } else {
             //不显示toast

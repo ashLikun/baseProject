@@ -9,12 +9,12 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
 import android.widget.LinearLayout
+import com.ashlikun.baseproject.common.R
+import com.ashlikun.baseproject.common.databinding.ViewLineItemBinding
 import com.ashlikun.utils.other.DimensUtils
 import com.ashlikun.utils.ui.extend.layoutInflater
 import com.ashlikun.utils.ui.image.DrawableUtils
 import com.ashlikun.utils.ui.resources.ResUtils
-import com.ashlikun.baseproject.common.R
-import com.ashlikun.baseproject.common.databinding.ViewLineItemBinding
 
 /**
  * 作者　　: 李坤

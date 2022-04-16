@@ -1,7 +1,7 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <style name="AppTheme" parent="BaseTheme"></style>
-
+    <!--Base.V7.Theme.AppCompat.Light-->
     <style name="BaseTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -33,7 +33,7 @@
     <style name="AppTheme.PhotoHander">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:statusBarColor">@color/colorPrimary</item>
-        <item name="android:windowAnimationStyle">@style/OtherAnimation</item>
+        <item name="android:windowAnimationStyle">@style/MainAnimation</item>
     </style>
     <!--背景颜色白色-->
     <style name="AppTheme.OtherTheme.White">
@@ -46,7 +46,6 @@
 
 
     <style name="AppTheme.OtherTheme">
-        <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@style/OtherAnimation</item>
     </style>
 

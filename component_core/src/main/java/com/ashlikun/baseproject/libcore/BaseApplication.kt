@@ -12,7 +12,6 @@ import com.ashlikun.baseproject.libcore.utils.other.AppCrashEventListener
 import com.ashlikun.baseproject.libcore.utils.other.CacheUtils
 import com.ashlikun.baseproject.libcore.utils.other.initBugly
 import com.ashlikun.glideutils.GlideUtils
-import com.ashlikun.loadswitch.LoadSwitch
 import com.ashlikun.okhttputils.http.OkHttpUtils
 import com.ashlikun.okhttputils.http.download.DownloadManager
 import com.ashlikun.orm.LiteOrmUtil
@@ -22,7 +21,6 @@ import com.ashlikun.utils.ui.modal.SuperToast
 import com.didichuxing.doraemonkit.DoraemonKit
 import com.tencent.smtt.export.external.TbsCoreSettings
 import com.tencent.smtt.sdk.QbSdk
-import java.util.*
 
 /**
  * @author　　: 李坤

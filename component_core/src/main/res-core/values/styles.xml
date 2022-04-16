@@ -6,10 +6,17 @@
     <attr name="SwipeRefreshLayout_Color4" format="color"></attr>
 
     <style name="OtherAnimation" parent="@android:style/Animation.Activity">
+        <!--<item name="android:windowEnterAnimation">@anim/activity_open_enter</item>-->
+        <!--<item name="android:windowExitAnimation">@anim/activity_colse_exit</item>-->
+        <!--启动  控制当前页面-->
         <item name="android:activityOpenEnterAnimation">@anim/activity_open_enter</item>
-        <item name="android:activityOpenExitAnimation">@anim/activity_open_exit</item>
-        <item name="android:activityCloseEnterAnimation">@anim/activity_colse_enter</item>
+        <!--启动  控制前一个页面-->
+        <item name="android:activityOpenExitAnimation">@anim/activity_open_enter2</item>
+        <!--退出  控制当前页面-->
         <item name="android:activityCloseExitAnimation">@anim/activity_colse_exit</item>
+        <!--退出  控制前一个页面-->
+        <item name="android:activityCloseEnterAnimation">@anim/activity_colse_exit2</item>
+
     </style>
 
     <!--当我们从 A1 启动 A2 时，A1 从屏幕上消失，这个动画叫做 android:activityOpenExitAnimation-->
@@ -17,22 +24,26 @@
     <!--当我们从 A2 退出回到 A1 时，A2 从屏幕上消失，这个叫做 android:activityCloseExitAnimation-->
     <!--当我们从 A2 退出回到 A1 时，A1 出现在屏幕上，这个叫做 android:activityCloseEnterAnimation-->
     <style name="MainAnimation" parent="@android:style/Animation.Activity">
+        <!--启动  控制当前页面-->
         <item name="android:activityOpenEnterAnimation">@null</item>
+        <!--启动  控制前一个页面-->
         <item name="android:activityOpenExitAnimation">@null</item>
-        <item name="android:activityCloseEnterAnimation">@null</item>
+        <!--退出  控制当前页面-->
         <item name="android:activityCloseExitAnimation">@anim/activity_colse_exit</item>
+        <!--退出  控制前一个页面-->
+        <item name="android:activityCloseEnterAnimation">@null</item>
     </style>
 
     <style name="AnimationPreview" parent="@android:style/Animation.Activity">
+        <!--启动  控制当前页面-->
         <item name="android:activityOpenEnterAnimation">@anim/popupwindow_animation_in</item>
+        <!--启动  控制前一个页面-->
+        <item name="android:activityOpenExitAnimation">@anim/activity_open_enter2</item>
+        <!--退出  控制当前页面-->
         <item name="android:activityCloseExitAnimation">@anim/popupwindow_animation_out</item>
-        <item name="android:activityOpenExitAnimation">@null</item>
-        <item name="android:activityCloseEnterAnimation">@null</item>
+        <!--退出  控制前一个页面-->
+        <item name="android:activityCloseEnterAnimation">@anim/activity_colse_exit2</item>
     </style>
 
-    <style name="PopwindowAnimScreen" parent="@android:style/Animation">
-        <item name="android:windowEnterAnimation">@anim/popupwindow_animation_in</item>
-        <item name="android:windowExitAnimation">@anim/popupwindow_animation_out</item>
-    </style>
 
 </resources>
