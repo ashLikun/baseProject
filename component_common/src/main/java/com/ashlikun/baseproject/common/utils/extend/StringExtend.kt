@@ -11,66 +11,67 @@ import java.text.DecimalFormat
  *
  * 功能介绍：
  */
+inline fun String.ifNoEmpty(defaultValue: (String) -> String): String =
+    if (isNotEmpty()) defaultValue(this) else this
 
 /**
- * double转String,三位三位的隔开
- * @param precision 保留几位小数不足位补0
+ * 保留小数后几位位，不用四舍五入
+ * @param isJumpInt 整数的时候直接返回
  */
-fun String.moneyFormat3(precision: Int): String {
-    try {
-        if (this == null || "0" == this || this.isEmpty()) {
-            return this
-        }
-        if (precision <= 0) {
-            val ff = DecimalFormat("#,##0")
-            ff.roundingMode = RoundingMode.DOWN
-            return ff.format(this.toDouble())
-        }
-        // #,##0.0000:金钱数字保留4位(不足补一位0)小数且三位三位的隔开
-        val pattern = StringBuilder("#,##0.")
-        for (i in 0 until precision) {
-            pattern.append("0")
-        }
-        val ff = DecimalFormat(pattern.toString())
-        ff.roundingMode = RoundingMode.DOWN
-        return ff.format(this.toDouble())
-    } catch (e: Exception) {
-        return this
+fun Number?.toFormat(wei: Int = 1, isJumpInt: Boolean = false): String {
+    if (this == null) return ""
+    if (isJumpInt && (this is Int || this is Long)) {
+        return this.toString()
     }
+    val format = DecimalFormat("#." + MutableList(wei) { "#" }.joinToString("") { it })
+    //舍弃规则，RoundingMode.FLOOR表示直接舍弃。
+    format.roundingMode = RoundingMode.FLOOR
+    return format.format(this)
 }
 
-/**
- * 获取小数点前面部分或者后面部分
- * @param isQian true：前面      false:后面
- */
-fun String?.intDian(isQian: Boolean = true) = try {
-    this?.run {
-        val res = split(".")
-        if (!res.isNullOrEmpty()) {
-            if (isQian) {
-                return res[0]
-            } else if (res.size >= 2) {
-                return res[1]
-            }
-        }
-    }
-    this
-} catch (e: Exception) {
-    this
+
+fun String.reversalEvery2Charts(hasSpace: Boolean = false): String {
+    val hex = this.addSpaceEvery2Charts()
+    return hex.split(" ").reversed().joinToString(if (hasSpace) " " else "")
 }
 
-/**
- * 装换万
- * @param isQian true：前面      false:后面
- */
-fun Int.toWan(sub: String = "W") = if (this >= 10000) {
-    try {
-        var bd = BigDecimal(this / 10000.0)
-                .setScale(1, RoundingMode.DOWN)
-        "${bd}${sub}"
-    } catch (e: Exception) {
-        ""
+fun String.addSpaceEvery2Charts(): String {
+    val hex = this.replace(" ", "")
+    val sb = StringBuilder()
+    for (i in 0 until hex.length / 2) {
+        sb.append(hex.substring(i * 2, i * 2 + 2))
+        sb.append(" ")
     }
-} else {
-    this.toString()
+    return sb.toString().trim()
 }
+
+
+fun String.ascii2ByteArray(hasSpace: Boolean = false): ByteArray {
+    val s = if (hasSpace) this else this.replace(" ", "")
+    return s.toByteArray(charset("US-ASCII"))
+}
+
+fun String.addFirst(s: String) = "$s$this"
+
+fun String.addLast(s: String) = "$this$s"
+
+
+/**
+ * 秒变成 HH:MM:SS
+ */
+fun Int.formatHHmmss() =
+    "%02d:%02d:%02d".format(this / 3600, ((this % 3600) / 60), ((this % 3600) % 60))
+
+fun Int.formatHHmm() = "%02d:%02d".format(this / 3600, ((this % 3600) / 60))
+fun Int.format02() = "%02d".format(this)
+
+/**
+ *  1=是 0=否
+ */
+fun Boolean.toInt() = if (this) 1 else 0
+
+
+/**
+ *  1=是 0=否
+ */
+fun Int.toBoolean() = if (this == 1) true else false

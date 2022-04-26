@@ -10,6 +10,7 @@ import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.widget.ImageView
 import android.widget.ImageView.ScaleType
+import androidx.annotation.DrawableRes
 import com.ashlikun.baseproject.common.R
 import com.ashlikun.glideutils.GlideLoad
 import com.ashlikun.glideutils.GlideUtils
@@ -61,19 +62,18 @@ fun ImageView.show(
     path: String?,
     radiusDp: Float = 0f,
     isPlaceholder: Boolean = false,
-    showBgColorRes: Int = R.color.color_f5f5f5,
+    @DrawableRes
+    placeholderResId: Int = R.drawable.material_default_image_1_1,
+    showBgColorRes: Int = R.color.activity_backgound,
     requestOptions: RequestOptions? = null,
     requestListener: RequestListener<Drawable>? = null
 ) {
     var options = requestOptions ?: RequestOptions()
-    if (isPlaceholder) {
+    if (isPlaceholder || placeholderResId != R.drawable.material_default_image_1_1) {
         try {
             val drawable = BitmapDrawable(
                 resources,
-                BitmapFactory.decodeResource(
-                    context.resources,
-                    R.drawable.material_default_image_1_1
-                )
+                BitmapFactory.decodeResource(context.resources, placeholderResId)
             )
             val layerDrawable = PlaceholderDrawable(drawable)
             layerDrawable.setColor(showBgColorRes.resColor)
@@ -104,16 +104,30 @@ fun ImageView.show(
 fun ImageView.showCircle(
     path: String,
     showBgColorRes: Int = R.color.color_f5f5f5,
-    isPlaceholder: Boolean = true
+    isPlaceholder: Boolean = true,
+    @DrawableRes
+    placeholderResId: Int = R.drawable.material_default_image_1_1,
 ) {
-    show(path, 150f, isPlaceholder, showBgColorRes, GlideUtils.getCircleOptions())
+    show(
+        path,
+        150f,
+        isPlaceholder,
+        placeholderResId = placeholderResId,
+        showBgColorRes = showBgColorRes,
+        requestOptions = GlideUtils.getCircleOptions()
+    )
 }
 
 fun ImageView.showPlace(
     path: String?, radiusDp: Float = 0f, isPlaceholder: Boolean = true,
+    @DrawableRes
+    placeholderResId: Int = R.drawable.material_default_image_1_1,
     showBgColor: Int = R.color.color_f5f5f5, requestOptions: RequestOptions? = null
 ) {
-    show(path, radiusDp, isPlaceholder, showBgColor, requestOptions)
+    show(
+        path, radiusDp, isPlaceholder = isPlaceholder, placeholderResId = placeholderResId,
+        showBgColorRes = showBgColor, requestOptions = requestOptions
+    )
 }
 
 /**

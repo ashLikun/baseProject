@@ -1,6 +1,7 @@
 package com.ashlikun.baseproject.libcore.utils.extend
 
 import android.app.Activity
+import android.content.Context
 import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -12,6 +13,8 @@ import com.ashlikun.core.mvvm.BaseViewModel
 import com.ashlikun.core.registerForActivityResultX
 import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.loadswitch.LoadSwitchService
+import com.ashlikun.utils.main.ActivityUtils
+import com.ashlikun.utils.ui.extend.resString
 import permissions.dispatcher.PermissionUtils
 
 /**
@@ -23,7 +26,6 @@ import permissions.dispatcher.PermissionUtils
  */
 
 
-
 /**
  * 关闭activity动画
  */
@@ -31,37 +33,58 @@ fun Activity.noExitAnim() {
     overridePendingTransition(R.anim.activity_open_enter, 0)
 }
 
+fun Context.requestPermission(
+    permission: Array<String>,
+    showRationaleMessage: String? = null,
+    denied: (() -> Unit)? = null,
+    success: (() -> Unit)
+): ActivityResultLauncher<Array<String>> {
+    return (ActivityUtils.getActivity(this) as ComponentActivity).requestPermission(
+        permission,
+        showRationaleMessage,
+        denied,
+        success
+    )
+}
 
 /**
  * 请求权限
  */
-fun ComponentActivity.requestPermission(permission: Array<String>, showRationaleMessage: String? = null, denied: (() -> Unit)? = null, success: (() -> Unit)): ActivityResultLauncher<Array<String>> {
+fun ComponentActivity.requestPermission(
+    permission: Array<String>,
+    showRationaleMessage: String? = null,
+    denied: (() -> Unit)? = null,
+    success: (() -> Unit)
+): ActivityResultLauncher<Array<String>> {
 
-    val launcher = registerForActivityResultX(ActivityResultContracts.RequestMultiplePermissions()) {
-        if (it.all { itt -> itt.value }) {
-            success.invoke()
-        } else {
-            denied?.invoke()
+    var launcher =
+        registerForActivityResultX(ActivityResultContracts.RequestMultiplePermissions()) {
+            if (it.all { itt -> itt.value }) {
+                success.invoke()
+            } else {
+                denied?.invoke()
+            }
         }
-    }
 
     //弹窗提示
     fun showRationaleDialog(showRationaleMessage: String? = null) {
         AlertDialog.Builder(this)
-                .setCancelable(false)
-                .setTitle("权限申请")
-                .setMessage(showRationaleMessage ?: getString(R.string.permission_rationale))
-                .setPositiveButton("确认") { dialoog, which ->
-                    launcher.launch(permission)
-                }
-                .setNegativeButton("取消") { dialog, which ->
-                    denied?.invoke()
-                }
-                .show()
+            .setCancelable(false)
+            .setTitle("权限申请")
+            .setMessage(showRationaleMessage ?: getString(R.string.permission_rationale))
+            .setPositiveButton("确认") { dialoog, which ->
+                launcher.launch(permission)
+            }
+            .setNegativeButton("取消") { dialog, which ->
+                denied?.invoke()
+                launcher.unregister()
+            }
+            .show()
     }
     //是否已经有权限
     if (PermissionUtils.hasSelfPermissions(this, *permission)) {
         success.invoke()
+        launcher.unregister()
         return launcher
     } else {
         //是否之前拒绝过
@@ -76,18 +99,18 @@ fun ComponentActivity.requestPermission(permission: Array<String>, showRationale
 }
 
 
-fun BaseFragment.showEmpty(text: String = "什么都没有呢") {
+fun BaseFragment.showEmpty(text: String = R.string.ui_showmessage_no_data.resString) {
     showEmpty(ContextData(text).setButtonShow(false))
 }
 
-fun BaseActivity.showEmpty(text: String = "什么都没有呢") {
+fun BaseActivity.showEmpty(text: String = R.string.ui_showmessage_no_data.resString) {
     showEmpty(ContextData(text).setButtonShow(false))
 }
 
-fun LoadSwitchService.showEmpty(text: String = "什么都没有呢") {
+fun LoadSwitchService.showEmpty(text: String = R.string.ui_showmessage_no_data.resString) {
     showEmpty(ContextData(text).setButtonShow(false))
 }
 
-fun BaseViewModel.showEmpty(text: String = "什么都没有呢") {
+fun BaseViewModel.showEmpty(text: String = R.string.ui_showmessage_no_data.resString) {
     showEmpty(ContextData(text).setButtonShow(false))
 }

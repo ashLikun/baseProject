@@ -1,4 +1,0 @@
-<resources>
-    <string name="login_error">你的账号登陆异常，请重新登陆</string>
-    <string name="permission_rationale">为了提供更好的服务,金鸡湖需要获取权限</string>
-</resources>

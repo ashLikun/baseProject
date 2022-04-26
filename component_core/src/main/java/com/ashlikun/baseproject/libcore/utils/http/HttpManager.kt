@@ -40,7 +40,7 @@ class HttpManager private constructor() {
     init {
         HttpResponse.SUCCEED = 0
         HttpResponse.ERROR = 1
-        OkHttpUtils.init(getOkHttpClientBuilder().build())
+        OkHttpUtils.init(AppUtils.app, getOkHttpClientBuilder().build())
         OkHttpUtils.setOnDataParseError { code, exception, response, json ->
             val requestStr = HttpUtils.getRequestToString(response.request)
             val responseStr = HttpUtils.getResponseToString(response)

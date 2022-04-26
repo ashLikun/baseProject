@@ -64,7 +64,7 @@ ext {
 
 
             //基本架构
-            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:2.3.0",
+            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:2.3.3",
             //多个Dex
             multidex             : 'androidx.multidex:multidex:2.0.1',
             //webview封装
@@ -94,7 +94,7 @@ ext {
             //封装的viewpager，banner，启动页
             XViewPager           : "com.github.ashLikun:XViewPager:2.2.4",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:4.2.9",
+            CommonUtils          : "com.github.ashLikun:CommonUtils:4.4.1",
             //公共的Adapter
             CommonAdapter        : "com.github.ashLikun:CommonAdapter:4.4.0",
             //Google官方改造
@@ -104,7 +104,7 @@ ext {
             //阿里的vlayout
             vlayout              : "com.alibaba.android:vlayout:1.2.36@aar",
             //习惯的对话框
-            CustomDialog         : "com.github.ashLikun:CustomDialog:3.0.3",
+            CustomDialog         : "com.github.ashLikun:CustomDialog:3.0.4",
             //圆形的进度条
             CircleProgressView   : "com.github.ashLikun:CircleProgressView:2.0.1",
             //LayoutManage
@@ -126,7 +126,7 @@ ext {
             BottomNavigation     : "com.github.ashLikun:BottomNavigation:3.0.3",
             //rxjava
             rxandroid            : "io.reactivex.rxjava2:rxandroid:2.1.1",
-            rxjava               : "io.reactivex.rxjava2:rxjava:x.y.z",
+            rxjava               : "io.reactivex.rxjava2:rxjava:2.2.6",
             RxLife               : "com.github.ashLikun:RxLife:1.0.2",
             //okhttp
             okhttp               : "com.squareup.okhttp3:okhttp:4.9.3",
@@ -134,7 +134,7 @@ ext {
             //不同type的json解析,依赖于gson
             MultiTypeGson        : "com.github.ashLikun:MultiTypeGson:2.0.7",
             //基于Okhttp封装的
-            OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:3.1.5",
+            OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:3.2.0",
             //图片加载
             GlideUtils           : "com.github.ashLikun:GlideUtils:3.0.3",
             glide                : "com.github.bumptech.glide:glide:4.11.0",
@@ -148,7 +148,7 @@ ext {
             //图片查看
             PhotoView            : "com.github.ashLikun:PhotoView:2.0.4",
             //照片处理
-            PhotoHander          : "com.github.ashLikun:PhotoHander:2.1.2",
+            PhotoHander          : "com.github.ashLikun:PhotoHander:2.1.3",
             //输入验证码
             VerificationCodeInput: "com.github.ashLikun:VerifyCodeView:1.0.0",
             //带圆角，边框的的ImageView
@@ -163,7 +163,7 @@ ext {
             ZxingCore            : "com.google.zxing:core:3.4.1",
             EasyPay              : "com.github.ashLikun:EasyPay:2.0.4",
             //腾讯X5浏览器 44136  http://soft.imtt.qq.com/browser/tes/feedback.html 显示000000表示加载的是系统内核，显示大于零的数字表示加载了x5内核（该数字是x5内核版本号）
-            tbssdk               : "com.tencent.tbs:tbssdk:44136",
+            tbssdk               : "com.tencent.tbs:tbssdk:44181",
             // 极光推送
             jpush                : 'cn.jiguang.sdk:jpush:4.5.0',
             // 极光推送
@@ -181,5 +181,6 @@ ext {
             extensionRtmp        : 'com.google.android.exoplayer:extension-rtmp:2.11.7',
             exoplayer            : 'com.google.android.exoplayer:exoplayer:2.11.7',
             ijkplayerJava        : 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8',
+
     ]
 }

@@ -11,6 +11,7 @@ import com.ashlikun.baseproject.libcore.utils.http.HttpManager
 import com.ashlikun.baseproject.libcore.utils.other.AppCrashEventListener
 import com.ashlikun.baseproject.libcore.utils.other.CacheUtils
 import com.ashlikun.baseproject.libcore.utils.other.initBugly
+import com.ashlikun.core.BaseUtils
 import com.ashlikun.glideutils.GlideUtils
 import com.ashlikun.okhttputils.http.OkHttpUtils
 import com.ashlikun.okhttputils.http.download.DownloadManager
@@ -21,6 +22,7 @@ import com.ashlikun.utils.ui.modal.SuperToast
 import com.didichuxing.doraemonkit.DoraemonKit
 import com.tencent.smtt.export.external.TbsCoreSettings
 import com.tencent.smtt.sdk.QbSdk
+import kotlinx.coroutines.CoroutineExceptionHandler
 
 /**
  * @author　　: 李坤
@@ -35,8 +37,13 @@ open class BaseApplication : MultiDexApplication() {
      */
     private val applications = ArrayList<IApplication>()
 
-    override fun attachBaseContext(base: Context?) {
+    override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
+        //app工具
+        AppUtils.init(this)
+        applications.forEach {
+            it.attachBaseContext(base)
+        }
     }
 
     override fun onCreate() {
@@ -65,8 +72,13 @@ open class BaseApplication : MultiDexApplication() {
     }
 
     private fun initLib() {
-        //app工具
-        AppUtils.init(this)
+        //全局协成异常
+        BaseUtils.coroutineExceptionHandler =
+            CoroutineExceptionHandler { coroutineContext, throwable ->
+                throwable.printStackTrace()
+                //这里可以提交日志
+            }
+
         AppUtils.isDebug = BuildConfig.DEBUG
         CacheUtils.init(resources.getString(R.string.app_name_letter))
         //异常捕获
