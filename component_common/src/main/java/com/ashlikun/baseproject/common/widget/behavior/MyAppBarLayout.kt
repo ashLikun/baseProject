@@ -11,6 +11,14 @@ import com.ashlikun.utils.other.LogUtils.d
 import com.google.android.material.appbar.AppBarLayout
 import java.lang.reflect.Field
 
+class MyAppBarLayout @JvmOverloads
+constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+    AppBarLayout(context, attrs, defStyleAttr) {
+    override fun getBehavior(): CoordinatorLayout.Behavior<AppBarLayout> {
+        return AppBarLayoutBehavior()
+    }
+}
+
 /**
  * @author　　: 李坤
  * 创建时间: 2020/7/10 17:06
@@ -30,11 +38,7 @@ class AppBarLayoutBehavior @JvmOverloads constructor(
     private var shouldBlockNestedScroll = false
 
 
-    override fun onInterceptTouchEvent(
-        parent: CoordinatorLayout,
-        child: AppBarLayout,
-        ev: MotionEvent
-    ): Boolean {
+    override fun onInterceptTouchEvent(parent: CoordinatorLayout, child: AppBarLayout, ev: MotionEvent): Boolean {
         d("onInterceptTouchEvent:" + child.totalScrollRange)
         shouldBlockNestedScroll = false
         if (isFlinging) {

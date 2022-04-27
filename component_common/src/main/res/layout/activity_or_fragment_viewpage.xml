@@ -5,10 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <com.ashlikun.baseproject.common.widget.behavior.MyAppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior=".widget.behavior.AppBarLayoutBehavior">
+        android:layout_height="wrap_content">
 
         <com.ashlikun.supertoobar.SuperToolBar
             android:id="@+id/toolbar"
@@ -27,7 +26,7 @@
             app:xTabIndicatorColor="@color/colorPrimary"
             app:xTabSelectedTextColor="@color/colorPrimary"
             app:xTabTextColor="@color/text_color" />
-    </com.google.android.material.appbar.AppBarLayout>
+    </com.ashlikun.baseproject.common.widget.behavior.MyAppBarLayout>
 
     <com.ashlikun.xviewpager.view.XViewPager
         android:id="@+id/viewPage"

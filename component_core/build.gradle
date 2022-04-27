@@ -185,6 +185,8 @@ dependencies {
     api libs.GlideUtils
     api libs.glide
     api libs.glideTransformations
+    //日期选择 https://github.com/loperSeven/DateTimePicker
+    api libs.DateTimePicker
     //lottie 动画
     api libs.lottie
 
