@@ -9,6 +9,7 @@ import com.ashlikun.baseproject.module.main.viewmodel.HomeViewModel
 import com.ashlikun.core.mvvm.BaseMvvmFragment
 import com.ashlikun.core.mvvm.IViewModel
 import com.ashlikun.loadswitch.ContextData
+import com.ashlikun.utils.other.logge
 
 /**
  * 作者　　: 李坤
@@ -34,6 +35,7 @@ class HomeFragment : BaseMvvmFragment<HomeViewModel>() {
     )
 
     override fun initView() {
+        "initView".logge()
         toolbar?.run {
             setTitle("首页")
         }
