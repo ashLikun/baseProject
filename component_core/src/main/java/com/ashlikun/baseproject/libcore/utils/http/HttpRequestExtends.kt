@@ -56,7 +56,7 @@ suspend fun <T> HttpRequest.syncExecute(handle: HttpUiHandle?, resultType: Type)
             call = execute(callback)
         } catch (e: Exception) {
             //处理异常
-            handle?.error(ContextData(e.message))
+            handle?.error(ContextData(title = e.message.orEmpty()))
             handle?.completed()
             continuation.resumeWithException(e)
         }
@@ -86,7 +86,7 @@ fun <T> HttpRequest.syncExecute2(handle: HttpUiHandle?, resultType: Type): T? {
         val res = HttpManager.handelResult(result)
 
         if (res == null) {
-            MainHandle.get().post { handle?.success(result as Any) }
+            MainHandle.post { handle?.success(result as Any) }
             return result
         } else {
             //不显示toast
@@ -97,9 +97,11 @@ fun <T> HttpRequest.syncExecute2(handle: HttpUiHandle?, resultType: Type): T? {
     } catch (error: HttpException) {
         MainHandle.post {
             handle?.error(
-                (ContextData().setErrCode(error.code)
-                    .setTitle(error.message)
-                    .setResId(R.drawable.material_service_error))
+                (ContextData(
+                    title = error.message,
+                    errCode = error.code,
+                    resId = R.drawable.material_service_error
+                ))
             )
         }
         return null

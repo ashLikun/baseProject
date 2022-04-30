@@ -52,23 +52,29 @@ class HttpUiHandle private constructor() {
                     isErrorToastShow = false
                     //如果code全局处理的时候错误了，那么是不会走success的，这里就得自己处理UI设置为错误状态
                     error(
-                            ContextData().setErrCode(error.exception.code)
-                                    .setTitle(error.exception.message)
-                                    .setResId(R.drawable.material_service_error)
+                        ContextData(
+                            title = error.exception.message,
+                            resId = R.drawable.material_service_error,
+                            errCode = error.exception.code
+                        )
                     )
                 }
                 is HttpException -> {
                     error(
-                            ContextData().setErrCode(error.code)
-                                    .setTitle(error.message)
-                                    .setResId(R.drawable.material_service_error)
+                        ContextData(
+                            title = error.message,
+                            resId = R.drawable.material_service_error,
+                            errCode = error.code
+                        )
                     )
                 }
                 else -> {
                     error(
-                            ContextData().setErrCode(HttpErrorCode.HTTP_UNKNOWN)
-                                    .setTitle(error.message)
-                                    .setResId(R.drawable.material_service_error)
+                        (ContextData(
+                            title = error.message.orEmpty(),
+                            resId = R.drawable.material_service_error,
+                            errCode = HttpErrorCode.HTTP_UNKNOWN
+                        ))
                     )
                 }
             }
@@ -308,7 +314,7 @@ class HttpUiHandle private constructor() {
 
 
     fun showLoading() {
-        loadSwitchService?.showLoading(ContextData(hint))
+        loadSwitchService?.showLoading(ContextData(title = hint.orEmpty()))
     }
 
     fun showContent() {
@@ -398,7 +404,7 @@ class HttpUiHandle private constructor() {
             if (result.isSucceed) {
                 showContent()
             } else {
-                successCodeError(ContextData(result.code, result.message))
+                successCodeError(ContextData(title = result.message, errCode = result.code))
             }
         } else {
             showContent()

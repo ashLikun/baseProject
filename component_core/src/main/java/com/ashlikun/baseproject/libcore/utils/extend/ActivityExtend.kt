@@ -100,17 +100,17 @@ fun ComponentActivity.requestPermission(
 
 
 fun BaseFragment.showEmpty(text: String = R.string.ui_showmessage_no_data.resString) {
-    showEmpty(ContextData(text).setButtonShow(false))
+    showEmpty(ContextData(title = text, buttonText = ""))
 }
 
 fun BaseActivity.showEmpty(text: String = R.string.ui_showmessage_no_data.resString) {
-    showEmpty(ContextData(text).setButtonShow(false))
+    showEmpty(ContextData(title = text, buttonText = ""))
 }
 
 fun LoadSwitchService.showEmpty(text: String = R.string.ui_showmessage_no_data.resString) {
-    showEmpty(ContextData(text).setButtonShow(false))
+    showEmpty(ContextData(title = text, buttonText = ""))
 }
 
 fun BaseViewModel.showEmpty(text: String = R.string.ui_showmessage_no_data.resString) {
-    showEmpty(ContextData(text).setButtonShow(false))
+    showEmpty(ContextData(title = text, buttonText = ""))
 }

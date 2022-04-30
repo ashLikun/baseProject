@@ -1,6 +1,5 @@
 package com.ashlikun.baseproject.libcore.utils.other
 
-import com.ashlikun.gson.StringNullAdapter
 import com.ashlikun.utils.AppUtils
 import com.ashlikun.utils.other.file.PathUtils
 import java.io.File
@@ -17,15 +16,15 @@ object CacheUtils {
     var rootName = ""
 
     //app缓存路径，内部
-    val appCachePath = StringNullAdapter.NULL
+    val appCachePath = ""
         get() = check(if (field.isNullOrEmpty()) "${AppUtils.app.cacheDir.path}" else field)
 
     //app文件路径，内部
-    val appFilePath = StringNullAdapter.NULL
+    val appFilePath = ""
         get() = check(if (field.isNullOrEmpty()) "${AppUtils.app.filesDir.path}" else field)
 
     //appsd卡缓存路径(Android/data/pageName/cache)删除应用会删除这个目录，不用动态申请权限
-    val appSDCachePath = StringNullAdapter.NULL
+    val appSDCachePath =""
         get() = check(
                 if (field.isNullOrEmpty()) {
                     PathUtils.externalAppCache
@@ -33,7 +32,7 @@ object CacheUtils {
         )
 
     //appsd卡文件路径(Android/data/pageName/files)删除应用会删除这个目录，不用动态申请权限
-    val appSDFilePath = StringNullAdapter.NULL
+    val appSDFilePath =""
         get() = check(
                 if (field.isNullOrEmpty()) {
                     PathUtils.externalAppFiles
@@ -41,7 +40,7 @@ object CacheUtils {
         )
 
     //appsd卡DCIM路径(Android/data/pageName/files/DCIM)删除应用会删除这个目录，不用动态申请权限
-    val appSDDcimPath = StringNullAdapter.NULL
+    val appSDDcimPath =""
         get() = check(
                 if (field.isNullOrEmpty()) {
                     PathUtils.externalAppDcim
@@ -49,7 +48,7 @@ object CacheUtils {
         )
 
     //appsd卡下载路径(Android/data/pageName/files/DCIM)删除应用会删除这个目录，不用动态申请权限
-    val appSDDownloadPath = StringNullAdapter.NULL
+    val appSDDownloadPath = ""
         get() = check(
                 if (field.isNullOrEmpty()) {
                     PathUtils.externalAppDownload
@@ -57,11 +56,11 @@ object CacheUtils {
         )
 
     //app sd 缓存路径，删除应用会删除这个目录，不用动态申请权限
-    val appSdCacheVideoPath = StringNullAdapter.NULL
+    val appSdCacheVideoPath = ""
         get() = check(if (field.isNullOrEmpty()) "${appSDCachePath}/video" else field)
 
     //sd卡dcim路径，需要权限
-    val sdDcimPath = StringNullAdapter.NULL
+    val sdDcimPath =""
         get() = check(
                 if (field.isNullOrEmpty()) {
                     PathUtils.externalDcim + File.separator + rootName
@@ -70,7 +69,7 @@ object CacheUtils {
 
 
     //sd卡路径，需要权限,不建议使用
-    val sdPath = StringNullAdapter.NULL
+    val sdPath = ""
         get() = check(
                 if (field.isNullOrEmpty()) {
                     PathUtils.externalStorage

@@ -16,10 +16,8 @@ import okhttp3.Response
  *
  * 功能介绍：http请求的回调
  */
-
-
-open class HttpCallBack<ResultType> constructor(val handle: HttpUiHandle?)
-    : AbsCallback<ResultType>() {
+open class HttpCallBack<ResultType> constructor(val handle: HttpUiHandle?) :
+    AbsCallback<ResultType>() {
 
     /**
      * 重写数据转换
@@ -58,9 +56,13 @@ open class HttpCallBack<ResultType> constructor(val handle: HttpUiHandle?)
      */
     override fun onError(error: HttpException) {
         LogUtils.wtf(error)
-        onError(ContextData().setErrCode(error.code)
-                .setTitle(error.message)
-                .setResId(R.drawable.material_service_error))
+        onError(
+            ContextData(
+                title = error.message,
+                errCode = (error.code),
+                resId = R.drawable.material_service_error
+            )
+        )
     }
 
     /**
@@ -93,9 +95,13 @@ open class HttpCallBack<ResultType> constructor(val handle: HttpUiHandle?)
             //不显示toast
             handle?.isErrorToastShow = false
             //如果code全局处理的时候错误了，那么是不会走success的，这里就得自己处理UI设置为错误状态
-            handle?.error(ContextData().setErrCode(res.exception.code)
-                    .setTitle(res.exception.message)
-                    .setResId(R.drawable.material_service_error))
+            handle?.error(
+                ContextData(
+                    title = res.exception.message,
+                    errCode = (res.exception.code),
+                    resId = R.drawable.material_service_error
+                )
+            )
         }
         return res
     }

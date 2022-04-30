@@ -13,6 +13,7 @@ import com.ashlikun.baseproject.libcore.utils.other.CacheUtils
 import com.ashlikun.baseproject.libcore.utils.other.initBugly
 import com.ashlikun.core.BaseUtils
 import com.ashlikun.glideutils.GlideUtils
+import com.ashlikun.loadswitch.LoadSwitch
 import com.ashlikun.okhttputils.http.OkHttpUtils
 import com.ashlikun.okhttputils.http.download.DownloadManager
 import com.ashlikun.orm.LiteOrmUtil
@@ -80,6 +81,7 @@ open class BaseApplication : MultiDexApplication() {
             }
 
         AppUtils.isDebug = BuildConfig.DEBUG
+        LoadSwitch.init(this)
         CacheUtils.init(resources.getString(R.string.app_name_letter))
         //异常捕获
         AppCrashConfig.Builder.create(this)

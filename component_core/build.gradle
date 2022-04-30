@@ -112,6 +112,9 @@ dependencies {
     //autosize 屏幕适配
     api libs.Autosize
 
+    //保活的策略
+    api libs.Keeplive
+
     //封装的RecycleView
     api libs.XRecycleView
     //自定义的下拉刷新

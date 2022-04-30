@@ -84,7 +84,8 @@ ext {
             MMKV                 : 'com.tencent:mmkv:1.2.11',
             //autosize 屏幕适配
             Autosize             : 'me.jessyan:autosize:1.2.1',
-
+            //保活的策略
+            Keeplive          : "com.github.ashLikun:Keeplive:1.0.1",
             //封装的RecycleViewFr
             XRecycleView         : "com.github.ashLikun:XRecycleView:3.0.5",
             //动画菜单,可以不用
@@ -94,7 +95,7 @@ ext {
             //封装的viewpager，banner，启动页
             XViewPager           : "com.github.ashLikun:XViewPager:2.2.4",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:4.4.1",
+            CommonUtils          : "com.github.ashLikun:CommonUtils:4.4.5",
             //公共的Adapter
             CommonAdapter        : "com.github.ashLikun:CommonAdapter:4.4.0",
             //Google官方改造
@@ -110,7 +111,7 @@ ext {
             //LayoutManage
             XLayoutManager       : "com.github.ashLikun:XLayoutManager:1.0.9",
             //布局切换
-            LoadSwitch           : "com.github.ashLikun:LoadSwitch:2.0.8",
+            LoadSwitch           : "com.github.ashLikun:LoadSwitch:2.1.0",
             //兼容的View
             CompatView           : "com.github.ashLikun:CompatView:2.0.9",
             //错误捕获

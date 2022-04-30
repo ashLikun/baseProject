@@ -1,0 +1,6 @@
+<resources>
+
+    <style name="other_welcome" parent="AppTheme.Fullscreen">
+        <item name="android:background">@color/activity_backgound</item>
+    </style>
+</resources>
