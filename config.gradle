@@ -162,8 +162,8 @@ ext {
             //微信分享，登录sdk
             wechat               : "com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+",
             //扫码
-            ZxingUtils           : "com.github.ashLikun:ZxingUtils:2.0.4",
-            ZxingCore            : "com.google.zxing:core:3.4.1",
+            ZxingUtils           : "com.github.ashLikun.ZxingUtils:zxingLib:2.0.6",
+            ZxingCore            : "com.github.ashLikun.ZxingUtils:zxingCore:2.0.6",
             EasyPay              : "com.github.ashLikun:EasyPay:2.0.4",
             //腾讯X5浏览器 44136  http://soft.imtt.qq.com/browser/tes/feedback.html 显示000000表示加载的是系统内核，显示大于零的数字表示加载了x5内核（该数字是x5内核版本号）
             tbssdk               : "com.tencent.tbs:tbssdk:44181",

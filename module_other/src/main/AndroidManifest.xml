@@ -7,7 +7,7 @@
             android:name=".view.WelcomeActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Fullscreen">
+            android:theme="@style/other_welcome">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -202,6 +202,10 @@ dependencies {
     //照片处理
     api libs.PhotoHander
 
+    //扫码
+    api libs.ZxingUtils
+    api libs.ZxingCore
+
     //腾讯Bugly
     api libs.BugLy
     //极光推送
