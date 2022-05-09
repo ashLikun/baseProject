@@ -3,7 +3,7 @@ package com.ashlikun.baseproject.common.mode.javabean
 import android.os.Parcel
 import android.os.Parcelable
 import com.ashlikun.baseproject.common.adapter.banner.IBannerData
-import com.ashlikun.gson.StringNullAdapter
+import com.ashlikun.gson.data.StringNullAdapter
 import com.google.gson.annotations.SerializedName
 
 /**

@@ -206,7 +206,7 @@ class TestActivity : BaseActivity() {
                         .addHeader("x-tif-signature", signature.toUpperCase())
                         .addHeader("x-tif-timestamp", "$timestamp")
                         .addHeader("x-tif-nonce", nonce)
-                        .setContentJson(GsonHelper.getBuilderNotNull().create().toJson(body))
+                        .setContent(GsonHelper.getBuilderNotNull().create().toJson(body))
                         .syncExecute<String>(HttpUiHandle[this])
                 LogUtils.e(result2)
 //                LogUtils.e(AESUtils.decrypt(HttpResponse(result2).getStringValue("data"), appmark))

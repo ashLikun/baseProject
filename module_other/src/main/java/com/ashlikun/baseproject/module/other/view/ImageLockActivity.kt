@@ -1,5 +1,6 @@
 package com.ashlikun.baseproject.module.other.view
 
+import android.Manifest
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
@@ -12,6 +13,7 @@ import com.ashlikun.baseproject.common.mode.javabean.ImageData
 import com.ashlikun.baseproject.common.utils.extend.show
 import com.ashlikun.baseproject.libcore.constant.RouterKey
 import com.ashlikun.baseproject.libcore.constant.RouterPath
+import com.ashlikun.baseproject.libcore.utils.extend.requestPermission
 import com.ashlikun.baseproject.libcore.utils.other.CacheUtils
 import com.ashlikun.baseproject.module.other.R
 import com.ashlikun.baseproject.module.other.databinding.OtherActivityImageLockBinding
@@ -22,7 +24,9 @@ import com.ashlikun.photoview.ScaleFinishView
 import com.ashlikun.utils.other.DimensUtils
 import com.ashlikun.utils.other.file.FileIOUtils
 import com.ashlikun.utils.ui.UiUtils
+import com.ashlikun.utils.ui.extend.toastInfo
 import com.ashlikun.utils.ui.image.BitmapUtil
+import com.ashlikun.utils.ui.image.updatePhotoMedia
 import com.ashlikun.utils.ui.modal.SuperToast
 import com.ashlikun.xviewpager.listener.ViewPageHelperListener
 import com.ashlikun.xviewpager.view.BannerViewPager
@@ -104,16 +108,17 @@ class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener {
                     val url = listDatas[viewPager.realPosition].getImageUrl()
                     GlideUtils.downloadBitmap(this@ImageLockActivity, url) { file ->
                         if (file != null && file.exists()) {
-                            var saveFile =
-                                File("${CacheUtils.appSDFilePath}${File.separator}${System.currentTimeMillis()}.jpg")
-                            if (FileIOUtils.copyFile(file, saveFile, false)) {
-                                SuperToast.showInfoMessage("图片已保存至 /${CacheUtils.rootName}/file 文件夹")
-                                BitmapUtil.updatePhotoMedia(this@ImageLockActivity, saveFile)
-                            } else {
-                                SuperToast.showInfoMessage("图片保存失败")
+                            requestPermission(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                                var saveFile = CacheUtils.newImage()
+                                if (FileIOUtils.copyFile(file, saveFile, false)) {
+                                    "图片已保存至 /${saveFile.path} ".toastInfo()
+                                    saveFile.updatePhotoMedia()
+                                } else {
+                                    "图片保存失败".toastInfo()
+                                }
                             }
                         } else {
-                            SuperToast.showInfoMessage("图片保存失败")
+                            "图片保存失败".toastInfo()
                         }
                     }
                 }
@@ -124,10 +129,7 @@ class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener {
     val adapter by lazy {
         object : ViewPageHelperListener<ImageData> {
             override fun createView(
-                context: Context,
-                banner: BannerViewPager,
-                data: ImageData,
-                position: Int
+                context: Context, banner: BannerViewPager, data: ImageData, position: Int
             ): View {
                 val view =
                     UiUtils.getInflaterView(this@ImageLockActivity, R.layout.other_item_image_lock)
@@ -137,7 +139,7 @@ class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener {
                 }
                 view.findViewById<ScaleFinishView>(R.id.scaleFinishView)
                     ?.setOnSwipeListener(this@ImageLockActivity)
-                photoView?.show(data.image, requestListener = object : RequestListener<Drawable> {
+                photoView?.show(data?.image, requestListener = object : RequestListener<Drawable> {
                     override fun onLoadFailed(
                         e: GlideException?,
                         model: Any?,

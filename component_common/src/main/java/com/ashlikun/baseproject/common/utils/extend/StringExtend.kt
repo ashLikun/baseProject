@@ -15,6 +15,28 @@ inline fun String.ifNoEmpty(defaultValue: (String) -> String): String =
     if (isNotEmpty()) defaultValue(this) else this
 
 /**
+ * 不为“”就执行
+ */
+inline fun String.ifNoEmptyInvok(invok: (String) -> Unit): String {
+    if (isNotEmpty()) invok(this)
+    return this
+}
+
+
+inline fun Int?.orEmpty(defaultValue: Int = 0): Int =
+    this ?: defaultValue
+
+inline fun Float?.orEmpty(defaultValue: Float = 0f): Float =
+    this ?: defaultValue
+
+inline fun Double?.orEmpty(defaultValue: Double = 0.0): Double =
+    this ?: defaultValue
+
+inline fun Long?.orEmpty(defaultValue: Long = 0): Long =
+    this ?: defaultValue
+
+
+/**
  * 保留小数后几位位，不用四舍五入
  * @param isJumpInt 整数的时候直接返回
  */
@@ -23,7 +45,8 @@ fun Number?.toFormat(wei: Int = 1, isJumpInt: Boolean = false): String {
     if (isJumpInt && (this is Int || this is Long)) {
         return this.toString()
     }
-    val format = DecimalFormat("#." + MutableList(wei) { "#" }.joinToString("") { it })
+    val format =
+        DecimalFormat("#" + if (wei == 0) "" else "." + MutableList(wei) { "#" }.joinToString("") { it })
     //舍弃规则，RoundingMode.FLOOR表示直接舍弃。
     format.roundingMode = RoundingMode.FLOOR
     return format.format(this)
@@ -75,3 +98,9 @@ fun Boolean.toInt() = if (this) 1 else 0
  *  1=是 0=否
  */
 fun Int.toBoolean() = if (this == 1) true else false
+
+
+/**
+ *  转换成 s min h
+ */
+fun Int.toTimeDanwei() = if (this == 1) true else false

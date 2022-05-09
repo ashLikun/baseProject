@@ -104,8 +104,6 @@ class HttpRequestParam private constructor(action: String? = null, path: String 
 //            LogUtils.i("Httpsign  $sign")
 //            addParam("sign", Md5Utils.getMD5(sign.toString()).toUpperCase())
 //        }
-        //转换成json
-        toJson()
 //        setContent("{}")
     }
 

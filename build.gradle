@@ -6,9 +6,14 @@ buildscript {
     ext.kotlin_version = '1.6.10'
     ext.coroutine_version = '1.5.2'
     repositories {
-        google()
-        jcenter()
-        mavenCentral()
+//        google()
+//        jcenter()
+//        mavenCentral()
+        maven { url 'https://maven.aliyun.com/repository/google/' }
+        maven { url 'https://maven.aliyun.com/repository/public/' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin/' }
+        // 添加Mob Maven地址
+        maven { url "https://mvn.mob.com/android" }
     }
     dependencies {
         //7.0  kotlin/Metadata 被去除，导致混淆后反射无法获取接口方法参数名称，retrofit就不能代理，注意，等7.1+就可以了
@@ -20,10 +25,13 @@ buildscript {
 
 allprojects {
     repositories {
+        //jitpack
+        maven { url 'https://maven.aliyun.com/repository/google/' }
+        maven { url 'https://maven.aliyun.com/repository/public/' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin/' }
+        maven { url "https://www.jitpack.io" }
         google()
         jcenter()
-        //jitpack
-        maven { url "https://jitpack.io" }
     }
 }
 

@@ -64,7 +64,7 @@ ext {
 
 
             //基本架构
-            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:2.3.3",
+            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:2.3.5",
             //多个Dex
             multidex             : 'androidx.multidex:multidex:2.0.1',
             //webview封装
@@ -84,8 +84,10 @@ ext {
             MMKV                 : 'com.tencent:mmkv:1.2.11',
             //autosize 屏幕适配
             Autosize             : 'me.jessyan:autosize:1.2.1',
+
             //保活的策略
-            Keeplive          : "com.github.ashLikun:Keeplive:1.0.1",
+            Keeplive             : "com.github.ashLikun:Keeplive:1.0.1",
+
             //封装的RecycleViewFr
             XRecycleView         : "com.github.ashLikun:XRecycleView:3.0.5",
             //动画菜单,可以不用
@@ -95,7 +97,7 @@ ext {
             //封装的viewpager，banner，启动页
             XViewPager           : "com.github.ashLikun:XViewPager:2.2.4",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:4.4.5",
+            CommonUtils          : "com.github.ashLikun:CommonUtils:4.4.8",
             //公共的Adapter
             CommonAdapter        : "com.github.ashLikun:CommonAdapter:4.4.0",
             //Google官方改造
@@ -105,13 +107,13 @@ ext {
             //阿里的vlayout
             vlayout              : "com.alibaba.android:vlayout:1.2.36@aar",
             //习惯的对话框
-            CustomDialog         : "com.github.ashLikun:CustomDialog:3.0.4",
+            CustomDialog         : "com.github.ashLikun:CustomDialog:3.1.0",
             //圆形的进度条
             CircleProgressView   : "com.github.ashLikun:CircleProgressView:2.0.1",
             //LayoutManage
             XLayoutManager       : "com.github.ashLikun:XLayoutManager:1.0.9",
             //布局切换
-            LoadSwitch           : "com.github.ashLikun:LoadSwitch:2.1.0",
+            LoadSwitch           : "com.github.ashLikun:LoadSwitch:2.1.1",
             //兼容的View
             CompatView           : "com.github.ashLikun:CompatView:2.0.9",
             //错误捕获
@@ -133,9 +135,9 @@ ext {
             okhttp               : "com.squareup.okhttp3:okhttp:4.9.3",
             gson                 : "com.google.code.gson:gson:2.8.5",
             //不同type的json解析,依赖于gson
-            MultiTypeGson        : "com.github.ashLikun:MultiTypeGson:2.0.9",
+            MultiTypeGson        : "com.github.ashLikun:MultiTypeGson:2.1.0",
             //基于Okhttp封装的
-            OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:3.2.1",
+            OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:3.2.7",
             //图片加载
             GlideUtils           : "com.github.ashLikun:GlideUtils:3.0.3",
             glide                : "com.github.bumptech.glide:glide:4.11.0",
@@ -160,10 +162,9 @@ ext {
             MaterialRatingBar    : "com.github.ashLikun:MaterialRatingBar:2.0.0",
             CalendarView         : "com.github.ashLikun:CalendarView:2.0.0",
             //微信分享，登录sdk
-            wechat               : "com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+",
+            wechat               : "com.tencent.mm.opensdk:wechat-sdk-android-without-mta:6.8.0",
             //扫码
-            ZxingUtils           : "com.github.ashLikun.ZxingUtils:zxingLib:2.0.6",
-            ZxingCore            : "com.github.ashLikun.ZxingUtils:zxingCore:2.0.6",
+            ZxingUtils           : "com.github.ashLikun.ZxingUtils:zxingLib:2.0.7",
             EasyPay              : "com.github.ashLikun:EasyPay:2.0.4",
             //腾讯X5浏览器 44136  http://soft.imtt.qq.com/browser/tes/feedback.html 显示000000表示加载的是系统内核，显示大于零的数字表示加载了x5内核（该数字是x5内核版本号）
             tbssdk               : "com.tencent.tbs:tbssdk:44181",
@@ -184,6 +185,5 @@ ext {
             extensionRtmp        : 'com.google.android.exoplayer:extension-rtmp:2.11.7',
             exoplayer            : 'com.google.android.exoplayer:exoplayer:2.11.7',
             ijkplayerJava        : 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8',
-
     ]
 }

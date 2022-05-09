@@ -15,6 +15,7 @@ import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.loadswitch.LoadSwitchService
 import com.ashlikun.utils.main.ActivityUtils
 import com.ashlikun.utils.ui.extend.resString
+import com.ashlikun.utils.ui.extend.toastInfo
 import permissions.dispatcher.PermissionUtils
 
 /**
@@ -56,13 +57,12 @@ fun ComponentActivity.requestPermission(
     denied: (() -> Unit)? = null,
     success: (() -> Unit)
 ): ActivityResultLauncher<Array<String>> {
-
     var launcher =
         registerForActivityResultX(ActivityResultContracts.RequestMultiplePermissions()) {
             if (it.all { itt -> itt.value }) {
                 success.invoke()
             } else {
-                denied?.invoke()
+                if (denied != null) denied?.invoke() else R.string.permission_denied.resString.toastInfo()
             }
         }
 
@@ -70,13 +70,13 @@ fun ComponentActivity.requestPermission(
     fun showRationaleDialog(showRationaleMessage: String? = null) {
         AlertDialog.Builder(this)
             .setCancelable(false)
-            .setTitle("权限申请")
+            .setTitle(R.string.photo_permission_dialog_title.resString)
             .setMessage(showRationaleMessage ?: getString(R.string.permission_rationale))
-            .setPositiveButton("确认") { dialoog, which ->
+            .setPositiveButton(R.string.base_dialog_confirm.resString) { dialoog, which ->
                 launcher.launch(permission)
             }
-            .setNegativeButton("取消") { dialog, which ->
-                denied?.invoke()
+            .setNegativeButton(R.string.base_dialog_cancel.resString) { dialog, which ->
+                if (denied != null) denied?.invoke() else R.string.permission_denied.resString.toastInfo()
                 launcher.unregister()
             }
             .show()
