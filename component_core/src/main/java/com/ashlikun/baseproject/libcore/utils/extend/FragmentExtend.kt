@@ -16,42 +16,22 @@ import permissions.dispatcher.PermissionUtils
  * 功能介绍：Fragment相关扩展方法
  */
 
-
-fun Fragment.requestPermission(permission: Array<String>, showRationaleMessage: String? = null, denied: (() -> Unit)? = null, success: (() -> Unit)): ActivityResultLauncher<Array<String>> {
-    val launcher = registerForActivityResultX(ActivityResultContracts.RequestMultiplePermissions()) {
-        if (it.all { itt -> itt.value }) {
-            success.invoke()
-        } else {
-            denied?.invoke()
-        }
-    }
-
-    //弹窗提示
-    fun showRationaleDialog(showRationaleMessage: String? = null) {
-        AlertDialog.Builder(context!!)
-                .setCancelable(false)
-                .setTitle("权限申请")
-                .setMessage(showRationaleMessage ?: getString(R.string.permission_rationale))
-                .setPositiveButton("确认") { dialoog, which ->
-                    launcher.launch(permission)
-                }
-                .setNegativeButton("取消") { dialog, which ->
-                    denied?.invoke()
-                }
-                .show()
-    }
-    //是否已经有权限
-    if (PermissionUtils.hasSelfPermissions(context!!, *permission)) {
-        success.invoke()
-        return launcher
-    } else {
-        //是否之前拒绝过
-        if (PermissionUtils.shouldShowRequestPermissionRationale(this, *permission)) {
-            showRationaleDialog(showRationaleMessage)
-        } else {
-            //请求权限
-            launcher.launch(permission)
-        }
-    }
-    return launcher
+/**
+ * @param isDeniedShowDialog 拒绝过是否显示对话框提示,false:会回调denied方法
+ */
+fun Fragment.requestPermission(
+    permission: Array<String>,
+    showRationaleMessage: String? = null,
+    isDeniedShowDialog: Boolean = true,
+    denied: (() -> Unit)? = null,
+    success: (() -> Unit)
+): ActivityResultLauncher<Array<String>> {
+    return requireActivity().requestPermission(
+        permission,
+        showRationaleMessage,
+        isDeniedShowDialog,
+        denied,
+        success
+    )
 }
+

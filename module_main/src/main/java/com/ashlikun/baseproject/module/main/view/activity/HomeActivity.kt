@@ -2,6 +2,11 @@ package com.ashlikun.baseproject.module.main.view.activity
 
 import android.content.Context
 import android.content.Intent
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
+import android.util.Log
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.libcore.constant.EventBusKey
 import com.ashlikun.baseproject.libcore.constant.RouterKey
@@ -43,7 +48,6 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
         MainActivityHomeBinding.inflate(layoutInflater)
     }
     override val statusBarColor = R.color.white.resColor
-
     private var exitTime: Long = 0
     var index = 0
     var cachePosition = -1
@@ -58,12 +62,6 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
 
     override fun parseIntent(intent: Intent) {
         super.parseIntent(intent)
-        launch { }
-        taskLaunchMain { }
-        MainScope().launch {
-
-        }
-        flow<String> { }
         intent?.run {
             index = getIntExtra(RouterKey.FLAG_INDEX, -1)
         }
@@ -78,6 +76,7 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
             setCurrentItem(cachePosition)
             cachePosition = -1
         }
+
     }
 
     fun setCurrentItem(postion: Int) {

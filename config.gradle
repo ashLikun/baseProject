@@ -6,7 +6,7 @@ ext {
             compileSdk      : 31,
             versionCode     : 1,
             versionName     : "1.0.0",
-            targetSdk       : 28,
+            targetSdk       : 30,
             minSdk          : 21,
             flavorDimensions: "flavorDimensions"
     ]
@@ -64,7 +64,7 @@ ext {
 
 
             //基本架构
-            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:2.3.5",
+            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:2.3.6",
             //多个Dex
             multidex             : 'androidx.multidex:multidex:2.0.1',
             //webview封装
@@ -86,7 +86,7 @@ ext {
             Autosize             : 'me.jessyan:autosize:1.2.1',
 
             //保活的策略
-            Keeplive             : "com.github.ashLikun:Keeplive:1.0.1",
+            Keeplive             : "com.github.ashLikun:Keeplive:1.0.3",
 
             //封装的RecycleViewFr
             XRecycleView         : "com.github.ashLikun:XRecycleView:3.0.5",
@@ -97,7 +97,7 @@ ext {
             //封装的viewpager，banner，启动页
             XViewPager           : "com.github.ashLikun:XViewPager:2.2.4",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:4.4.8",
+            CommonUtils          : "com.github.ashLikun:CommonUtils:4.5.4",
             //公共的Adapter
             CommonAdapter        : "com.github.ashLikun:CommonAdapter:4.4.0",
             //Google官方改造
@@ -107,7 +107,7 @@ ext {
             //阿里的vlayout
             vlayout              : "com.alibaba.android:vlayout:1.2.36@aar",
             //习惯的对话框
-            CustomDialog         : "com.github.ashLikun:CustomDialog:3.1.0",
+            CustomDialog         : "com.github.ashLikun:CustomDialog:3.1.1",
             //圆形的进度条
             CircleProgressView   : "com.github.ashLikun:CircleProgressView:2.0.1",
             //LayoutManage
@@ -137,7 +137,7 @@ ext {
             //不同type的json解析,依赖于gson
             MultiTypeGson        : "com.github.ashLikun:MultiTypeGson:2.1.0",
             //基于Okhttp封装的
-            OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:3.2.7",
+            OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:3.2.8",
             //图片加载
             GlideUtils           : "com.github.ashLikun:GlideUtils:3.0.3",
             glide                : "com.github.bumptech.glide:glide:4.11.0",

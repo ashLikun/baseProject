@@ -21,6 +21,7 @@ import com.ashlikun.xrecycleview.PageHelpListener
 import com.ashlikun.xrecycleview.RefreshLayout
 import kotlinx.coroutines.CoroutineExceptionHandler
 
+
 /**
  * 作者　　: 李坤
  * 创建时间: 2018/12/25　13:43
@@ -99,6 +100,7 @@ class HttpUiHandle private constructor() {
      * 对话框是否可以取消
      */
     internal var isCancelable = true
+    internal var isCanceledOnTouchOutside = true
 
     /**
      * 是否错误的时候toast提示,只有Http错误的时候
@@ -196,6 +198,11 @@ class HttpUiHandle private constructor() {
 
     fun setCancelable(cancelable: Boolean): HttpUiHandle {
         isCancelable = cancelable
+        return this
+    }
+
+    fun setCanceledOnTouchOutside(canceledOnTouchOutside: Boolean): HttpUiHandle {
+        isCanceledOnTouchOutside = canceledOnTouchOutside
         return this
     }
 
@@ -338,6 +345,7 @@ class HttpUiHandle private constructor() {
                 loadDialog?.run {
                     setContent(hint)
                     setCancelable(isCancelable)
+                    setCancelable(isCanceledOnTouchOutside)
                     try {
                         show()
                     } catch (e: Exception) {
@@ -442,6 +450,14 @@ class HttpUiHandle private constructor() {
         goSetEnableView(true)
         dismissUi()
         isStatusCompleted = true
+    }
+
+    /**
+     * 调用success和completed
+     */
+    fun completedSuccess() {
+        success(Any())
+        completed()
     }
 
     fun dismissUi() {

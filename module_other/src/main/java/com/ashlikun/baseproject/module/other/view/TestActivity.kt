@@ -6,17 +6,22 @@ import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.utils.http.HttpRequestParam
 import com.ashlikun.baseproject.libcore.utils.http.HttpUiHandle
 import com.ashlikun.baseproject.libcore.utils.http.syncExecute
+import com.ashlikun.baseproject.libcore.utils.other.CacheUtils
 import com.ashlikun.baseproject.module.other.databinding.OtherActivityTestBinding
 import com.ashlikun.baseproject.module.other.mode.ApiOther
 import com.ashlikun.baseproject.module.other.utils.MaotaiUtils
 import com.ashlikun.core.activity.BaseActivity
 import com.ashlikun.core.mvvm.launch
 import com.ashlikun.gson.GsonHelper
+import com.ashlikun.photo_hander.PhotoHander
 import com.ashlikun.utils.encryption.Md5Utils
 import com.ashlikun.utils.encryption.SHAUtil
 import com.ashlikun.utils.other.DateUtils
 import com.ashlikun.utils.other.LogUtils
 import com.ashlikun.utils.other.logge
+import com.ashlikun.utils.ui.extend.bitmap
+import com.ashlikun.utils.ui.image.BitmapUtil
+import com.ashlikun.utils.ui.image.saveImageToGallery
 import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import java.util.*
@@ -213,7 +218,21 @@ class TestActivity : BaseActivity() {
             }
         }
         binding.ceshiButton3.setOnClickListener {
-            MaotaiUtils.start()
+            PhotoHander.create()
+                .showCamera(true)
+                .single()
+                .crop(true)
+                .compress(true)
+                .start(this) {
+                    //上传图片
+                }
+        }
+        binding.ceshiButton4.setOnClickListener {
+            launch {
+                val image = CacheUtils.newImage()
+                binding.rootView.bitmap().saveImageToGallery(image)
+                BitmapUtil.updatePhotoMediaOld(image)
+            }
         }
     }
 

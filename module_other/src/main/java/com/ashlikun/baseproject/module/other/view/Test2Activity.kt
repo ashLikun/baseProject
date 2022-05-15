@@ -22,7 +22,7 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import java.util.*
 
 
-@Route(path = RouterPath.TEST)
+//@Route(path = RouterPath.TEST)
 class Test2Activity : BaseActivity() {
     override val binding by lazy {
         OtherActivityTestBinding.inflate(layoutInflater)

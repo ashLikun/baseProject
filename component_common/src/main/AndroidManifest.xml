@@ -81,5 +81,23 @@
             </intent-filter>
         </service>
     </application>
-
+    <!--适配android 11无法唤起第三方apk-->
+    <queries>
+        <!-- 微信 -->
+        <package android:name="com.tencent.mm" />
+        <!-- 微博 -->
+        <package android:name="com.sina.weibo" />
+        <!-- Facebook -->
+        <package android:name="com.facebook.katana" />
+        <!-- Twitter -->
+        <package android:name="com.twitter.android" />
+        <!-- WhatsAPP -->
+        <package android:name="com.whatsapp" />
+        <!-- QQ -->
+        <package android:name="com.tencent.mobileqq" />
+        <!-- 高德 -->
+        <package android:name="com.autonavi.minimap" />
+        <!-- 百度 -->
+        <package android:name="com.baidu.BaiduMap" />
+    </queries>
 </manifest>
