@@ -19,7 +19,7 @@ android {
                 arg("AROUTER_MODULE_NAME", project.getName())
             }
         }
-        manifestPlaceholders = sdk
+        manifestPlaceholders = sdk.default
     }
 
     compileOptions {

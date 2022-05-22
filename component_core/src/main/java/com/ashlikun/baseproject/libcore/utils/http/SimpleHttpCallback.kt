@@ -1,5 +1,4 @@
 package com.ashlikun.baseproject.libcore.utils.http
-
 import com.ashlikun.baseproject.libcore.mode.javabean.HttpListResult
 import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.okhttputils.http.HttpException
@@ -36,7 +35,7 @@ typealias OnError = (error: HttpException) -> Unit
 /**
  * 处理后的错误
  */
-typealias OnErrorData = (data: ContextData) -> Unit
+typealias OnErrorData = (data: ContextData, isDataError: Boolean) -> Unit
 
 /**
  * 作者　　: 李坤
@@ -61,7 +60,6 @@ open class SimpleHttpCallback<T> constructor(handle: HttpUiHandle?) : HttpCallBa
     var completed: OnArgs? = null
     var start: OnArgs? = null
     var error: OnError? = null
-    var errorData: OnErrorData? = null
 
 
     override fun onSuccess(result: T) {
@@ -74,18 +72,14 @@ open class SimpleHttpCallback<T> constructor(handle: HttpUiHandle?) : HttpCallBa
                         when {
                             result.data != null -> success?.invoke(result)
                             else -> onError(
-                                    HttpException(
-                                            HttpCodeApp.NO_DATA_ERROR, HttpCodeApp.NO_DATA_ERROR_MSG
-                                    )
+                                HttpException(HttpCodeApp.NO_DATA_ERROR, HttpCodeApp.NO_DATA_ERROR_MSG)
                             )
                         }
                     } else if (result is HttpListResult<*>) {
                         when {
                             result.data != null -> success?.invoke(result)
                             else -> onError(
-                                    HttpException(
-                                            HttpCodeApp.NO_DATA_ERROR, HttpCodeApp.NO_DATA_ERROR_MSG
-                                    )
+                                HttpException(HttpCodeApp.NO_DATA_ERROR, HttpCodeApp.NO_DATA_ERROR_MSG)
                             )
                         }
                     }
@@ -117,10 +111,6 @@ open class SimpleHttpCallback<T> constructor(handle: HttpUiHandle?) : HttpCallBa
         this.error?.invoke(error)
     }
 
-    override fun onError(data: ContextData) {
-        super.onError(data)
-        errorData?.invoke(data)
-    }
 
     override fun onCompleted() {
         super.onCompleted()

@@ -21,7 +21,6 @@ import com.ashlikun.xrecycleview.PageHelpListener
 import com.ashlikun.xrecycleview.RefreshLayout
 import kotlinx.coroutines.CoroutineExceptionHandler
 
-
 /**
  * 作者　　: 李坤
  * 创建时间: 2018/12/25　13:43
@@ -57,7 +56,7 @@ class HttpUiHandle private constructor() {
                             title = error.exception.message,
                             resId = R.drawable.material_service_error,
                             errCode = error.exception.code
-                        )
+                        ), true
                     )
                 }
                 is HttpException -> {
@@ -66,7 +65,7 @@ class HttpUiHandle private constructor() {
                             title = error.message,
                             resId = R.drawable.material_service_error,
                             errCode = error.code
-                        )
+                        ), false
                     )
                 }
                 else -> {
@@ -75,7 +74,7 @@ class HttpUiHandle private constructor() {
                             title = error.message.orEmpty(),
                             resId = R.drawable.material_service_error,
                             errCode = HttpErrorCode.HTTP_UNKNOWN
-                        ))
+                        )), false
                     )
                 }
             }
@@ -103,7 +102,7 @@ class HttpUiHandle private constructor() {
     internal var isCanceledOnTouchOutside = true
 
     /**
-     * 是否错误的时候toast提示,只有Http错误的时候
+     * 是否错误的时候toast提示,http 错误和 json code != success
      */
     var isErrorToastShow = true
         internal set(value) {
@@ -424,14 +423,16 @@ class HttpUiHandle private constructor() {
      * 默认直接走错误方法
      */
     fun successCodeError(data: ContextData) {
-        error(data)
+        error(data, true)
     }
 
     /**
-     * 接口错误，Http的错误
+     * 接口错误，
+     * @param isDataError 是否是数据错误（json code），true:数据错误,false:Http header 错误 非200
      */
-    fun error(data: ContextData) {
-        val message = "${data.title}(错误码:${data.errCode})"
+    fun error(data: ContextData, isDataError: Boolean) {
+//        val message = "${data.title}(${data.errCode})"
+        val message = "${data.title} (${data.errCode})"
         var isShowToastNeibu = isErrorToastShow
         if (pageHelpListener != null) {
             showContent()

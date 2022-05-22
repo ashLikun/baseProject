@@ -43,7 +43,7 @@ android {
             }
         }
         //向清单文件注入参数
-        manifestPlaceholders = sdk
+        manifestPlaceholders = sdk.default
     }
     buildTypes {
         release {
@@ -65,7 +65,7 @@ android {
                 signingConfig signingConfigs.release
             }
             //这里配置打包不同的参数
-            manifestPlaceholders = rootProject.ext.releasBuild
+            manifestPlaceholders = sdk.releasBuild
         }
         debug {
             //自定义属性   BuildConfig.LOG_DEBUG
@@ -86,7 +86,7 @@ android {
             //applicationIdSuffix-测试版本使用debug作为后缀
             // applicationIdSuffix "debug"
             //这里配置打包不同的参数
-            manifestPlaceholders = rootProject.ext.debugBuild
+            manifestPlaceholders = sdk.debugBuild
             if (signingConfigs.debug != null) {
                 signingConfig signingConfigs.debug
             }

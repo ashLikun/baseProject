@@ -21,7 +21,7 @@ android {
             }
         }
         //向清单文件注入参数
-        manifestPlaceholders = sdk
+        manifestPlaceholders = sdk.default
     }
     /**
      * java插件引入了一个概念叫做SourceSets 通过修改SourceSets中的属性

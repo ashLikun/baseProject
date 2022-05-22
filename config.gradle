@@ -17,29 +17,26 @@ ext {
      *     android:value="${KEY}"></meta-data>
      */
     sdk = [
-            JPUSH_PKGNAME   : android.applicationId, //应用id
-            JPUSH_APPKEY    : "001b8ca1b4962d68bfb65049", //JPush上注册的包名对应的appkey.
-            JPUSH_CHANNEL   : "developer-default", //暂时填写默认值即可.
-            BUGLY_APPKEY    : "f28e3effd0", //腾讯bugly
-            DOKIT_PID       : "f2ab59a864aabba32dd5ebeddac76c83", //滴滴的开发助手,https://www.dokit.cn/
-            AUTO_SIZE_WIDTH : 360, //屏幕适配
-            AUTO_SIZE_HEIGHT: 360, //屏幕适配高度，这里正常无效，当以高度为标准才有效
+            default    : [
+                    JPUSH_PKGNAME   : android.applicationId, //应用id
+                    JPUSH_APPKEY    : "001b8ca1b4962d68bfb65049", //JPush上注册的包名对应的appkey.
+                    JPUSH_CHANNEL   : "developer-default", //暂时填写默认值即可.
+                    BUGLY_APPKEY    : "f28e3effd0", //腾讯bugly
+                    DOKIT_PID       : "f2ab59a864aabba32dd5ebeddac76c83", //滴滴的开发助手,https://www.dokit.cn/
+                    AUTO_SIZE_WIDTH : 360, //屏幕适配
+                    AUTO_SIZE_HEIGHT: 360, //屏幕适配高度，这里正常无效，当以高度为标准才有效
+            ],
+            debugBuild : [
+                    //高德地图的KEY
+                    MAP_KEY: "ebdc4e35503dd9d99692ac7e0b37ce60"
+            ],
+            releasBuild: [
+                    //高德地图的KEY
+                    MAP_KEY: "03c6da12f537654eac8f71ea54f2f41c"
+            ]
     ]
 
-    /**
-     * 这里配置打包不同的参数,可以替换AndroidManifest文件中任何${KEY}格式的占位符
-     *  <meta-data
-     *     android:name="KEY_NAME"
-     *     android:value="${KEY}"></meta-data>
-     */
-    debugBuild = [
-            //高德地图的KEY
-            MAP_KEY: "ebdc4e35503dd9d99692ac7e0b37ce60"
-    ]
-    releasBuild = [
-            //高德地图的KEY
-            MAP_KEY: "03c6da12f537654eac8f71ea54f2f41c"
-    ]
+
     dependencies = [
             ktx                  : "androidx.core:core-ktx:1.7.0",
             kotlinReflect        : "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version",
@@ -48,7 +45,7 @@ ext {
             appcompat            : "androidx.appcompat:appcompat:1.4.0",
             design               : "com.google.android.material:material:1.5.+",
             //约束布局
-            constraintLayout     : 'androidx.constraintlayout:constraintlayout:2.1.+',
+            constraintLayout     : 'androidx.constraintlayout:constraintlayout:2.1.3',
             //协调布局
             coordinatorLayout    : 'androidx.coordinatorlayout:coordinatorlayout:1+',
             //生命周期扩展 Viewmodel
@@ -97,7 +94,7 @@ ext {
             //封装的viewpager，banner，启动页
             XViewPager           : "com.github.ashLikun:XViewPager:2.2.4",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:4.5.4",
+            CommonUtils          : "com.github.ashLikun:CommonUtils:4.5.5",
             //公共的Adapter
             CommonAdapter        : "com.github.ashLikun:CommonAdapter:4.4.0",
             //Google官方改造
@@ -153,7 +150,7 @@ ext {
             //图片查看
             PhotoView            : "com.github.ashLikun:PhotoView:2.0.4",
             //照片处理
-            PhotoHander          : "com.github.ashLikun:PhotoHander:2.1.4",
+            PhotoHander          : "com.github.ashLikun:PhotoHander:2.1.7",
             //输入验证码
             VerificationCodeInput: "com.github.ashLikun:VerifyCodeView:1.0.0",
             //带圆角，边框的的ImageView

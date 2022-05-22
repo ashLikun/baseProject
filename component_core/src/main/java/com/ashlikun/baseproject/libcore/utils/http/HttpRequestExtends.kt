@@ -56,7 +56,7 @@ suspend fun <T> HttpRequest.syncExecute(handle: HttpUiHandle?, resultType: Type)
             call = execute(callback)
         } catch (e: Exception) {
             //处理异常
-            handle?.error(ContextData(title = e.message.orEmpty()))
+            handle?.error(ContextData(title = e.message.orEmpty()), true)
             handle?.completed()
             continuation.resumeWithException(e)
         }
@@ -90,8 +90,14 @@ fun <T> HttpRequest.syncExecute2(handle: HttpUiHandle?, resultType: Type): T? {
             return result
         } else {
             //不显示toast
-            handle?.isErrorToastShow = false
-            MainHandle.post { handle?.success(result as Any) }
+            MainHandle.post {
+                handle?.apply {
+                    val oldToastShow = isErrorToastShow
+                    isErrorToastShow = false
+                    success(result as Any)
+                    isErrorToastShow = oldToastShow
+                }
+            }
             return null
         }
     } catch (error: HttpException) {
@@ -101,7 +107,7 @@ fun <T> HttpRequest.syncExecute2(handle: HttpUiHandle?, resultType: Type): T? {
                     title = error.message,
                     errCode = error.code,
                     resId = R.drawable.material_service_error
-                ))
+                )), false
             )
         }
         return null
@@ -119,7 +125,6 @@ fun <T> HttpRequest.execute(
     handle: HttpUiHandle,
     success: OnSuccess<T>? = null,
     error: OnError? = null,
-    errorData: OnErrorData? = null,
     successSubThread: OnSuccess<T>? = null,
     cacheSuccess: OnCacheSuccess<T>? = null,
     successHandelCode: OnSuccessHander<T>? = null,
@@ -143,7 +148,6 @@ fun <T> HttpRequest.execute(
     callback.completed = completed
     callback.start = start
     callback.error = error
-    callback.errorData = errorData
     return execute(callback)
 }
 
