@@ -8,7 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
         <item name="colorOnPrimary">@color/white</item>
-        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:statusBarColor">@color/statusColorCustom</item>
+        <item name="android:navigationBarColor">@color/statusColorCustom</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowBackground">@color/activity_backgound</item>
         <!--<item name="android:requiresFadingEdge">vertical</item>-->
