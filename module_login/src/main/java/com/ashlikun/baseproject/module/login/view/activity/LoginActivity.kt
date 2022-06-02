@@ -4,7 +4,7 @@ import android.view.MotionEvent
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.common.utils.jump.RouterJump
 import com.ashlikun.baseproject.libcore.constant.RouterPath
-import com.ashlikun.baseproject.libcore.utils.http.interceptor.LoginInterceptor
+import com.ashlikun.baseproject.libcore.router.interceptor.LoginInterceptor
 import com.ashlikun.baseproject.module.login.databinding.LoginActivityLoginBinding
 import com.ashlikun.baseproject.module.login.mode.javabean.UserData
 import com.ashlikun.baseproject.module.login.viewmodel.LoginViewModel

@@ -6,7 +6,7 @@ import android.util.Log
 import android.view.Gravity
 import androidx.multidex.MultiDexApplication
 import com.ashlikun.appcrash.AppCrashConfig
-import com.ashlikun.baseproject.libcore.libarouter.RouterManage
+import com.ashlikun.baseproject.libcore.router.RouterManage
 import com.ashlikun.baseproject.libcore.utils.http.HttpManager
 import com.ashlikun.baseproject.libcore.utils.other.AppCrashEventListener
 import com.ashlikun.baseproject.libcore.utils.other.CacheUtils

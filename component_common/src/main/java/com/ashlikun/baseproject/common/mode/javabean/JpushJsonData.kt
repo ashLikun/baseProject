@@ -2,7 +2,7 @@ package com.ashlikun.baseproject.common.mode.javabean
 
 import cn.jpush.android.api.NotificationMessage
 import com.ashlikun.baseproject.libcore.constant.EventBusKey
-import com.ashlikun.baseproject.libcore.libarouter.RouterManage
+import com.ashlikun.baseproject.libcore.router.RouterManage
 import com.ashlikun.gson.GsonHelper
 import com.ashlikun.livedatabus.EventBus
 import com.ashlikun.orm.LiteOrmUtil

@@ -1,4 +1,4 @@
-package com.ashlikun.baseproject.libcore.utils.http.interceptor
+package com.ashlikun.baseproject.libcore.router.interceptor
 
 import android.content.Context
 import com.alibaba.android.arouter.facade.Postcard
@@ -7,7 +7,7 @@ import com.alibaba.android.arouter.facade.callback.InterceptorCallback
 import com.alibaba.android.arouter.facade.template.IInterceptor
 import com.alibaba.android.arouter.launcher.ARouter
 import com.ashlikun.baseproject.libcore.constant.RouterPath
-import com.ashlikun.baseproject.libcore.libarouter.RouterManage
+import com.ashlikun.baseproject.libcore.router.RouterManage
 import com.ashlikun.baseproject.libcore.utils.extend.hasFlag
 
 /**
@@ -29,8 +29,8 @@ class LoginInterceptor : IInterceptor {
                 callback?.onContinue(postcard)
             } else {
                 //没有登录,记录当前任务,登录后要清空这个任务
-                LoginInterceptor.callback = callback
-                LoginInterceptor.postcard = postcard
+                Companion.callback = callback
+                Companion.postcard = postcard
                 //跳转登录
                 ARouter.getInstance().build(RouterPath.LOGIN)
                         .greenChannel()
@@ -58,8 +58,8 @@ class LoginInterceptor : IInterceptor {
             if (postcard != null && callback != null) {
                 callback!!.onContinue(postcard)
             }
-            LoginInterceptor.callback = null
-            LoginInterceptor.postcard = null
+            callback = null
+            postcard = null
             return
         }
     }

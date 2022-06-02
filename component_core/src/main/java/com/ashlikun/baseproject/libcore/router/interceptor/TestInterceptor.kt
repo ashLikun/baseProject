@@ -1,4 +1,4 @@
-package com.ashlikun.baseproject.libcore.utils.http.interceptor
+package com.ashlikun.baseproject.libcore.router.interceptor
 
 import android.content.Context
 import android.util.Log

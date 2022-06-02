@@ -4,7 +4,7 @@ import android.app.Activity
 import android.os.Looper
 import androidx.appcompat.app.AlertDialog
 import com.ashlikun.baseproject.libcore.constant.EventBusKey
-import com.ashlikun.baseproject.libcore.libarouter.RouterManage
+import com.ashlikun.baseproject.libcore.router.RouterManage
 import com.ashlikun.baseproject.libcore.utils.http.interceptor.DefaultInterceptor
 import com.ashlikun.baseproject.libcore.utils.other.AppConfig
 import com.ashlikun.baseproject.libcore.utils.other.CacheUtils

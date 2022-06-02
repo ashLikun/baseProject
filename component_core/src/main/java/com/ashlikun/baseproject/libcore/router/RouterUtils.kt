@@ -1,4 +1,4 @@
-package com.ashlikun.baseproject.libcore.libarouter
+package com.ashlikun.baseproject.libcore.router
 
 import android.app.Activity
 import androidx.fragment.app.Fragment

@@ -10,7 +10,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.common.utils.jump.PullJumpManage
 import com.ashlikun.baseproject.common.utils.jump.RouterJump
 import com.ashlikun.baseproject.libcore.constant.RouterPath
-import com.ashlikun.baseproject.libcore.libarouter.RouterManage
+import com.ashlikun.baseproject.libcore.router.RouterManage
 import com.ashlikun.baseproject.module.other.R
 import com.ashlikun.baseproject.module.other.databinding.OtherActivityWelcomBinding
 import com.ashlikun.core.activity.BaseActivity

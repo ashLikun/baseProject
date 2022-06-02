@@ -2,25 +2,17 @@ package com.ashlikun.baseproject.module.main.view.activity
 
 import android.content.Context
 import android.content.Intent
-import android.hardware.Sensor
-import android.hardware.SensorEvent
-import android.hardware.SensorEventListener
-import android.hardware.SensorManager
-import android.util.Log
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.libcore.constant.EventBusKey
 import com.ashlikun.baseproject.libcore.constant.RouterKey
 import com.ashlikun.baseproject.libcore.constant.RouterPath
-import com.ashlikun.baseproject.libcore.libarouter.RouterManage
+import com.ashlikun.baseproject.libcore.router.RouterManage
 import com.ashlikun.baseproject.module.main.R
 import com.ashlikun.baseproject.module.main.databinding.MainActivityHomeBinding
 import com.ashlikun.bottomnavigation.AHBottomNavigation
 import com.ashlikun.bottomnavigation.AHBottomNavigationItem
 import com.ashlikun.core.activity.BaseActivity
-import com.ashlikun.core.mvvm.launch
 import com.ashlikun.livedatabus.bus
-import com.ashlikun.utils.other.coroutines.taskLaunchMain
-import com.ashlikun.utils.other.logg
 import com.ashlikun.utils.other.logge
 import com.ashlikun.utils.ui.ActivityManager
 import com.ashlikun.utils.ui.extend.resColor
@@ -29,9 +21,6 @@ import com.ashlikun.utils.ui.modal.ToastUtils
 import com.ashlikun.xviewpager.FragmentUtils
 import com.ashlikun.xviewpager.fragment.FragmentPagerAdapter
 import com.ashlikun.xviewpager.fragment.FragmentPagerItem
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.launch
 
 
 /**
@@ -86,7 +75,7 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
 
     override fun initView() {
         binding.run {
-            bottomNavigationBar.accentColor = R.color.colorPrimary.resColor
+            bottomNavigationBar.accentColor = R.color.nav_active_color.resColor
             bottomNavigationBar.addItem(
                 AHBottomNavigationItem.Builder(
                     R.string.main_bottom_1,

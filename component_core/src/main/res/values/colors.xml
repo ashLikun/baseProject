@@ -9,14 +9,16 @@
     <!--加载框背景-->
     <color name="dialog_load_back_color">#90ffffff</color>
     <!--加载框标题-->
-    <color name="dialog_load_title_color">#ff1e82d2</color>
+    <color name="dialog_load_title_color">#ffffff</color>
     <!--加载框圆圈颜色-->
-    <color name="dialog_load_circle_color">#ff1e82d2</color>
-    <color name="load_and_retry_circle_color">#ff1e82d2</color>
+    <color name="dialog_load_circle_color">@color/colorPrimary</color>
+    <color name="load_and_retry_circle_color">@color/colorPrimary</color>
     <!--SuperToast 颜色-->
     <color name="super_toast_color_info">#88000000</color>
     <color name="super_toast_color_confirm">#994caf50</color>
     <color name="super_toast_color_warning">#99dd8500</color>
     <color name="super_toast_color_error">#99EE2526</color>
+    <!--底部导航激活颜色-->
+    <color name="nav_active_color">@color/colorPrimary</color>
 
 </resources>

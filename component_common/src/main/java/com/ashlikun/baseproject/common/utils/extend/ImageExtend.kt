@@ -15,7 +15,10 @@ import com.ashlikun.baseproject.common.R
 import com.ashlikun.glideutils.GlideLoad
 import com.ashlikun.glideutils.GlideUtils
 import com.ashlikun.utils.other.DimensUtils
+import com.ashlikun.utils.ui.extend.dp
+import com.ashlikun.utils.ui.extend.getViewSize
 import com.ashlikun.utils.ui.extend.resColor
+import com.ashlikun.utils.ui.extend.resDrawable
 import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.Transformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -64,6 +67,8 @@ fun ImageView.show(
     isPlaceholder: Boolean = false,
     @DrawableRes
     placeholderResId: Int = R.drawable.material_default_image_1_1,
+    placeholderSizeMax: Boolean = false,
+    placeholderSize: Int = -1,
     showBgColorRes: Int = R.color.activity_backgound,
     requestOptions: RequestOptions? = null,
     requestListener: RequestListener<Drawable>? = null
@@ -71,13 +76,17 @@ fun ImageView.show(
     var options = requestOptions ?: RequestOptions()
     if (isPlaceholder || placeholderResId != R.drawable.material_default_image_1_1) {
         try {
-            val drawable = BitmapDrawable(
-                resources,
-                BitmapFactory.decodeResource(context.resources, placeholderResId)
-            )
-            val layerDrawable = PlaceholderDrawable(drawable)
+            val drawable = placeholderResId.resDrawable
+            val layerDrawable =
+                PlaceholderDrawable(this, drawable, placeholderSizeMax, placeholderSize)
             layerDrawable.setColor(showBgColorRes.resColor)
-            layerDrawable.cornerRadius = DimensUtils.dip2px(radiusDp).toFloat()
+            layerDrawable.cornerRadius = radiusDp.dp.toFloat()
+            if (path.isNullOrEmpty()) {
+                getViewSize { width, height ->
+                    setImageDrawable(layerDrawable)
+                }
+                return
+            }
             options.error(layerDrawable)
             options.placeholder(layerDrawable)
         } catch (e: Exception) {
@@ -103,7 +112,7 @@ fun ImageView.show(
 
 fun ImageView.showCircle(
     path: String,
-    showBgColorRes: Int = R.color.color_f5f5f5,
+    showBgColorRes: Int = R.color.activity_backgound,
     isPlaceholder: Boolean = true,
     @DrawableRes
     placeholderResId: Int = R.drawable.material_default_image_1_1,
@@ -122,7 +131,7 @@ fun ImageView.showPlace(
     path: String?, radiusDp: Float = 0f, isPlaceholder: Boolean = true,
     @DrawableRes
     placeholderResId: Int = R.drawable.material_default_image_1_1,
-    showBgColor: Int = R.color.color_f5f5f5, requestOptions: RequestOptions? = null
+    showBgColor: Int = R.color.activity_backgound, requestOptions: RequestOptions? = null
 ) {
     show(
         path, radiusDp, isPlaceholder = isPlaceholder, placeholderResId = placeholderResId,
@@ -151,28 +160,48 @@ fun ImageView.isShowMengcheng(
 }
 
 class PlaceholderDrawable(
+    var imageView: ImageView,
     var placeholder: Drawable,
+    placeholderSizeMax: Boolean,
+    placeholderSize: Int,
     orientation: Orientation = Orientation.TOP_BOTTOM,
-    colors: IntArray? = null
-) : GradientDrawable(orientation, colors) {
-    override fun onBoundsChange(r: Rect) {
-        super.onBoundsChange(r)
-        var minSize = min(r.width(), r.height())
-        var placeholderWidth = when {
-            minSize <= DimensUtils.dip2px(100f) -> (minSize / 1.5f).toInt()
-            minSize <= DimensUtils.dip2px(200f) -> (minSize / 1.6f).toInt()
-            minSize <= DimensUtils.dip2px(250f) -> (minSize / 1.7f).toInt()
-            minSize <= DimensUtils.dip2px(300f) -> (minSize / 1.8f).toInt()
-            else -> (minSize / 2f).toInt()
+    colors: IntArray? = null,
+
+    ) : GradientDrawable(orientation, colors) {
+    init {
+        imageView.getViewSize { width, height ->
+            val w = imageView.width - imageView.paddingLeft - imageView.paddingRight
+            val h = imageView.height - imageView.paddingTop - imageView.paddingBottom
+            setSize(width, height)
+            if (placeholderSizeMax) {
+                placeholder.setBounds(0, 0, w, h)
+                return@getViewSize
+            }
+            var minSize = min(w, h)
+            var placeholderWidth = if (placeholderSize > 0) placeholderSize else when {
+                minSize <= DimensUtils.dip2px(100f) -> (minSize / 1.5f).toInt()
+                minSize <= DimensUtils.dip2px(200f) -> (minSize / 1.6f).toInt()
+                minSize <= DimensUtils.dip2px(250f) -> (minSize / 1.7f).toInt()
+                minSize <= DimensUtils.dip2px(300f) -> (minSize / 1.8f).toInt()
+                else -> (minSize / 2f).toInt()
+            }
+            var bili = 2.5621f
+            if (placeholder.intrinsicWidth > 2 && placeholder.intrinsicHeight > 2) {
+                //有大小，保证宽高比
+                bili = placeholder.intrinsicWidth / (placeholder.intrinsicHeight.toFloat())
+            }
+            placeholder.setBounds(0, 0, placeholderWidth, (placeholderWidth / bili).toInt())
         }
-        placeholder.setBounds(0, 0, placeholderWidth, (placeholderWidth / 2.5621f).toInt())
     }
+
 
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
         canvas.save()
-        var transX = (bounds.width() - placeholder.bounds.width()) / 2
-        var transY = (bounds.height() - placeholder.bounds.height()) / 2
+        var transX =
+            if (intrinsicWidth > 2) (intrinsicWidth - placeholder.bounds.width()) / 2 else 0
+        var transY =
+            if (intrinsicHeight > 2) (intrinsicHeight - placeholder.bounds.height()) / 2 else 0
         canvas.translate(transX.toFloat(), transY.toFloat())
         placeholder.draw(canvas)
         canvas.restore()

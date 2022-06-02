@@ -1,4 +1,4 @@
-package com.ashlikun.baseproject.libcore.libarouter.service
+package com.ashlikun.baseproject.libcore.router.service
 
 import com.alibaba.android.arouter.facade.template.IProvider
 

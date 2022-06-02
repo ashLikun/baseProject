@@ -6,7 +6,7 @@ import cn.jpush.android.api.JPushInterface
 import com.ashlikun.baseproject.common.mode.javabean.JpushJsonData
 import com.ashlikun.baseproject.common.utils.jump.PullJumpManage
 import com.ashlikun.baseproject.common.utils.jump.RouterJump
-import com.ashlikun.baseproject.libcore.libarouter.RouterManage
+import com.ashlikun.baseproject.libcore.router.RouterManage
 import com.ashlikun.utils.AppUtils
 import com.ashlikun.utils.main.ActivityUtils
 import com.ashlikun.utils.ui.modal.SuperToast
@@ -93,7 +93,7 @@ object JpushUtils {
             SuperToast.get("无效的跳转").info()
             return
         }
-        val runStatus = ActivityUtils.appBackgoundToForeground()
+        val runStatus = ActivityUtils.appRunStatus()
         if (runStatus == 2) {
             //app未启动
             cacheData = data

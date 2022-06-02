@@ -3,7 +3,7 @@ package com.ashlikun.baseproject.common.router
 import android.content.Context
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.libcore.constant.RouterPath
-import com.ashlikun.baseproject.libcore.libarouter.service.ICommonService
+import com.ashlikun.baseproject.libcore.router.service.ICommonService
 
 /**
  * 作者　　: 李坤

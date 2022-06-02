@@ -6,7 +6,7 @@ import cn.jpush.android.api.JPushMessage
 import cn.jpush.android.api.NotificationMessage
 import cn.jpush.android.service.JPushMessageReceiver
 import com.ashlikun.baseproject.common.mode.javabean.JpushJsonData
-import com.ashlikun.baseproject.libcore.libarouter.RouterManage
+import com.ashlikun.baseproject.libcore.router.RouterManage
 import com.ashlikun.utils.other.LogUtils
 import com.ashlikun.utils.other.coroutines.taskLaunchMain
 import kotlinx.coroutines.Job

@@ -1,20 +1,20 @@
 package com.ashlikun.baseproject.module.other.view
 
 import android.view.KeyEvent
+import android.webkit.ConsoleMessage
+import android.webkit.WebChromeClient
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.libcore.constant.RouterKey
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.module.other.R
 import com.ashlikun.baseproject.module.other.databinding.OtherActivityOrFragmentWebviewBinding
 import com.ashlikun.core.activity.BaseActivity
-import com.ashlikun.core.mvvm.launch
 import com.ashlikun.utils.other.LogUtils
+import com.ashlikun.utils.ui.extend.resColor
 import com.ashlikun.xwebview.XWeb
 import com.ashlikun.xwebview.websetting.AbsXWebSettings
-import com.tencent.smtt.export.external.interfaces.ConsoleMessage
-import com.tencent.smtt.sdk.WebChromeClient
-import com.tencent.smtt.sdk.WebView
-import com.tencent.smtt.sdk.WebViewClient
 
 /**
  * 作者　　: 李坤
@@ -31,18 +31,17 @@ class H5Activity : BaseActivity() {
     }
     private val xWeb: XWeb by lazy {
         XWeb.with(binding.webviewPar)
-                .useDefaultIndicator()
-                .setWebWebSettings(webSettings)
-                .setWebChromeClient(mWebChromeClient)
-                .setWebViewClient(mWebViewClient)
-                .createWeb()
-                .ready()
-                .go(url)
+            .useDefaultIndicator(R.color.colorPrimary.resColor)
+            .setWebWebSettings(webSettings)
+            .setWebChromeClient(mWebChromeClient)
+            .setWebViewClient(mWebViewClient)
+            .createWeb()
+            .ready()
+            .go(url)
     }
 
     //其他参数
     private val otherParams: Map<String, Any?> by lazy {
-        launch { }
         intent.getSerializableExtra(RouterKey.FLAG_DATA) as HashMap<String, Any?>? ?: hashMapOf()
     }
     private val mTitle: String by lazy {

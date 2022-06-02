@@ -4,7 +4,7 @@ import android.content.Context
 
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.libcore.constant.RouterPath
-import com.ashlikun.baseproject.libcore.libarouter.service.IHomeService
+import com.ashlikun.baseproject.libcore.router.service.IHomeService
 import com.ashlikun.baseproject.module.main.view.activity.HomeActivity
 import com.ashlikun.utils.ui.ActivityManager
 
