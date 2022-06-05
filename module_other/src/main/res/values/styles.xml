@@ -3,4 +3,10 @@
     <style name="other_welcome" parent="AppTheme.Fullscreen">
         <item name="android:background">@color/activity_backgound</item>
     </style>
+
+    <style name="other_Test">
+        <item name="color1">#99444f</item>
+    </style>
+
+
 </resources>

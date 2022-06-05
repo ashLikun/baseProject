@@ -1,12 +1,14 @@
 package com.ashlikun.baseproject.module.other.view
 
 import android.content.Intent
+import android.view.ContextThemeWrapper
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.utils.http.HttpRequestParam
 import com.ashlikun.baseproject.libcore.utils.http.HttpUiHandle
 import com.ashlikun.baseproject.libcore.utils.http.syncExecute
 import com.ashlikun.baseproject.libcore.utils.other.CacheUtils
+import com.ashlikun.baseproject.module.other.R
 import com.ashlikun.baseproject.module.other.databinding.OtherActivityTestBinding
 import com.ashlikun.baseproject.module.other.mode.ApiOther
 import com.ashlikun.baseproject.module.other.utils.MaotaiUtils
@@ -20,6 +22,7 @@ import com.ashlikun.utils.other.DateUtils
 import com.ashlikun.utils.other.LogUtils
 import com.ashlikun.utils.other.logge
 import com.ashlikun.utils.ui.extend.bitmap
+import com.ashlikun.utils.ui.extend.resDrawable
 import com.ashlikun.utils.ui.image.BitmapUtil
 import com.ashlikun.utils.ui.image.saveImageToGallery
 import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram
@@ -81,7 +84,15 @@ class TestActivity : BaseActivity() {
 //            }
 //        }
 //        ViewCompat.setWindowInsetsAnimationCallback(binding.inputView, cb)
+        binding.apply {
+            image.setImageDrawable(
+                R.drawable.other_app_logo_tran.resDrawable(
+                    ContextThemeWrapper(requireContext, R.style.other_Test)
+                )
+            )
+        }
         binding.ceshiButton.setOnClickListener {
+
             launch {
                 val aaa = ApiOther.api.test(111, HttpUiHandle.get())
                 LogUtils.e(aaa.json)

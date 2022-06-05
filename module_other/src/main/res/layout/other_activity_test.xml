@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/rootView"
     android:orientation="vertical">
 
     <com.ashlikun.supertoobar.SuperToolBar
@@ -55,17 +55,18 @@
             <com.ashlikun.baseproject.module.other.widget.TestView
                 android:layout_width="@dimen/dp_100"
                 android:layout_height="@dimen/dp_100"></com.ashlikun.baseproject.module.other.widget.TestView>
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="@dimen/dp_200"
+                android:layout_height="@dimen/dp_200"
+                android:src="@drawable/other_app_logo_tran"
+                app:layout_constraintTag="flow1" />
+
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-
-    <View
-        android:layout_width="@dimen/dp_60"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="60:30"
-        android:background="@color/black_33"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/content"></View>
 
     <EditText
         android:id="@+id/inputView"
