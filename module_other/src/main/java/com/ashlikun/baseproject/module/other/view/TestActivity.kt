@@ -17,6 +17,7 @@ import com.ashlikun.baseproject.module.other.mode.ApiOther
 import com.ashlikun.baseproject.module.other.utils.MaotaiUtils
 import com.ashlikun.core.activity.BaseActivity
 import com.ashlikun.core.mvvm.launch
+import com.ashlikun.customdialog.DialogSelectMore
 import com.ashlikun.gson.GsonHelper
 import com.ashlikun.photo_hander.PhotoHander
 import com.ashlikun.utils.encryption.Md5Utils
@@ -101,6 +102,11 @@ class TestActivity : BaseActivity() {
                 val aaa = ApiOther.api.test(111, HttpUiHandle.get())
                 LogUtils.e(aaa.json)
             }
+            DialogSelectMore(
+                requireContext,
+                themeResId = R.style.Dialog_BottonFormTop,
+                items = arrayOf("11111", "2222222")
+            ).show()
             val dd = AlertDialog.Builder(requireContext)
                 .setTitle("wwwwww")
                 .setMessage("我的文档哇多")
