@@ -2,7 +2,10 @@ package com.ashlikun.baseproject.module.other.view
 
 import android.content.Intent
 import android.view.ContextThemeWrapper
+import androidx.appcompat.app.AlertDialog
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.ashlikun.baseproject.common.utils.extend.setNegativeButtonX
+import com.ashlikun.baseproject.common.utils.extend.setPositiveButtonX
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.utils.http.HttpRequestParam
 import com.ashlikun.baseproject.libcore.utils.http.HttpUiHandle
@@ -20,6 +23,7 @@ import com.ashlikun.utils.encryption.Md5Utils
 import com.ashlikun.utils.encryption.SHAUtil
 import com.ashlikun.utils.other.DateUtils
 import com.ashlikun.utils.other.LogUtils
+import com.ashlikun.utils.other.file.FileUtils
 import com.ashlikun.utils.other.logge
 import com.ashlikun.utils.ui.extend.bitmap
 import com.ashlikun.utils.ui.extend.resDrawable
@@ -97,8 +101,16 @@ class TestActivity : BaseActivity() {
                 val aaa = ApiOther.api.test(111, HttpUiHandle.get())
                 LogUtils.e(aaa.json)
             }
+            val dd = AlertDialog.Builder(requireContext)
+                .setTitle("wwwwww")
+                .setMessage("我的文档哇多")
+                .setPositiveButtonX { dialoog ->
+                }
+                .setNegativeButtonX { }
+                .show()
+
             //跳转
-            startActivity(Intent(this, Test2Activity::class.java))
+//            startActivity(Intent(this, Test2Activity::class.java))
 //            WindowCompat.getInsetsController(window, inputView)?.show(WindowInsetsCompat.Type.ime())
 //            AlertDialog.Builder(this)
 //                    .setTitle(com.ashlikun.baseproject.module.other.R.string.ph_permission_dialog_title)

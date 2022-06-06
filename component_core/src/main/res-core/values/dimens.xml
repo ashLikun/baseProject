@@ -1,4 +1,11 @@
 <resources>
+    <!--AutoSize 屏幕适配-->
+    <integer name="AUTO_SIZE_WIDTH">360</integer>
+    <dimen name="AUTO_SIZE_WIDTH_DP">360dp</dimen>
+    <!--屏幕适配高度，这里正常无效，当以高度为标准才有效-->
+    <integer name="AUTO_SIZE_HEIGHT">360</integer>
+    <dimen name="AUTO_SIZE_HEIGHT_DP">360dp</dimen>
+
     <!--dp大小-->
     <dimen name="dp_0_7">0.7dp</dimen>
     <dimen name="dp_0_8">0.8dp</dimen>

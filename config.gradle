@@ -23,8 +23,6 @@ ext {
                     JPUSH_CHANNEL   : "developer-default", //暂时填写默认值即可.
                     BUGLY_APPKEY    : "f28e3effd0", //腾讯bugly
                     DOKIT_PID       : "f2ab59a864aabba32dd5ebeddac76c83", //滴滴的开发助手,https://www.dokit.cn/
-                    AUTO_SIZE_WIDTH : 360, //屏幕适配
-                    AUTO_SIZE_HEIGHT: 360, //屏幕适配高度，这里正常无效，当以高度为标准才有效
             ],
             debugBuild : [
                     //高德地图的KEY

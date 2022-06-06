@@ -80,6 +80,11 @@
         <item name="android:textSize">@dimen/dp_14</item>
         <item name="android:background">@color/activity_backgound</item>
         <item name="android:buttonStyle">@style/BaseDialogButtonStyle</item>
+
+        <!--AndroidAutoLayout 的系统对话框bug   360*95%-->
+        <!-- Minor指竖屏模式下的宽度 -->
+        <item name="android:windowMinWidthMinor">@dimen/AUTO_SIZE_WIDTH_DP</item>
+        <item name="windowFixedWidthMinor">@dimen/AUTO_SIZE_WIDTH_DP</item>
     </style>
 
 
@@ -91,5 +96,10 @@
         <item name="android:textColorAlertDialogListItem">@color/text_color</item>
         <item name="buttonBarButtonStyle">@style/BaseDialogButtonStyle</item>
         <item name="android:windowTitleStyle">@style/BaseDialogTitleStyle</item>
+
+        <!--AndroidAutoLayout 的系统对话框bug   360*95%-->
+        <!-- Minor指竖屏模式下的宽度 -->
+        <item name="android:windowMinWidthMinor">@dimen/AUTO_SIZE_WIDTH_DP</item>
+        <item name="windowFixedWidthMinor">@dimen/AUTO_SIZE_WIDTH_DP</item>
     </style>
 </resources>

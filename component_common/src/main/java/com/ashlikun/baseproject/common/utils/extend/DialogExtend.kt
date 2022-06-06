@@ -9,13 +9,19 @@ import androidx.appcompat.app.AlertDialog
  *
  * 功能介绍：
  */
-fun AlertDialog.Builder.setPositiveButton(text: String = "确定", function: ((dialog: AlertDialog) -> Unit)? = null): AlertDialog.Builder {
+fun AlertDialog.Builder.setPositiveButtonX(
+    text: String = "确定",
+    function: ((dialog: AlertDialog) -> Unit)? = null
+): AlertDialog.Builder {
     return setPositiveButton(text) { dialog, which ->
         function?.invoke(dialog as AlertDialog)
     }
 }
 
-fun AlertDialog.Builder.setNegativeButton(text: String = "取消", function: ((dialog: AlertDialog) -> Unit)? = null): AlertDialog.Builder {
+fun AlertDialog.Builder.setNegativeButtonX(
+    text: String = "取消",
+    function: ((dialog: AlertDialog) -> Unit)? = null
+): AlertDialog.Builder {
     return setNegativeButton(text) { dialog, which ->
         function?.invoke(dialog as AlertDialog)
     }
