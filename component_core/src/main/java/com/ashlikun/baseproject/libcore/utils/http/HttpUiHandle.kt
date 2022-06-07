@@ -56,7 +56,7 @@ class HttpUiHandle private constructor() {
                             title = error.exception.message,
                             resId = R.drawable.material_service_error,
                             errCode = error.exception.code
-                        ), true
+                        )
                     )
                 }
                 is HttpException -> {
@@ -65,7 +65,7 @@ class HttpUiHandle private constructor() {
                             title = error.message,
                             resId = R.drawable.material_service_error,
                             errCode = error.code
-                        ), false
+                        )
                     )
                 }
                 else -> {
@@ -74,7 +74,7 @@ class HttpUiHandle private constructor() {
                             title = error.message.orEmpty(),
                             resId = R.drawable.material_service_error,
                             errCode = HttpErrorCode.HTTP_UNKNOWN
-                        )), false
+                        ))
                     )
                 }
             }
@@ -102,9 +102,28 @@ class HttpUiHandle private constructor() {
     internal var isCanceledOnTouchOutside = true
 
     /**
-     * 是否错误的时候toast提示,http 错误和 json code != success
+     * 是否错误的时候toast提示,http 错误
      */
     var isErrorToastShow = true
+        internal set(value) {
+            field = value
+        }
+
+    /**
+     * 请求成功，但是接口Code错误的时候
+     * json code 非success 是否显示toast
+     */
+    var isDataCodeErrorToastShow = true
+        internal set(value) {
+            field = value
+        }
+
+    /**
+     * 请求成功，但是接口Code错误的时候是否内部处理错误状态
+     * 默认为走错误方法
+     * 一般用于布局切换和显示toast
+     */
+    var isAutoHanderError: Boolean = true
         internal set(value) {
             field = value
         }
@@ -134,11 +153,6 @@ class HttpUiHandle private constructor() {
      */
     internal var loadSwitchService: LoadSwitchService? = null
 
-    /**
-     * 请求成功，但是接口Code错误的时候是否内部处理错误状态
-     * 默认为走错误方法
-     */
-    internal var isAutoHanderError: Boolean = true
 
     /**
      * tag类,标识这个请求，会传递到Request里面
@@ -210,6 +224,14 @@ class HttpUiHandle private constructor() {
      */
     fun isToastShow(isToastShow: Boolean): HttpUiHandle {
         this.isErrorToastShow = isToastShow
+        return this
+    }
+
+    /**
+     * json code 非success 是否显示toast
+     */
+    fun isCodeErrorToastShow(isToastShow: Boolean): HttpUiHandle {
+        this.isDataCodeErrorToastShow = isToastShow
         return this
     }
 
@@ -344,7 +366,7 @@ class HttpUiHandle private constructor() {
                 loadDialog?.run {
                     setContent(hint)
                     setCancelable(isCancelable)
-                    setCancelable(isCanceledOnTouchOutside)
+                    setCanceledOnTouchOutside(isCanceledOnTouchOutside)
                     try {
                         show()
                     } catch (e: Exception) {
@@ -404,6 +426,7 @@ class HttpUiHandle private constructor() {
 
     /**
      * 接口成功回调
+     * 失败会自动提示
      */
     fun success(result: Any) {
         pageHelpListener?.complete()
@@ -411,7 +434,11 @@ class HttpUiHandle private constructor() {
             if (result.isSucceed) {
                 showContent()
             } else {
-                successCodeError(ContextData(title = result.message, errCode = result.code))
+                //请求成功，但是接口Code错误
+                error(
+                    ContextData(title = result.message, errCode = result.code),
+                    isDataCodeErrorToastShow
+                )
             }
         } else {
             showContent()
@@ -419,19 +446,11 @@ class HttpUiHandle private constructor() {
     }
 
     /**
-     * 请求成功，但是接口Code错误
-     * 默认直接走错误方法
-     */
-    fun successCodeError(data: ContextData) {
-        error(data, true)
-    }
-
-    /**
      * 接口错误，
-     * @param isDataError 是否是数据错误（json code），true:数据错误,false:Http header 错误 非200
+     * @param showToast 是否显示toast，无论isErrorToastShow 是什么
      */
-    fun error(data: ContextData, isDataError: Boolean) {
-//        val message = "${data.title}(${data.errCode})"
+    fun error(data: ContextData, showToast: Boolean? = null) {
+//        val message = "${data.title}"
         val message = "${data.title} (${data.errCode})"
         var isShowToastNeibu = isErrorToastShow
         if (pageHelpListener != null) {
@@ -442,7 +461,7 @@ class HttpUiHandle private constructor() {
         if (pageHelpListener?.itemCount ?: 0 == 0) {
             isShowToastNeibu = !showRetry(data) && isShowToastNeibu
         }
-        if (isShowToastNeibu) {
+        if (isShowToastNeibu && showToast != false) {
             SuperToast.showErrorMessage(message)
         }
     }
@@ -465,6 +484,8 @@ class HttpUiHandle private constructor() {
         swipeRefreshLayout?.setRefreshing(false)
         hintProgress()
     }
+
+    fun isShow() = loadDialog?.isShowing ?: false
 
 
     companion object {
