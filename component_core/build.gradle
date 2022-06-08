@@ -167,6 +167,12 @@ dependencies {
     debugImplementation(libs.doraemonkitDebug) {
         exclude group: 'com.google.zxing'
     }
+    debugImplementation(libs.doraemonFtDebug) {
+        exclude group: 'com.google.zxing'
+    }
+    debugImplementation(libs.doraemonMcDebug) {
+        exclude group: 'com.google.zxing'
+    }
 
     //shimmer 文字
     api libs.shimmer
@@ -174,10 +180,10 @@ dependencies {
     //导航tab
     api libs.BottomNavigation
 
-    //rxjava
-    api libs.rxandroid
-    api libs.rxjava
-    api libs.RxLife
+    //rxjava 本框架不用
+//    api libs.rxandroid
+//    api libs.rxjava
+//    api libs.RxLife
 
 
     //okhttp
