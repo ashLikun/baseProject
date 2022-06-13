@@ -5,6 +5,7 @@ apply from: file('./configs_signing.gradle')
 buildscript {
     ext.kotlin_version = '1.6.10'
     ext.coroutine_version = '1.5.2'
+    ext.dokit_version = '3.5.0'
     repositories {
 //        google()
 //        jcenter()
@@ -20,6 +21,8 @@ buildscript {
         classpath 'com.android.tools.build:gradle:7.1.1'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        //滴滴开发助手插件
+        classpath "io.github.didi.dokit:dokitx-plugin:$dokit_version"
     }
 }
 

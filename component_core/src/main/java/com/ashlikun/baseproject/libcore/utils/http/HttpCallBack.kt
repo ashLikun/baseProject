@@ -52,7 +52,7 @@ open class HttpCallBack<ResultType> constructor(val handle: HttpUiHandle?) :
                 title = error.message,
                 errCode = (error.code),
                 resId = R.drawable.material_service_error
-            ), false
+            )
         )
     }
 
@@ -78,6 +78,9 @@ open class HttpCallBack<ResultType> constructor(val handle: HttpUiHandle?) :
         return onSuccessHandelCode2(result) == null
     }
 
+    /**
+     * 如果code全局处理的时候错误了，那么是不会走success的
+     */
     open fun onSuccessHandelCode2(result: ResultType): HttpException? {
         //全局处理结果
         val res = HttpManager.handelResult(result)
@@ -87,15 +90,16 @@ open class HttpCallBack<ResultType> constructor(val handle: HttpUiHandle?) :
                 val oldToastShow = isErrorToastShow
                 isErrorToastShow = false
                 //如果code全局处理的时候错误了，那么是不会走success的，这里就得自己处理UI设置为错误状态
-                error(
+                kotlin.error(
                     ContextData(
                         title = res.exception.message,
                         errCode = (res.exception.code),
                         resId = R.drawable.material_service_error
-                    ), true
+                    )
                 )
                 isErrorToastShow = oldToastShow
             }
+
         }
         return res
     }
@@ -108,5 +112,4 @@ open class HttpCallBack<ResultType> constructor(val handle: HttpUiHandle?) :
     }
 
 }
-
 

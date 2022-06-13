@@ -56,7 +56,7 @@ suspend fun <T> HttpRequest.syncExecute(handle: HttpUiHandle?, resultType: Type)
             call = execute(callback)
         } catch (e: Exception) {
             //处理异常
-            handle?.error(ContextData(title = e.message.orEmpty()), true)
+            handle?.error(ContextData(title = e.message.orEmpty()))
             handle?.completed()
             continuation.resumeWithException(e)
         }
@@ -107,7 +107,7 @@ fun <T> HttpRequest.syncExecute2(handle: HttpUiHandle?, resultType: Type): T? {
                     title = error.message,
                     errCode = error.code,
                     resId = R.drawable.material_service_error
-                )), false
+                ))
             )
         }
         return null

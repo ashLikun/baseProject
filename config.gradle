@@ -18,11 +18,11 @@ ext {
      */
     sdk = [
             default    : [
-                    JPUSH_PKGNAME   : android.applicationId, //应用id
-                    JPUSH_APPKEY    : "001b8ca1b4962d68bfb65049", //JPush上注册的包名对应的appkey.
-                    JPUSH_CHANNEL   : "developer-default", //暂时填写默认值即可.
-                    BUGLY_APPKEY    : "f28e3effd0", //腾讯bugly
-                    DOKIT_PID       : "f2ab59a864aabba32dd5ebeddac76c83", //滴滴的开发助手,https://www.dokit.cn/
+                    JPUSH_PKGNAME: android.applicationId, //应用id
+                    JPUSH_APPKEY : "001b8ca1b4962d68bfb65049", //JPush上注册的包名对应的appkey.
+                    JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
+                    BUGLY_APPKEY : "f28e3effd0", //腾讯bugly
+                    DOKIT_PID    : "f2ab59a864aabba32dd5ebeddac76c83", //滴滴的开发助手,https://www.dokit.cn/
             ],
             debugBuild : [
                     //高德地图的KEY
@@ -116,8 +116,12 @@ ext {
             //app内存溢出捕获
             leakcanaryDebug      : "com.squareup.leakcanary:leakcanary-android:+",
             //滴滴的开发助手
-            doraemonkitDebug     : "com.didichuxing.doraemonkit:doraemonkit:+",
-            doraemonkitRelease   : "com.didichuxing.doraemonkit:doraemonkit-no-op:+",
+            doraemonkitDebug     : "io.github.didi.dokit:dokitx:$dokit_version",
+            //文件同步模块
+            doraemonFtDebug      : "io.github.didi.dokit:dokitx-ft:$dokit_version",
+            //一机多控模块
+            doraemonMcDebug      : "io.github.didi.dokit:dokitx-mc:$dokit_version",
+            doraemonkitRelease   : "io.github.didi.dokit:dokitx-no-op:$dokit_version",
             //shimmer 效果
             shimmer              : "io.supercharge:shimmerlayout:2.1.0",
             //导航tab
