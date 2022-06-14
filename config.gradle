@@ -74,7 +74,7 @@ ext {
             //事件总线
             EventBus             : "com.github.ashLikun:LiveDataVBus:2.1.4",
             //数据库
-            LiteOrm              : "com.github.ashLikun:LiteOrm:2.0.2",
+            LiteOrm              : "com.github.ashLikun:LiteOrm:2.0.3",
             //MMKV
             MMKV                 : 'com.tencent:mmkv:1.2.11',
             //autosize 屏幕适配
@@ -115,7 +115,7 @@ ext {
             AppCrashDispose      : "com.github.ashLikun:AppCrashDispose:2.0.1",
             //app内存溢出捕获
             leakcanaryDebug      : "com.squareup.leakcanary:leakcanary-android:+",
-            //滴滴的开发助手
+            //滴滴的开发助手 https://github.com/didi/DoKit
             doraemonkitDebug     : "io.github.didi.dokit:dokitx:$dokit_version",
             //文件同步模块
             doraemonFtDebug      : "io.github.didi.dokit:dokitx-ft:$dokit_version",
