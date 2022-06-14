@@ -19,10 +19,11 @@ interface ApiCore : ApiBase {
         val api: ApiCore by lazy { Retrofit.get().create(ApiCore::class.java) }
     }
 
-    suspend fun testx(handle: HttpUiHandle
-    ): HttpResponse? {
+    suspend fun testx(
+        handle: HttpUiHandle
+    ): HttpResponse {
         return "index".requestGet()
-                .syncExecute(handle)
+            .syncExecute(handle)
     }
 
 }
