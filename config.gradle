@@ -92,7 +92,7 @@ ext {
             //封装的viewpager，banner，启动页
             XViewPager           : "com.github.ashLikun:XViewPager:2.2.4",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:4.6.2",
+            CommonUtils          : "com.github.ashLikun:CommonUtils:4.6.4",
             //公共的Adapter
             CommonAdapter        : "com.github.ashLikun:CommonAdapter:4.4.0",
             //Google官方改造
