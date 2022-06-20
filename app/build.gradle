@@ -12,7 +12,8 @@ def config = rootProject.ext.android // 工程配置
 def sdk = rootProject.ext.sdk // SDK配置
 def libs = rootProject.ext.dependencies // 库依赖
 def moudles = rootProject.ext.modules //全部组件
-
+//上传蒲公英
+apply from: './upLoadPgy.gradle'
 
 def releaseTime() {
     return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
@@ -130,6 +131,7 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    project.ext.upload2d project, "更新APK"//引用插件并传入参数
 }
 
 dependencies {
