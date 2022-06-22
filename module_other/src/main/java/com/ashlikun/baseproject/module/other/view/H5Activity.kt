@@ -78,8 +78,12 @@ class H5Activity : BaseActivity() {
         override fun bindWebSupport(xWeb: XWeb) {
             this.xWeb = xWeb
         }
-    }
 
+//        override fun toSetting(webView: WebView): IWebSettings<*> {
+//            //去除缓存
+//            return super.toSetting(webView).apply { webSettings.cacheMode = WebSettings.LOAD_NO_CACHE }
+//        }
+    }
 
     override fun initView() {
         toolbar?.setBackImage(R.drawable.ic_close_black)

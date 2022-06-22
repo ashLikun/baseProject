@@ -63,7 +63,7 @@ ext {
             //多个Dex
             multidex             : 'androidx.multidex:multidex:2.0.1',
             //webview封装
-            XWebView             : "com.github.ashLikun.XWebView:core:2.1.3",
+            XWebView             : "com.github.ashLikun.XWebView:core:2.1.4",
             //alibaba的路由框架
             arouterapi           : "com.alibaba:arouter-api:+",
             aroutercompiler      : "com.alibaba:arouter-compiler:+",
@@ -102,7 +102,7 @@ ext {
             //阿里的vlayout
             vlayout              : "com.alibaba.android:vlayout:1.2.36@aar",
             //习惯的对话框
-            CustomDialog         : "com.github.ashLikun:CustomDialog:3.1.2",
+            CustomDialog         : "com.github.ashLikun:CustomDialog:3.1.3",
             //圆形的进度条
             CircleProgressView   : "com.github.ashLikun:CircleProgressView:2.0.1",
             //LayoutManage
