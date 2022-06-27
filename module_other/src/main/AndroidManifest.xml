@@ -36,7 +36,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.OtherTheme"
             android:windowSoftInputMode="adjustResize"></activity>
-            <activity
+        <activity
             android:name=".view.DownLoadActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"

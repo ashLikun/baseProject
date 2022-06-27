@@ -5,8 +5,7 @@ plugins {
     //kapt插件
     id 'kotlin-kapt'
 }
-//滴滴开发助手插件
-apply from: '../dokit.gradle'
+
 
 def config = rootProject.ext.android // 工程配置
 def sdk = rootProject.ext.sdk // SDK配置
@@ -14,6 +13,9 @@ def libs = rootProject.ext.dependencies // 库依赖
 def moudles = rootProject.ext.modules //全部组件
 //上传蒲公英
 apply from: './upLoadPgy.gradle'
+
+//滴滴开发助手插件,打开后每次升级其他第三方库，总是报类冲突
+apply from: '../dokit.gradle'
 
 def releaseTime() {
     return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))

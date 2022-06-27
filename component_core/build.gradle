@@ -5,6 +5,8 @@ plugins {
     //kapt插件
     id 'kotlin-kapt'
 }
+//公共配置
+apply from: '../configs_module_common.gradle'
 
 def config = rootProject.ext.android // 工程配置
 def libs = rootProject.ext.dependencies // 库依赖
@@ -109,6 +111,7 @@ dependencies {
 
     //MMKV
     api libs.MMKV
+
     //autosize 屏幕适配
     api libs.Autosize
 
@@ -128,7 +131,8 @@ dependencies {
 
     //webview封装
     api libs.XWebView
-    api libs.tbssdk
+    //X5 内核的app不支持在海外Google Play上架。
+//    api libs.tbssdk
 
     //公共的Adapter
     api libs.CommonAdapter
@@ -173,7 +177,6 @@ dependencies {
     debugImplementation(libs.doraemonMcDebug) {
         exclude group: 'com.google.zxing'
     }
-
     //shimmer 文字
     api libs.shimmer
 
@@ -198,11 +201,10 @@ dependencies {
     api libs.GlideUtils
     api libs.glide
     api libs.glideTransformations
-    //日期选择 https://github.com/loperSeven/DateTimePicker
+    //日期选择
     api libs.DateTimePicker
     //lottie 动画
     api libs.lottie
-
     //Android官方流布局
     api libs.flexbox
 
@@ -212,9 +214,6 @@ dependencies {
     //照片处理
     api libs.PhotoHander
 
-    //扫码
-    api libs.ZxingUtils
-
     //腾讯Bugly
     api libs.BugLy
     //极光推送
@@ -222,5 +221,7 @@ dependencies {
     api libs.jcore
     //wechat
     api libs.wechat
+    //ZxingUtils
+    api libs.ZxingUtils
 }
 

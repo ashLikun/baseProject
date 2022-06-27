@@ -5,6 +5,9 @@ plugins {
     //kapt插件
     id 'kotlin-kapt'
 }
+//公共配置
+apply from: '../configs_module_common.gradle'
+
 def sdk = rootProject.ext.sdk // SDK配置
 def config = rootProject.ext.android // 工程配置
 def libs = rootProject.ext.dependencies // 库依赖

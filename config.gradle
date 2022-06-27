@@ -40,7 +40,7 @@ ext {
             kotlinReflect        : "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version",
             //kotlin的协程
             KotlinxCoroutines    : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version",
-            appcompat            : "androidx.appcompat:appcompat:1.4.0",
+            appcompat            : "androidx.appcompat:appcompat:1.4.2",
             design               : "com.google.android.material:material:1.5.+",
             //约束布局
             constraintLayout     : 'androidx.constraintlayout:constraintlayout:2.1.3',
@@ -59,7 +59,7 @@ ext {
 
 
             //基本架构
-            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:2.3.7",
+            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:2.3.8",
             //多个Dex
             multidex             : 'androidx.multidex:multidex:2.0.1',
             //webview封装
@@ -92,7 +92,7 @@ ext {
             //封装的viewpager，banner，启动页
             XViewPager           : "com.github.ashLikun:XViewPager:2.2.4",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:4.6.4",
+            CommonUtils          : "com.github.ashLikun:CommonUtils:4.6.5",
             //公共的Adapter
             CommonAdapter        : "com.github.ashLikun:CommonAdapter:4.4.0",
             //Google官方改造
@@ -122,6 +122,7 @@ ext {
             //一机多控模块
             doraemonMcDebug      : "io.github.didi.dokit:dokitx-mc:$dokit_version",
             doraemonkitRelease   : "io.github.didi.dokit:dokitx-no-op:$dokit_version",
+
             //shimmer 效果
             shimmer              : "io.supercharge:shimmerlayout:2.1.0",
             //导航tab
@@ -176,6 +177,21 @@ ext {
 
             shareQQ              : 'com.tencent.tauth:qqopensdk:3.53.0',
             shareSina            : 'io.github.sinaweibosdk:core:11.11.1@aar',
+
+            //友盟统计与分享
+            // 友盟基础组件库（所有友盟业务SDK都依赖基础组件库）
+            umsdkCommon          : 'com.umeng.umsdk:common:9.5.0',
+            umsdkAsms            : 'com.umeng.umsdk:asms:1.5.0',
+            // U-APM产品包依赖(必选)
+            umsdkApm             : 'com.umeng.umsdk:apm:1.6.4',
+            //分享核心库，必选
+            umsdkShareCore       : 'com.umeng.umsdk:share-core:7.1.9',
+            //分享面板功能，可选
+            implementation       : 'com.umeng.umsdk:share-board:7.1.9',
+            //在线依赖目前支持QQ、微信、新浪微博、支付宝、钉钉；若需支持其他平台，请选择手动下载SDK
+            //微信完整版
+            umsdkShareWx         : 'com.umeng.umsdk:share-wx:7.1.9',
+
 
             //RangeSeekBar 进度条
             RangeSeekBar         : 'com.github.Jay-Goo:RangeSeekBar:v3.0.0',

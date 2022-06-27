@@ -56,53 +56,9 @@ def run = { extension, buildUpdateDescription, names ->
 project.ext {
     upload2d = { extension, buildUpdateDescription ->
         extension.android {
-            //上传VinkaLife
-            task uploadVinkaLife(group: 'upload2Pgyer', description: '打包上传VinkaLife 到蒲公英',
-                    dependsOn: ['assembleVinkaLifeRelease']) {
-                doLast {
-                    //dependsOn 是二维数组
-                    run(extension, buildUpdateDescription, dependsOn[0])
-                }
-            }
-            //上传Eraddar
-            task uploadEraddar(group: 'upload2Pgyer', description: '打包上传Eraddar 到蒲公英',
-                    dependsOn: ['assembleZ_eraddarRelease']) {
-                doLast {
-                    //dependsOn 是二维数组
-                    run(extension, buildUpdateDescription, dependsOn[0])
-                }
-            }
-            //上传mixte
-            task uploadMixte(group: 'upload2Pgyer', description: '打包上传VinkaLife 到蒲公英',
-                    dependsOn: ['assembleZ_mixteRelease']) {
-                doLast {
-                    //dependsOn 是二维数组
-                    run(extension, buildUpdateDescription, dependsOn[0])
-                }
-            }
-            //上传neomouv
-            task uploadNeomouv(group: 'upload2Pgyer', description: '打包上传neomouv 到蒲公英',
-                    dependsOn: ['assembleZ_neomouvRelease']) {
-                doLast {
-                    //dependsOn 是二维数组
-                    run(extension, buildUpdateDescription, dependsOn[0])
-                }
-            }
-            //上传totem
-            task uploadTotem(group: 'upload2Pgyer', description: '打包上传totem 到蒲公英',
-                    dependsOn: ['assembleZ_totemRelease']) {
-                doLast {
-                    //dependsOn 是二维数组
-                    run(extension, buildUpdateDescription, dependsOn[0])
-                }
-            }
             //全部打包上传
-            task uploadAll(group: 'upload2Pgyer', description: '打包上传VinkaLife 到蒲公英',
-                    dependsOn: ['assembleVinkaLifeRelease',
-                                'assembleZ_eraddarRelease',
-                                'assembleZ_mixteRelease',
-                                'assembleZ_neomouvRelease',
-                                'assembleZ_totemRelease',
+            task uploadAll(group: 'upload2Pgyer', description: '打包上传 Release 到蒲公英',
+                    dependsOn: ['assembleRelease',
                     ]) {
                 doLast {
                     //dependsOn 是二维数组

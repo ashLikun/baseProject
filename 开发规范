@@ -1,6 +1,12 @@
 重要Java代码规范
     java代码完全按照 阿里巴巴的Java开发手册，请安装插件（Alibaba Java Coding Guidelines）自动提示
-
+马甲包：步骤
+       1：configs_flavors.gradle 新增马甲
+       2：configs_module_common.gradle  设置其他模块注册  register("xxxx")
+       3：config.gradle 马甲对应的第三方KEY   sdk.flavors.xxxx
+       4：AppType.kt 代码级别设置
+       5：SdkKeyManage.kt 代码级别设置 第三方KEY
+       6:app common core等模块复制目录 Src
 
 组件化
        0：要单独运行某个组件请在config_component.gradle里面配置对应的isRun = true,只能有一个为true

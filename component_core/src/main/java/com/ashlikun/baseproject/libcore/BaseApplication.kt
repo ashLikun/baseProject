@@ -21,8 +21,6 @@ import com.ashlikun.utils.AppUtils
 import com.ashlikun.utils.other.file.FileUtils
 import com.ashlikun.utils.ui.modal.SuperToast
 import com.didichuxing.doraemonkit.DoraemonKit
-import com.tencent.smtt.export.external.TbsCoreSettings
-import com.tencent.smtt.sdk.QbSdk
 import kotlinx.coroutines.CoroutineExceptionHandler
 
 /**
@@ -112,25 +110,25 @@ open class BaseApplication : MultiDexApplication() {
 
     private fun initX5Tbs() {
         // 初始化X5内核时候的配置
-        QbSdk.initTbsSettings(
-            mapOf(
-                TbsCoreSettings.TBS_SETTINGS_USE_SPEEDY_CLASSLOADER to true,
-                TbsCoreSettings.TBS_SETTINGS_USE_DEXLOADER_SERVICE to true
-            )
-        )
-        QbSdk.initX5Environment(this, object : QbSdk.PreInitCallback {
-            override fun onCoreInitFinished() {
-                Log.e("QbSdk", "内核加载成功")
-            }
-
-            override fun onViewInitFinished(b: Boolean) {
-                if (b) {
-                    Log.e("腾讯X5", " onViewInitFinished 加载 成功 $b")
-                } else {
-                    Log.e("腾讯X5", " onViewInitFinished 加载 失败！！！使用原生安卓webview $b")
-                }
-            }
-        })
+//        QbSdk.initTbsSettings(
+//            mapOf(
+//                TbsCoreSettings.TBS_SETTINGS_USE_SPEEDY_CLASSLOADER to true,
+//                TbsCoreSettings.TBS_SETTINGS_USE_DEXLOADER_SERVICE to true
+//            )
+//        )
+//        QbSdk.initX5Environment(this, object : QbSdk.PreInitCallback {
+//            override fun onCoreInitFinished() {
+//                Log.e("QbSdk", "内核加载成功")
+//            }
+//
+//            override fun onViewInitFinished(b: Boolean) {
+//                if (b) {
+//                    Log.e("腾讯X5", " onViewInitFinished 加载 成功 $b")
+//                } else {
+//                    Log.e("腾讯X5", " onViewInitFinished 加载 失败！！！使用原生安卓webview $b")
+//                }
+//            }
+//        })
     }
 
     override fun onTerminate() {

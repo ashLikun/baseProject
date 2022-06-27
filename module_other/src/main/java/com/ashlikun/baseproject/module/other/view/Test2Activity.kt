@@ -33,7 +33,6 @@ class Test2Activity : BaseActivity() {
         toolbar?.setTitle("我是测试")
 
         binding.ceshiButton.setOnClickListener {
-
             //跳转
             startActivity(Intent(this, Test2Activity::class.java))
         }
