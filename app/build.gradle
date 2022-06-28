@@ -15,7 +15,7 @@ def moudles = rootProject.ext.modules //全部组件
 apply from: './upLoadPgy.gradle'
 
 //滴滴开发助手插件,打开后每次升级其他第三方库，总是报类冲突
-apply from: '../dokit.gradle'
+//apply from: '../dokit.gradle'
 
 def releaseTime() {
     return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
