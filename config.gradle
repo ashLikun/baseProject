@@ -72,7 +72,7 @@ ext {
             //简单的PopupWindow
             EasyPopupWindow      : "com.github.ashLikun:EasyPopupWindow:2.0.0",
             //事件总线
-            EventBus             : "com.github.ashLikun:LiveDataVBus:2.1.4",
+            EventBus             : "com.github.ashLikun:LiveDataVBus:2.1.5",
             //数据库
             LiteOrm              : "com.github.ashLikun:LiteOrm:2.0.3",
             //MMKV
@@ -92,7 +92,7 @@ ext {
             //封装的viewpager，banner，启动页
             XViewPager           : "com.github.ashLikun:XViewPager:2.2.4",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:4.6.5",
+            CommonUtils          : "com.github.ashLikun:CommonUtils:4.6.8",
             //公共的Adapter
             CommonAdapter        : "com.github.ashLikun:CommonAdapter:4.4.0",
             //Google官方改造
