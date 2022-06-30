@@ -16,10 +16,13 @@ import com.ashlikun.okhttputils.http.response.HttpErrorCode
 import com.ashlikun.okhttputils.http.response.IHttpResponse
 import com.ashlikun.utils.main.ActivityUtils
 import com.ashlikun.utils.other.coroutines.taskLaunchMain
+import com.ashlikun.utils.ui.extend.toLifecycleOrNull
 import com.ashlikun.utils.ui.modal.SuperToast
 import com.ashlikun.xrecycleview.PageHelpListener
 import com.ashlikun.xrecycleview.RefreshLayout
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 
 /**
  * 作者　　: 李坤
@@ -153,6 +156,7 @@ class HttpUiHandle private constructor() {
      */
     internal var loadSwitchService: LoadSwitchService? = null
 
+    internal var jobTimeOut: Job? = null
 
     /**
      * tag类,标识这个请求，会传递到Request里面
@@ -467,6 +471,7 @@ class HttpUiHandle private constructor() {
     }
 
     fun completed() {
+        jobTimeOut?.cancel()
         goSetEnableView(true)
         dismissUi()
         isStatusCompleted = true
@@ -487,6 +492,17 @@ class HttpUiHandle private constructor() {
 
     fun isShow() = loadDialog?.isShowing ?: false
 
+    /**
+     * 开始超时,防止对话框不会消失
+     */
+    fun startTimeOut(time: Int = 3000) {
+        if (!isShowLoadding) return
+        jobTimeOut?.cancel()
+        jobTimeOut = getActivity()?.toLifecycleOrNull()?.launch {
+            delay(time.toLong())
+            completedSuccess()
+        }
+    }
 
     companion object {
 
