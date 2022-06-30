@@ -1,10 +1,13 @@
 package com.ashlikun.baseproject.common.mode
 
+import com.ashlikun.baseproject.common.mode.javabean.AppUpdateData
 import com.ashlikun.baseproject.libcore.mode.ApiBase
 import com.ashlikun.baseproject.libcore.utils.http.HttpUiHandle
 import com.ashlikun.baseproject.libcore.utils.http.requestGet
 import com.ashlikun.baseproject.libcore.utils.http.syncExecute
 import com.ashlikun.okhttputils.http.response.HttpResponse
+import com.ashlikun.okhttputils.http.response.HttpResult
+import com.ashlikun.okhttputils.retrofit.Get
 import com.ashlikun.okhttputils.retrofit.Retrofit
 
 /**
@@ -24,7 +27,9 @@ interface ApiCommon : ApiBase {
 
     suspend fun testx(handle: HttpUiHandle): HttpResponse? {
         return "index".requestGet()
-                .syncExecute(handle)
+            .syncExecute(handle)
     }
 
+    @Get
+    suspend fun checkUpdata(handle: HttpUiHandle? = null): HttpResult<AppUpdateData>
 }
