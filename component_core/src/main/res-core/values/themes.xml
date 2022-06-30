@@ -12,11 +12,11 @@
         <item name="android:navigationBarColor">@color/statusColorCustom</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowBackground">@color/activity_backgound</item>
-        <!--<item name="android:requiresFadingEdge">vertical</item>-->
         <item name="android:listSelector">@color/translucent</item>
-        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:textColorPrimary">@color/text_color</item>
         <item name="android:textColor">@color/text_color</item>
         <item name="android:textSize">@dimen/dp_14</item>
+        <item name="android:textColorHighlight">@color/black_33</item>
         <item name="alertDialogTheme">@style/BaseAlertDialogTheme</item>
         <item name="android:alertDialogTheme">@style/BaseAlertDialogTheme</item>
         <item name="dialogTheme">@style/BaseDialogTheme</item>
@@ -30,12 +30,24 @@
         <item name="SwipeRefreshLayout_Color2">@color/colorPrimary</item>
         <item name="SwipeRefreshLayout_Color3">@color/colorPrimary</item>
         <item name="SwipeRefreshLayout_Color4">@color/colorPrimary</item>
+
+        <!--vector 根据theme动态改变颜色-->
+        <item name="color1">@color/colorPrimary</item>
+        <item name="color2">@color/colorPrimary</item>
+        <item name="color3">@color/colorPrimary</item>
+        <item name="color4">@color/colorPrimary</item>
+        <item name="color5">@color/colorPrimary</item>
+        <item name="color6">@color/colorPrimary</item>
+        <item name="color7">@color/colorPrimary</item>
+        <item name="color8">@color/colorPrimary</item>
+        <item name="color9">@color/colorPrimary</item>
+        <item name="color10">@color/colorPrimary</item>
     </style>
 
     <style name="AppTheme.PhotoHander">
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:statusBarColor">@color/statusColorCustom</item>
         <item name="android:windowAnimationStyle">@style/OtherAnimation</item>
+        <item name="colorPrimary">@color/statusColorCustom</item>
     </style>
     <!--背景颜色白色-->
     <style name="AppTheme.OtherTheme.White">
@@ -76,10 +88,12 @@
     </style>
 
     <style name="BaseDialogTheme" parent="@style/ThemeOverlay.MaterialComponents.Dialog">
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/black_33</item>
         <item name="android:textSize">@dimen/dp_14</item>
         <item name="android:background">@color/activity_backgound</item>
         <item name="android:buttonStyle">@style/BaseDialogButtonStyle</item>
+        <item name="android:textColorPrimary">@color/black_33</item>
+
 
         <!--AndroidAutoLayout 的系统对话框bug   360*95%-->
         <!-- Minor指竖屏模式下的宽度 -->
@@ -89,17 +103,22 @@
 
 
     <style name="BaseAlertDialogTheme" parent="@style/ThemeOverlay.MaterialComponents.Dialog.Alert">
-        //message content color
-        <item name="android:textColorPrimary">@color/text_color</item>
+        <item name="android:textColorPrimary">@color/black_33</item>
         <item name="textColorAlertDialogListItem">@color/text_color</item>
         <item name="android:background">@color/white</item>
         <item name="android:textColorAlertDialogListItem">@color/text_color</item>
         <item name="buttonBarButtonStyle">@style/BaseDialogButtonStyle</item>
         <item name="android:windowTitleStyle">@style/BaseDialogTitleStyle</item>
 
+
         <!--AndroidAutoLayout 的系统对话框bug   360*95%-->
         <!-- Minor指竖屏模式下的宽度 -->
         <item name="android:windowMinWidthMinor">@dimen/AUTO_SIZE_WIDTH_DP</item>
         <item name="windowFixedWidthMinor">@dimen/AUTO_SIZE_WIDTH_DP</item>
     </style>
+
+    <style name="Dialog.NoAnim">
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+
 </resources>

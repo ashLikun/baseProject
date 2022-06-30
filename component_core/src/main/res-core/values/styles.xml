@@ -4,6 +4,7 @@
     <attr name="SwipeRefreshLayout_Color2" format="color"></attr>
     <attr name="SwipeRefreshLayout_Color3" format="color"></attr>
     <attr name="SwipeRefreshLayout_Color4" format="color"></attr>
+
     <!--vector 根据theme动态改变颜色 android:fillColor="?attr/color1"-->
     <attr name="color1" format="color" />
     <attr name="color2" format="color" />

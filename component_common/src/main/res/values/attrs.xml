@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="LineItenView">
-        <attr name="liv_is_show_icon" format="boolean"></attr>
         <attr name="liv_icon_res" format="reference"></attr>
+        <attr name="liv_right_icon_res" format="reference"></attr>
         <attr name="liv_title" format="string"></attr>
         <attr name="liv_sub_title" format="string"></attr>
         <attr name="liv_is_show_arror" format="boolean"></attr>
@@ -14,6 +14,7 @@
         <attr name="liv_title_color" format="color"></attr>
         <attr name="liv_sub_title_size" format="dimension"></attr>
         <attr name="liv_sub_title_color" format="color"></attr>
+        <attr name="liv_msg_tips" format="boolean"></attr>
         <attr name="liv_sub_title_drawable_padding" format="dimension"></attr>
     </declare-styleable>
 </resources>

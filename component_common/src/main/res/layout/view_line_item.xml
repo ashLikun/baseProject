@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
@@ -7,23 +9,47 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="@dimen/dp_18"
-        android:layout_height="@dimen/dp_18" />
+        android:layout_width="@dimen/dp_24"
+        android:layout_height="@dimen/dp_24" />
 
     <TextView
         android:id="@+id/titleView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="center_vertical"
         android:textColor="@color/black_33"
-        android:textSize="@dimen/dp_15" />
+        android:textSize="@dimen/dp_18"
+        tools:text="titleView" />
+
 
     <TextView
         android:id="@+id/subTitleView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         android:textColor="@color/black_33"
-        android:textSize="@dimen/dp_15" />
+        android:textSize="@dimen/dp_15"
+        tools:text="subTitle" />
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/msgTipsIv"
+        android:layout_width="@dimen/dp_10"
+        android:layout_height="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_4"
+        android:src="@color/red"
+        android:visibility="visible"
+        app:riv_oval="true" />
+
+    <ImageView
+        android:id="@+id/rightArraw"
+        android:layout_width="@dimen/dp_24"
+        android:layout_height="@dimen/dp_24"
+        android:src="@drawable/ic_arrow_right"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/rightImg"
+        android:layout_width="@dimen/dp_24"
+        android:layout_height="@dimen/dp_24"
+        android:visibility="visible" />
 </merge>

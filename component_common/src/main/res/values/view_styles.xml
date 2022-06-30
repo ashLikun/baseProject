@@ -34,18 +34,19 @@
 
     <style name="FlatButton.Main">
         <item name="android:textColor">@color/white</item>
-        <item name="colorEnable">@color/gray_dd</item>
+        <item name="colorEnable">@color/color_3C</item>
         <item name="colorPressed">@color/gray_dd</item>
         <item name="colorNormal">@color/colorPrimary</item>
-        <item name="cornerRadius">@dimen/dp_4</item>
+        <item name="cornerRadius">@dimen/dp_50</item>
+        <item name="android:textSize">@dimen/dp_16</item>
     </style>
 
     <style name="FlatButton.Order">
-        <item name="android:textSize">@dimen/udp_28</item>
+        <item name="android:textSize">@dimen/dp_24</item>
         <item name="strokeWidth">@dimen/dp_1</item>
         <item name="cornerRadius">@dimen/dp_20</item>
-        <item name="android:paddingLeft">@dimen/udp_30</item>
-        <item name="android:paddingRight">@dimen/udp_30</item>
+        <item name="android:paddingLeft">@dimen/dp_20</item>
+        <item name="android:paddingRight">@dimen/dp_20</item>
         <item name="android:paddingTop">@dimen/dp_5</item>
         <item name="android:paddingBottom">@dimen/dp_5</item>
     </style>
@@ -62,13 +63,16 @@
 
     <style name="AnimCheckBox.Main">
         <item name="android:layout_width">@dimen/dp_40</item>
-        <item name="ab_circleColor">@color/white</item>
-        <item name="ab_hookColor">@color/colorPrimary</item>
+        <item name="ab_circleColor">@color/colorPrimary</item>
+        <item name="ab_hookColor">@color/black_33</item>
         <item name="ab_noSelectStrokeColor">@color/gray_99</item>
         <item name="ab_selectStrokeColor">@color/colorPrimary</item>
         <item name="ab_strokeWidth">1.5dp</item>
-        <item name="android:padding">11dp</item>
-        <item name="ab_isCircle">false</item>
+        <item name="android:padding">10dp</item>
+        <item name="ab_textColor">@color/white</item>
+        <item name="ab_textNoSelectColor">@color/gray_92</item>
+        <item name="ab_textSize">@dimen/dp_18</item>
+        <item name="ab_textSpace">@dimen/dp_5</item>
     </style>
 
     <style name="Notification">
@@ -92,11 +96,13 @@
     </style>
 
     <style name="SuperToolBar.Main">
-        <item name="stb_actionTextColor">#ffffff</item>
-        <item name="stb_titleColor">#ffffff</item>
+        <item name="stb_actionTextColor">@color/colorPrimary</item>
+        <item name="stb_titleColor">@color/white</item>
+        <item name="stb_backImgColor">@color/white</item>
         <item name="stb_bottonLineHeight">0dp</item>
-        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:background">@color/activity_backgound</item>
     </style>
+
     <!--https://www.jianshu.com/p/7a9070d223ed-->
     <style name="Switch"></style>
 
@@ -106,6 +112,19 @@
         <!--关闭时的颜色-->
         <item name="colorSwitchThumbNormal">@color/white</item>
         <!--关闭时的轨迹颜色-->
-        <item name="android:colorForeground">@color/gray_99</item>
+        <item name="android:colorForeground">@color/gray_92</item>
+    </style>
+
+    <style name="SeekBar"></style>
+
+    <style name="SeekBar.Main">
+        <!--去除滑块阴影-->
+        <item name="android:background">@null</item>
+        <!--未到的进度颜色-->
+        <item name="android:progressBackgroundTint">@color/gray_99</item>
+        <!--已过的进度颜色-->
+        <item name="android:progressTint">@color/colorPrimary</item>
+        <!--滑块颜色-->
+        <item name="android:thumbTint">@color/colorPrimary</item>
     </style>
 </resources>

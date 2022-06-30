@@ -7,14 +7,17 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.util.TypedValue
+import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
+import androidx.core.view.isVisible
 import com.ashlikun.baseproject.common.R
 import com.ashlikun.baseproject.common.databinding.ViewLineItemBinding
 import com.ashlikun.utils.other.DimensUtils
+import com.ashlikun.utils.ui.extend.dp
 import com.ashlikun.utils.ui.extend.layoutInflater
-import com.ashlikun.utils.ui.image.DrawableUtils
-import com.ashlikun.utils.ui.resources.ResUtils
+import com.ashlikun.utils.ui.extend.setMargin
+import com.vinka.ebike.common.utils.ui.getStringX
 
 /**
  * 作者　　: 李坤
@@ -27,18 +30,27 @@ import com.ashlikun.utils.ui.resources.ResUtils
 
 class LineItenView @JvmOverloads
 constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-        LinearLayout(context, attrs, defStyleAttr) {
+    LinearLayout(context, attrs, defStyleAttr) {
     val binding by lazy {
         ViewLineItemBinding.inflate(layoutInflater, this)
     }
     private val paint = Paint()
-    private var isShowIcon: Boolean = true
-    private var isShowArror = true
+    var isShowMsgTips = false
+        set(value) {
+            field = value
+            binding.msgTipsIv.isVisible = value
+        }
+    var isShowArror = true
+        set(value) {
+            field = value
+            binding.rightArraw.isVisible = value
+        }
     private var bottomLineSize: Int = 0
     private var bottomLineMarginLeft: Int = 0
     private var bottomLineMarginRight: Int = 0
     private var bottomLineColor = Color.parseColor("#ffcccccc")
     private var iconRes = 0
+    private var rightIconRes = 0
     private var subDrawablePadding = 0
     private var title: CharSequence? = null
     private var subTitle: CharSequence? = null
@@ -47,40 +59,41 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
     init {
         setWillNotDraw(false)
         val a = context.obtainStyledAttributes(
-                attrs,
-                R.styleable.LineItenView
+            attrs,
+            R.styleable.LineItenView
         )
-        isShowIcon = a.getBoolean(R.styleable.LineItenView_liv_is_show_icon, isShowIcon)
         isShowArror = a.getBoolean(R.styleable.LineItenView_liv_is_show_arror, isShowArror)
         bottomLineSize = a.getDimensionPixelSize(
-                R.styleable.LineItenView_liv_bottom_line_size,
-                DimensUtils.dip2px(context, 0f)
+            R.styleable.LineItenView_liv_bottom_line_size,
+            DimensUtils.dip2px(context, 0f)
         )
         bottomLineMarginLeft = a.getDimensionPixelSize(
-                R.styleable.LineItenView_liv_bottom_line_marginLeft,
-                DimensUtils.dip2px(context, 0f)
+            R.styleable.LineItenView_liv_bottom_line_marginLeft,
+            DimensUtils.dip2px(context, 0f)
         )
         bottomLineMarginRight = a.getDimensionPixelSize(
-                R.styleable.LineItenView_liv_bottom_line_marginRight,
-                DimensUtils.dip2px(context, 0f)
+            R.styleable.LineItenView_liv_bottom_line_marginRight,
+            DimensUtils.dip2px(context, 0f)
         )
         bottomLineColor =
-                a.getColor(R.styleable.LineItenView_liv_bottom_line_color, bottomLineColor)
+            a.getColor(R.styleable.LineItenView_liv_bottom_line_color, bottomLineColor)
         iconRes = a.getResourceId(R.styleable.LineItenView_liv_icon_res, iconRes)
-        title = a.getString(R.styleable.LineItenView_liv_title)
-        subTitle = a.getString(R.styleable.LineItenView_liv_sub_title)
+        rightIconRes = a.getResourceId(R.styleable.LineItenView_liv_right_icon_res, iconRes)
+        title = a.getStringX(context, R.styleable.LineItenView_liv_title)
+        subTitle = a.getStringX(context, R.styleable.LineItenView_liv_sub_title)
+        isShowMsgTips = a.getBoolean(R.styleable.LineItenView_liv_msg_tips, isShowMsgTips)
         subDrawablePadding =
-                a.getDimensionPixelSize(R.styleable.LineItenView_liv_sub_title_drawable_padding, 0)
+            a.getDimensionPixelSize(R.styleable.LineItenView_liv_sub_title_drawable_padding, 0)
         initView(context, a)
         a.recycle()
     }
 
     private fun initView(context: Context, a: TypedArray) {
-
+        gravity = Gravity.CENTER_VERTICAL
         if (a.hasValue(R.styleable.LineItenView_liv_title_size)) {
             binding.titleView.setTextSize(
-                    TypedValue.COMPLEX_UNIT_PX,
-                    a.getDimensionPixelSize(R.styleable.LineItenView_liv_title_size, 0).toFloat()
+                TypedValue.COMPLEX_UNIT_PX,
+                a.getDimensionPixelSize(R.styleable.LineItenView_liv_title_size, 0).toFloat()
             )
         }
         if (a.hasValue(R.styleable.LineItenView_liv_title_color)) {
@@ -88,16 +101,16 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         }
         if (a.hasValue(R.styleable.LineItenView_liv_sub_title_size)) {
             binding.subTitleView.setTextSize(
-                    TypedValue.COMPLEX_UNIT_PX,
-                    a.getDimensionPixelSize(R.styleable.LineItenView_liv_sub_title_size, 0).toFloat()
+                TypedValue.COMPLEX_UNIT_PX,
+                a.getDimensionPixelSize(R.styleable.LineItenView_liv_sub_title_size, 0).toFloat()
             )
         }
         if (a.hasValue(R.styleable.LineItenView_liv_sub_title_color)) {
             binding.subTitleView.setTextColor(
-                    a.getColor(
-                            R.styleable.LineItenView_liv_sub_title_color,
-                            0
-                    )
+                a.getColor(
+                    R.styleable.LineItenView_liv_sub_title_color,
+                    0
+                )
             )
         }
 
@@ -107,29 +120,18 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         if (bottomLineSize > 0) {
             setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom + bottomLineSize)
         }
-        if (isShowArror && !isInEditMode) {
-            val drawable = ResUtils.getDrawable(R.drawable.ic_arrow_right)
-            binding.subTitleView.compoundDrawablePadding = subDrawablePadding
-            DrawableUtils.createTextDraw(binding.subTitleView, drawable = drawable, location = 3)
-        } else {
-            binding.subTitleView.setPadding(
-                    binding.subTitleView.paddingLeft, binding.subTitleView.paddingTop,
-                    subDrawablePadding, binding.subTitleView.paddingBottom
-            )
-        }
 
-        binding.imageView.visibility = if (isShowIcon) View.VISIBLE else View.GONE
-        if (!isShowIcon) {
-            (binding.titleView.layoutParams as LinearLayout.LayoutParams).setMargins(0, 0, 0, 0)
+        binding.imageView.visibility = if (iconRes != 0) View.VISIBLE else View.GONE
+        if (iconRes == 0) {
+            binding.titleView.setMargin(0, 0, 0, 0)
         } else {
-            (binding.titleView.layoutParams as LinearLayout.LayoutParams).setMargins(
-                    DimensUtils.dip2px(
-                            context,
-                            8f
-                    ), 0, 0, 0
-            )
+            binding.titleView.setMargin(8.dp, 0, 0, 0)
         }
         binding.imageView.setImageResource(iconRes)
+        binding.rightImg.isVisible = rightIconRes != 0
+        if (rightIconRes != 0) {
+            binding.rightImg.setImageResource(rightIconRes)
+        }
         binding.titleView.text = title
         binding.subTitleView.text = subTitle
     }
@@ -149,11 +151,11 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         super.onDraw(canvas)
         if (bottomLineSize > 0) {
             canvas.drawRect(
-                    bottomLineMarginLeft.toFloat(),
-                    (height - bottomLineSize).toFloat(),
-                    width.toFloat() - bottomLineMarginRight,
-                    height.toFloat(),
-                    paint
+                bottomLineMarginLeft.toFloat(),
+                (height - bottomLineSize).toFloat(),
+                width.toFloat() - bottomLineMarginRight,
+                height.toFloat(),
+                paint
             )
         }
     }
