@@ -22,8 +22,8 @@ buildscript {
         classpath 'com.android.tools.build:gradle:7.1.1'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        //滴滴开发助手插件
-        classpath "io.github.didi.dokit:dokitx-plugin:$dokit_version"
+        //滴滴开发助手插件,更新三方库老瞎几把报类冲突
+        //classpath "io.github.didi.dokit:dokitx-plugin:$dokit_version"
     }
 }
 
