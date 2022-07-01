@@ -34,7 +34,7 @@
 
     <style name="FlatButton.Main">
         <item name="android:textColor">@color/white</item>
-        <item name="colorEnable">@color/color_3C</item>
+        <item name="colorEnable">@color/gray_dd</item>
         <item name="colorPressed">@color/gray_dd</item>
         <item name="colorNormal">@color/colorPrimary</item>
         <item name="cornerRadius">@dimen/dp_50</item>

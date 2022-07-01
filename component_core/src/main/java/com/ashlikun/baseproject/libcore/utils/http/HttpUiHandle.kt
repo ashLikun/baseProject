@@ -91,7 +91,7 @@ class HttpUiHandle private constructor() {
     /**
      * 对话框提示的文本  空就不显示对话框
      */
-    internal var hint: String? = null
+    var hint: String? = null
 
     /**
      * 失效的View
@@ -101,25 +101,20 @@ class HttpUiHandle private constructor() {
     /**
      * 对话框是否可以取消
      */
-    internal var isCancelable = true
-    internal var isCanceledOnTouchOutside = true
+    var isCancelable = true
+    var isCanceledOnTouchOutside = true
 
     /**
      * 是否错误的时候toast提示,http 错误
      */
     var isErrorToastShow = true
-        internal set(value) {
-            field = value
-        }
 
     /**
      * 请求成功，但是接口Code错误的时候
      * json code 非success 是否显示toast
      */
     var isDataCodeErrorToastShow = true
-        internal set(value) {
-            field = value
-        }
+
 
     /**
      * 请求成功，但是接口Code错误的时候是否内部处理错误状态
@@ -127,34 +122,32 @@ class HttpUiHandle private constructor() {
      * 一般用于布局切换和显示toast
      */
     var isAutoHanderError: Boolean = true
-        internal set(value) {
-            field = value
-        }
+
 
     /**
      * 是否显示进度，进度回调才用到的
      */
-    internal var isShowProgress = true
+    var isShowProgress = true
 
     /**
      * 是否显示对话框
      */
-    internal var isShowLoadding = true
+    var isShowLoadding = true
 
     /**
      * 下拉刷新
      */
-    internal var swipeRefreshLayout: RefreshLayout? = null
+    var swipeRefreshLayout: RefreshLayout? = null
 
     /**
      * 分页助手
      */
-    internal var pageHelpListener: PageHelpListener? = null
+    var pageHelpListener: PageHelpListener? = null
 
     /**
      * 界面显示管理器（加载中，加载失败，加载成功）
      */
-    internal var loadSwitchService: LoadSwitchService? = null
+    var loadSwitchService: LoadSwitchService? = null
 
     internal var jobTimeOut: Job? = null
 
@@ -171,6 +164,11 @@ class HttpUiHandle private constructor() {
      * 加载框
      */
     var loadDialog: LoadDialog? = null
+
+    /**
+     * 加载对话框被取消
+     */
+    var onLoadCancel: (() -> Unit)? = null
 
     /**
      * 在当前页面是否第一次请求
@@ -195,72 +193,11 @@ class HttpUiHandle private constructor() {
         enableView?.forEach { it?.isEnabled = enable }
     }
 
-
-    inline fun set(funs: HttpUiHandle.() -> Unit): HttpUiHandle {
-        funs()
-        return this
-    }
-
-
-    fun setHint(hint: String = "加载中"): HttpUiHandle {
-        this.hint = hint
-        return this
-    }
-
-
     fun setEnableView(vararg view: View?): HttpUiHandle {
         this.enableView = view
         return this
     }
 
-    fun setCancelable(cancelable: Boolean): HttpUiHandle {
-        isCancelable = cancelable
-        return this
-    }
-
-    fun setCanceledOnTouchOutside(canceledOnTouchOutside: Boolean): HttpUiHandle {
-        isCanceledOnTouchOutside = canceledOnTouchOutside
-        return this
-    }
-
-    /**
-     * 错误的时候是否显示toast
-     */
-    fun isToastShow(isToastShow: Boolean): HttpUiHandle {
-        this.isErrorToastShow = isToastShow
-        return this
-    }
-
-    /**
-     * json code 非success 是否显示toast
-     */
-    fun isCodeErrorToastShow(isToastShow: Boolean): HttpUiHandle {
-        this.isDataCodeErrorToastShow = isToastShow
-        return this
-    }
-
-
-    /**
-     * 下拉刷新的监听
-     */
-    fun setSwipeRefreshLayout(swipeRefreshLayout: RefreshLayout?): HttpUiHandle {
-        this.swipeRefreshLayout = swipeRefreshLayout
-        return this
-    }
-
-    /**
-     * 分页助手
-     */
-    fun setPageHelpListener(pageHelpListener: PageHelpListener?): HttpUiHandle {
-        this.pageHelpListener = pageHelpListener
-        return this
-    }
-
-
-    fun setContext(context: Context): HttpUiHandle {
-        this.context = context
-        return this
-    }
 
     /**
      * 重新加载的监听
@@ -278,34 +215,12 @@ class HttpUiHandle private constructor() {
         return this
     }
 
-
-    /**
-     * 显示加载的监听
-     */
-    fun setShowLoadding(showLoadding: Boolean): HttpUiHandle {
-        isShowLoadding = showLoadding
-        return this
-    }
-
-    /**
-     * 自动处理  Code(接口是成功的)错误，布局切换
-     */
-    fun setAutoHanderError(autoHanderError: Boolean): HttpUiHandle {
-        isAutoHanderError = autoHanderError
-        return this
-    }
-
-    fun setShowProgress(showProgress: Boolean): HttpUiHandle {
-        isShowProgress = showProgress
-        return this
-    }
-
     /**
      * 设置默默调用，不提示
      */
     fun setNoTips(): HttpUiHandle {
-        setShowLoadding(false)
-        isToastShow(false)
+        isShowLoadding = false
+        isErrorToastShow = false
         return this
     }
 
@@ -329,17 +244,17 @@ class HttpUiHandle private constructor() {
             tag?.run {
                 if (tag.swipeRefreshLayout != null) {
                     isShowLoadding = false
-                    setSwipeRefreshLayout(tag.swipeRefreshLayout)
+                    swipeRefreshLayout = tag.swipeRefreshLayout
                 }
                 if (tag.pageHelpListener != null) {
                     isShowLoadding = false
-                    setPageHelpListener(tag.pageHelpListener)
+                    pageHelpListener = tag.pageHelpListener
                 }
             }
         }
         //布局切换
         if (tag is BaseViewModel) {
-            setLoadSwitchService(tag?.loadSwitchService)
+            loadSwitchService = tag?.loadSwitchService
         }
         return this
     }
@@ -371,6 +286,13 @@ class HttpUiHandle private constructor() {
                     setContent(hint)
                     setCancelable(isCancelable)
                     setCanceledOnTouchOutside(isCanceledOnTouchOutside)
+                    if (onLoadCancel != null) {
+                        setOnCancelListener {
+                            onLoadCancel?.invoke()
+                        }
+                    } else {
+                        setOnCancelListener(null)
+                    }
                     try {
                         show()
                     } catch (e: Exception) {
