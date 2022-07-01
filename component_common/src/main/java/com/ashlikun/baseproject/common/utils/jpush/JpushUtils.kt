@@ -34,9 +34,7 @@ object JpushUtils {
     fun init(application: Application) {
         JPushInterface.setDebugMode(AppUtils.isDebug)
         JPushInterface.init(application)
-        RouterManage.login()?.run {
-            if (isLogin()) setAlias() else deleteAlias()
-        }
+        JPushInterface.setBadgeNumber(AppUtils.app, 0)
     }
 
     fun deleteAlias() {
@@ -89,6 +87,7 @@ object JpushUtils {
      * @param data
      */
     fun handlePush(context: Context, data: JpushJsonData?) {
+        JPushInterface.setBadgeNumber(AppUtils.app, 0)
         if (data == null || data.type.isEmpty()) {
             SuperToast.get("无效的跳转").info()
             return

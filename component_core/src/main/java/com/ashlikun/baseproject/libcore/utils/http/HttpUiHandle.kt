@@ -46,46 +46,29 @@ import kotlinx.coroutines.delay
  * ------必须依次调用 [HttpUiHandle.start] -> 接口请求成功 -> [HttpUiHandle.success] -> 数据处理完成 -> [HttpUiHandle.completed]
  */
 class HttpUiHandle private constructor() {
-    val coroutineExceptionHandler by lazy {
-        CoroutineExceptionHandler { _, error ->
-            error.printStackTrace()
-            when (error) {
-                is HttpHandelResultException -> {
-                    //不显示toast
-                    isErrorToastShow = false
-                    //如果code全局处理的时候错误了，那么是不会走success的，这里就得自己处理UI设置为错误状态
-                    error(
-                        ContextData(
-                            title = error.exception.message,
-                            resId = R.drawable.material_service_error,
-                            errCode = error.exception.code
-                        )
-                    )
-                }
-                is HttpException -> {
-                    error(
-                        ContextData(
-                            title = error.message,
-                            resId = R.drawable.material_service_error,
-                            errCode = error.code
-                        )
-                    )
-                }
-                else -> {
-                    error(
-                        (ContextData(
-                            title = error.message.orEmpty(),
-                            resId = R.drawable.material_service_error,
-                            errCode = HttpErrorCode.HTTP_UNKNOWN
-                        ))
-                    )
-                }
-            }
-            completed()
-        }
+    /**
+     * tag类,标识这个请求，会传递到Request里面可以是 [BaseViewModel] [tag]优先级高
+     */
+    internal var tag: Any? = null
+        get() = field ?: context
+    internal var mContext: Context? = null
+
+    /**
+     * 开始超时,防止对话框不会消失
+     */
+    internal var jobTimeOut: Job? = null
+
+    val activity by lazy {
+        ActivityUtils.getActivity(context)
+    }
+    val context by lazy {
+        mContext
+            ?: if (tag is BaseViewModel) (tag as BaseViewModel).context else if (tag is Activity) tag as Context else null
     }
 
-    //是否接口请求完成了,请求的状态
+    /**
+     * 是否接口请求完成了,请求的状态
+     */
     var isStatusCompleted = true
 
     /**
@@ -96,7 +79,7 @@ class HttpUiHandle private constructor() {
     /**
      * 失效的View
      */
-    internal var enableView: Array<out View?>? = null
+    var enableView: Array<out View?>? = null
 
     /**
      * 对话框是否可以取消
@@ -115,14 +98,12 @@ class HttpUiHandle private constructor() {
      */
     var isDataCodeErrorToastShow = true
 
-
     /**
      * 请求成功，但是接口Code错误的时候是否内部处理错误状态
      * 默认为走错误方法
      * 一般用于布局切换和显示toast
      */
     var isAutoHanderError: Boolean = true
-
 
     /**
      * 是否显示进度，进度回调才用到的
@@ -147,18 +128,7 @@ class HttpUiHandle private constructor() {
     /**
      * 界面显示管理器（加载中，加载失败，加载成功）
      */
-    var loadSwitchService: LoadSwitchService? = null
-
-    internal var jobTimeOut: Job? = null
-
-    /**
-     * tag类,标识这个请求，会传递到Request里面
-     * 可以是 [BaseViewModel]
-     * [tag]优先级高
-     */
-    internal var tag: Any? = null
-        get() = field ?: context
-    internal var context: Context? = null
+    var switchService: LoadSwitchService? = null
 
     /**
      * 加载框
@@ -173,13 +143,8 @@ class HttpUiHandle private constructor() {
     /**
      * 在当前页面是否第一次请求
      * 如果这个请求集合大于1，说明当前页面还有请求，
-     * @return
      */
     fun isFirstRequest() = count() <= 1
-    fun setTag(tag: Any): HttpUiHandle {
-        this.tag = tag
-        return this
-    }
 
     /**
      * 统计同一个tag的请求数量
@@ -193,25 +158,11 @@ class HttpUiHandle private constructor() {
         enableView?.forEach { it?.isEnabled = enable }
     }
 
-    fun setEnableView(vararg view: View?): HttpUiHandle {
-        this.enableView = view
-        return this
-    }
-
-
-    /**
-     * 重新加载的监听
-     */
-    fun setLoadSwitchService(loadSwitchService: LoadSwitchService?): HttpUiHandle {
-        this.loadSwitchService = loadSwitchService
-        return this
-    }
-
     /**
      * 再次请求
      */
     fun setLoadSwitchLoadingCanShow(): HttpUiHandle {
-        loadSwitchService?.isLoadingCanShow = true
+        switchService?.isLoadingCanShow = true
         return this
     }
 
@@ -225,13 +176,11 @@ class HttpUiHandle private constructor() {
     }
 
     /**
-     * 设置加载框样式
+     * 设置加载框样式,只能在start之前调用
      */
     fun setLoadDialogStyle(): HttpUiHandle {
-        if (getActivity()?.isFinishing == false) {
-            if (loadDialog == null) {
-                loadDialog = LoadDialog(getActivity()!!)
-            }
+        if (loadDialog == null && activity != null) {
+            loadDialog = LoadDialog(activity!!)
         }
         return this
     }
@@ -241,7 +190,7 @@ class HttpUiHandle private constructor() {
      */
     fun setLoadingStatus(tag: Any? = this.tag): HttpUiHandle {
         if (tag is BaseListViewModel) {
-            tag?.run {
+            tag?.also {
                 if (tag.swipeRefreshLayout != null) {
                     isShowLoadding = false
                     swipeRefreshLayout = tag.swipeRefreshLayout
@@ -253,24 +202,22 @@ class HttpUiHandle private constructor() {
             }
         }
         //布局切换
-        if (tag is BaseViewModel) {
-            loadSwitchService = tag?.loadSwitchService
-        }
+        if (tag is BaseViewModel) switchService = tag?.loadSwitchService
         return this
     }
 
 
     fun showLoading() {
-        loadSwitchService?.showLoading(ContextData(title = hint.orEmpty()))
+        switchService?.showLoading(ContextData(title = hint.orEmpty()))
     }
 
     fun showContent() {
-        loadSwitchService?.showContent()
+        switchService?.showContent()
     }
 
     fun showRetry(data: ContextData): Boolean {
-        loadSwitchService?.showRetry(data)
-        return loadSwitchService != null
+        switchService?.showRetry(data)
+        return switchService != null
     }
 
     /**
@@ -278,9 +225,9 @@ class HttpUiHandle private constructor() {
      */
     fun showDialog() {
         if (isShowLoadding) {
-            if (getActivity()?.isFinishing == false) {
+            if (activity?.isFinishing == false) {
                 if (loadDialog == null) {
-                    loadDialog = LoadDialog(getActivity()!!)
+                    loadDialog = LoadDialog(activity!!)
                 }
                 loadDialog?.run {
                     setContent(hint)
@@ -290,9 +237,7 @@ class HttpUiHandle private constructor() {
                         setOnCancelListener {
                             onLoadCancel?.invoke()
                         }
-                    } else {
-                        setOnCancelListener(null)
-                    }
+                    } else setOnCancelListener(null)
                     try {
                         show()
                     } catch (e: Exception) {
@@ -322,13 +267,6 @@ class HttpUiHandle private constructor() {
         loadDialog?.dismiss()
     }
 
-    fun getActivity(): Activity? {
-        return ActivityUtils.getActivity(getContext())
-    }
-
-    fun getContext(): Context? {
-        return context ?: if (tag is BaseViewModel) (tag as BaseViewModel).context else null
-    }
 
     /**
      * 开始执行
@@ -337,13 +275,13 @@ class HttpUiHandle private constructor() {
         isStatusCompleted = false
         goSetEnableView(false)
         if (swipeRefreshLayout?.isRefreshing() == true) {
-            if (loadSwitchService?.isStatusContent == false) {
+            if (switchService?.isStatusContent == false) {
                 //布局切换没有归为
                 showLoading()
             }
             return
         }
-        if (loadSwitchService?.isLoadingCanShow == true) {
+        if (switchService?.isLoadingCanShow == true) {
             showLoading()
         } else {
             showDialog()
@@ -394,6 +332,7 @@ class HttpUiHandle private constructor() {
 
     fun completed() {
         jobTimeOut?.cancel()
+        jobTimeOut = null
         goSetEnableView(true)
         dismissUi()
         isStatusCompleted = true
@@ -420,7 +359,7 @@ class HttpUiHandle private constructor() {
     fun startTimeOut(time: Int = 3000) {
         if (!isShowLoadding) return
         jobTimeOut?.cancel()
-        jobTimeOut = getActivity()?.toLifecycleOrNull()?.launch {
+        jobTimeOut = activity?.toLifecycleOrNull()?.launch {
             delay(time.toLong())
             completedSuccess()
         }
@@ -436,7 +375,7 @@ class HttpUiHandle private constructor() {
 
         operator fun get(context: Context?): HttpUiHandle {
             val buider = get()
-            buider.context = context
+            buider.mContext = context
             return buider
         }
 
@@ -449,7 +388,7 @@ class HttpUiHandle private constructor() {
 
         fun getNoTips(context: Context?): HttpUiHandle {
             val buider = get()
-            buider.context = context
+            buider.mContext = context
             buider.setNoTips()
             return buider
         }
@@ -467,3 +406,36 @@ class HttpUiHandle private constructor() {
         }
     }
 }
+
+val HttpUiHandle.coroutineExceptionHandler
+    get() = CoroutineExceptionHandler { _, error ->
+        error.printStackTrace()
+        when (error) {
+            is HttpHandelResultException -> {
+                //不显示toast
+                isErrorToastShow = false
+                //如果code全局处理的时候错误了，那么是不会走success的，这里就得自己处理UI设置为错误状态
+                error(
+                    ContextData(
+                        title = error.exception.message,
+                        resId = R.drawable.material_service_error,
+                        errCode = error.exception.code
+                    )
+                )
+            }
+            is HttpException -> error(
+                ContextData(
+                    title = error.message,
+                    resId = R.drawable.material_service_error,
+                    errCode = error.code
+                )
+            )
+            else -> error(
+                (ContextData(
+                    title = error.message.orEmpty(),
+                    resId = R.drawable.material_service_error, errCode = HttpErrorCode.HTTP_UNKNOWN
+                ))
+            )
+        }
+        completed()
+    }

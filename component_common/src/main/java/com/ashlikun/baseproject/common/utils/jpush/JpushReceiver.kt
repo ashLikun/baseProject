@@ -8,6 +8,7 @@ import cn.jpush.android.service.JPushMessageReceiver
 import com.ashlikun.baseproject.common.mode.javabean.JpushJsonData
 import com.ashlikun.baseproject.libcore.router.RouterManage
 import com.ashlikun.utils.other.LogUtils
+import com.ashlikun.utils.other.coroutines.taskLaunch
 import com.ashlikun.utils.other.coroutines.taskLaunchMain
 import kotlinx.coroutines.Job
 
@@ -26,6 +27,7 @@ class JpushReceiver : JPushMessageReceiver() {
         var deleteAliasJob: Job? = null
         var setTagsJob: Job? = null
         var deleteTagsJob: Job? = null
+        val delayTime = 4000L
     }
 
     override fun onRegister(context: Context?, registrationId: String?) {
@@ -40,8 +42,11 @@ class JpushReceiver : JPushMessageReceiver() {
     //服务器连接成功
     override fun onConnected(p0: Context?, p1: Boolean) {
         super.onConnected(p0, p1)
-        RouterManage.login()?.run {
-            if (isLogin()) JpushUtils.setAlias() else JpushUtils.deleteAlias()
+        //nit 后直接 set 操作有极大可能导致失败，可能会在回调里拿到 6022,6002 等，测试的时候可以做个 7、8 秒的延时，正式业务里一般配合用户注册使用，延时基本上够用
+        taskLaunch(delayTime = 4000) {
+            RouterManage.login()?.run {
+                if (isLogin()) JpushUtils.setAlias() else JpushUtils.deleteAlias()
+            }
         }
     }
 
@@ -63,8 +68,12 @@ class JpushReceiver : JPushMessageReceiver() {
         if (message.sequence === JpushUtils.JPUSH_TAGS_SET_ID) {
             if (message.errorCode !== 0) {
                 LogUtils.e("极光推送Tags设置失败 ,Tags = " + message.tags + ",错误码 = " + message.errorCode)
-                setTagsJob = taskLaunchMain(delayTime = 8000) {
-                    JpushUtils.setTags(message.tags)
+                //6021 3.0.7 版本新增的错误码，多次调用 tag 相关的 API，请在获取到上一次调用回调后再做下一次操作；在未取到回调的情况下，等待 20 秒后再做下一次操作。
+                if (message.errorCode != 6021) {
+                    setTagsJob?.cancel()
+                    setTagsJob = taskLaunchMain(delayTime = delayTime) {
+                        JpushUtils.setTags(message.tags)
+                    }
                 }
             } else {
                 LogUtils.e("极光推送Tags设置成功,Tags = " + message.tags)
@@ -74,8 +83,12 @@ class JpushReceiver : JPushMessageReceiver() {
         } else if (message.sequence === JpushUtils.JPUSH_TAGS_DELETE_ID) {
             if (message.errorCode !== 0) {
                 LogUtils.e("极光推送Tags删除失败 ,别名 = " + message.tags + ",错误码 = " + message.errorCode)
-                deleteTagsJob = taskLaunchMain(delayTime = 8000) {
-                    JpushUtils.deleteTags()
+                //6021 3.0.7 版本新增的错误码，多次调用 tag 相关的 API，请在获取到上一次调用回调后再做下一次操作；在未取到回调的情况下，等待 20 秒后再做下一次操作。
+                if (message.errorCode != 6021) {
+                    deleteTagsJob?.cancel()
+                    deleteTagsJob = taskLaunchMain(delayTime = delayTime) {
+                        JpushUtils.deleteTags()
+                    }
                 }
             } else {
                 LogUtils.e("极光推送Tags删除成功,别名 = " + message.tags)
@@ -87,13 +100,16 @@ class JpushReceiver : JPushMessageReceiver() {
 
     override fun onAliasOperatorResult(context: Context, message: JPushMessage) {
         super.onAliasOperatorResult(context, message)
-        LogUtils.e("极光推送别名 ," + message.toString())
+        LogUtils.e("极光推送别名 ,$message")
         //对应操作的返回码,0为成功，其他返回码请参考错误码定义.
         if (message.sequence === JpushUtils.JPUSH_ALIAS_SET_ID) {
             if (message.errorCode !== 0) {
                 LogUtils.e("极光推送别名设置失败 ,别名 = " + message.alias + ",错误码 = " + message.errorCode)
-                setAliasJob = taskLaunchMain(delayTime = 8000) {
-                    JpushUtils.setAlias()
+                if (message.errorCode != 6022) {
+                    setAliasJob?.cancel()
+                    setAliasJob = taskLaunchMain(delayTime = delayTime) {
+                        JpushUtils.setAlias()
+                    }
                 }
             } else {
                 LogUtils.e("极光推送别名设置成功,别名 = " + message.alias)
@@ -103,8 +119,12 @@ class JpushReceiver : JPushMessageReceiver() {
         } else if (message.sequence === JpushUtils.JPUSH_ALIAS_DELETE_ID) {
             if (message.errorCode !== 0) {
                 LogUtils.e("极光推送别名删除失败 ,别名 = " + message.alias + ",错误码 = " + message.errorCode)
-                deleteAliasJob = taskLaunchMain(delayTime = 8000) {
-                    JpushUtils.deleteAlias()
+                //6022 3.0.7 版本新增的错误码，多次调用 alias 相关的 API，请在获取到上一次调用回调后再做下一次操作；在未取到回调的情况下，等待 20 秒后再做下一次操作。
+                if (message.errorCode != 6022) {
+                    deleteAliasJob?.cancel()
+                    deleteAliasJob = taskLaunchMain(delayTime = delayTime) {
+                        JpushUtils.deleteAlias()
+                    }
                 }
             } else {
                 LogUtils.e("极光推送别名删除成功,别名 = " + message.alias)
