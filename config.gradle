@@ -77,8 +77,6 @@ ext {
             LiteOrm              : "com.github.ashLikun:LiteOrm:2.0.3",
             //MMKV
             MMKV                 : 'com.tencent:mmkv:1.2.11',
-            //autosize 屏幕适配
-            Autosize             : 'me.jessyan:autosize:1.2.1',
 
             //保活的策略
             Keeplive             : "com.github.ashLikun:Keeplive:1.0.3",

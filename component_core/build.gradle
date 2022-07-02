@@ -112,9 +112,6 @@ dependencies {
     //MMKV
     api libs.MMKV
 
-    //autosize 屏幕适配
-    api libs.Autosize
-
     //保活的策略
     api libs.Keeplive
 
