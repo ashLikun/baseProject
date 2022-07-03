@@ -7,6 +7,7 @@ import com.ashlikun.baseproject.common.utils.jump.RouterJump
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.router.service.ILoginService
 import com.ashlikun.baseproject.module.login.mode.javabean.UserData
+import com.ashlikun.baseproject.module.login.view.activity.LoginActivity
 
 /**
  * 作者　　: 李坤
@@ -23,6 +24,9 @@ class LoginServiceIml : ILoginService {
     }
 
     override fun getUserName(): String = UserData.userData?.userName ?: ""
+    override fun isCurrentLogin(activity: Activity?) =
+        activity?.javaClass == LoginActivity::class.java
+
     internal var context: Context? = null
     override fun init(context: Context) {
         this.context = context
@@ -44,14 +48,23 @@ class LoginServiceIml : ILoginService {
         return UserData.userData?.token ?: ""
     }
 
+    /**
+     * 退出登录并且起首页
+     */
     override fun exitLogin() {
         UserData.exitLogin()
     }
 
+    /**
+     * 只是退出登录
+     */
     override fun exit() {
         UserData.exit()
     }
 
+    /**
+     * 退出登录显示对话框
+     */
     override fun exitShowDialog(activity: Activity) {
         UserData.exit(activity)
     }

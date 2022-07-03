@@ -3,6 +3,7 @@ package com.ashlikun.baseproject.libcore.router.service
 import android.app.Activity
 
 import com.alibaba.android.arouter.facade.template.IProvider
+import com.ashlikun.utils.ui.fCActivity
 
 /**
  * 作者　　: 李坤
@@ -36,4 +37,6 @@ interface ILoginService : IProvider {
     fun exit()
     fun exitShowDialog(activity: Activity)
     fun getUserName(): String
+    //当前是否正在登录页面
+    fun isCurrentLogin(activity: Activity? = fCActivity): Boolean
 }

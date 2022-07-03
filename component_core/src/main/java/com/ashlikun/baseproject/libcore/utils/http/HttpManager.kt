@@ -17,6 +17,7 @@ import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.okhttputils.http.response.IHttpResponse
 import com.ashlikun.okhttputils.retrofit.Retrofit
 import com.ashlikun.utils.AppUtils
+import com.ashlikun.utils.main.ActivityUtils
 import com.ashlikun.utils.other.DeviceUtil
 import com.ashlikun.utils.other.MainHandle
 import com.ashlikun.utils.other.StringUtils
@@ -249,7 +250,13 @@ class HttpManager private constructor() {
             if (IS_LOGIN_OUT_DIALOG_SHOW) {
                 return
             }
-            IS_LOGIN_OUT_DIALOG_SHOW = true
+            //如果已经在登录页面
+            if (RouterManage.login()?.isCurrentLogin(activity) == true) return
+            //如果是后台，直接退出登录
+            if (!ActivityUtils.isForeground) {
+                RouterManage.login()?.exitLogin()
+                return
+            }
             AlertDialog.Builder(activity)
                 .setCancelable(false)
                 .setTitle("账号异常")
@@ -258,7 +265,6 @@ class HttpManager private constructor() {
                 .setPositiveButton("知道了") { dialoog, which ->
                     if (code == HttpCodeApp.TOKEN_ERROR) {
                         RouterManage.login()?.exitLogin()
-                        RouterManage.login()?.startLogin()
                     }
                     if (code == HttpCodeApp.NO_LOGIN) {
                         RouterManage.login()?.startLogin()
