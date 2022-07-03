@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.drawable.GradientDrawable
 import android.view.WindowManager
 import com.ashlikun.baseproject.libcore.R
-import com.ashlikun.customdialog.DialogUtils
 import com.ashlikun.customdialog.LoadDialog
 import com.ashlikun.utils.ui.extend.dp
 import com.ashlikun.utils.ui.extend.resColor
