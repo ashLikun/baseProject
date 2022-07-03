@@ -18,8 +18,10 @@ import com.ashlikun.okhttputils.http.OkHttpUtils
 import com.ashlikun.okhttputils.http.download.DownloadManager
 import com.ashlikun.orm.LiteOrmUtil
 import com.ashlikun.utils.AppUtils
+import com.ashlikun.utils.other.coroutines.defaultCoroutineExceptionHandler
 import com.ashlikun.utils.other.file.FileUtils
 import com.ashlikun.utils.ui.modal.SuperToast
+import com.didichuxing.doraemonkit.DoKit
 import com.didichuxing.doraemonkit.DoraemonKit
 import kotlinx.coroutines.CoroutineExceptionHandler
 
@@ -72,12 +74,7 @@ open class BaseApplication : MultiDexApplication() {
 
     private fun initLib() {
         //全局协成异常
-        BaseUtils.coroutineExceptionHandler =
-            CoroutineExceptionHandler { coroutineContext, throwable ->
-                throwable.printStackTrace()
-                //这里可以提交日志
-            }
-
+        BaseUtils.coroutineExceptionHandler = defaultCoroutineExceptionHandler
         AppUtils.isDebug = BuildConfig.DEBUG
         LoadSwitch.init(this)
         CacheUtils.init(resources.getString(R.string.app_name_letter))
@@ -87,7 +84,7 @@ open class BaseApplication : MultiDexApplication() {
             .isDebug(AppUtils.isDebug)
             .apply()
         //开发助手
-        DoraemonKit.install(this, FileUtils.getMetaValue("DOKIT_PID"))
+        DoKit.Builder(this).productId(FileUtils.getMetaValue("DOKIT_PID")).build()
         //数据库
         LiteOrmUtil.init(this)
         LiteOrmUtil.setVersionCode(AppUtils.versionCode)
