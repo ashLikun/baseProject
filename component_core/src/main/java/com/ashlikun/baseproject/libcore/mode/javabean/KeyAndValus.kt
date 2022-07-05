@@ -12,5 +12,5 @@ package com.ashlikun.baseproject.libcore.mode.javabean
 class KeyAndValus {
     var key: Int = 0
     var keyStr: String = ""
-    var valus: String = ""
+    var value: String = ""
 }

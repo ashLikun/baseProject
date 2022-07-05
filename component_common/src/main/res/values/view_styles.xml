@@ -41,6 +41,13 @@
         <item name="android:textSize">@dimen/dp_16</item>
     </style>
 
+    <style name="FlatButton.Main.Stroke">
+        <item name="colorNormal">@color/translucent</item>
+        <item name="strokeColor">@color/colorPrimary</item>
+        <item name="strokeWidth">@dimen/dp_1</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
     <style name="FlatButton.Order">
         <item name="android:textSize">@dimen/dp_24</item>
         <item name="strokeWidth">@dimen/dp_1</item>
