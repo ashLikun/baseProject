@@ -3,6 +3,8 @@ package com.ashlikun.baseproject.common.utils.extend
 //import androidx.constraintlayout.widget.Group
 import android.view.MotionEvent
 import android.view.View
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.Group
 import androidx.drawerlayout.widget.DrawerLayout
 import com.ashlikun.utils.other.getFieldValue
 import com.ashlikun.utils.other.setFieldValue
@@ -57,8 +59,8 @@ fun View?.touchEventToLocation(motionEvent: MotionEvent): MotionEvent {
  * 防止多次点击
  */
 inline fun View?.setOnSingleClickListener(
-        delayMillis: Long = 500,
-        crossinline onClick: (view: View) -> Unit
+    delayMillis: Long = 500,
+    crossinline onClick: (view: View) -> Unit
 ) {
     this?.setOnClickListener {
         this.isClickable = false
@@ -68,3 +70,18 @@ inline fun View?.setOnSingleClickListener(
         }, delayMillis)
     }
 }
+
+/**
+ * 防止多次点击
+ */
+inline fun Group.setOnSingleClickListener(
+    delayMillis: Long = 500,
+    crossinline onClick: (view: View) -> Unit
+) {
+    referencedIds.forEach {
+        (this.parent as? ConstraintLayout)?.findViewById<View>(it)
+            .setOnSingleClickListener(delayMillis, onClick)
+    }
+
+}
+
