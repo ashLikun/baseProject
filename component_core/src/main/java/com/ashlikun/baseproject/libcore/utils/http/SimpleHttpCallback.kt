@@ -1,4 +1,5 @@
 package com.ashlikun.baseproject.libcore.utils.http
+
 import com.ashlikun.baseproject.libcore.mode.javabean.HttpListResult
 import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.okhttputils.http.HttpException
@@ -64,31 +65,7 @@ open class SimpleHttpCallback<T> constructor(handle: HttpUiHandle?) : HttpCallBa
 
     override fun onSuccess(result: T) {
         super.onSuccess(result)
-        if (result is HttpResult<*> || result is HttpListResult<*>) {
-            when {
-                (result as IHttpResponse).isSucceed -> {
-                    //成功时候对data为null的处理
-                    if (result is HttpResult<*>) {
-                        when {
-                            result.data != null -> success?.invoke(result)
-                            else -> onError(
-                                HttpException(HttpCodeApp.NO_DATA_ERROR, HttpCodeApp.NO_DATA_ERROR_MSG)
-                            )
-                        }
-                    } else if (result is HttpListResult<*>) {
-                        when {
-                            result.data != null -> success?.invoke(result)
-                            else -> onError(
-                                HttpException(HttpCodeApp.NO_DATA_ERROR, HttpCodeApp.NO_DATA_ERROR_MSG)
-                            )
-                        }
-                    }
-                }
-                else -> success?.invoke(result)
-            }
-        } else {
-            success?.invoke(result)
-        }
+        success?.invoke(result)
     }
 
     override fun onSuccessSubThread(result: T) {
