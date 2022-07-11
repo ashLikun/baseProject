@@ -50,7 +50,7 @@ class HttpUiHandle private constructor() {
      * tag类,标识这个请求，会传递到Request里面可以是 [BaseViewModel] [tag]优先级高
      */
     internal var tag: Any? = null
-        get() = field ?: context
+        get() = field ?: mContext
     internal var mContext: Context? = null
 
     /**
