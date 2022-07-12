@@ -407,35 +407,23 @@ class HttpUiHandle private constructor() {
     }
 }
 
+
 val HttpUiHandle.coroutineExceptionHandler
     get() = CoroutineExceptionHandler { _, error ->
         error.printStackTrace()
         when (error) {
             is HttpHandelResultException -> {
+                val old = isErrorToastShow
                 //不显示toast
                 isErrorToastShow = false
                 //如果code全局处理的时候错误了，那么是不会走success的，这里就得自己处理UI设置为错误状态
-                error(
-                    ContextData(
-                        title = error.exception.message,
-                        resId = R.drawable.material_service_error,
-                        errCode = error.exception.code
-                    )
-                )
+                error(ContextData(title = error.exception.message, resId = R.drawable.material_service_error, errCode = error.exception.code))
+                //还原显示toast
+                isErrorToastShow = old
             }
-            is HttpException -> error(
-                ContextData(
-                    title = error.message,
-                    resId = R.drawable.material_service_error,
-                    errCode = error.code
-                )
-            )
-            else -> error(
-                (ContextData(
-                    title = error.message.orEmpty(),
-                    resId = R.drawable.material_service_error, errCode = HttpErrorCode.HTTP_UNKNOWN
-                ))
-            )
+            is HttpException -> error(ContextData(title = error.message, resId = R.drawable.material_service_error, errCode = error.code))
+            else -> error((ContextData(title = error.message.orEmpty(),
+                resId = R.drawable.material_service_error, errCode = HttpErrorCode.HTTP_UNKNOWN)))
         }
         completed()
     }
