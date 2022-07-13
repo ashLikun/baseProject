@@ -52,6 +52,6 @@ object RouterPath {
     //首页
     const val FRAGMENT_HOME = "/home/fragment/main"
 
-    //啊实打实大所大所所多
-    const val FRAGMENT_FIND_NEXT = "/login/fragment/findnext"
+    //啊实打实的
+    const val ACTIVITY_ASDASDA = "/login/activity/asdasda"
 }

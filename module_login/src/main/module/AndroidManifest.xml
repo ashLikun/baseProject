@@ -20,5 +20,32 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--aaa-->
+        <activity
+            android:name=".view.activity.AdddActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.OtherTheme"/>        <!--Dawda伟大时代-->
+        <activity
+            android:name=".view.activity.WDasdwActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.OtherTheme"/>        <!--adawAw哇塞的-->
+        <activity
+            android:name=".view.activity.WDSadActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.OtherTheme"/>        <!--啊圣诞袜-->
+        <activity
+            android:name=".view.activity.WadsawdActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.OtherTheme"/
+        <!--啊实打实的-->
+        <activity
+            android:name=".view.activity.AsdasdaActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.OtherTheme"/>
     </application>
 </manifest>

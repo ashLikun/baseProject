@@ -47,12 +47,6 @@
             android:name="JPUSH_PKGNAME"
             android:value="${applicationId}"></meta-data>
 
-        <!--  X5内核  该Service仅在TBS内核首次Dex加载时触发并执行dex2oat任务，任务完成后自动结束。    -->
-        <service
-            android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
-            android:label="dexopt"
-            android:process=":dexopt"></service>
-
         <!-- Required since 3.0.7 -->
         <!-- 新的 tag/alias 接口结果返回需要开发者配置一个自定的广播 -->
         <!-- 3.3.0开始所有事件将通过该类回调 -->
