@@ -22,6 +22,8 @@ inline fun TypedArray.getStringX(context: Context, index: Int): String {
         getResourceId(index, 0).apply {
             if (this != 0) {
                 return resString(context)
+            } else {
+                return getString(index).orEmpty()
             }
         }
     } else {
