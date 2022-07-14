@@ -104,10 +104,10 @@
 
     <style name="SuperToolBar.Main">
         <item name="stb_actionTextColor">@color/colorPrimary</item>
-        <item name="stb_titleColor">@color/white</item>
-        <item name="stb_backImgColor">@color/white</item>
+        <item name="stb_titleColor">@color/black_33</item>
+        <item name="stb_backImgColor">@color/black_33</item>
         <item name="stb_bottonLineHeight">0dp</item>
-        <item name="android:background">@color/activity_backgound</item>
+        <item name="android:background">@color/statusColorCustom</item>
     </style>
 
     <!--https://www.jianshu.com/p/7a9070d223ed-->

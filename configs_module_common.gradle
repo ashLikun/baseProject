@@ -1,3 +1,6 @@
+def config = rootProject.ext.android // 工程配置
+def libs = rootProject.ext.dependencies // 库依赖
+
 android {
     buildTypes {
         debug {
@@ -13,5 +16,17 @@ android {
 //            //构建的时候打印文本
 //            println 'build - beta'
 //        }
+    }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+    buildFeatures {
+        viewBinding = true
+        dataBinding = false
     }
 }

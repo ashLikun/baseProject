@@ -36,15 +36,15 @@ class HomeFragment : BaseMvvmFragment<HomeViewModel>() {
 
     override fun initView() {
         "initView".logge()
-        toolbar?.run {
-            setTitle("首页")
+        binding.apply {
+            ceshiButton.setOnClickListener {
+                RouterJump.startLockImage(0, RESURL2.map { ImageData(it, it, 0) } as ArrayList, true)
+            }
+            ceshi2Button.setOnClickListener {
+                RouterJump.startTest()
+            }
         }
-        binding.ceshiButton.setOnClickListener {
-            RouterJump.startLockImage(0, RESURL2.map { ImageData(it, it, 0) } as ArrayList, true)
-        }
-        binding.ceshi2Button.setOnClickListener {
-            RouterJump.startTest()
-        }
+
     }
 
     override fun clearData() {}

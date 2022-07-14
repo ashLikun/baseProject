@@ -5,7 +5,7 @@
     <color name="colorAccent">#ff1e82d2</color>
     <color name="colorPrimaryVariant">#ff1e82d2</color>
     <!--状态栏颜色-->
-    <color name="statusColorCustom">#FFF54343</color>
+    <color name="statusColorCustom">#ffffffff</color>
     <!--加载框背景-->
     <color name="dialog_load_back_color">#90ffffff</color>
     <!--加载框标题-->
