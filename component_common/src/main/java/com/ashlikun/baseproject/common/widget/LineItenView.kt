@@ -17,7 +17,8 @@ import com.ashlikun.utils.other.DimensUtils
 import com.ashlikun.utils.ui.extend.dp
 import com.ashlikun.utils.ui.extend.layoutInflater
 import com.ashlikun.utils.ui.extend.setMargin
-import com.vinka.ebike.common.utils.ui.getStringX
+import com.ashlikun.baseproject.common.utils.ui.getStringX
+import com.ashlikun.utils.ui.extend.setViewSize
 
 /**
  * 作者　　: 李坤
@@ -99,12 +100,20 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         if (a.hasValue(R.styleable.LineItenView_liv_title_color)) {
             binding.titleView.setTextColor(a.getColor(R.styleable.LineItenView_liv_title_color, 0))
         }
-        if (a.hasValue(R.styleable.LineItenView_liv_sub_title_size)) {
-            binding.subTitleView.setTextSize(
-                TypedValue.COMPLEX_UNIT_PX,
-                a.getDimensionPixelSize(R.styleable.LineItenView_liv_sub_title_size, 0).toFloat()
-            )
-        }
+        if (a.hasValue(R.styleable.LineItenView_liv_title_width)) {
+            val newWidth = a.getLayoutDimension(R.styleable.LineItenView_liv_title_width, 0)
+            (binding.titleView.layoutParams as LayoutParams).apply {
+                width = newWidth
+                if (newWidth == -2) weight = 0f
+            }
+        } v
+                if (a.hasValue(R.styleable.LineItenView_liv_sub_title_size)) {
+                    binding.subTitleView.setTextSize(
+                        TypedValue.COMPLEX_UNIT_PX,
+                        a.getDimensionPixelSize(R.styleable.LineItenView_liv_sub_title_size, 0)
+                            .toFloat()
+                    )
+                }
         if (a.hasValue(R.styleable.LineItenView_liv_sub_title_color)) {
             binding.subTitleView.setTextColor(
                 a.getColor(

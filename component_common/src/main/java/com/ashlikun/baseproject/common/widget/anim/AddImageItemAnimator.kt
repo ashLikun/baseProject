@@ -1,4 +1,4 @@
-package com.vinka.ebike.common.widget.anim
+package com.ashlikun.baseproject.common.widget.anim
 
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.RecyclerView

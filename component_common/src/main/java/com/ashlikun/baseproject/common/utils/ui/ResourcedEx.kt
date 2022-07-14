@@ -1,4 +1,4 @@
-package com.vinka.ebike.common.utils.ui
+package com.ashlikun.baseproject.common.utils.ui
 
 import android.content.Context
 import android.content.res.TypedArray

@@ -1,4 +1,4 @@
-package com.vinka.ebike.common.utils.ui
+package com.ashlikun.baseproject.common.utils.ui
 
 import android.widget.TextView
 import com.ashlikun.baseproject.common.R
