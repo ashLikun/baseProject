@@ -38,8 +38,9 @@ def run = { extension, buildUpdateDescription, names ->
                                 int end = line.indexOf("\"", start)
                                 if (start > 0 && end > 0) {
                                     String sUrl = line.substring(start, end)
+                                    logger.log(LogLevel.INFO, "https://www.pgyer.com/$sUrl")
                                     //这里打开网页下载地址
-//                            runtime.exec("cmd   /c   start  https://www.pgyer.com/$sUrl")
+//                                    runtime.exec("cmd   /c   start  https://www.pgyer.com/$sUrl")
                                 }
                             }
                             br.close()
