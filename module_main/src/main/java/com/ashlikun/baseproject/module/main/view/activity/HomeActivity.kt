@@ -36,7 +36,6 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
     override val binding by lazy {
         MainActivityHomeBinding.inflate(layoutInflater)
     }
-    override val statusBarColor = R.color.white.resColor
     private var exitTime: Long = 0
     var index = 0
     var cachePosition = -1

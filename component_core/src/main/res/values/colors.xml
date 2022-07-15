@@ -20,5 +20,5 @@
     <color name="super_toast_color_error">#99EE2526</color>
     <!--底部导航激活颜色-->
     <color name="nav_active_color">@color/colorPrimary</color>
-
+    <color name="activity_backgound">#ffefefef</color>
 </resources>
