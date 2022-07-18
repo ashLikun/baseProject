@@ -1,5 +1,5 @@
 ext {
-    frameVersion = "3.2.3"
+    frameVersion = "3.2.4"
     lifecycleVersion = "2.4.0"
     android = [
             applicationId   : "com.ashlikun.baseproject",
