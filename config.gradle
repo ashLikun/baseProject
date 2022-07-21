@@ -79,7 +79,7 @@ ext {
             MMKV                 : 'com.tencent:mmkv:1.2.11',
 
             //保活的策略
-            Keeplive             : "com.github.ashLikun:Keeplive:1.0.3",
+            Keeplive             : "com.github.ashLikun:Keeplive:1.0.4",
 
             //封装的RecycleViewFr
             XRecycleView         : "com.github.ashLikun:XRecycleView:3.0.5",
