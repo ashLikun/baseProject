@@ -11,7 +11,9 @@ import com.ashlikun.core.mvvm.launch
 import com.ashlikun.okhttputils.http.download.DownloadManager
 import com.ashlikun.okhttputils.http.download.DownloadTask
 import com.ashlikun.okhttputils.http.download.DownloadTaskListenerAdapter
+import com.ashlikun.utils.AppUtils
 import com.ashlikun.utils.other.ApkUtils
+import com.ashlikun.utils.other.DeviceUtil
 import com.ashlikun.utils.other.file.FileUtils
 import com.ashlikun.utils.ui.ActivityManager
 import com.ashlikun.utils.ui.NotificationUtil
@@ -62,13 +64,35 @@ object AppUpdate {
         DownloadManager.get().addDownloadTask(
             DownloadTask(url = downloadUrl, listener = object : DownloadTaskListenerAdapter() {
                 val not by lazy {
-                    NotificationUtil.createBuilder(
-                        icon = R.mipmap.app_logo,
-                        title = "App更新",
-                        msg = "",
-                        channelName = "默认通知",
-                        importance = NotificationManager.IMPORTANCE_DEFAULT
-                    ).setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                    if (DeviceUtil.deviceBrand.lowercase() == "xiaomi") {
+                        //小米会放到不重要的通知里面去
+                        NotificationUtil.createChannel("App Update",
+                            channelGroupName = AppUtils.appName,
+                            importance = NotificationManager.IMPORTANCE_HIGH)
+                    } else {
+                        NotificationUtil.createChannel("App Update",
+                            channelGroupName = AppUtils.appName,
+                            importance = NotificationManager.IMPORTANCE_DEFAULT)
+                    }
+                    val builder = NotificationCompat.Builder(AppUtils.app, "App Update")
+                        .setWhen(System.currentTimeMillis())//设置事件发生的时间。面板中的通知是按这个时间排序。
+                        .setSmallIcon(R.mipmap.app_logo) //这玩意在通知栏上显示一个logo
+                        .setTicker("App Update")
+                        .setContentTitle("App Updating")
+                        .setContentText("")
+                        .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                        .setDefaults(NotificationCompat.DEFAULT_ALL)
+                        .setOngoing(true)
+                        .setAutoCancel(true) //点击不让消失
+                        .setSound(null) //关了通知默认提示音
+                        .setPriority(NotificationCompat.PRIORITY_MAX) //咱们通知很重要
+                        .setVibrate(null) //关了车震
+                        //这样通知只会在通知首次出现时打断用户（通过声音、振动或视觉提示），而之后更新则不会再打断用户。
+                        .setOnlyAlertOnce(true)
+                        .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+//                    val n = builder.build()
+//                    n.flags = n.flags or NotificationCompat.FLAG_NO_CLEAR //不让手动清除 通知栏常驻
+                    builder
                 }
 
                 override fun onDownloadSuccess(downloadTask: DownloadTask, file: File) {
