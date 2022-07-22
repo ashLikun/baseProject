@@ -20,5 +20,34 @@
     <color name="super_toast_color_error">#99EE2526</color>
     <!--底部导航激活颜色-->
     <color name="nav_active_color">@color/colorPrimary</color>
+    <!--项目背景颜色-->
     <color name="activity_backgound">#ffefefef</color>
+
+    <!--默认的文字颜色-->
+    <color name="text_color">#ffffffff</color>
+    <color name="black">#ff000000</color>
+    <color name="black_33">#333333</color>
+    <color name="black_28">#282828</color>
+    <color name="black_4b">#4b4b4b</color>
+    <color name="black_t50">#88000000</color>
+    <color name="black_t90">#e5000000</color>
+    <color name="white">#ffffff</color>
+    <color name="gray_99">#ff999999</color>
+    <color name="gray_92">#ff929292</color>
+    <color name="gray_66">#ff666666</color>
+    <color name="gray_e5">#ffe5e5e5</color>
+    <color name="gray_ee">#ffeeeeee</color>
+    <color name="gray_f0">#fff0eff5</color>
+    <color name="gray_f4">#F4F4F4</color>
+    <color name="gray_cc">#ffcccccc</color>
+    <color name="gray_d8">#d8d8d8</color>
+    <color name="gray_dd">#ffdddddd</color>
+    <color name="gray_aa">#ffaaaaaa</color>
+    <color name="translucent">#00000000</color>
+    <color name="green">#16be32</color>
+    <color name="yellow">#FFD30F</color>
+    <color name="blue">#ff399be6</color>
+    <color name="red">#ff0000</color>
+    <color name="photo_browse">#cc252429</color>
+    <color name="design_textinput_error_color_light">#ffff3131</color>
 </resources>

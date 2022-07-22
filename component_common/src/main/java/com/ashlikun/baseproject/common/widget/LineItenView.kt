@@ -106,14 +106,14 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
                 width = newWidth
                 if (newWidth == -2) weight = 0f
             }
-        } v
-                if (a.hasValue(R.styleable.LineItenView_liv_sub_title_size)) {
-                    binding.subTitleView.setTextSize(
-                        TypedValue.COMPLEX_UNIT_PX,
-                        a.getDimensionPixelSize(R.styleable.LineItenView_liv_sub_title_size, 0)
-                            .toFloat()
-                    )
-                }
+        }
+        if (a.hasValue(R.styleable.LineItenView_liv_sub_title_size)) {
+            binding.subTitleView.setTextSize(
+                TypedValue.COMPLEX_UNIT_PX,
+                a.getDimensionPixelSize(R.styleable.LineItenView_liv_sub_title_size, 0)
+                    .toFloat()
+            )
+        }
         if (a.hasValue(R.styleable.LineItenView_liv_sub_title_color)) {
             binding.subTitleView.setTextColor(
                 a.getColor(
