@@ -90,7 +90,7 @@ ext {
             //封装的viewpager，banner，启动页
             XViewPager           : "com.github.ashLikun:XViewPager:2.2.4",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:4.6.9",
+            CommonUtils          : "com.github.ashLikun:CommonUtils:4.6.10",
             //公共的Adapter
             CommonAdapter        : "com.github.ashLikun:CommonAdapter:4.4.0",
             //Google官方改造
@@ -102,7 +102,7 @@ ext {
             //习惯的对话框
             CustomDialog         : "com.github.ashLikun:CustomDialog:3.1.4",
             //圆形的进度条
-            CircleProgressView   : "com.github.ashLikun:CircleProgressView:2.0.1",
+            CircleProgressView   : "com.github.ashLikun:CircleProgressView:2.0.2",
             //LayoutManage
             XLayoutManager       : "com.github.ashLikun:XLayoutManager:1.0.9",
             //布局切换
