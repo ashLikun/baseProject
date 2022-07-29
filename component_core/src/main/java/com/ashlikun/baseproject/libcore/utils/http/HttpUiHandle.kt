@@ -4,10 +4,13 @@ import android.app.Activity
 import android.content.Context
 import android.view.View
 import com.ashlikun.baseproject.libcore.R
+import com.ashlikun.baseproject.libcore.dialog.LoadBackDialog
+import com.ashlikun.baseproject.libcore.dialog.LoadBackView
 import com.ashlikun.baseproject.libcore.mvvm.viewmodel.BaseListViewModel
 import com.ashlikun.core.mvvm.BaseViewModel
 import com.ashlikun.core.mvvm.launch
 import com.ashlikun.customdialog.LoadDialog
+import com.ashlikun.customdialog.LoadView
 import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.loadswitch.LoadSwitchService
 import com.ashlikun.okhttputils.http.HttpException
@@ -50,6 +53,7 @@ class HttpUiHandle private constructor() {
      * tag类,标识这个请求，会传递到Request里面可以是 [BaseViewModel] [tag]优先级高
      */
     internal var tag: Any? = null
+        //这里不要 使用context 防止死循环
         get() = field ?: mContext
     internal var mContext: Context? = null
 
@@ -62,8 +66,7 @@ class HttpUiHandle private constructor() {
         ActivityUtils.getActivity(context)
     }
     val context by lazy {
-        mContext
-            ?: if (tag is BaseViewModel) (tag as BaseViewModel).context else if (tag is Activity) tag as Context else null
+        mContext ?: if (tag is BaseViewModel) (tag as BaseViewModel).context else if (tag is Activity) tag as Context else null
     }
 
     /**
@@ -116,6 +119,12 @@ class HttpUiHandle private constructor() {
     var isShowLoadding = true
 
     /**
+     * 加载是否以对话框形式
+     * 默认 View
+     */
+    var isDialogMode = false
+
+    /**
      * 下拉刷新
      */
     var swipeRefreshLayout: RefreshLayout? = null
@@ -133,6 +142,7 @@ class HttpUiHandle private constructor() {
     /**
      * 加载框
      */
+    var loadView: LoadView? = null
     var loadDialog: LoadDialog? = null
 
     /**
@@ -179,8 +189,14 @@ class HttpUiHandle private constructor() {
      * 设置加载框样式,只能在start之前调用
      */
     fun setLoadDialogStyle(): HttpUiHandle {
-        if (loadDialog == null && activity != null) {
-            loadDialog = LoadDialog(activity!!)
+        if (isDialogMode) {
+            if (loadDialog == null && activity != null) {
+                loadDialog = LoadBackDialog(activity!!)
+            }
+        } else {
+            if (loadView == null && activity != null) {
+                loadView = LoadBackView(activity!!)
+            }
         }
         return this
     }
@@ -226,21 +242,37 @@ class HttpUiHandle private constructor() {
     fun showDialog() {
         if (isShowLoadding) {
             if (activity?.isFinishing == false) {
-                if (loadDialog == null) {
-                    loadDialog = LoadDialog(activity!!)
-                }
-                loadDialog?.run {
-                    setContent(hint)
-                    setCancelable(isCancelable)
-                    setCanceledOnTouchOutside(isCanceledOnTouchOutside)
-                    if (onLoadCancel != null) {
-                        setOnCancelListener {
-                            onLoadCancel?.invoke()
+                if (isDialogMode) {
+                    if (loadDialog == null) {
+                        loadDialog = LoadDialog(activity!!)
+                    }
+                    loadDialog?.run {
+                        setContent(hint)
+                        setCancelable(isCancelable)
+                        setCanceledOnTouchOutside(isCanceledOnTouchOutside)
+                        if (onLoadCancel != null) {
+                            setOnCancelListener {
+                                onLoadCancel?.invoke()
+                            }
+                        } else setOnCancelListener(null)
+                        try {
+                            show()
+                        } catch (e: Exception) {
                         }
-                    } else setOnCancelListener(null)
-                    try {
-                        show()
-                    } catch (e: Exception) {
+                    }
+                } else {
+                    if (loadView == null) {
+                        loadView = LoadView(activity!!)
+                    }
+                    loadView?.run {
+                        setContent(hint)
+                        this.isCancelable = this@HttpUiHandle.isCancelable
+                        this.isCanceledOnTouchOutside = this@HttpUiHandle.isCanceledOnTouchOutside
+                        onCancelListener = onLoadCancel
+                        try {
+                            show()
+                        } catch (e: Exception) {
+                        }
                     }
                 }
             }
@@ -252,7 +284,7 @@ class HttpUiHandle private constructor() {
      */
     fun hintProgress() {
         //如果不显示对话框,就直接返回
-        if (!isShowLoadding || loadDialog == null) {
+        if (!isShowLoadding || (loadDialog == null && loadView == null)) {
             return
         }
         //如果count > 1，说明当前页面还有请求，就不销毁对话框
@@ -265,6 +297,7 @@ class HttpUiHandle private constructor() {
             return
         }
         loadDialog?.dismiss()
+        loadView?.dismiss()
     }
 
 
@@ -299,10 +332,7 @@ class HttpUiHandle private constructor() {
                 showContent()
             } else {
                 //请求成功，但是接口Code错误
-                error(
-                    ContextData(title = result.message, errCode = result.code),
-                    isDataCodeErrorToastShow
-                )
+                error(ContextData(title = result.message, errCode = result.code), isDataCodeErrorToastShow)
             }
         } else {
             showContent()
@@ -351,7 +381,7 @@ class HttpUiHandle private constructor() {
         hintProgress()
     }
 
-    fun isShow() = loadDialog?.isShowing ?: false
+    fun isShow() = loadDialog?.isShowing ?: loadView?.isShowing ?: false
 
     /**
      * 开始超时,防止对话框不会消失
@@ -406,7 +436,6 @@ class HttpUiHandle private constructor() {
         }
     }
 }
-
 
 val HttpUiHandle.coroutineExceptionHandler
     get() = CoroutineExceptionHandler { _, error ->

@@ -1,5 +1,5 @@
 ext {
-    frameVersion = "3.2.4"
+    frameVersion = "3.2.5"
     lifecycleVersion = "2.4.0"
     android = [
             applicationId   : "com.ashlikun.baseproject",
@@ -90,7 +90,7 @@ ext {
             //封装的viewpager，banner，启动页
             XViewPager           : "com.github.ashLikun:XViewPager:2.2.4",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:4.6.10",
+            CommonUtils          : "com.github.ashLikun:CommonUtils:4.6.11",
             //公共的Adapter
             CommonAdapter        : "com.github.ashLikun:CommonAdapter:4.4.0",
             //Google官方改造
@@ -100,7 +100,7 @@ ext {
             //阿里的vlayout
             vlayout              : "com.alibaba.android:vlayout:1.2.36@aar",
             //习惯的对话框
-            CustomDialog         : "com.github.ashLikun:CustomDialog:3.1.4",
+            CustomDialog         : "com.github.ashLikun:CustomDialog:3.1.9",
             //圆形的进度条
             CircleProgressView   : "com.github.ashLikun:CircleProgressView:2.0.2",
             //LayoutManage
@@ -153,7 +153,7 @@ ext {
             //图片查看
             PhotoView            : "com.github.ashLikun:PhotoView:2.0.4",
             //照片处理
-            PhotoHander          : "com.github.ashLikun:PhotoHander:2.1.7",
+            PhotoHander          : "com.github.ashLikun:PhotoHander:2.1.9",
             //输入验证码
             VerificationCodeInput: "com.github.ashLikun:VerifyCodeView:1.0.0",
             //带圆角，边框的的ImageView
