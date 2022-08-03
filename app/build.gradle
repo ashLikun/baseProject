@@ -43,7 +43,8 @@ android {
             abiFilters "armeabi-v7a", "arm64-v8a", "x86"
         }
         // 适配默认语言"en-rUS"
-        resConfigs "zh-rCN"
+//        resConfigs "en", "zh", "fr"
+        resConfigs "zh"
         multiDexEnabled true
         kapt {
             arguments {
@@ -138,6 +139,25 @@ android {
         viewBinding = true
     }
     project.ext.upload2d project, "更新APK"//引用插件并传入参数
+
+    // 这里配置AAB
+    bundle {
+        language {
+            // Specifies that the app bundle should not support
+            // configuration APKs for language resources. These
+            // resources are instead packaged with each base and
+            // feature APK.
+            enableSplit = false
+        }
+        density {
+            // This property is set to true by default.
+            enableSplit = true
+        }
+        abi {
+            // This property is set to true by default.
+            enableSplit = true
+        }
+    }
 }
 
 dependencies {

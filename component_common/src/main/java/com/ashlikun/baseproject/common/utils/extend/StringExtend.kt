@@ -3,6 +3,8 @@ package com.ashlikun.baseproject.common.utils.extend
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.util.*
 
 /**
  * 作者　　: 李坤
@@ -62,7 +64,7 @@ fun Number.toFormat(wei: Int = 1, isJumpInt: Boolean = false): String {
         return this.toString()
     }
     val format =
-        DecimalFormat("#" + if (wei == 0) "" else "." + MutableList(wei) { "#" }.joinToString("") { it })
+        DecimalFormat("#" + if (wei == 0) "" else "." + MutableList(wei) { "#" }.joinToString("") { it }, DecimalFormatSymbols(Locale.CHINA))
     //舍弃规则，RoundingMode.FLOOR表示直接舍弃。
     format.roundingMode = RoundingMode.FLOOR
     return format.format(this)
@@ -77,7 +79,7 @@ fun Number.toFormat45(wei: Int = 1, isJumpInt: Boolean = false): String {
         return this.toString()
     }
     val format =
-        DecimalFormat("#" + if (wei == 0) "" else "." + MutableList(wei) { "#" }.joinToString("") { it })
+        DecimalFormat("#" + if (wei == 0) "" else "." + MutableList(wei) { "#" }.joinToString("") { it }, DecimalFormatSymbols(Locale.CHINA))
     //舍弃规则，RoundingMode.HALF_EVEN表示直接舍弃。
     format.roundingMode = RoundingMode.HALF_UP
     return format.format(this)
