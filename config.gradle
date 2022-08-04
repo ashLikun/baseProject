@@ -72,7 +72,7 @@ ext {
             //简单的PopupWindow
             EasyPopupWindow      : "com.github.ashLikun:EasyPopupWindow:2.0.0",
             //事件总线
-            EventBus             : "com.github.ashLikun:LiveDataVBus:2.1.5",
+            EventBus             : "com.github.ashLikun:LiveDataVBus:2.1.6",
             //数据库
             LiteOrm              : "com.github.ashLikun:LiteOrm:2.0.3",
             //MMKV
@@ -135,7 +135,7 @@ ext {
             //不同type的json解析,依赖于gson
             MultiTypeGson        : "com.github.ashLikun:MultiTypeGson:2.1.0",
             //基于Okhttp封装的
-            OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:3.3.3",
+            OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:3.3.4",
             //图片加载
             GlideUtils           : "com.github.ashLikun:GlideUtils:3.0.3",
             glide                : "com.github.bumptech.glide:glide:4.11.0",
@@ -143,7 +143,7 @@ ext {
             glideTransformations : "jp.wasabeef:glide-transformations:4+",//4.2.0 glide4.11.0
             glidegpuimage        : "jp.co.cyberagent.android:gpuimage:2+",//2.0.4
             //日期选择 https://github.com/loperSeven/DateTimePicker
-            DateTimePicker       : "com.github.loperSeven:DateTimePicker:0.5.4",
+            DateTimePicker       : "com.github.loperSeven:DateTimePicker:0.5.8",
             //自定义键盘 https://github.com/jenly1314/KingKeyboard
             kingkeyboard         : "com.github.jenly1314:kingkeyboard:1.0.4",
             //lottie 动画
@@ -153,7 +153,7 @@ ext {
             //图片查看
             PhotoView            : "com.github.ashLikun:PhotoView:2.0.4",
             //照片处理
-            PhotoHander          : "com.github.ashLikun:PhotoHander:2.1.9",
+            PhotoHander          : "com.github.ashLikun:PhotoHander:2.1.10",
             //输入验证码
             VerificationCodeInput: "com.github.ashLikun:VerifyCodeView:1.0.0",
             //带圆角，边框的的ImageView

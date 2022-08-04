@@ -10,6 +10,7 @@ import com.ashlikun.baseproject.libcore.mvvm.viewmodel.BaseListViewModel
 import com.ashlikun.core.mvvm.BaseMvvmActivity
 import com.ashlikun.loadswitch.OnLoadSwitchClick
 import com.ashlikun.xrecycleview.PageHelpListener
+import com.ashlikun.xrecycleview.RecyclerViewAutoLoadding
 import com.ashlikun.xrecycleview.RefreshLayout
 import com.ashlikun.xrecycleview.listener.RecycleViewSwipeListener
 
@@ -48,6 +49,9 @@ abstract class BaseListActivity<VM : BaseListViewModel> : BaseMvvmActivity<VM>()
     open fun initRecyclerView() {
         if (itemDecoration != null) {
             recyclerView.addItemDecoration(itemDecoration!!)
+        }
+        if (recyclerView is RecyclerViewAutoLoadding) {
+            (recyclerView as RecyclerViewAutoLoadding).onLoaddingListener = this
         }
         //MultipleAdapter 自己设置 layoutManager 和 adapter
         if (adapter is BaseAdapter<*, *>) {
