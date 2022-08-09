@@ -39,12 +39,14 @@ open class BaseApplication : MultiDexApplication() {
     private val applications = ArrayList<IApplication>()
 
     override fun attachBaseContext(base: Context) {
-        super.attachBaseContext(base)
+        AppUtils.attachBaseContext(base)
+        var newContext = base
+        applications.forEach {
+            newContext = it.attachBaseContext(newContext)
+        }
         //app工具
         AppUtils.init(this)
-        applications.forEach {
-            it.attachBaseContext(base)
-        }
+        super.attachBaseContext(newContext)
     }
 
     override fun onCreate() {

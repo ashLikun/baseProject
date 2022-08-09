@@ -11,7 +11,7 @@ import android.content.res.Configuration
  * 功能介绍：其他模块需要实现这个接口才能走Application的初始化
  */
 interface IApplication {
-    fun attachBaseContext(base: Context)
+    fun attachBaseContext(base: Context): Context
     fun onCreateBefore()
     fun onCreate()
     fun onCreateAfter()
@@ -26,9 +26,7 @@ interface IApplication {
 }
 
 abstract class AbsApplication : IApplication {
-    override fun attachBaseContext(base: Context) {
-
-    }
+    override fun attachBaseContext(base: Context) = base
 
     override fun onCreateBefore() {
 
