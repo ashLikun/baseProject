@@ -13,6 +13,11 @@ object SpKey {
     const val VERSION_CODE = "VersionCode"
 
     /**
+     * 是否同意用户协议
+     */
+    const val IS_XIEYI = "IS_XIEYI"
+
+    /**
      * 地址搜索历史的key
      */
     const val SEARCH_ADDRESS = "SEARCH_ADDRESS"

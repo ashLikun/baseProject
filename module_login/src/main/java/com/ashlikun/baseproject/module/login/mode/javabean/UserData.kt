@@ -6,6 +6,7 @@ import com.ashlikun.baseproject.common.utils.extend.setNegativeButtonX
 import com.ashlikun.baseproject.common.utils.extend.setPositiveButtonX
 import com.ashlikun.baseproject.common.utils.jpush.JpushUtils
 import com.ashlikun.baseproject.common.utils.jump.RouterJump
+import com.ashlikun.baseproject.common.utils.store.AppStoreUtils
 import com.ashlikun.baseproject.libcore.constant.EventBusKey
 import com.ashlikun.livedatabus.EventBus
 import com.ashlikun.orm.LiteOrmUtil
@@ -17,6 +18,7 @@ import com.ashlikun.orm.db.assit.WhereBuilder
 import com.ashlikun.orm.db.enums.AssignType
 import com.ashlikun.orm.db.model.ColumnsValue
 import com.ashlikun.orm.db.model.ConflictAlgorithm
+import com.ashlikun.utils.other.coroutines.taskAsync
 import com.ashlikun.utils.ui.modal.SuperToast
 import com.google.gson.annotations.SerializedName
 
@@ -141,10 +143,13 @@ class UserData {
          * 吧数据库标识改成false 标记全部没有登录状态
          */
         fun exitLogin(): Boolean {
-            //清除其他登录的用户
-            val res = exit()
+            taskAsync {
+                //清除其他登录的用户
+                exit()
+                AppStoreUtils.exitLogin()
+            }
             RouterJump.startHome(1)
-            return res
+            return true
         }
 
         fun exit(): Boolean {
