@@ -68,7 +68,7 @@ ext {
             arouterapi           : "com.alibaba:arouter-api:+",
             aroutercompiler      : "com.alibaba:arouter-compiler:+",
             //6.0权限管理
-            permissionsdispatcher: "com.github.hotchemi:permissionsdispatcher:3.3.1",
+            permissionsdispatcher: "com.github.permissions-dispatcher:permissionsdispatcher:4.9.2",
             //简单的PopupWindow
             EasyPopupWindow      : "com.github.ashLikun:EasyPopupWindow:2.0.0",
             //事件总线
