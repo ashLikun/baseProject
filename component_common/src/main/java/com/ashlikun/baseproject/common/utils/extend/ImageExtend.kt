@@ -1,10 +1,7 @@
 package com.ashlikun.baseproject.common.utils.extend
 
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Canvas
-import android.graphics.Rect
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.view.View
@@ -66,20 +63,20 @@ fun ImageView.show(
     radiusDp: Float = 0f,
     isPlaceholder: Boolean = false,
     @DrawableRes
-    placeholderResId: Int = R.drawable.material_default_image_1_1,
+    placeholderResId: Int? = null,
     placeholderSizeMax: Boolean = false,
     placeholderSize: Int = -1,
-    showBgColorRes: Int = R.color.activity_backgound,
+    showBgColorRes: Int? = null,
     requestOptions: RequestOptions? = null,
     requestListener: RequestListener<Drawable>? = null
 ) {
     var options = requestOptions ?: RequestOptions()
-    if (isPlaceholder || placeholderResId != R.drawable.material_default_image_1_1) {
+    if (isPlaceholder || placeholderResId != null || showBgColorRes != null) {
         try {
-            val drawable = placeholderResId.resDrawable
-            val layerDrawable =
-                PlaceholderDrawable(this, drawable, placeholderSizeMax, placeholderSize)
-            layerDrawable.setColor(showBgColorRes.resColor)
+            val layerDrawable = PlaceholderDrawable(this, placeholderResId?.resDrawable, placeholderSizeMax, placeholderSize)
+            if (showBgColorRes != null) {
+                layerDrawable.setColor(showBgColorRes.resColor)
+            }
             layerDrawable.cornerRadius = radiusDp.dp.toFloat()
             if (path.isNullOrEmpty()) {
                 getViewSize { width, height ->
@@ -117,14 +114,12 @@ fun ImageView.showCircle(
     @DrawableRes
     placeholderResId: Int = R.drawable.material_default_image_1_1,
 ) {
-    show(
-        path,
+    show(path,
         150f,
         isPlaceholder,
         placeholderResId = placeholderResId,
         showBgColorRes = showBgColorRes,
-        requestOptions = GlideUtils.getCircleOptions()
-    )
+        requestOptions = GlideUtils.getCircleOptions())
 }
 
 fun ImageView.showPlace(
@@ -133,10 +128,8 @@ fun ImageView.showPlace(
     placeholderResId: Int = R.drawable.material_default_image_1_1,
     showBgColor: Int = R.color.activity_backgound, requestOptions: RequestOptions? = null
 ) {
-    show(
-        path, radiusDp, isPlaceholder = isPlaceholder, placeholderResId = placeholderResId,
-        showBgColorRes = showBgColor, requestOptions = requestOptions
-    )
+    show(path, radiusDp, isPlaceholder = isPlaceholder, placeholderResId = placeholderResId,
+        showBgColorRes = showBgColor, requestOptions = requestOptions)
 }
 
 /**
@@ -160,8 +153,8 @@ fun ImageView.isShowMengcheng(
 }
 
 class PlaceholderDrawable(
-    var imageView: ImageView,
-    var placeholder: Drawable,
+    val imageView: ImageView,
+    val placeholder: Drawable? = null,
     placeholderSizeMax: Boolean,
     placeholderSize: Int,
     orientation: Orientation = Orientation.TOP_BOTTOM,
@@ -169,28 +162,30 @@ class PlaceholderDrawable(
 
     ) : GradientDrawable(orientation, colors) {
     init {
-        imageView.getViewSize { width, height ->
-            val w = imageView.width - imageView.paddingLeft - imageView.paddingRight
-            val h = imageView.height - imageView.paddingTop - imageView.paddingBottom
-            setSize(width, height)
-            if (placeholderSizeMax) {
-                placeholder.setBounds(0, 0, w, h)
-                return@getViewSize
+        if (placeholder != null) {
+            imageView.getViewSize { width, height ->
+                val w = imageView.width - imageView.paddingLeft - imageView.paddingRight
+                val h = imageView.height - imageView.paddingTop - imageView.paddingBottom
+                setSize(width, height)
+                if (placeholderSizeMax) {
+                    placeholder.setBounds(0, 0, w, h)
+                    return@getViewSize
+                }
+                var minSize = min(w, h)
+                var placeholderWidth = if (placeholderSize > 0) placeholderSize else when {
+                    minSize <= DimensUtils.dip2px(100f) -> (minSize / 1.5f).toInt()
+                    minSize <= DimensUtils.dip2px(200f) -> (minSize / 1.6f).toInt()
+                    minSize <= DimensUtils.dip2px(250f) -> (minSize / 1.7f).toInt()
+                    minSize <= DimensUtils.dip2px(300f) -> (minSize / 1.8f).toInt()
+                    else -> (minSize / 2f).toInt()
+                }
+                var bili = 2.5621f
+                if (placeholder.intrinsicWidth > 2 && placeholder.intrinsicHeight > 2) {
+                    //有大小，保证宽高比
+                    bili = placeholder.intrinsicWidth / (placeholder.intrinsicHeight.toFloat())
+                }
+                placeholder.setBounds(0, 0, placeholderWidth, (placeholderWidth / bili).toInt())
             }
-            var minSize = min(w, h)
-            var placeholderWidth = if (placeholderSize > 0) placeholderSize else when {
-                minSize <= DimensUtils.dip2px(100f) -> (minSize / 1.5f).toInt()
-                minSize <= DimensUtils.dip2px(200f) -> (minSize / 1.6f).toInt()
-                minSize <= DimensUtils.dip2px(250f) -> (minSize / 1.7f).toInt()
-                minSize <= DimensUtils.dip2px(300f) -> (minSize / 1.8f).toInt()
-                else -> (minSize / 2f).toInt()
-            }
-            var bili = 2.5621f
-            if (placeholder.intrinsicWidth > 2 && placeholder.intrinsicHeight > 2) {
-                //有大小，保证宽高比
-                bili = placeholder.intrinsicWidth / (placeholder.intrinsicHeight.toFloat())
-            }
-            placeholder.setBounds(0, 0, placeholderWidth, (placeholderWidth / bili).toInt())
         }
     }
 
@@ -198,12 +193,12 @@ class PlaceholderDrawable(
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
         canvas.save()
-        var transX =
-            if (intrinsicWidth > 2) (intrinsicWidth - placeholder.bounds.width()) / 2 else 0
-        var transY =
-            if (intrinsicHeight > 2) (intrinsicHeight - placeholder.bounds.height()) / 2 else 0
-        canvas.translate(transX.toFloat(), transY.toFloat())
-        placeholder.draw(canvas)
-        canvas.restore()
+        if (placeholder != null) {
+            var transX = if (intrinsicWidth > 2) (intrinsicWidth - placeholder.bounds.width()) / 2 else 0
+            var transY = if (intrinsicHeight > 2) (intrinsicHeight - placeholder.bounds.height()) / 2 else 0
+            canvas.translate(transX.toFloat(), transY.toFloat())
+            placeholder.draw(canvas)
+            canvas.restore()
+        }
     }
 }
