@@ -19,6 +19,7 @@ import com.ashlikun.utils.other.DeviceUtil
 import com.ashlikun.utils.other.file.FileUtils
 import com.ashlikun.utils.ui.ActivityManager
 import com.ashlikun.utils.ui.NotificationUtil
+import com.ashlikun.utils.ui.extend.toastInfo
 import com.ashlikun.utils.ui.fActivity
 import com.ashlikun.utils.ui.fCActivity
 import com.ashlikun.utils.ui.modal.SuperToast
@@ -53,7 +54,11 @@ object AppUpdate {
         XLiveData<DownloadInfoData>()
     }
 
-    fun check(handle: HttpUiHandle = HttpUiHandle.getNoTips()) = fCActivity?.launch {
+    suspend fun check(handle: HttpUiHandle = HttpUiHandle.getNoTips()) {
+        if (downloadInfo.isUpdataIng) {
+            "正在更新".toastInfo()
+            return
+        }
         ApiCommon.api.checkUpdata(handle).also {
             if (it.isSucceed) {
                 if (!it.dataX!!.url.isNullOrEmpty()) {
@@ -87,13 +92,17 @@ object AppUpdate {
         val not by lazy {
             if (DeviceUtil.deviceBrand.lowercase() == "xiaomi") {
                 //小米会放到不重要的通知里面去
-                NotificationUtil.createChannel("App Update",
+                NotificationUtil.createChannel(
+                    "App Update",
                     channelGroupName = AppUtils.appName,
-                    importance = NotificationManager.IMPORTANCE_HIGH)
+                    importance = NotificationManager.IMPORTANCE_HIGH
+                )
             } else {
-                NotificationUtil.createChannel("App Update",
+                NotificationUtil.createChannel(
+                    "App Update",
                     channelGroupName = AppUtils.appName,
-                    importance = NotificationManager.IMPORTANCE_DEFAULT)
+                    importance = NotificationManager.IMPORTANCE_DEFAULT
+                )
             }
             val builder = NotificationCompat.Builder(AppUtils.app, "App Update")
                 .setWhen(System.currentTimeMillis())//设置事件发生的时间。面板中的通知是按这个时间排序。
@@ -156,7 +165,12 @@ object AppUpdate {
                         xLiveData.post(downloadInfo)
                     }
 
-                    override fun onDownloading(downloadTask: DownloadTask, completedSize: Long, totalSize: Long, percent: Double) {
+                    override fun onDownloading(
+                        downloadTask: DownloadTask,
+                        completedSize: Long,
+                        totalSize: Long,
+                        percent: Double
+                    ) {
                         super.onDownloading(downloadTask, completedSize, totalSize, percent)
                         if (!isForce) {
                             not.setContentText(
