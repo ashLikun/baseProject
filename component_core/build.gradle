@@ -110,6 +110,7 @@ dependencies {
 
     ///封装的viewpager，banner，启动页
     api libs.XViewPager
+    api libs.XViewPager2
 
     //公共的工具
     api libs.CommonUtils
