@@ -91,7 +91,7 @@ ext {
             XViewPager           : "com.github.ashLikun:XViewPager:2.2.4",
             XViewPager2          : "com.github.ashLikun:XViewPager2:1.1.9",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:4.6.25",
+            CommonUtils          : "com.github.ashLikun:CommonUtils:4.6.26",
             //公共的Adapter
             CommonAdapter        : "com.github.ashLikun:CommonAdapter:4.4.1",
             //Google官方改造
