@@ -296,6 +296,8 @@ class HttpUiHandle private constructor() {
             }
             return
         }
+        jobTimeOut?.cancel()
+        jobTimeOut = null
         loadDialog?.dismiss()
         loadView?.dismiss()
     }
