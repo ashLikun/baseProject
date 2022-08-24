@@ -134,7 +134,7 @@ ext {
             okhttp               : "com.squareup.okhttp3:okhttp:4.9.3",
             gson                 : "com.google.code.gson:gson:2.8.5",
             //不同type的json解析,依赖于gson
-            MultiTypeGson        : "com.github.ashLikun:MultiTypeGson:2.1.0",
+            MultiTypeGson        : "com.github.ashLikun:MultiTypeGson:2.1.2",
             //基于Okhttp封装的
             OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:3.3.4",
             //图片加载
