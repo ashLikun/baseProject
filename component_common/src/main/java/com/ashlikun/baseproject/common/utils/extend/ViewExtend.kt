@@ -3,6 +3,7 @@ package com.ashlikun.baseproject.common.utils.extend
 //import androidx.constraintlayout.widget.Group
 import android.view.MotionEvent
 import android.view.View
+import android.widget.CompoundButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.Group
 import androidx.drawerlayout.widget.DrawerLayout
@@ -85,3 +86,15 @@ inline fun Group.setOnSingleClickListener(
 
 }
 
+
+/**
+ * 解决setCheck 调用 setOnCheckedChangeListener
+ */
+inline fun CompoundButton.setOnCheckedChangeListenerX(crossinline listener: (isChecked: Boolean) -> Unit) {
+    setOnCheckedChangeListener { buttonView, isChecked ->
+        if (buttonView.isPressed) {
+            listener(isChecked)
+        }
+    }
+
+}

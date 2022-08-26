@@ -146,6 +146,11 @@ class HttpUiHandle private constructor() {
     var loadDialog: LoadDialog? = null
 
     /**
+     * LoadView 附属在那个页面上，默认Activity
+     */
+    var loadTarget: View? = null
+
+    /**
      * 加载对话框被取消
      */
     var onLoadCancel: (() -> Unit)? = null
@@ -263,6 +268,9 @@ class HttpUiHandle private constructor() {
                 } else {
                     if (loadView == null) {
                         loadView = LoadView(activity!!)
+                        if (loadTarget != null) {
+                            loadView!!.attachedView = loadTarget!!
+                        }
                     }
                     loadView?.run {
                         setContent(hint)
