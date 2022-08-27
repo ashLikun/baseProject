@@ -79,7 +79,7 @@ class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener {
         }
     }
 
-    override fun attachBaseContext(newBase: Context?) {
+    override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(newBase)
         //当<item name="android:windowBackground">@color/translucent</item> 的时候Activity的动画可能不执行
         //这里需要在开始和结束的时候手动调用
