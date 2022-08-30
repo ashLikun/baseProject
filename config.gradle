@@ -107,7 +107,7 @@ ext {
             //LayoutManage
             XLayoutManager       : "com.github.ashLikun:XLayoutManager:1.0.9",
             //布局切换
-            LoadSwitch           : "com.github.ashLikun:LoadSwitch:2.1.1",
+            LoadSwitch           : "com.github.ashLikun:LoadSwitch:2.1.2",
             //兼容的View
             CompatView           : "com.github.ashLikun:CompatView:2.1.2",
             //错误捕获
@@ -131,12 +131,12 @@ ext {
             rxjava               : "io.reactivex.rxjava2:rxjava:2.2.6",
             RxLife               : "com.github.ashLikun:RxLife:1.0.2",
             //okhttp
-            okhttp               : "com.squareup.okhttp3:okhttp:4.9.3",
+            okhttp               : "com.squareup.okhttp3:okhttp:4.10.0",
             gson                 : "com.google.code.gson:gson:2.8.5",
             //不同type的json解析,依赖于gson
             MultiTypeGson        : "com.github.ashLikun:MultiTypeGson:2.1.2",
             //基于Okhttp封装的
-            OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:3.3.4",
+            OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:3.3.5",
             //图片加载
             GlideUtils           : "com.github.ashLikun:GlideUtils:3.0.3",
             glide                : "com.github.bumptech.glide:glide:4.11.0",

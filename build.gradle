@@ -4,8 +4,8 @@ apply from: './config_component.gradle'
 //签名
 apply from: './app/configs_signing.gradle'
 buildscript {
-    ext.kotlin_version = '1.6.10'
-    ext.coroutine_version = '1.5.2'
+    ext.kotlin_version = '1.6.21'
+    ext.coroutine_version = '1.6.4'
     ext.dokit_version = '3.7.1'
     repositories {
 //        google()
