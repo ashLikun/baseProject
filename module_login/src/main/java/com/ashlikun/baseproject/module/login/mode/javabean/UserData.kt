@@ -144,9 +144,10 @@ class UserData {
          */
         fun exitLogin(): Boolean {
             taskAsync {
+                //清除缓存,要在exit之前
+                AppStoreUtils.exitLogin()
                 //清除其他登录的用户
                 exit()
-                AppStoreUtils.exitLogin()
             }
             RouterJump.startHome(1)
             return true
