@@ -10,6 +10,7 @@ import com.ashlikun.baseproject.libcore.utils.extend.withMap
 import com.ashlikun.utils.ui.ActivityManager
 import com.ashlikun.utils.ui.modal.SuperToast
 import java.io.Serializable
+import java.util.ArrayList
 
 /**
  * 作者　　: 李坤
@@ -95,7 +96,7 @@ object RouterJump {
      */
     fun startLockImage(
         position: Int,
-        listDatas: ArrayList<ImageData>?,
+        listDatas: List<ImageData>?,
         isShowDownload: Boolean = false
     ) {
         if (listDatas == null || listDatas.isEmpty()) {
@@ -103,7 +104,7 @@ object RouterJump {
             return
         }
         ARouter.getInstance().build(RouterPath.IMAGE_LOCK)
-            .withParcelableArrayList(RouterKey.FLAG_DATA, listDatas)
+            .withSerializable(RouterKey.FLAG_DATA, listDatas.toMutableList() as? ArrayList)
             .withInt(RouterKey.FLAG_POSITION, position)
             .withBoolean(RouterKey.FLAG_SHOW_DOWNLOAD, isShowDownload)
             .navigation(topActivity())
