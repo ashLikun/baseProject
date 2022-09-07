@@ -148,9 +148,8 @@ dependencies {
 
     //错误捕获
     api libs.AppCrashDispose
-    api(libs.FreeReflection){
-        exclude group: 'free_reflection'
-    }
+    //自己引用反射
+    api libs.FreeReflection
     //app内存溢出捕获
     debugImplementation libs.leakcanaryDebug
     //滴滴的开发助手
@@ -165,6 +164,7 @@ dependencies {
     }
     debugImplementation(libs.doraemonMcDebug) {
         exclude group: 'com.google.zxing'
+        exclude group: 'me.weishu', module: 'free_reflection'
     }
     //shimmer 文字
     api libs.shimmer

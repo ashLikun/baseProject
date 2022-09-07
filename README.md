@@ -2,6 +2,8 @@
 
 项目的基本框架
 
+//打印依赖关系 ./gradlew :app:dependencies > log.txt
+
 ### 1.用法
 
 使用前，对于Android Studio的用户，可以选择添加:
