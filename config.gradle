@@ -111,7 +111,8 @@ ext {
             //兼容的View
             CompatView           : "com.github.ashLikun:CompatView:2.1.2",
             //错误捕获
-            AppCrashDispose      : "com.github.ashLikun:AppCrashDispose:2.0.1",
+            AppCrashDispose      : "com.github.ashLikun:AppCrashDispose:2.0.4",
+            FreeReflection      : "me.weishu:free_reflection:3.0.1",
             //app内存溢出捕获
             leakcanaryDebug      : "com.squareup.leakcanary:leakcanary-android:+",
             //滴滴的开发助手 https://github.com/didi/DoKit

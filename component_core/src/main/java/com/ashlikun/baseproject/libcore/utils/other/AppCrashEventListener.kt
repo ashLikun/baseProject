@@ -10,7 +10,14 @@ import com.ashlikun.appcrash.CrashEventListener
  * 功能介绍：app异常回调
  */
 class AppCrashEventListener : CrashEventListener() {
-    override fun onCrashError(t: Thread?, e: Throwable?) {
-        e?.postBugly()
+
+    override fun onUncaughtExceptionHappened(thread: Thread?, throwable: Throwable?) {
+        throwable?.postBugly()
+    }
+
+    override fun onBandageExceptionHappened(throwable: Throwable?) {
+    }
+
+    override fun onEnterSafeMode() {
     }
 }

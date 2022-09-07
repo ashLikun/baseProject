@@ -148,6 +148,7 @@ dependencies {
 
     //错误捕获
     api libs.AppCrashDispose
+    api libs.FreeReflection
     //app内存溢出捕获
     debugImplementation libs.leakcanaryDebug
     //滴滴的开发助手
