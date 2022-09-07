@@ -148,7 +148,9 @@ dependencies {
 
     //错误捕获
     api libs.AppCrashDispose
-    api libs.FreeReflection
+    api(libs.FreeReflection){
+        exclude group: 'free_reflection'
+    }
     //app内存溢出捕获
     debugImplementation libs.leakcanaryDebug
     //滴滴的开发助手
