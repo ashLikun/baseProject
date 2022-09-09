@@ -3,7 +3,7 @@ import java.util.regex.Pattern
 
 def run = { extension, buildUpdateDescription, names ->
     //在这里获取: https://www.pgyer.com/doc/view/api#uploadApp
-    logger.log(LogLevel.ERROR, "qqqqqqq ${extension.android.applicationVariants}")
+//    logger.log(LogLevel.ERROR, "qqqqqqq ${extension.android.applicationVariants}")
     extension.android.applicationVariants.all { variant ->
         //这里只是打Release
         if (!variant.buildType.isDebuggable()) {
@@ -19,8 +19,8 @@ def run = { extension, buildUpdateDescription, names ->
                     variant.outputs.each { out ->
                         def outputFile = out.outputFile
                         if (outputFile != null && outputFile.exists()) {
-                            logger.log(LogLevel.ERROR, "开始上传蒲公英的文件${outputFile} \n")
-                            logger.log(LogLevel.ERROR, "start up load apk file : ${outputFile.absolutePath}")
+//                            logger.log(LogLevel.ERROR, "开始上传蒲公英的文件${outputFile} \n")
+                            logger.log(LogLevel.ERROR, "开始上传蒲公英的文件 : ${outputFile.absolutePath}")
                             postFile(outputFile.absolutePath, buildUpdateDescription)
                         }
                     }
@@ -70,7 +70,7 @@ def postFile(String filePath, String buildUpdateDescription) {
 //    def filePath = "D:\\vinka\\vinkaLife\\app\\build\\intermediates\\apk\\vinkaLife\\release\\App-v2.0.54-release-2022-08-26_vinkaLife.apk"
     //在这里获取: https://www.pgyer.com/doc/view/api#uploadApp
     String pgyerApiKey = ''
-    String result = execCommand("curl  -F \"_api_key=$pgyerApiKey\" -F buildType=android -F \"buildUpdateDescription=$buildUpdateDescription\" http://www.pgyer.com/apiv2/app/getCOSToken")
+    String result = execCommand("curl -D  - --form-string  \"_api_key=$pgyerApiKey\" --form-string buildType=android --form-string \"buildUpdateDescription=$buildUpdateDescription\" http://www.pgyer.com/apiv2/app/getCOSToken")
     logger.log(LogLevel.ERROR, "获取蒲公英Token的结果${result} \n")
     String endpoint = getParams(result, "endpoint\":\"([\\:\\_\\.\\/\\\\A-Za-z0-9\\-]+)").replace("\\", "")
     String key = getParams(result, "key\":\"([\\.a-z0-9]+)")
@@ -80,8 +80,8 @@ def postFile(String filePath, String buildUpdateDescription) {
 //    logger.log(LogLevel.ERROR, "获取蒲公英key的结果${key} \n")
 //    logger.log(LogLevel.ERROR, "获取蒲公英signature的结果${signature} \n")
 //    logger.log(LogLevel.ERROR, "获取蒲公英x_cos_security_token的结果${x_cos_security_token} \n")
-    String postFileResult = execCommand("curl -F \"key=${key}\"  -F \"signature=${signature}\" -F \"x-cos-security-token=${x_cos_security_token}\" -F \"file=@${filePath}\" ${endpoint}")
-    if (postFileResult.trim().isEmpty()) {
+    String postFileResult = execCommand("curl -D  - --form-string \"key=${key}\" --form-string \"signature=${signature}\" --form-string \"x-cos-security-token=${x_cos_security_token}\" -F \"file=@${filePath}\" ${endpoint}")
+    if (postFileResult.trim().isEmpty() || postFileResult.trim().contains("204 No Content")) {
         logger.log(LogLevel.ERROR, "上传文件的结果 上传成功 \n")
     } else {
         logger.log(LogLevel.ERROR, "上传文件的结果 上传失败 ${postFileResult} \n")
