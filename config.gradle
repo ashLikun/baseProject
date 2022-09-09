@@ -79,7 +79,7 @@ ext {
             MMKV                 : 'com.tencent:mmkv:1.2.11',
 
             //保活的策略
-            Keeplive             : "com.github.ashLikun:Keeplive:1.0.4",
+            Keeplive             : "com.github.ashLikun:Keeplive:1.0.5",
 
             //封装的RecycleViewFr
             XRecycleView         : "com.github.ashLikun:XRecycleView:3.0.5",
@@ -91,7 +91,7 @@ ext {
             XViewPager           : "com.github.ashLikun:XViewPager:2.2.4",
             XViewPager2          : "com.github.ashLikun:XViewPager2:1.1.9",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:4.6.28",
+            CommonUtils          : "com.github.ashLikun:CommonUtils:4.6.29",
             //公共的Adapter
             CommonAdapter        : "com.github.ashLikun:CommonAdapter:4.4.1",
             //Google官方改造
