@@ -42,13 +42,16 @@ class HttpManager private constructor() {
         HttpResponse.SUCCEED = 0
         HttpResponse.ERROR = 1
         OkHttpUtils.init(AppUtils.app, getOkHttpClientBuilder().build())
-        OkHttpUtils.setOnDataParseError { code, exception, response, json ->
+        OkHttpUtils.get().onDataParseError = { code, exception, response, json ->
             val requestStr = HttpUtils.getRequestToString(response.request)
             val responseStr = HttpUtils.getResponseToString(response)
             RuntimeException(
                 "request:\n$requestStr\nresponse:\n$responseStr \n$json",
                 exception
             ).postBugly()
+        }
+        OkHttpUtils.get().onHttpError = {
+            it.postBugly()
         }
         Retrofit.get().init(createRequest = {
             HttpRequestParam.create(it.url).parseGson(it)

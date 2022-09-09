@@ -111,7 +111,7 @@ ext {
             //兼容的View
             CompatView           : "com.github.ashLikun:CompatView:2.1.2",
             //错误捕获
-            AppCrashDispose      : "com.github.ashLikun:AppCrashDispose:2.0.4",
+            AppCrashDispose      : "com.github.ashLikun:AppCrashDispose:2.0.5",
             FreeReflection       : "com.github.tiann:FreeReflection:3.1.0",
             //app内存溢出捕获
             leakcanaryDebug      : "com.squareup.leakcanary:leakcanary-android:+",
@@ -137,7 +137,7 @@ ext {
             //不同type的json解析,依赖于gson
             MultiTypeGson        : "com.github.ashLikun:MultiTypeGson:2.1.2",
             //基于Okhttp封装的
-            OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:3.3.6",
+            OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:3.3.7",
             //图片加载
             GlideUtils           : "com.github.ashLikun:GlideUtils:3.0.3",
             glide                : "com.github.bumptech.glide:glide:4.11.0",
