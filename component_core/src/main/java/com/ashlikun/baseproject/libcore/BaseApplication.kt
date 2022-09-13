@@ -98,7 +98,9 @@ open class BaseApplication : MultiDexApplication() {
         DownloadManager.initPath(CacheUtils.appSDDownloadPath)
         GlideUtils.setDEBUG(AppUtils.isDebug)
         //Glide图片加载使用一个okHttpClient
-        GlideUtils.init(OkHttpUtils.get().okHttpClient)
+        GlideUtils.init(OkHttpUtils.get().okHttpClient.newBuilder().apply {
+            interceptors().clear()
+        }.build())
         //toast库
         SuperToast.setGravity(Gravity.CENTER)
         //腾讯Bugly

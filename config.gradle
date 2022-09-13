@@ -1,6 +1,6 @@
 ext {
     frameVersion = "3.2.6"
-    lifecycleVersion = "2.4.0"
+    lifecycleVersion = "2.4.1"
     android = [
             applicationId   : "com.ashlikun.baseproject",
             compileSdk      : 31,
@@ -189,7 +189,7 @@ ext {
             //分享核心库，必选
             umsdkShareCore       : 'com.umeng.umsdk:share-core:7.1.9',
             //分享面板功能，可选
-            implementation       : 'com.umeng.umsdk:share-board:7.1.9',
+            umsdkShareBoard      : 'com.umeng.umsdk:share-board:7.1.9',
             //在线依赖目前支持QQ、微信、新浪微博、支付宝、钉钉；若需支持其他平台，请选择手动下载SDK
             //微信完整版
             umsdkShareWx         : 'com.umeng.umsdk:share-wx:7.1.9',
