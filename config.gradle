@@ -91,7 +91,7 @@ ext {
             XViewPager           : "com.github.ashLikun:XViewPager:2.2.4",
             XViewPager2          : "com.github.ashLikun:XViewPager2:1.1.9",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:4.6.29",
+            CommonUtils          : "com.github.ashLikun:CommonUtils:4.6.30",
             //公共的Adapter
             CommonAdapter        : "com.github.ashLikun:CommonAdapter:4.4.1",
             //Google官方改造
@@ -111,7 +111,7 @@ ext {
             //兼容的View
             CompatView           : "com.github.ashLikun:CompatView:2.1.2",
             //错误捕获
-            AppCrashDispose      : "com.github.ashLikun:AppCrashDispose:2.0.5",
+            AppCrashDispose      : "com.github.ashLikun:AppCrashDispose:2.0.6",
             FreeReflection       : "com.github.tiann:FreeReflection:3.1.0",
             //app内存溢出捕获
             leakcanaryDebug      : "com.squareup.leakcanary:leakcanary-android:+",

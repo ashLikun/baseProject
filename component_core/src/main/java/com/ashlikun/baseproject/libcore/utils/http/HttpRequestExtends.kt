@@ -53,7 +53,11 @@ suspend fun <T> HttpRequest.syncExecute(handle: HttpUiHandle?, resultType: Type)
             callback.error = {
                 continuation.resumeWithException(it)
             }
-            call = execute(callback)
+            if (!continuation.isCancelled) {
+                call = execute(callback)
+            }else{
+                handle?.completed()
+            }
         } catch (e: Exception) {
             //处理异常
             handle?.error(ContextData(title = e.message.orEmpty()))
