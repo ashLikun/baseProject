@@ -13,6 +13,11 @@ object SpKey {
     const val VERSION_CODE = "VersionCode"
 
     /**
+     * 禁止抓包
+     */
+    const val NO_PROXY = "NO_PROXY"
+
+    /**
      * 是否同意用户协议
      */
     const val IS_XIEYI = "IS_XIEYI"

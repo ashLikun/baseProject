@@ -3,13 +3,10 @@
     <string name="app_name_letter">baseProject</string>
 
 
-
     <string name="login_error">你的账号登陆异常，请重新登陆</string>
-    <string name="permission_rationale">为了提供更好的服务,金鸡湖需要获取权限</string>
+    <string name="permission_rationale_title">权限申请</string>
+    <string name="permission_rationale">为了提供更好的服务,App 需要获取权限</string>
     <string name="permission_denied">没有权限</string>
-    <string name="ui_showmessage_please_login">请登录</string>
-    <string name="ui_showmessage_got_it">知道了</string>
-    <string name="ui_showmessage_no_data">什么都没有呢</string>
 
 
     <!--OkHttp-->
@@ -67,4 +64,10 @@
     <string name="photo_crop_pick_error">无效的图片</string>
     <string name="photo_crop_done">完成</string>
     <string name="photo_crop_cancel">取消</string>
+
+    <!--LoadSwitch-->
+    <string name="loadswitch_error_code">错误码</string>
+    <string name="loadswitch_retry_text">加载失败</string>
+    <string name="loadswitch_empty_text">什么都没有呢</string>
+    <string name="loadswitch_button">点击重试</string>
 </resources>

@@ -20,7 +20,6 @@ import com.ashlikun.utils.ui.extend.getActivity
 import com.ashlikun.utils.ui.extend.resString
 import com.ashlikun.utils.ui.extend.toastInfo
 import permissions.dispatcher.PermissionUtils
-
 /**
  * 作者　　: 李坤
  * 创建时间: 2019/4/18　17:40
@@ -31,7 +30,7 @@ import permissions.dispatcher.PermissionUtils
 /**
  * 取出最大的那一个刷新率Fps，直接设置给window
  */
-fun Window.maxFps() {
+fun Window.setMaxFps() {
     runCatching {
         //地图模式默认关闭了高刷
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -49,6 +48,20 @@ fun Window.maxFps() {
     }
 }
 
+fun Window.getMaxFps(): Float? {
+    runCatching {
+        //地图模式默认关闭了高刷
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            // 获取系统window支持的模式
+            val modes = this.windowManager.defaultDisplay.supportedModes
+            // 对获取的模式，基于刷新率的大小进行排序，从小到大排序
+            modes.sortBy { it.refreshRate }
+            return modes.last().refreshRate
+        }
+    }
+    return null
+}
+
 /**
  * 关闭activity动画
  */
@@ -56,48 +69,37 @@ fun Activity.noExitAnim() {
     overridePendingTransition(R.anim.activity_open_enter, 0)
 }
 
-fun Context.requestPermission(
-    permission: Array<String>,
-    showRationaleMessage: String? = null,
-    isDeniedShowDialog: Boolean = true,
-    denied: (() -> Unit)? = null,
-    success: (() -> Unit)
-): ActivityResultLauncher<Array<String>> {
-    return (this.getActivity() as ComponentActivity).requestPermission(
-        permission,
-        showRationaleMessage,
-        isDeniedShowDialog,
-        denied,
-        success
-    )
+fun Context.requestPermission(permission: Array<String>,
+                              showRationaleMessage: String? = null,
+                              isDeniedShowDialog: Boolean = true,
+                              denied: (() -> Unit)? = null,
+                              success: (() -> Unit)): ActivityResultLauncher<Array<String>> {
+    return (this.getActivity() as ComponentActivity).requestPermission(permission, showRationaleMessage, isDeniedShowDialog, denied, success)
 }
 
 /**
  * 请求权限
  * @param isDeniedShowDialog 拒绝过是否显示对话框提示,false:会回调denied方法
  */
-fun ComponentActivity.requestPermission(
-    permission: Array<String>,
-    showRationaleMessage: String? = null,
-    isDeniedShowDialog: Boolean = true,
-    denied: (() -> Unit)? = null,
-    success: (() -> Unit)
-): ActivityResultLauncher<Array<String>> {
-    var launcher =
-        registerForActivityResultX(ActivityResultContracts.RequestMultiplePermissions()) {
-            if (it.all { itt -> itt.value }) {
-                success.invoke()
-            } else {
-                if (denied != null) denied?.invoke() else R.string.permission_denied.resString.toastInfo()
-            }
+fun ComponentActivity.requestPermission(permission: Array<String>,
+                                        showRationaleMessage: String? = null,
+                                        isDeniedShowDialog: Boolean = true,
+                                        denied: (() -> Unit)? = null,
+                                        success: (() -> Unit)): ActivityResultLauncher<Array<String>> {
+    var launcher = registerForActivityResultX(ActivityResultContracts.RequestMultiplePermissions()) {
+        if (it.all { itt -> itt.value }) {
+            success.invoke()
+        } else {
+            if (denied != null) denied?.invoke() else R.string.permission_denied.resString.toastInfo()
         }
+    }
 
     //弹窗提示
     fun showRationaleDialog(showRationaleMessage: String? = null) {
         AlertDialog.Builder(this)
             .setCancelable(false)
-            .setTitle(R.string.photo_permission_dialog_title.resString)
-            .setMessage(showRationaleMessage ?: getString(R.string.permission_rationale))
+            .setTitle(R.string.permission_rationale_title.resString)
+            .setMessage(showRationaleMessage ?: R.string.permission_rationale.resString)
             .setPositiveButton(R.string.base_dialog_confirm.resString) { dialoog, which ->
                 launcher.launch(permission)
             }
@@ -118,7 +120,8 @@ fun ComponentActivity.requestPermission(
             if (isDeniedShowDialog) {
                 showRationaleDialog(showRationaleMessage)
             } else {
-                if (denied != null) denied?.invoke() else R.string.permission_denied.resString.toastInfo()
+                //请求权限
+                launcher.launch(permission)
             }
         } else {
             //请求权限
@@ -129,18 +132,18 @@ fun ComponentActivity.requestPermission(
 }
 
 
-fun BaseFragment.showEmpty(text: String = R.string.ui_showmessage_no_data.resString) {
+fun BaseFragment.showEmpty(text: String = R.string.loadswitch_empty_text.resString) {
     showEmpty(ContextData(title = text, buttonText = ""))
 }
 
-fun BaseActivity.showEmpty(text: String = R.string.ui_showmessage_no_data.resString) {
+fun BaseActivity.showEmpty(text: String = R.string.loadswitch_empty_text.resString) {
     showEmpty(ContextData(title = text, buttonText = ""))
 }
 
-fun LoadSwitchService.showEmpty(text: String = R.string.ui_showmessage_no_data.resString) {
+fun LoadSwitchService.showEmpty(text: String = R.string.loadswitch_empty_text.resString) {
     showEmpty(ContextData(title = text, buttonText = ""))
 }
 
-fun BaseViewModel.showEmpty(text: String = R.string.ui_showmessage_no_data.resString) {
+fun BaseViewModel.showEmpty(text: String = R.string.loadswitch_empty_text.resString) {
     showEmpty(ContextData(title = text, buttonText = ""))
 }

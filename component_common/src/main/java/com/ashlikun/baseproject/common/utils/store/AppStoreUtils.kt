@@ -1,6 +1,5 @@
 package com.ashlikun.baseproject.common.utils.store
 
-import com.ashlikun.baseproject.libcore.constant.SpKey
 import com.ashlikun.utils.other.store.StoreUtils
 
 /**
@@ -11,11 +10,6 @@ import com.ashlikun.utils.other.store.StoreUtils
  * 功能介绍：
  */
 object AppStoreUtils {
-    /**
-     * 是否同意用户协议
-     */
-    fun isXieYi() = StoreUtils.getBoolean(SpKey.IS_XIEYI, false)
-    fun setXieYi() = StoreUtils.putBoolean(SpKey.IS_XIEYI, true)
     fun exitLogin() {
     }
 

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Looper
 import androidx.appcompat.app.AlertDialog
 import com.ashlikun.baseproject.libcore.constant.EventBusKey
+import com.ashlikun.baseproject.libcore.constant.SpKey
 import com.ashlikun.baseproject.libcore.router.RouterManage
 import com.ashlikun.baseproject.libcore.utils.http.interceptor.DefaultInterceptor
 import com.ashlikun.baseproject.libcore.utils.other.AppConfig
@@ -22,6 +23,7 @@ import com.ashlikun.utils.other.DeviceUtil
 import com.ashlikun.utils.other.MainHandle
 import com.ashlikun.utils.other.StringUtils
 import com.ashlikun.utils.other.file.FileUtils
+import com.ashlikun.utils.other.store.getBoolStore
 import com.ashlikun.utils.ui.ActivityManager
 import com.ashlikun.utils.ui.modal.SuperToast
 import okhttp3.Cache
@@ -109,7 +111,7 @@ class HttpManager private constructor() {
         //公共拦截器
         builder.addInterceptor(DefaultInterceptor())
         //防止抓包
-        if (!AppUtils.isDebug) {
+        if (!AppUtils.isDebug && SpKey.NO_PROXY.getBoolStore(true)) {
             builder.proxy(Proxy.NO_PROXY)
         }
         return builder

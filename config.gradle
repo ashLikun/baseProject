@@ -59,7 +59,7 @@ ext {
 
 
             //基本架构
-            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:2.3.13",
+            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:2.3.18",
             //多个Dex
             multidex             : 'androidx.multidex:multidex:2.0.1',
             //webview封装
@@ -72,7 +72,7 @@ ext {
             //简单的PopupWindow
             EasyPopupWindow      : "com.github.ashLikun:EasyPopupWindow:2.0.0",
             //事件总线
-            EventBus             : "com.github.ashLikun:LiveDataVBus:2.1.7",
+            EventBus             : "com.github.ashLikun:LiveDataVBus:2.1.8",
             //数据库
             LiteOrm              : "com.github.ashLikun:LiteOrm:2.0.3",
             //MMKV
