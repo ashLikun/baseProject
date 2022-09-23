@@ -111,7 +111,7 @@ ext {
             //兼容的View
             CompatView           : "com.github.ashLikun:CompatView:2.1.2",
             //错误捕获
-            AppCrashDispose      : "com.github.ashLikun:AppCrashDispose:2.0.6",
+            AppCrashDispose      : "com.github.ashLikun:AppCrashDispose:2.0.7",
             FreeReflection       : "com.github.tiann:FreeReflection:3.1.0",
             //app内存溢出捕获
             leakcanaryDebug      : "com.squareup.leakcanary:leakcanary-android:+",
