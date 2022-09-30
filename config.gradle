@@ -139,9 +139,9 @@ ext {
             //基于Okhttp封装的
             OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:3.3.7",
             //图片加载
-            GlideUtils           : "com.github.ashLikun:GlideUtils:3.0.3",
-            glide                : "com.github.bumptech.glide:glide:4.11.0",
-            glideCompiler        : "com.github.bumptech.glide:compiler:4.11.0",
+            GlideUtils           : "com.github.ashLikun:GlideUtils:3.0.6",
+            glide                : "com.github.bumptech.glide:glide:4.14.1",
+            glideCompiler        : "com.github.bumptech.glide:compiler:4.14.1",
             glideTransformations : "jp.wasabeef:glide-transformations:4+",//4.2.0 glide4.11.0
             glidegpuimage        : "jp.co.cyberagent.android:gpuimage:2+",//2.0.4
             //日期选择 https://github.com/loperSeven/DateTimePicker

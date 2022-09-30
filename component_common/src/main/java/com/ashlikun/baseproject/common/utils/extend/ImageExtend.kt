@@ -111,7 +111,10 @@ fun ImageView.show(
     GlideLoad.with(this)
         .load(path ?: "")
         .options(options)
-        .requestListener(requestListener)
+        .apply {
+            transition(DrawableTransitionOptions.withCrossFade())
+        }
+        .listener(requestListener)
         .show(this)
 }
 
