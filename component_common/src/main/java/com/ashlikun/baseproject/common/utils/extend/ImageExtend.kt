@@ -11,6 +11,7 @@ import androidx.annotation.DrawableRes
 import com.ashlikun.baseproject.common.R
 import com.ashlikun.glideutils.GlideLoad
 import com.ashlikun.glideutils.GlideUtils
+import com.ashlikun.utils.AppUtils
 import com.ashlikun.utils.other.DimensUtils
 import com.ashlikun.utils.ui.extend.dp
 import com.ashlikun.utils.ui.extend.getViewSize
@@ -61,7 +62,7 @@ fun ImageView.getDefaultTransformation(
 fun ImageView.show(
     path: String?,
     radiusDp: Float = 0f,
-    isPlaceholder: Boolean = false,
+    defaultPlace: Boolean = false,
     @DrawableRes
     placeholderResId: Int? = null,
     placeholderSizeMax: Boolean = false,
@@ -71,23 +72,30 @@ fun ImageView.show(
     requestListener: RequestListener<Drawable>? = null
 ) {
     var options = requestOptions ?: RequestOptions()
-    if (isPlaceholder || placeholderResId != null || showBgColorRes != null) {
-        try {
-            val layerDrawable = PlaceholderDrawable(this, placeholderResId?.resDrawable, placeholderSizeMax, placeholderSize)
-            if (showBgColorRes != null) {
-                layerDrawable.setColor(showBgColorRes.resColor)
-            }
-            layerDrawable.cornerRadius = radiusDp.dp.toFloat()
-            if (path.isNullOrEmpty()) {
-                getViewSize { width, height ->
-                    setImageDrawable(layerDrawable)
+    var placeholderResId = placeholderResId
+    if (defaultPlace) {
+        placeholderResId = R.drawable.material_default_image_1_1
+    }
+    if (placeholderResId != null || showBgColorRes != null) {
+        //没有缓存才加载
+        if (!GlideUtils.isCache(AppUtils.app, path)) {
+            try {
+                val layerDrawable = PlaceholderDrawable(this, placeholderResId?.resDrawable, placeholderSizeMax, placeholderSize)
+                if (showBgColorRes != null) {
+                    layerDrawable.setColor(showBgColorRes.resColor)
                 }
-                return
+                layerDrawable.cornerRadius = radiusDp.dp.toFloat()
+                if (path.isNullOrEmpty()) {
+                    getViewSize { width, height ->
+                        setImageDrawable(layerDrawable)
+                    }
+                    return
+                }
+                options.error(layerDrawable)
+                options.placeholder(layerDrawable)
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
-            options.error(layerDrawable)
-            options.placeholder(layerDrawable)
-        } catch (e: Exception) {
-            e.printStackTrace()
         }
     }
 
@@ -108,28 +116,36 @@ fun ImageView.show(
 }
 
 fun ImageView.showCircle(
-    path: String,
-    showBgColorRes: Int = R.color.activity_backgound,
-    isPlaceholder: Boolean = true,
+    path: String?,
     @DrawableRes
-    placeholderResId: Int = R.drawable.material_default_image_1_1,
+    placeholderResId: Int? = null,
+    placeholderSizeMax: Boolean = false,
+    placeholderSize: Int = -1,
+    showBgColorRes: Int? = R.color.gray_ee,
 ) {
     show(path,
         150f,
-        isPlaceholder,
         placeholderResId = placeholderResId,
         showBgColorRes = showBgColorRes,
+        placeholderSize = placeholderSize,
+        placeholderSizeMax = placeholderSizeMax,
         requestOptions = GlideUtils.getCircleOptions())
 }
 
 fun ImageView.showPlace(
-    path: String?, radiusDp: Float = 0f, isPlaceholder: Boolean = true,
+    path: String?, radiusDp: Float = 0f,
     @DrawableRes
-    placeholderResId: Int = R.drawable.material_default_image_1_1,
-    showBgColor: Int = R.color.activity_backgound, requestOptions: RequestOptions? = null
+    placeholderResId: Int? = null,
+    placeholderSizeMax: Boolean = false,
+    placeholderSize: Int = -1,
+    showBgColorRes: Int? = R.color.gray_ee, requestOptions: RequestOptions? = null
 ) {
-    show(path, radiusDp, isPlaceholder = isPlaceholder, placeholderResId = placeholderResId,
-        showBgColorRes = showBgColor, requestOptions = requestOptions)
+    show(path, radiusDp,
+        placeholderResId = placeholderResId,
+        showBgColorRes = showBgColorRes,
+        placeholderSize = placeholderSize,
+        placeholderSizeMax = placeholderSizeMax,
+        requestOptions = requestOptions)
 }
 
 /**

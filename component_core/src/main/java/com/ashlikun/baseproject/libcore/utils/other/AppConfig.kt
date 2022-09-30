@@ -14,6 +14,7 @@ object AppConfig {
      * 构建的版本
      */
     const val isBeta = BuildConfig.BUILD_TYPE == "beta"
+    const val isRelease = BuildConfig.BUILD_TYPE == "release"
     const val isDebug = BuildConfig.BUILD_TYPE == "debug"
 
 }

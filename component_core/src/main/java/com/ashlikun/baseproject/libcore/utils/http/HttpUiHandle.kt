@@ -1,8 +1,10 @@
 package com.ashlikun.baseproject.libcore.utils.http
 
 import android.app.Activity
+import android.app.Dialog
 import android.content.Context
 import android.view.View
+import android.view.ViewGroup
 import com.ashlikun.baseproject.libcore.R
 import com.ashlikun.baseproject.libcore.dialog.LoadBackDialog
 import com.ashlikun.baseproject.libcore.dialog.LoadBackView
@@ -65,8 +67,16 @@ class HttpUiHandle private constructor() {
     val activity by lazy {
         ActivityUtils.getActivity(context)
     }
+
+    /**
+     * Dialog 上面显示对话框
+     */
+    val dialog by lazy {
+        tag as? Dialog
+    }
     val context by lazy {
-        mContext ?: if (tag is BaseViewModel) (tag as BaseViewModel).context else if (tag is Activity) tag as Context else null
+        mContext
+            ?: if (tag is BaseViewModel) (tag as BaseViewModel).context else if (tag is Dialog) (tag as Dialog).context else if (tag is Activity) tag as Context else null
     }
 
     /**
@@ -88,7 +98,11 @@ class HttpUiHandle private constructor() {
      * 对话框是否可以取消
      */
     var isCancelable = true
-    var isCanceledOnTouchOutside = true
+
+    /**
+     * 触摸取消
+     */
+    var isCanceledOnTouchOutside = false
 
     /**
      * 是否错误的时候toast提示,http 错误
@@ -195,12 +209,12 @@ class HttpUiHandle private constructor() {
      */
     fun setLoadDialogStyle(): HttpUiHandle {
         if (isDialogMode) {
-            if (loadDialog == null && activity != null) {
-                loadDialog = LoadBackDialog(activity!!)
+            if (loadDialog == null && canShowLoadding()) {
+                loadDialog = LoadBackDialog(context!!)
             }
         } else {
-            if (loadView == null && activity != null) {
-                loadView = LoadBackView(activity!!)
+            if (loadView == null && canShowLoadding()) {
+                loadView = LoadBackView(context!!)
             }
         }
         return this
@@ -242,14 +256,19 @@ class HttpUiHandle private constructor() {
     }
 
     /**
+     * 是否可以显示加载相关的
+     */
+    fun canShowLoadding() = activity?.isFinishing == false || dialog?.isShowing == true
+
+    /**
      * 显示对话框
      */
     fun showDialog() {
         if (isShowLoadding) {
-            if (activity?.isFinishing == false) {
+            if (canShowLoadding()) {
                 if (isDialogMode) {
-                    if (loadDialog == null) {
-                        loadDialog = LoadDialog(activity!!)
+                    if (loadDialog == null && context != null) {
+                        loadDialog = LoadDialog(context!!)
                     }
                     loadDialog?.run {
                         setContent(hint)
@@ -266,10 +285,12 @@ class HttpUiHandle private constructor() {
                         }
                     }
                 } else {
-                    if (loadView == null) {
-                        loadView = LoadView(activity!!)
+                    if (loadView == null && context != null) {
+                        loadView = LoadView(context!!)
                         if (loadTarget != null) {
                             loadView!!.attachedView = loadTarget!!
+                        } else if (dialog != null) {
+                            loadView!!.attachedView = dialog?.window?.decorView as ViewGroup
                         }
                     }
                     loadView?.run {
@@ -416,6 +437,12 @@ class HttpUiHandle private constructor() {
         operator fun get(context: Context?): HttpUiHandle {
             val buider = get()
             buider.mContext = context
+            return buider
+        }
+
+        operator fun get(dialog: Dialog?): HttpUiHandle {
+            val buider = get()
+            buider.tag = dialog
             return buider
         }
 

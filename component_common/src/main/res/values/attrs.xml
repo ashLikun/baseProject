@@ -4,11 +4,12 @@
         <attr name="liv_icon_res" format="reference"></attr>
         <attr name="liv_right_icon_res" format="reference"></attr>
         <attr name="liv_title" format="string"></attr>
-        <attr name="liv_sub_title" format="string"></attr>
         <attr name="liv_title_width" format="dimension">
             <enum name="wrap_content" value="-2" />
         </attr>
+        <attr name="liv_sub_title" format="string"></attr>
         <attr name="liv_is_show_arror" format="boolean"></attr>
+        <attr name="liv_arror_tint" format="color"></attr>
         <attr name="liv_bottom_line_size" format="dimension"></attr>
         <attr name="liv_bottom_line_marginLeft" format="dimension"></attr>
         <attr name="liv_bottom_line_marginRight" format="dimension"></attr>

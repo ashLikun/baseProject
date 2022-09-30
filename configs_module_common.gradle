@@ -11,11 +11,11 @@ android {
             //保存appid，因为当前模块本来的appid是清单文件的包名
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-//        beta.initWith(release)
-//        beta {
-//            //构建的时候打印文本
-//            println 'build - beta'
-//        }
+        beta.initWith(release)
+        beta {
+            //构建的时候打印文本
+            println 'build - beta'
+        }
     }
     compileOptions {
         sourceCompatibility = 1.8

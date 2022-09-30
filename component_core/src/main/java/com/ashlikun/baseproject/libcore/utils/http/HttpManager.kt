@@ -151,7 +151,6 @@ class HttpManager private constructor() {
             HttpManager()
         }
 
-        @JvmStatic
         fun get(): HttpManager {
             return INSTANCE
         }
@@ -159,13 +158,8 @@ class HttpManager private constructor() {
         /**
          * 创建Url,这里会替换环境的HOST
          */
-        @JvmStatic
-        fun createUrl(
-            url: String? = null,
-            action: String? = null,
-            path: String = BASE_PATH
-        ): String {
-            return if (url.isNullOrEmpty()) BASE_URL + path + "action=" + action
+        fun createUrl(url: String? = null): String {
+            return if (url.isNullOrEmpty()) BASE_URL
             else url.replace(URL_PROD, BASE_URL).replace(URL_TEST, BASE_URL)
         }
 
@@ -174,7 +168,6 @@ class HttpManager private constructor() {
          * 处理成功后的数据code
          * @return 如果错误会返回[HttpHandelResultException]
          * */
-        @JvmStatic
         fun <T> handelResult(responseBody: T): HttpHandelResultException? {
             var response: IHttpResponse? = null
             if (responseBody is IHttpResponse) {

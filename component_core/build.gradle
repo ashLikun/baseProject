@@ -156,6 +156,9 @@ dependencies {
     releaseImplementation(libs.doraemonkitRelease) {
         exclude group: 'com.google.zxing'
     }
+    betaImplementation(libs.doraemonkitRelease) {
+        exclude group: 'com.google.zxing'
+    }
     debugImplementation(libs.doraemonkitDebug) {
         exclude group: 'com.google.zxing'
     }

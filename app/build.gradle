@@ -80,6 +80,17 @@ android {
             //这里配置打包不同的参数
             manifestPlaceholders = sdk.releasBuild
         }
+        beta.initWith(release)
+        beta {
+            //构建的时候打印文本
+            println 'build - beta'
+            //这里配置打包不同的参数
+            manifestPlaceholders = sdk.releasBuild
+//            versionNameSuffix "-beta"
+//            applicationIdSuffix "test"
+            //app名称
+//            resValue "string", "my_app_name", "@string/my_app_name_beta"
+        }
         debug {
             //自定义属性   BuildConfig.LOG_DEBUG
             //buildConfigField "boolean", "LOG_DEBUG", "false"
@@ -105,6 +116,7 @@ android {
             }
 
         }
+
     }
     /**
      * 指定签名包得输入文件名称

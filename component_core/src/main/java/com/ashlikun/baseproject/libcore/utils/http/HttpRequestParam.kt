@@ -14,8 +14,8 @@ import com.ashlikun.xrecycleview.PageHelp
 fun String.requestGet(): HttpRequestParam = HttpRequestParam.get(this)
 fun String.requestPost(): HttpRequestParam = HttpRequestParam.post(this)
 
-class HttpRequestParam private constructor(action: String? = null, path: String = HttpManager.BASE_PATH, url: String? = null) :
-        HttpRequest(HttpManager.createUrl(url, action, path)) {
+class HttpRequestParam private constructor(url: String? = null) :
+    HttpRequest(HttpManager.createUrl(url)) {
     init {
         method = "POST"
         //时间戳公共不能放到统一的地方，这里每次初始化实例重新调用,保证最新时间戳
@@ -23,7 +23,6 @@ class HttpRequestParam private constructor(action: String? = null, path: String 
     }
 
     companion object {
-        private const val SIGN = "BaseProject"
 
         /**
          * 创建
@@ -37,8 +36,8 @@ class HttpRequestParam private constructor(action: String? = null, path: String 
          * post
          */
         @JvmStatic
-        fun post(path: String): HttpRequestParam {
-            val param = HttpRequestParam(path)
+        fun post(url: String): HttpRequestParam {
+            val param = HttpRequestParam(url)
             param.method = "POST"
             return param
         }
@@ -47,8 +46,8 @@ class HttpRequestParam private constructor(action: String? = null, path: String 
          * get请求
          */
         @JvmStatic
-        fun get(path: String): HttpRequestParam {
-            val param = HttpRequestParam(path)
+        fun get(url: String): HttpRequestParam {
+            val param = HttpRequestParam(url)
             param.method = "GET"
             return param
         }

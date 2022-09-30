@@ -43,7 +43,7 @@ ext {
             appcompat            : "androidx.appcompat:appcompat:1.4.2",
             design               : "com.google.android.material:material:1.5.+",
             //约束布局
-            constraintLayout     : 'androidx.constraintlayout:constraintlayout:2.1.4',
+            constraintLayout     : 'androidx.constraintlayout:constraintlayout:2.2.0',
             //协调布局
             coordinatorLayout    : 'androidx.coordinatorlayout:coordinatorlayout:1+',
             //生命周期扩展 Viewmodel
@@ -89,7 +89,7 @@ ext {
             RefreshLayout        : "com.github.ashLikun:RefreshLayout:2.0.4",
             //封装的viewpager，banner，启动页
             XViewPager           : "com.github.ashLikun:XViewPager:2.2.4",
-            XViewPager2          : "com.github.ashLikun:XViewPager2:1.1.9",
+            XViewPager2          : "com.github.ashLikun:XViewPager2:1.2.2",
             //公共的工具
             CommonUtils          : "com.github.ashLikun:CommonUtils:4.6.30",
             //公共的Adapter
@@ -101,7 +101,7 @@ ext {
             //阿里的vlayout
             vlayout              : "com.alibaba.android:vlayout:1.2.36@aar",
             //习惯的对话框
-            CustomDialog         : "com.github.ashLikun:CustomDialog:3.1.9",
+            CustomDialog         : "com.github.ashLikun:CustomDialog:3.2.0",
             //圆形的进度条
             CircleProgressView   : "com.github.ashLikun:CircleProgressView:2.0.2",
             //LayoutManage

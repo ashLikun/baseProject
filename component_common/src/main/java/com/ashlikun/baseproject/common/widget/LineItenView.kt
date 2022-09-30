@@ -13,12 +13,11 @@ import android.widget.LinearLayout
 import androidx.core.view.isVisible
 import com.ashlikun.baseproject.common.R
 import com.ashlikun.baseproject.common.databinding.ViewLineItemBinding
+import com.ashlikun.baseproject.common.utils.ui.getStringX
 import com.ashlikun.utils.other.DimensUtils
 import com.ashlikun.utils.ui.extend.dp
 import com.ashlikun.utils.ui.extend.layoutInflater
 import com.ashlikun.utils.ui.extend.setMargin
-import com.ashlikun.baseproject.common.utils.ui.getStringX
-import com.ashlikun.utils.ui.extend.setViewSize
 
 /**
  * 作者　　: 李坤
@@ -64,6 +63,9 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
             R.styleable.LineItenView
         )
         isShowArror = a.getBoolean(R.styleable.LineItenView_liv_is_show_arror, isShowArror)
+        if (a.hasValue(R.styleable.LineItenView_liv_arror_tint)) {
+            binding.rightArraw.setColorFilter(a.getColor(R.styleable.LineItenView_liv_arror_tint, 0))
+        }
         bottomLineSize = a.getDimensionPixelSize(
             R.styleable.LineItenView_liv_bottom_line_size,
             DimensUtils.dip2px(context, 0f)
@@ -110,8 +112,7 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
         if (a.hasValue(R.styleable.LineItenView_liv_sub_title_size)) {
             binding.subTitleView.setTextSize(
                 TypedValue.COMPLEX_UNIT_PX,
-                a.getDimensionPixelSize(R.styleable.LineItenView_liv_sub_title_size, 0)
-                    .toFloat()
+                a.getDimensionPixelSize(R.styleable.LineItenView_liv_sub_title_size, 0).toFloat()
             )
         }
         if (a.hasValue(R.styleable.LineItenView_liv_sub_title_color)) {
