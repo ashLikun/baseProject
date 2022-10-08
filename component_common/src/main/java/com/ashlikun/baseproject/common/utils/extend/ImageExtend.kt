@@ -22,8 +22,10 @@ import com.bumptech.glide.load.Transformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CenterInside
 import com.bumptech.glide.load.resource.bitmap.FitCenter
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 import kotlin.math.min
 
@@ -56,8 +58,14 @@ fun ImageView.getDefaultTransformation(
 
 /**
  * 显示图片
- * @param showBg 背景 颜色
- * @param placeholderDp 占位图宽度大小 dp
+ * @param showBgColorRes 背景 颜色
+ * @param radiusDp 圆角半径
+ * @param defaultPlace 是否使用默认占位图
+ * @param placeholderResId 占位图
+ * @param placeholderSize 占位图宽度大小
+ * @param placeholderSizeMax 占位图是否最大化（和控件一样大，等比）
+ * @param withCrossFade 是否使用淡入淡出过度效果
+ * @param requestListener 事件回调
  */
 fun ImageView.show(
     path: String?,
@@ -68,6 +76,7 @@ fun ImageView.show(
     placeholderSizeMax: Boolean = false,
     placeholderSize: Int = -1,
     showBgColorRes: Int? = null,
+    withCrossFade: Boolean = false,
     requestOptions: RequestOptions? = null,
     requestListener: RequestListener<Drawable>? = null
 ) {
@@ -107,12 +116,13 @@ fun ImageView.show(
             options.transform(getDefaultTransformation(radiusDp))
         }
     }
-
     GlideLoad.with(this)
         .load(path ?: "")
         .options(options)
         .apply {
-            transition(DrawableTransitionOptions.withCrossFade())
+            if (withCrossFade) {
+                transition(DrawableTransitionOptions.withCrossFade(DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true)))
+            }
         }
         .listener(requestListener)
         .show(this)
@@ -125,6 +135,7 @@ fun ImageView.showCircle(
     placeholderSizeMax: Boolean = false,
     placeholderSize: Int = -1,
     showBgColorRes: Int? = R.color.gray_ee,
+    withCrossFade: Boolean = false,
 ) {
     show(path,
         150f,
@@ -132,6 +143,7 @@ fun ImageView.showCircle(
         showBgColorRes = showBgColorRes,
         placeholderSize = placeholderSize,
         placeholderSizeMax = placeholderSizeMax,
+        withCrossFade = withCrossFade,
         requestOptions = GlideUtils.getCircleOptions())
 }
 
@@ -140,14 +152,16 @@ fun ImageView.showPlace(
     @DrawableRes
     placeholderResId: Int? = null,
     placeholderSizeMax: Boolean = false,
-    placeholderSize: Int = -1,
-    showBgColorRes: Int? = R.color.gray_ee, requestOptions: RequestOptions? = null
+    placeholderSize: Int = -1, showBgColorRes: Int? = R.color.gray_ee,
+    withCrossFade: Boolean = false,
+    requestOptions: RequestOptions? = null
 ) {
     show(path, radiusDp,
         placeholderResId = placeholderResId,
         showBgColorRes = showBgColorRes,
         placeholderSize = placeholderSize,
         placeholderSizeMax = placeholderSizeMax,
+        withCrossFade = withCrossFade,
         requestOptions = requestOptions)
 }
 
@@ -192,10 +206,10 @@ class PlaceholderDrawable(
                 }
                 var minSize = min(w, h)
                 var placeholderWidth = if (placeholderSize > 0) placeholderSize else when {
-                    minSize <= DimensUtils.dip2px(100f) -> (minSize / 1.5f).toInt()
-                    minSize <= DimensUtils.dip2px(200f) -> (minSize / 1.6f).toInt()
-                    minSize <= DimensUtils.dip2px(250f) -> (minSize / 1.7f).toInt()
-                    minSize <= DimensUtils.dip2px(300f) -> (minSize / 1.8f).toInt()
+                    minSize <= 100.dp -> (minSize / 1.5f).toInt()
+                    minSize <= 200.dp -> (minSize / 1.6f).toInt()
+                    minSize <= 250.dp -> (minSize / 1.7f).toInt()
+                    minSize <= 300.dp -> (minSize / 1.8f).toInt()
                     else -> (minSize / 2f).toInt()
                 }
                 var bili = 2.5621f
