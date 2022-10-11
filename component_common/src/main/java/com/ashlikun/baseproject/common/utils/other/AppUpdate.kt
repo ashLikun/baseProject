@@ -132,7 +132,7 @@ object AppUpdate {
             DialogProgress(fActivity!!).apply {
                 setCancelable(false)
                 setOnShowListener {
-                    setTitleText("App Updating")
+                    titleText = "App Updating"
                 }
             }
         }
@@ -182,7 +182,7 @@ object AppUpdate {
                             )
                             NotificationUtil.show(123, not)
                         } else {
-                            progressDialog.setProgress(percent.toInt())
+                            progressDialog.progress = percent.toInt()
                         }
                         downloadInfo.completedSize = completedSize
                         downloadInfo.totalSize = totalSize

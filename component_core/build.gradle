@@ -57,6 +57,8 @@ dependencies {
     api libs.constraintLayout
     //协调布局
     api libs.coordinatorLayout
+    //recyclerview
+    api libs.recyclerview
     //Fragment
     api libs.Fragment
     //Activity

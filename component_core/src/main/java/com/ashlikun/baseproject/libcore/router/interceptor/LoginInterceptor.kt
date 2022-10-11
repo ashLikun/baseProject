@@ -1,6 +1,7 @@
 package com.ashlikun.baseproject.libcore.router.interceptor
 
 import android.content.Context
+import android.content.Intent
 import com.alibaba.android.arouter.facade.Postcard
 import com.alibaba.android.arouter.facade.annotation.Interceptor
 import com.alibaba.android.arouter.facade.callback.InterceptorCallback
@@ -9,6 +10,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.router.RouterManage
 import com.ashlikun.baseproject.libcore.utils.extend.hasFlag
+import com.ashlikun.utils.ui.fActivity
 
 /**
  * 作者　　: 李坤
@@ -33,8 +35,8 @@ class LoginInterceptor : IInterceptor {
                 Companion.postcard = postcard
                 //跳转登录
                 ARouter.getInstance().build(RouterPath.LOGIN)
-                        .greenChannel()
-                        .navigation()
+                    .withFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                    .navigation(fActivity)
             }
         } else {
             //执行默认操作

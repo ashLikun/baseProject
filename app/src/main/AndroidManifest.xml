@@ -7,6 +7,7 @@
         android:name="com.ashlikun.baseproject.MyApp"
         android:allowBackup="true"
         android:allowNativeHeapPointerTagging="false"
+        android:extractNativeLibs="true"
         android:icon="@mipmap/app_logo"
         android:label="@string/my_app_name"
         android:networkSecurityConfig="@xml/network_security_config"
@@ -14,6 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:label">
+        <!--
+       android:extractNativeLib="true"
+       # 压缩so 但用户在手机端进行apk安装时，系统会对压缩后的so库进行解压，从而造成用户安装apk的时间变长
+       # minSdkVersion < 23 或 Android Gradle plugin < 3.6.0情况下，打包时默认 android:extractNativeLibs=true
+           android:extractNativeLibs=true -->
         <!--**********************************主界面******************************************* -->
     </application>
 

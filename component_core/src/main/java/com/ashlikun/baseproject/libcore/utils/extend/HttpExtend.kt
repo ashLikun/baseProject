@@ -16,7 +16,7 @@ import com.ashlikun.utils.ui.modal.SuperToast
 /**
  * 返回值的错误转化成 ContextData
  */
-fun HttpResponse.contextData() = ContextData(title = message, errCode =  code)
+fun HttpResponse.contextData() = ContextData(title = message, errCode = code)
 fun HttpResponse.isTokenError() = code == HttpCodeApp.TOKEN_ERROR
 fun HttpResponse.isNoLogin() = code == HttpCodeApp.NO_LOGIN
 fun HttpResponse.toast(default: String? = null, isShowInfo: ((code: Int) -> Boolean)? = null) {
@@ -27,7 +27,7 @@ fun HttpResponse.message(default: String) = StringUtils.dataFilter(message, defa
 
 
 fun HttpResponse.showToast(default: String? = null, isShowInfo: ((code: Int) -> Boolean)? = null) {
-    val info = if (isShowInfo == null) isSucceed else isShowInfo?.invoke(code)
+    val info = isShowInfo?.invoke(code) ?: isSucceed
     if (info) {
         SuperToast.showInfoMessage(message(default ?: ""))
     } else {

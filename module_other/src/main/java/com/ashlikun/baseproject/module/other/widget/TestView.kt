@@ -17,7 +17,7 @@ import com.ashlikun.utils.ui.image.BitmapUtil
 class TestView
 @JvmOverloads
 constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-        View(context, attrs, defStyleAttr) {
+    View(context, attrs, defStyleAttr) {
     var paint: Paint = Paint()
     var bitmaoA: Bitmap? = null
     var bitmaoB: Bitmap? = null
@@ -31,8 +31,8 @@ constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-        bitmaoA = BitmapUtil.decodeResource(R.mipmap.other_aaa, w, h)
-        bitmaoB = BitmapUtil.decodeResource(R.mipmap.other_bbb, w, h)
+//        bitmaoA = BitmapUtil.decodeResource(R.mipmap.other_aaa, w, h)
+//        bitmaoB = BitmapUtil.decodeResource(R.mipmap.other_bbb, w, h)
 
     }
 
