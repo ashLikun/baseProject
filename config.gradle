@@ -3,7 +3,7 @@ ext {
     lifecycleVersion = "2.5.1"
     android = [
             applicationId   : "com.ashlikun.baseproject",
-            compileSdk      : 33,
+            compileSdk      : 32,
             versionCode     : 1,
             versionName     : "1.0.0",
             targetSdk       : 30,
@@ -55,7 +55,7 @@ ext {
             //LiveData
             lifecycleLiveDataKtx : "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion",
             //Activity
-            Activity             : 'androidx.activity:activity-ktx:1.6.0',
+            Activity             : 'androidx.activity:activity-ktx:1.5.1',
             //Fragment
             Fragment             : 'androidx.fragment:fragment-ktx:1.5.3',
 
@@ -93,7 +93,7 @@ ext {
             XViewPager           : "com.github.ashLikun:XViewPager:2.2.4",
             XViewPager2          : "com.github.ashLikun:XViewPager2:1.2.2",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:4.6.31",
+            CommonUtils          : "com.github.ashLikun:CommonUtils:4.6.32",
             //公共的Adapter
             CommonAdapter        : "com.github.ashLikun:CommonAdapter:4.4.1",
             //Google官方改造
