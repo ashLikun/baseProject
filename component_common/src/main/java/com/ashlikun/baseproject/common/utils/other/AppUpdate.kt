@@ -136,7 +136,8 @@ object AppUpdate {
                 }
             }
         }
-
+        var notificationId = 123
+        var isNotFileName = false
         fun downloadApk(downloadUrl: String, isForce: Boolean = false) {
             downloadInfo.completedSize = 0
             downloadInfo.totalSize = 0
@@ -145,7 +146,7 @@ object AppUpdate {
             if (isForce) {
                 progressDialog.show()
             } else {
-                NotificationUtil.show(123, not)
+                NotificationUtil.show(notificationId, not)
             }
             DownloadManager.get().addDownloadTask(
                 DownloadTask(url = downloadUrl, listener =
@@ -153,7 +154,7 @@ object AppUpdate {
                     override fun onDownloadSuccess(downloadTask: DownloadTask, file: File) {
                         installApp(file)
                         if (!isForce) {
-                            NotificationUtil.cancel(123)
+                            NotificationUtil.cancel(notificationId)
                         } else {
                             if (progressDialog.isShowing) {
                                 progressDialog.finish()
@@ -173,6 +174,8 @@ object AppUpdate {
                     ) {
                         super.onDownloading(downloadTask, completedSize, totalSize, percent)
                         if (!isForce) {
+                            if (isNotFileName)
+                                not.setContentTitle(downloadTask.fileName)
                             not.setContentText(
                                 "App Updating  ${FileUtils.autoFormetFileSize(completedSize.toDouble())}/${
                                     FileUtils.autoFormetFileSize(
@@ -180,7 +183,7 @@ object AppUpdate {
                                     )
                                 }"
                             )
-                            NotificationUtil.show(123, not)
+                            NotificationUtil.show(notificationId, not)
                         } else {
                             progressDialog.progress = percent.toInt()
                         }
@@ -195,7 +198,7 @@ object AppUpdate {
                         super.onError(downloadTask, errorCode)
                         SuperToast.showInfoMessage("Apk 文件下载失败")
                         if (!isForce) {
-                            NotificationUtil.cancel(123)
+                            NotificationUtil.cancel(notificationId)
                         } else {
                             if (progressDialog.isShowing) {
                                 progressDialog.finish()

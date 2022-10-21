@@ -47,10 +47,7 @@ class HttpManager private constructor() {
         OkHttpUtils.get().onDataParseError = { code, exception, response, json ->
             val requestStr = HttpUtils.getRequestToString(response.request)
             val responseStr = HttpUtils.getResponseToString(response)
-            RuntimeException(
-                "request:\n$requestStr\nresponse:\n$responseStr \n$json",
-                exception
-            ).postBugly()
+            RuntimeException("request:\n$requestStr\nresponse:\n$responseStr \n$json", exception).postBugly()
         }
         OkHttpUtils.get().onHttpError = {
             it.postBugly()
@@ -58,8 +55,7 @@ class HttpManager private constructor() {
         Retrofit.get().init(createRequest = {
             HttpRequestParam.create(it.url).parseGson(it)
         }) { request, result, params ->
-            request.syncExecute<Any>(params?.find { it is HttpUiHandle } as? HttpUiHandle,
-                result.resultType)
+            request.syncExecute<Any>(params?.find { it is HttpUiHandle } as? HttpUiHandle, result.resultType)
         }
         Retrofit.get().onProxyStart = { method, args ->
             (args?.find { it is HttpUiHandle } as? HttpUiHandle)?.start()
@@ -75,20 +71,15 @@ class HttpManager private constructor() {
 
     fun setCommonParams() {
         //公共参数
-        OkHttpUtils.get().commonParams = mutableMapOf(
-            "uid" to (RouterManage.login()?.getUserId() ?: ""),
+        OkHttpUtils.get().commonParams = mutableMapOf("uid" to (RouterManage.login()?.getUserId() ?: ""),
             "sessionid" to (RouterManage.login()?.getToken() ?: ""),
             "os" to "android",
-            "osBrand" to StringUtils.dataFilter(
-                DeviceUtil.systemModel,
-                DeviceUtil.deviceBrand
-            ),
+            "osBrand" to StringUtils.dataFilter(DeviceUtil.systemModel, DeviceUtil.deviceBrand),
             "osVersion" to "${DeviceUtil.systemVersion}",
             "devid" to DeviceUtil.soleDeviceId,
             "appVersionCode" to AppUtils.versionCode,
             "appVersion" to AppUtils.versionName,
-            "appKey" to "5fb39a50c59a9"
-        )
+            "appKey" to "5fb39a50c59a9")
     }
 
     fun getCacheDir(): File {
@@ -141,6 +132,8 @@ class HttpManager private constructor() {
         //服务器地址，任何地方代码使用
         val BASE_URL = if (AppConfig.isBeta || AppConfig.isDebug) URL_TEST else URL_PROD
 
+        //URL 加上 Path
+        val URL_PATH = BASE_URL + BASE_PATH
 
         /**
          * 退出对话框是否显示,防止多次显示
@@ -188,11 +181,7 @@ class HttpManager private constructor() {
                         if (activity != null && !activity.isFinishing) {
                             if (Looper.getMainLooper() != Looper.myLooper()) {
                                 MainHandle.post {
-                                    showTokenErrorDialog(
-                                        activity,
-                                        response.message,
-                                        response.code
-                                    )
+                                    showTokenErrorDialog(activity, response.message, response.code)
                                 }
                             } else {
                                 showTokenErrorDialog(activity, response.message, response.code)
@@ -213,11 +202,7 @@ class HttpManager private constructor() {
                         if (activity != null && !activity.isFinishing) {
                             if (Looper.getMainLooper() != Looper.myLooper()) {
                                 MainHandle.post {
-                                    showTokenErrorDialog(
-                                        activity,
-                                        response.message,
-                                        response.code
-                                    )
+                                    showTokenErrorDialog(activity, response.message, response.code)
                                 }
                             } else {
                                 showTokenErrorDialog(activity, response.message, response.code)
@@ -255,20 +240,15 @@ class HttpManager private constructor() {
                 RouterManage.login()?.exitLogin()
                 return
             }
-            AlertDialog.Builder(activity)
-                .setCancelable(false)
-                .setTitle("账号异常")
-                .setOnDismissListener { IS_LOGIN_OUT_DIALOG_SHOW = false }
-                .setMessage(message)
-                .setPositiveButton("知道了") { dialoog, which ->
+            AlertDialog.Builder(activity).setCancelable(false).setTitle("账号异常").setOnDismissListener { IS_LOGIN_OUT_DIALOG_SHOW = false }
+                .setMessage(message).setPositiveButton("知道了") { dialoog, which ->
                     if (code == HttpCodeApp.TOKEN_ERROR) {
                         RouterManage.login()?.exitLogin()
                     }
                     if (code == HttpCodeApp.NO_LOGIN) {
                         RouterManage.login()?.startLogin()
                     }
-                }
-                .show()
+                }.show()
         }
     }
 
@@ -278,5 +258,4 @@ class HttpManager private constructor() {
 /**
  * 接口成功处理code时候的错误
  */
-class HttpHandelResultException(var exception: HttpException) :
-    HttpException(20009, "全局错误", exception)
+class HttpHandelResultException(var exception: HttpException) : HttpException(20009, "全局错误", exception)

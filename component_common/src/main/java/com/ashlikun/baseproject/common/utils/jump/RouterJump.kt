@@ -48,6 +48,24 @@ object RouterJump {
         return navigation.invoke(aouter)
     }
 
+    /**
+     * 启动显示Fragment的Activity
+     */
+    fun startShowFragment(
+        path: String,
+        params: Map<String, Any?>? = null,
+        greenChannel: Boolean = false,
+        flags: Int? = null,
+        navigation: ARouterNavigation = {
+            it.navigation(topActivity())
+        }
+    ) = start(
+        path = RouterPath.ACTIVITY_SHOW_FRAGMENT,
+        params = (params ?: emptyMap()) + mapOf(RouterKey.FLAG_TARGET_PATH to path),
+        greenChannel = greenChannel,
+        flags = flags,
+        navigation = navigation
+    )
 
     /**
      * 启动App

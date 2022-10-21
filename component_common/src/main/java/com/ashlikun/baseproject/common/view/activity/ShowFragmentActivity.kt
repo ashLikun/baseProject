@@ -1,5 +1,7 @@
 package com.ashlikun.baseproject.common.view.activity
 
+import android.content.Intent
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import com.alibaba.android.arouter.facade.annotation.Autowired
@@ -21,8 +23,9 @@ import com.ashlikun.utils.ui.extend.resColor
  * 必要
  * * {@link RouterKey#TARGET_FRAGMENT_PATH} fragment的path
  * 非必要
- * {@link RouterKey#STATUS_TRANS} 状态栏是否透明
- * {@link RouterKey#STATUS_COLOR} 状态栏颜色
+ * {@link RouterKey#FLAG_TITLE} 标题
+ * {@link RouterKey#FLAG_STATUS_TRANS} 状态栏是否透明
+ * {@link RouterKey#FLAG_STATUS_COLOR} 状态栏颜色
  */
 @Route(path = RouterPath.ACTIVITY_SHOW_FRAGMENT)
 class ShowFragmentActivity : BaseActivity() {
@@ -31,25 +34,49 @@ class ShowFragmentActivity : BaseActivity() {
     }
 
     @JvmField
-    @Autowired(name = RouterKey.TARGET_FRAGMENT_PATH)
+    @Autowired(name = RouterKey.FLAG_TARGET_PATH)
     var fragmentPath: String? = null
 
     @JvmField
-    @Autowired(name = RouterKey.STATUS_TRANS)
+    @Autowired(name = RouterKey.FLAG_TITLE)
+    var title: String = ""
+
+    @JvmField
+    @Autowired(name = RouterKey.FLAG_STATUS_TRANS)
     var statusTranslucent = true
 
     @JvmField
-    @Autowired(name = RouterKey.STATUS_COLOR)
-    var barColor = R.color.white.resColor
+    @Autowired(name = RouterKey.FLAG_STATUS_COLOR)
+    var barColor = R.color.statusColorCustom.resColor
 
-    override val statusBarColor = barColor
-    override val isStatusTranslucent = statusTranslucent
+    override val statusBarColor by lazy {
+        barColor
+    }
+    override val isStatusTranslucent by lazy {
+        statusTranslucent
+    }
+
+    override fun parseIntent(intent: Intent) {
+        super.parseIntent(intent)
+        if (title.isNotEmpty()) {
+            statusTranslucent = false
+        }
+    }
 
     override fun initView() {
+        binding.apply {
+            if (title.isNotEmpty()) {
+                toolbar.isVisible = true
+                toolbar.setBack(this@ShowFragmentActivity)
+                toolbar.setTitle(title)
+            }
+
+
+        }
         val fargment = ARouter.getInstance().build(fragmentPath)
-                .with(intent.extras)
-                .withBoolean(RouterKey.FLAG_BACK, true)
-                .navigation() as Fragment
+            .with(intent.extras)
+            .withBoolean(RouterKey.FLAG_BACK, true)
+            .navigation() as Fragment
         val ft = supportFragmentManager.beginTransaction()
         ft.replace(R.id.fragment, fargment)
         ft.setMaxLifecycle(fargment, Lifecycle.State.RESUMED)

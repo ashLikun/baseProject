@@ -223,7 +223,7 @@ class HttpUiHandle private constructor() {
     /**
      * 设置下位刷新，底加载，布局切换
      */
-    fun setLoadingStatus(tag: Any? = this.tag): HttpUiHandle {
+    fun setLoadingStatus(tag: BaseViewModel): HttpUiHandle {
         if (tag is BaseListViewModel) {
             tag?.also {
                 if (tag.swipeRefreshLayout != null) {

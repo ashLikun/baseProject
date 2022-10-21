@@ -12,9 +12,9 @@ object RouterKey {
     /********************************************************************************************
      *                                           SHOW_FRAGMENT
      ********************************************************************************************/
-    const val TARGET_FRAGMENT_PATH = "TARGET_FRAGMENT_PATH"
-    const val STATUS_TRANS = "STATUS_TRANS"
-    const val STATUS_COLOR = "STATUS_COLOR"
+    const val FLAG_TARGET_PATH = "FLAG_TARGET_PATH"
+    const val FLAG_STATUS_TRANS = "FLAG_STATUS_TRANS"
+    const val FLAG_STATUS_COLOR = "STATUS_COLOR"
 
     /********************************************************************************************
      * Intent  Flag   int
