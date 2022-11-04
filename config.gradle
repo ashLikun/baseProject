@@ -81,7 +81,7 @@ ext {
             MMKV                 : 'com.tencent:mmkv:1.2.11',
 
             //保活的策略
-            Keeplive             : "com.github.ashLikun:Keeplive:1.0.5",
+            Keeplive             : "com.github.ashLikun:Keeplive:1.0.10",
 
             //封装的RecycleViewFr
             XRecycleView         : "com.github.ashLikun:XRecycleView:3.0.5",
@@ -93,7 +93,7 @@ ext {
             XViewPager           : "com.github.ashLikun:XViewPager:2.2.4",
             XViewPager2          : "com.github.ashLikun:XViewPager2:1.2.2",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:4.6.32",
+            CommonUtils          : "com.github.ashLikun:CommonUtils:4.6.35",
             //公共的Adapter
             CommonAdapter        : "com.github.ashLikun:CommonAdapter:4.4.1",
             //Google官方改造
@@ -128,7 +128,7 @@ ext {
             //shimmer 效果
             shimmer              : "io.supercharge:shimmerlayout:2.1.0",
             //导航tab
-            BottomNavigation     : "com.github.ashLikun:BottomNavigation:3.0.3",
+            BottomNavigation     : "com.github.ashLikun:BottomNavigation:3.0.4",
             //rxjava
             rxandroid            : "io.reactivex.rxjava2:rxandroid:2.1.1",
             rxjava               : "io.reactivex.rxjava2:rxjava:2.2.6",
