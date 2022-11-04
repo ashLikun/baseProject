@@ -24,10 +24,12 @@ import com.ashlikun.photoview.ScaleFinishView
 import com.ashlikun.utils.other.DimensUtils
 import com.ashlikun.utils.other.file.FileIOUtils
 import com.ashlikun.utils.ui.UiUtils
+import com.ashlikun.utils.ui.extend.resColor
 import com.ashlikun.utils.ui.extend.toastInfo
 import com.ashlikun.utils.ui.image.BitmapUtil
 import com.ashlikun.utils.ui.image.updatePhotoMedia
 import com.ashlikun.utils.ui.modal.SuperToast
+import com.ashlikun.utils.ui.resources.ColorUtils
 import com.ashlikun.xviewpager.listener.ViewPageHelperListener
 import com.ashlikun.xviewpager.view.BannerViewPager
 import com.bumptech.glide.load.DataSource
@@ -91,6 +93,7 @@ class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener {
 
     override fun initView() {
         binding.run {
+            window.navigationBarColor = R.color.black.resColor
             window.setBackgroundDrawableResource(R.color.translucent)
             viewPager.setPages(adapter, listDatas)
             textView.text = (position + 1).toString() + "/" + listDatas.size
@@ -178,10 +181,13 @@ class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener {
     override fun onOverSwipe(isFinish: Boolean) {
         if (isFinish) {
             finish()
+        } else {
+            window.navigationBarColor = R.color.black.resColor
         }
     }
 
-    override fun onSwiping(v: Float, v1: Float): Boolean {
+    override fun onSwiping(offsetY: Float, alpha: Float): Boolean {
+        window.navigationBarColor = ColorUtils.computeColor(R.color.black.resColor, R.color.activity_backgound.resColor, 1 - alpha)
         return false
     }
 

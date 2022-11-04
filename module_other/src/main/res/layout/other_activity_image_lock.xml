@@ -13,8 +13,7 @@
         app:banner_canLoop="false"
         app:banner_isOneDataOffLoopAndTurning="false"
         app:banner_turningTime="-1"
-        app:xvp_ratio="-1"></com.ashlikun.xviewpager.view.BannerViewPager>
-
+        app:xvp_ratio="-1"/>
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
