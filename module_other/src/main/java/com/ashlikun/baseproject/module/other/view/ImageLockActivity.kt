@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.widget.ImageView
+import androidx.core.view.WindowInsetsCompat
 import androidx.viewpager.widget.ViewPager
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -24,6 +25,7 @@ import com.ashlikun.photoview.ScaleFinishView
 import com.ashlikun.utils.other.DimensUtils
 import com.ashlikun.utils.other.file.FileIOUtils
 import com.ashlikun.utils.ui.UiUtils
+import com.ashlikun.utils.ui.extend.insetsControllerX
 import com.ashlikun.utils.ui.extend.resColor
 import com.ashlikun.utils.ui.extend.toastInfo
 import com.ashlikun.utils.ui.image.BitmapUtil
@@ -93,6 +95,7 @@ class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener {
 
     override fun initView() {
         binding.run {
+            statusBar?.setNavigationTransparent(true)
             window.navigationBarColor = R.color.black.resColor
             window.setBackgroundDrawableResource(R.color.translucent)
             viewPager.setPages(adapter, listDatas)
