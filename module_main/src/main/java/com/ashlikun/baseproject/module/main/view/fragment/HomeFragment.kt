@@ -34,6 +34,8 @@ class HomeFragment : BaseMvvmFragment<HomeViewModel>() {
         "http://pic1.win4000.com/wallpaper/b/566a37b05aac3.jpg"
     )
 
+
+
     override fun initView() {
         "initView".logge()
         binding.apply {
