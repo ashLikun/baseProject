@@ -8,20 +8,16 @@ buildscript {
     ext.coroutine_version = '1.6.4'
     ext.dokit_version = '3.7.1'
     repositories {
-//        google()
-//        jcenter()
-//        mavenCentral()
         maven { url 'https://maven.aliyun.com/repository/google/' }
         maven { url 'https://maven.aliyun.com/repository/public/' }
         maven { url 'https://maven.aliyun.com/repository/gradle-plugin/' }
-        // 添加Mob Maven地址
-        maven { url "https://mvn.mob.com/android" }
+        gradlePluginPortal()
         google()
+        mavenCentral()
     }
     dependencies {
         //7.0  kotlin/Metadata 被去除，导致混淆后反射无法获取接口方法参数名称，retrofit就不能代理，注意，等7.1+就可以了
         classpath 'com.android.tools.build:gradle:7.3.1'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         //滴滴开发助手插件,更新三方库老瞎几把报类冲突
         //classpath "io.github.didi.dokit:dokitx-plugin:$dokit_version"
@@ -36,6 +32,7 @@ allprojects {
         maven { url 'https://maven.aliyun.com/repository/gradle-plugin/' }
         maven { url "https://www.jitpack.io" }
         google()
+        mavenCentral()
     }
 }
 

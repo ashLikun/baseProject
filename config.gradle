@@ -97,13 +97,13 @@ ext {
             //公共的Adapter
             CommonAdapter        : "com.github.ashLikun:CommonAdapter:4.4.1",
             //Google官方改造
-            XTabLayout           : "com.github.ashLikun:XTabLayout2:1.0.5",
+            XTabLayout           : "com.github.ashLikun:XTabLayout:2.1.10",
             //功能更加丰富
-            XTabLayout2          : "com.github.ashLikun:XTabLayout:2.1.6",
+            XTabLayout2          : "com.github.ashLikun:XTabLayout2:1.0.5",
             //阿里的vlayout
             vlayout              : "com.alibaba.android:vlayout:1.2.36@aar",
             //习惯的对话框
-            CustomDialog         : "com.github.ashLikun:CustomDialog:3.2.0",
+            CustomDialog         : "com.github.ashLikun:CustomDialog:3.2.1",
             //圆形的进度条
             CircleProgressView   : "com.github.ashLikun:CircleProgressView:2.0.2",
             //LayoutManage
@@ -116,7 +116,7 @@ ext {
             AppCrashDispose      : "com.github.ashLikun:AppCrashDispose:2.0.7",
             FreeReflection       : "com.github.tiann:FreeReflection:3.1.0",
             //app内存溢出捕获
-            leakcanaryDebug      : "com.squareup.leakcanary:leakcanary-android:+",
+            leakcanaryDebug      : "com.squareup.leakcanary:leakcanary-android:2.9",
             //滴滴的开发助手 https://github.com/didi/DoKit
             doraemonkitDebug     : "io.github.didi.dokit:dokitx:$dokit_version",
             //文件同步模块
@@ -139,7 +139,7 @@ ext {
             //不同type的json解析,依赖于gson
             MultiTypeGson        : "com.github.ashLikun:MultiTypeGson:2.1.2",
             //基于Okhttp封装的
-            OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:3.3.10",
+            OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:3.3.11",
             //图片加载
             GlideUtils           : "com.github.ashLikun:GlideUtils:3.0.6",
             glide                : "com.github.bumptech.glide:glide:4.14.1",
