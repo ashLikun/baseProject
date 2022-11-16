@@ -95,7 +95,7 @@ ext {
             //公共的工具
             CommonUtils          : "com.github.ashLikun:CommonUtils:4.6.35",
             //公共的Adapter
-            CommonAdapter        : "com.github.ashLikun:CommonAdapter:4.4.2",
+            CommonAdapter        : "com.github.ashLikun:CommonAdapter:4.4.3",
             //Google官方改造
             XTabLayout           : "com.github.ashLikun:XTabLayout:2.1.10",
             //功能更加丰富
