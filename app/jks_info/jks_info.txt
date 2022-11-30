@@ -1,13 +1,19 @@
-keytool -list -v -keystore  D:\likun\likun_key\likun.jks
+//生成jks命令
+keytool -genkey -v -keystore base.jks -alias base -storepass android123 -keypass android123 -keyalg RSA -keysize 2048 -validity 36500
 
-key0
-                  MD5:  BE:06:84:C8:FA:2F:4F:0D:08:AF:0B:AB:82:01:05:BC
-                  SHA1: 42:F4:56:B3:20:C9:78:9F:FB:FC:F5:30:E3:C1:06:C3:0B:9C:6F:8A
-                  SHA256: D8:5B:6A:44:F5:61:7D:F3:F4:91:85:E0:79:C2:41:8A:23:C0:05:01:2D:27:EE:86:69:F2:C1:8A:3D:58:A6:46
-be0684c8fa2f4f0d08af0bab820105bc
+//查看信息命令
+keytool -list -v -keystore  .\jks_info\base.jks
 
-RELEASE_STORE_FILE=\\jks_info\\likun.jks
-RELEASE_STORE_PASSWORD=147777
-RELEASE_KEY_ALIAS=key0
-RELEASE_KEY_PASSWORD=147777
-DEBUG_STORE_FILE=\\jks_info\\likun.jks
+base.jks
+base
+证书指纹:
+         MD5:  D3:74:FB:A9:AC:C0:5F:62:B9:FF:52:5B:11:28:96:AD
+         SHA1: 7B:70:F3:23:67:E7:CE:80:CB:10:D6:F8:03:31:F2:37:DA:CF:01:1D
+         SHA256: C7:6F:50:08:9C:A6:D9:E1:05:02:B3:CB:A7:60:B8:70:8B:EC:F1:A2:6F:96:59:FD:1D:15:9E:E7:06:EC:99:84
+d374fba9acc05f62b9ff525b112896ad
+
+RELEASE_STORE_FILE=\\jks_info\\base.jks
+RELEASE_STORE_PASSWORD=android123
+RELEASE_KEY_ALIAS=base
+RELEASE_KEY_PASSWORD=android123
+DEBUG_STORE_FILE=\\jks_info\\base.jks
