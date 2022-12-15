@@ -53,6 +53,10 @@ android {
         }
         //向清单文件注入参数
         manifestPlaceholders = sdk.default
+        //注入string，如果在代码中使用，就定义一个同key的string，这里会替换
+        sdk.default.entrySet().forEach {
+            resValue "string", it.key, it.value
+        }
     }
     dexOptions {
         javaMaxHeapSize "4g"
@@ -79,6 +83,10 @@ android {
             }
             //这里配置打包不同的参数
             manifestPlaceholders = sdk.releasBuild
+            //注入string，如果在代码中使用，就定义一个同key的string，这里会替换
+            sdk.releasBuild.entrySet().forEach {
+                resValue "string", it.key, it.value
+            }
         }
         beta.initWith(release)
         beta {
@@ -86,6 +94,10 @@ android {
             println 'build - beta'
             //这里配置打包不同的参数
             manifestPlaceholders = sdk.releasBuild
+            //注入string，如果在代码中使用，就定义一个同key的string，这里会替换
+            sdk.releasBuild.entrySet().forEach {
+                resValue "string", it.key, it.value
+            }
 //            versionNameSuffix "-beta"
 //            applicationIdSuffix "test"
             //app名称
@@ -111,6 +123,10 @@ android {
             // applicationIdSuffix "debug"
             //这里配置打包不同的参数
             manifestPlaceholders = sdk.debugBuild
+            //注入string，如果在代码中使用，就定义一个同key的string，这里会替换
+            sdk.debugBuild.entrySet().forEach {
+                resValue "string", it.key, it.value
+            }
             if (signingConfigs.debug != null) {
                 signingConfig signingConfigs.debug
             }
