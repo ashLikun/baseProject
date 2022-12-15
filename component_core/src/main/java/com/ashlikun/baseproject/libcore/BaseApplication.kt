@@ -75,8 +75,6 @@ open class BaseApplication : MultiDexApplication() {
     }
 
     private fun initLib() {
-        //全局协成异常
-        BaseUtils.coroutineExceptionHandler = defaultCoroutineExceptionHandler
         AppUtils.isDebug = BuildConfig.DEBUG
         LoadSwitch.init(this)
         CacheUtils.init(resources.getString(R.string.app_name_letter))

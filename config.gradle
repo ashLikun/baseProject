@@ -61,7 +61,7 @@ ext {
 
 
             //基本架构
-            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:2.3.19",
+            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:2.3.21",
             //多个Dex
             multidex             : 'androidx.multidex:multidex:2.0.1',
             //webview封装
@@ -93,7 +93,7 @@ ext {
             XViewPager           : "com.github.ashLikun:XViewPager:2.2.4",
             XViewPager2          : "com.github.ashLikun:XViewPager2:1.2.2",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:4.6.52",
+            CommonUtils          : "com.github.ashLikun:CommonUtils:4.6.53",
             //公共的Adapter
             CommonAdapter        : "com.github.ashLikun:CommonAdapter:4.4.3",
             //Google官方改造
