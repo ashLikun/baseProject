@@ -74,7 +74,7 @@ ext {
             //简单的PopupWindow
             EasyPopupWindow      : "com.github.ashLikun:EasyPopupWindow:2.0.0",
             //事件总线
-            EventBus             : "com.github.ashLikun:LiveDataVBus:2.1.9",
+            EventBus             : "com.github.ashLikun:LiveDataVBus:2.1.10",
             //数据库
             LiteOrm              : "com.github.ashLikun:LiteOrm:2.0.3",
             //MMKV
