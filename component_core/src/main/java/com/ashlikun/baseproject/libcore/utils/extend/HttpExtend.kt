@@ -18,6 +18,7 @@ import com.ashlikun.utils.ui.modal.SuperToast
  */
 fun HttpResponse.contextData() = ContextData(title = message, errCode = code)
 fun HttpResponse.isTokenError() = code == HttpCodeApp.TOKEN_ERROR
+fun HttpResponse.isTokenExpire() = code == HttpCodeApp.ACCESS_TOKEN_EXPIRE
 fun HttpResponse.isNoLogin() = code == HttpCodeApp.NO_LOGIN
 fun HttpResponse.toast(default: String? = null, isShowInfo: ((code: Int) -> Boolean)? = null) {
     showToast(default, isShowInfo)

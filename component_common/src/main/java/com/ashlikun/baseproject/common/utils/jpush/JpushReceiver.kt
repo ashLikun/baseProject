@@ -43,7 +43,7 @@ class JpushReceiver : JPushMessageReceiver() {
     override fun onConnected(p0: Context?, p1: Boolean) {
         super.onConnected(p0, p1)
         //nit 后直接 set 操作有极大可能导致失败，可能会在回调里拿到 6022,6002 等，测试的时候可以做个 7、8 秒的延时，正式业务里一般配合用户注册使用，延时基本上够用
-        taskLaunch(delayTime = 4000) {
+        taskLaunch(delayTime = delayTime) {
             RouterManage.login()?.run {
                 if (isLogin()) JpushUtils.setAlias() else JpushUtils.deleteAlias()
             }
@@ -98,6 +98,7 @@ class JpushReceiver : JPushMessageReceiver() {
         }
     }
 
+    val noErrorCode = listOf(6001, 6022)
     override fun onAliasOperatorResult(context: Context, message: JPushMessage) {
         super.onAliasOperatorResult(context, message)
         LogUtils.e("极光推送别名 ,$message")
@@ -105,7 +106,7 @@ class JpushReceiver : JPushMessageReceiver() {
         if (message.sequence === JpushUtils.JPUSH_ALIAS_SET_ID) {
             if (message.errorCode !== 0) {
                 LogUtils.e("极光推送别名设置失败 ,别名 = " + message.alias + ",错误码 = " + message.errorCode)
-                if (message.errorCode != 6022) {
+                if (!noErrorCode.contains(message.errorCode)) {
                     setAliasJob?.cancel()
                     setAliasJob = taskLaunchMain(delayTime = delayTime) {
                         JpushUtils.setAlias()
@@ -120,7 +121,7 @@ class JpushReceiver : JPushMessageReceiver() {
             if (message.errorCode !== 0) {
                 LogUtils.e("极光推送别名删除失败 ,别名 = " + message.alias + ",错误码 = " + message.errorCode)
                 //6022 3.0.7 版本新增的错误码，多次调用 alias 相关的 API，请在获取到上一次调用回调后再做下一次操作；在未取到回调的情况下，等待 20 秒后再做下一次操作。
-                if (message.errorCode != 6022) {
+                if (!noErrorCode.contains(message.errorCode)) {
                     deleteAliasJob?.cancel()
                     deleteAliasJob = taskLaunchMain(delayTime = delayTime) {
                         JpushUtils.deleteAlias()

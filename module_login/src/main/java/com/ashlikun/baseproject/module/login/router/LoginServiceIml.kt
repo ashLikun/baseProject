@@ -8,6 +8,7 @@ import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.router.service.ILoginService
 import com.ashlikun.baseproject.module.login.mode.javabean.UserData
 import com.ashlikun.baseproject.module.login.view.activity.LoginActivity
+import com.ashlikun.baseproject.module.login.utils.TokenUtils
 
 /**
  * 作者　　: 李坤
@@ -43,6 +44,7 @@ class LoginServiceIml : ILoginService {
     override fun isLogin(isToLogin: Boolean, isShowToast: Boolean): Boolean {
         return UserData.isLogin(isToLogin, isShowToast)
     }
+    override fun goRefreshToken() = TokenUtils.refresh()
 
     override fun getToken(): String {
         return UserData.userData?.token ?: ""

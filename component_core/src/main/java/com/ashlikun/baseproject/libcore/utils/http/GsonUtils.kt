@@ -3,7 +3,7 @@ package com.ashlikun.baseproject.libcore.utils.http
 import com.ashlikun.gson.GsonHelper
 import com.ashlikun.mulittypegson.MultiTypeGsonBuilder
 import com.ashlikun.okhttputils.http.HttpUtils
-import com.ashlikun.okhttputils.http.OkHttpUtils
+import com.ashlikun.okhttputils.http.OkHttpManage
 import com.ashlikun.okhttputils.http.request.HttpRequest
 import com.ashlikun.okhttputils.http.response.IHttpResponse
 import com.ashlikun.okhttputils.retrofit.HttpServiceMethod
@@ -61,7 +61,7 @@ fun HttpRequest.parseGson(it: HttpServiceMethod<*>): HttpRequest {
     val gson = when (it.parseType) {
         MultiTypeResult.parseType -> GsonHelper.getMultiTypeNotNull()
                 .autoRegister(getArgType(it.resultType))
-        else -> OkHttpUtils.get().parseGson
+        else -> okHttpManage.parseGson
     }
     return parseGson(gson)
 }

@@ -7,13 +7,14 @@ import com.ashlikun.baseproject.libcore.constant.EventBusKey
 import com.ashlikun.baseproject.libcore.constant.SpKey
 import com.ashlikun.baseproject.libcore.router.RouterManage
 import com.ashlikun.baseproject.libcore.utils.http.interceptor.DefaultInterceptor
+import com.ashlikun.baseproject.libcore.utils.http.interceptor.LoggingInterceptor
 import com.ashlikun.baseproject.libcore.utils.other.AppConfig
 import com.ashlikun.baseproject.libcore.utils.other.CacheUtils
 import com.ashlikun.baseproject.libcore.utils.other.postBugly
 import com.ashlikun.livedatabus.busForever
 import com.ashlikun.okhttputils.http.HttpException
 import com.ashlikun.okhttputils.http.HttpUtils
-import com.ashlikun.okhttputils.http.OkHttpUtils
+import com.ashlikun.okhttputils.http.OkHttpManage
 import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.okhttputils.http.response.IHttpResponse
 import com.ashlikun.okhttputils.retrofit.Retrofit
@@ -43,13 +44,13 @@ class HttpManager private constructor() {
     init {
         HttpResponse.SUCCEED = 0
         HttpResponse.ERROR = 1
-        OkHttpUtils.init(AppUtils.app, getOkHttpClientBuilder().build())
-        OkHttpUtils.get().onDataParseError = { code, exception, response, json ->
+        OkHttpManage.init(AppUtils.app, getOkHttpClientBuilder().build())
+        OkHttpManage.onDataParseError = { code, exception, response, json ->
             val requestStr = HttpUtils.getRequestToString(response.request)
             val responseStr = HttpUtils.getResponseToString(response)
             RuntimeException("request:\n$requestStr\nresponse:\n$responseStr \n$json", exception).postBugly()
         }
-        OkHttpUtils.get().onHttpError = {
+        OkHttpManage.onHttpError = {
             it.postBugly()
         }
         Retrofit.get().init(createRequest = {
@@ -71,7 +72,8 @@ class HttpManager private constructor() {
 
     fun setCommonParams() {
         //公共参数
-        OkHttpUtils.get().commonParams = mutableMapOf("uid" to (RouterManage.login()?.getUserId() ?: ""),
+        OkHttpManage.get().commonParams = mutableMapOf(
+            "uid" to (RouterManage.login()?.getUserId() ?: ""),
             "sessionid" to (RouterManage.login()?.getToken() ?: ""),
             "os" to "android",
             "osBrand" to StringUtils.dataFilter(DeviceUtil.systemModel, DeviceUtil.deviceBrand),
@@ -79,7 +81,8 @@ class HttpManager private constructor() {
             "devid" to DeviceUtil.soleDeviceId,
             "appVersionCode" to AppUtils.versionCode,
             "appVersion" to AppUtils.versionName,
-            "appKey" to "5fb39a50c59a9")
+            "appKey" to "5fb39a50c59a9"
+        )
     }
 
     fun getCacheDir(): File {
@@ -90,9 +93,9 @@ class HttpManager private constructor() {
         //1：手动创建一个OkHttpClient并设置超时时间
         val builder = OkHttpClient.Builder()
         builder.retryOnConnectionFailure(true)//链接失败重新链接
-        builder.connectTimeout(OkHttpUtils.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS)//链接超时
-        builder.readTimeout(OkHttpUtils.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS)//读取超时
-        builder.writeTimeout(OkHttpUtils.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS)//写入超时
+        builder.connectTimeout(OkHttpManage.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS)//链接超时
+        builder.readTimeout(OkHttpManage.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS)//读取超时
+        builder.writeTimeout(OkHttpManage.DEFAULT_MILLISECONDS, TimeUnit.MILLISECONDS)//写入超时
         //设置缓存目录
         val cacheDirectory = getCacheDir()
         //50M缓存
@@ -101,6 +104,9 @@ class HttpManager private constructor() {
         builder.cache(cache)
         //公共拦截器
         builder.addInterceptor(DefaultInterceptor())
+        if (AppUtils.isDebug) {
+            builder.addInterceptor(LoggingInterceptor())
+        }
         //防止抓包
         if (!AppUtils.isDebug && SpKey.NO_PROXY.getBoolStore(true)) {
             builder.proxy(Proxy.NO_PROXY)
@@ -134,6 +140,9 @@ class HttpManager private constructor() {
 
         //URL 加上 Path
         val URL_PATH = BASE_URL + BASE_PATH
+
+        //是否打印请求相关日志
+        const val isLog = true
 
         /**
          * 退出对话框是否显示,防止多次显示

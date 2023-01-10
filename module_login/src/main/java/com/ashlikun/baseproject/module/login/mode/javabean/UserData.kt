@@ -8,6 +8,7 @@ import com.ashlikun.baseproject.common.utils.jpush.JpushUtils
 import com.ashlikun.baseproject.common.utils.jump.RouterJump
 import com.ashlikun.baseproject.common.utils.store.AppStoreUtils
 import com.ashlikun.baseproject.libcore.constant.EventBusKey
+import com.ashlikun.baseproject.module.login.R
 import com.ashlikun.livedatabus.EventBus
 import com.ashlikun.orm.LiteOrmUtil
 import com.ashlikun.orm.db.annotation.Column
@@ -19,6 +20,7 @@ import com.ashlikun.orm.db.enums.AssignType
 import com.ashlikun.orm.db.model.ColumnsValue
 import com.ashlikun.orm.db.model.ConflictAlgorithm
 import com.ashlikun.utils.other.coroutines.taskAsync
+import com.ashlikun.utils.ui.extend.resString
 import com.ashlikun.utils.ui.modal.SuperToast
 import com.google.gson.annotations.SerializedName
 
@@ -45,6 +47,9 @@ class UserData {
 
     @Column("token")
     var token: String = ""
+
+    @Column("refreshToken")
+    var refreshToken: String = ""
 
     /**
      * 是否是当前登录的用户（这样就不用sb保存用户ID）
@@ -129,7 +134,7 @@ class UserData {
             } else {
                 if (isToLogin) {
                     if (showToast) {
-                        SuperToast.get("您未登录，请先登录").info()
+                        SuperToast[R.string.login_no.resString].info()
                     }
                     RouterJump.startLogin()
                 }

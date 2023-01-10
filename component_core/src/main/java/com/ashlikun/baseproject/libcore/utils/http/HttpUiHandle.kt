@@ -16,7 +16,7 @@ import com.ashlikun.customdialog.LoadView
 import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.loadswitch.LoadSwitchService
 import com.ashlikun.okhttputils.http.HttpException
-import com.ashlikun.okhttputils.http.OkHttpUtils
+import com.ashlikun.okhttputils.http.OkHttpManage
 import com.ashlikun.okhttputils.http.response.HttpErrorCode
 import com.ashlikun.okhttputils.http.response.IHttpResponse
 import com.ashlikun.utils.main.ActivityUtils
@@ -178,7 +178,7 @@ class HttpUiHandle private constructor() {
     /**
      * 统计同一个tag的请求数量
      */
-    fun count(): Int = tag?.let { OkHttpUtils.get().countRequest(it) } ?: 0
+    fun count(): Int = tag?.let { OkHttpManage.countRequest(it) } ?: 0
 
     /**
      * 设置View的使能

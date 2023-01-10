@@ -61,7 +61,7 @@ ext {
 
 
             //基本架构
-            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:2.3.21",
+            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:2.3.22",
             //多个Dex
             multidex             : 'androidx.multidex:multidex:2.0.1',
             //webview封装
@@ -81,7 +81,7 @@ ext {
             MMKV                 : 'com.tencent:mmkv:1.2.11',
 
             //保活的策略
-            Keeplive             : "com.github.ashLikun:Keeplive:1.0.10",
+            Keeplive             : "com.github.ashLikun:Keeplive:1.0.13",
 
             //封装的RecycleViewFr
             XRecycleView         : "com.github.ashLikun:XRecycleView:3.0.5",
@@ -93,9 +93,9 @@ ext {
             XViewPager           : "com.github.ashLikun:XViewPager:2.2.4",
             XViewPager2          : "com.github.ashLikun:XViewPager2:1.2.2",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:4.6.53",
+            CommonUtils          : "com.github.ashLikun:CommonUtils:4.6.56",
             //公共的Adapter
-            CommonAdapter        : "com.github.ashLikun:CommonAdapter:4.4.3",
+            CommonAdapter        : "com.github.ashLikun:CommonAdapter:4.4.4",
             //Google官方改造
             XTabLayout           : "com.github.ashLikun:XTabLayout:2.1.11",
             //功能更加丰富
@@ -103,7 +103,7 @@ ext {
             //阿里的vlayout
             vlayout              : "com.alibaba.android:vlayout:1.2.36@aar",
             //习惯的对话框
-            CustomDialog         : "com.github.ashLikun:CustomDialog:3.2.1",
+            CustomDialog         : "com.github.ashLikun:CustomDialog:3.2.4",
             //圆形的进度条
             CircleProgressView   : "com.github.ashLikun:CircleProgressView:2.0.2",
             //LayoutManage
@@ -139,7 +139,7 @@ ext {
             //不同type的json解析,依赖于gson
             MultiTypeGson        : "com.github.ashLikun:MultiTypeGson:2.1.3",
             //基于Okhttp封装的
-            OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:3.4.1",
+            OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:3.4.3",
             //图片加载
             GlideUtils           : "com.github.ashLikun:GlideUtils:3.0.6",
             glide                : "com.github.bumptech.glide:glide:4.14.1",

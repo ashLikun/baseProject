@@ -2,7 +2,6 @@ package com.ashlikun.baseproject.libcore
 
 import android.content.Context
 import android.content.res.Configuration
-import android.util.Log
 import android.view.Gravity
 import androidx.multidex.MultiDexApplication
 import com.ashlikun.appcrash.AppCrashConfig
@@ -11,19 +10,15 @@ import com.ashlikun.baseproject.libcore.utils.http.HttpManager
 import com.ashlikun.baseproject.libcore.utils.other.AppCrashEventListener
 import com.ashlikun.baseproject.libcore.utils.other.CacheUtils
 import com.ashlikun.baseproject.libcore.utils.other.initBugly
-import com.ashlikun.core.BaseUtils
 import com.ashlikun.glideutils.GlideUtils
 import com.ashlikun.loadswitch.LoadSwitch
-import com.ashlikun.okhttputils.http.OkHttpUtils
+import com.ashlikun.okhttputils.http.OkHttpManage
 import com.ashlikun.okhttputils.http.download.DownloadManager
 import com.ashlikun.orm.LiteOrmUtil
 import com.ashlikun.utils.AppUtils
-import com.ashlikun.utils.other.coroutines.defaultCoroutineExceptionHandler
 import com.ashlikun.utils.other.file.FileUtils
 import com.ashlikun.utils.ui.modal.SuperToast
 import com.didichuxing.doraemonkit.DoKit
-import com.didichuxing.doraemonkit.DoraemonKit
-import kotlinx.coroutines.CoroutineExceptionHandler
 
 /**
  * @author　　: 李坤
@@ -96,8 +91,9 @@ open class BaseApplication : MultiDexApplication() {
         DownloadManager.initPath(CacheUtils.appSDDownloadPath)
         GlideUtils.setDEBUG(AppUtils.isDebug)
         //Glide图片加载使用一个okHttpClient
-        GlideUtils.init(OkHttpUtils.get().okHttpClient.newBuilder().apply {
+        GlideUtils.init(OkHttpManage.get().okHttpClient.newBuilder().apply {
             interceptors().clear()
+            networkInterceptors().clear()
         }.build())
         //toast库
         SuperToast.setGravity(Gravity.CENTER)

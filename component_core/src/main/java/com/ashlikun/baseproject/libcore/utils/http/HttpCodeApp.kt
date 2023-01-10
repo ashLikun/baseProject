@@ -14,6 +14,7 @@ object HttpCodeApp {
     const val NO_DATA_ERROR = 1000
     const val NO_DATA_ERROR_MSG = "数据错误"
     const val TOKEN_ERROR = 888
+    const val ACCESS_TOKEN_EXPIRE = 889
     const val NO_LOGIN = 10003
     const val SIGN_ERROR = 688
 

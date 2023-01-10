@@ -3,6 +3,7 @@ package com.ashlikun.baseproject.libcore.router.service
 import android.app.Activity
 
 import com.alibaba.android.arouter.facade.template.IProvider
+import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.utils.ui.fCActivity
 
 /**
@@ -23,6 +24,10 @@ interface ILoginService : IProvider {
 
     fun isLogin(isToLogin: Boolean): Boolean
     fun isLogin(isToLogin: Boolean, isShowToast: Boolean): Boolean
+    /**
+     * 同步刷新token
+     */
+    fun goRefreshToken(): HttpResponse
 
     /**
      * 获取token
