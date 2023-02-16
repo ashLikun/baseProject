@@ -23,12 +23,11 @@
         <!--启动  控制当前页面-->
         <item name="android:activityOpenEnterAnimation">@anim/activity_open_enter</item>
         <!--启动  控制前一个页面-->
-        <item name="android:activityOpenExitAnimation">@anim/activity_open_enter2</item>
+        <item name="android:activityOpenExitAnimation">@anim/activity_no_onstop</item>
         <!--退出  控制当前页面-->
         <item name="android:activityCloseExitAnimation">@anim/activity_colse_exit</item>
         <!--退出  控制前一个页面-->
-        <item name="android:activityCloseEnterAnimation">@anim/activity_colse_exit2</item>
-
+        <item name="android:activityCloseEnterAnimation">@anim/activity_no_onstop</item>
     </style>
 
     <!--当我们从 A1 启动 A2 时，A1 从屏幕上消失，这个动画叫做 android:activityOpenExitAnimation-->
@@ -42,19 +41,18 @@
         <item name="android:activityOpenExitAnimation">@null</item>
         <!--退出  控制当前页面-->
         <item name="android:activityCloseExitAnimation">@anim/activity_colse_exit</item>
-        <!--退出  控制前一个页面-->
-        <item name="android:activityCloseEnterAnimation">@null</item>
+        <item name="android:activityCloseEnterAnimation">@anim/activity_no_onstop</item>
     </style>
 
     <style name="AnimationPreview" parent="@android:style/Animation.Activity">
         <!--启动  控制当前页面-->
         <item name="android:activityOpenEnterAnimation">@anim/popupwindow_animation_in</item>
         <!--启动  控制前一个页面-->
-        <item name="android:activityOpenExitAnimation">@anim/activity_open_enter2</item>
+        <item name="android:activityOpenExitAnimation">@anim/activity_no_onstop</item>
         <!--退出  控制当前页面-->
         <item name="android:activityCloseExitAnimation">@anim/popupwindow_animation_out</item>
         <!--退出  控制前一个页面-->
-        <item name="android:activityCloseEnterAnimation">@anim/activity_colse_exit2</item>
+        <item name="android:activityCloseEnterAnimation">@anim/activity_no_onstop</item>
     </style>
 
 

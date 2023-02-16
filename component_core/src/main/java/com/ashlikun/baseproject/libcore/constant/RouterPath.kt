@@ -29,8 +29,8 @@ object RouterPath {
      ********************************************************************************************/
     const val WELCOME = "/other/activity/welcome"
     const val LAUNCH = "/other/activity/launch"
-    const val TEST = "/other/activity/main"
-
+    const val TEST = "/other/activity/test"
+    const val TEST_LOG = "/other/activity/test/log"
     const val IMAGE_LOCK = "/other/activity/image_lock"
     const val ACTIVITY_H5 = "/other/activity/h5"
     const val ACTIVITY_SHOW_FRAGMENT = "/common/activity/show/fragment"

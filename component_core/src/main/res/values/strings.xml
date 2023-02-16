@@ -30,6 +30,8 @@
     <string name="base_dialog_cancel">取消</string>
     <string name="base_dialog_confirm">确定</string>
 
+    <string name="dokit_log">自定义日志</string>
+
     <!--照片选择库-->
     <string name="photo_title">图片选择</string>
     <string name="photo_folder_all">全部图片</string>

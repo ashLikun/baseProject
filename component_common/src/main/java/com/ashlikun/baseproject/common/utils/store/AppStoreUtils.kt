@@ -1,7 +1,5 @@
 package com.ashlikun.baseproject.common.utils.store
 
-import com.ashlikun.utils.other.store.StoreUtils
-
 /**
  * 作者　　: 李坤
  * 创建时间: 2022.5.16　15:38
@@ -9,6 +7,7 @@ import com.ashlikun.utils.other.store.StoreUtils
  *
  * 功能介绍：
  */
+
 object AppStoreUtils {
     fun exitLogin() {
     }

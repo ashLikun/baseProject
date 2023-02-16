@@ -52,8 +52,7 @@ class WelcomeActivity : BaseActivity() {
                 checkIsFirst() -> RouterJump.startLaunch()
                 else -> RouterJump.startHome(0)
             }
-            delay(2000)
-            finishNoAnim()
+            finishNoAnim(delay = 200)
         }
 
 

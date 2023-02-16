@@ -87,7 +87,7 @@ fun ImageView.show(
     }
     if (placeholderResId != null || showBgColorRes != null) {
         //没有缓存才加载
-        if (!GlideUtils.isCache(AppUtils.app, path)) {
+        if (!GlideUtils.isCache(path)) {
             try {
                 val layerDrawable = PlaceholderDrawable(this, placeholderResId?.resDrawable, placeholderSizeMax, placeholderSize)
                 if (showBgColorRes != null) {
@@ -137,14 +137,16 @@ fun ImageView.showCircle(
     showBgColorRes: Int? = R.color.gray_ee,
     withCrossFade: Boolean = false,
 ) {
-    show(path,
+    show(
+        path,
         150f,
         placeholderResId = placeholderResId,
         showBgColorRes = showBgColorRes,
         placeholderSize = placeholderSize,
         placeholderSizeMax = placeholderSizeMax,
         withCrossFade = withCrossFade,
-        requestOptions = GlideUtils.getCircleOptions())
+        requestOptions = GlideUtils.getCircleOptions()
+    )
 }
 
 fun ImageView.showPlace(
@@ -156,13 +158,15 @@ fun ImageView.showPlace(
     withCrossFade: Boolean = false,
     requestOptions: RequestOptions? = null
 ) {
-    show(path, radiusDp,
+    show(
+        path, radiusDp,
         placeholderResId = placeholderResId,
         showBgColorRes = showBgColorRes,
         placeholderSize = placeholderSize,
         placeholderSizeMax = placeholderSizeMax,
         withCrossFade = withCrossFade,
-        requestOptions = requestOptions)
+        requestOptions = requestOptions
+    )
 }
 
 /**

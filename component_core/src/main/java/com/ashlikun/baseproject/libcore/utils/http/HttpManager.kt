@@ -104,7 +104,8 @@ class HttpManager private constructor() {
         builder.cache(cache)
         //公共拦截器
         builder.addInterceptor(DefaultInterceptor())
-        if (AppUtils.isDebug) {
+        LogConfig.refresh()
+        if (AppUtils.isDebug || LogConfig.httpIsLog) {
             builder.addInterceptor(LoggingInterceptor())
         }
         //防止抓包
@@ -140,9 +141,6 @@ class HttpManager private constructor() {
 
         //URL 加上 Path
         val URL_PATH = BASE_URL + BASE_PATH
-
-        //是否打印请求相关日志
-        const val isLog = true
 
         /**
          * 退出对话框是否显示,防止多次显示

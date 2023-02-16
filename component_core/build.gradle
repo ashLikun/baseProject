@@ -132,12 +132,15 @@ dependencies {
     //功能更加丰富的TabLayout
     api libs.XTabLayout2
     //阿里的vlayout
-    api(libs.vlayout) {
-        transitive = true
-    }
+    api libs.vlayout
 
     //习惯的对话框
     api libs.CustomDialog
+
+    //第三方MD风格对话框
+    api libs.MaterialDialogInput
+    api libs.MaterialDialogBottomSheets
+
     //圆形的进度条
     api libs.CircleProgressView
     //带圆角，边框的的ImageView

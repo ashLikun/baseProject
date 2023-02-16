@@ -1,6 +1,7 @@
 package com.ashlikun.baseproject.libcore.utils.http
 
 import com.ashlikun.gson.GsonHelper
+import com.ashlikun.gson.fromJson
 import com.ashlikun.mulittypegson.MultiTypeGsonBuilder
 import com.ashlikun.okhttputils.http.HttpUtils
 import com.ashlikun.okhttputils.http.OkHttpManage
@@ -8,7 +9,9 @@ import com.ashlikun.okhttputils.http.request.HttpRequest
 import com.ashlikun.okhttputils.http.response.IHttpResponse
 import com.ashlikun.okhttputils.retrofit.HttpServiceMethod
 import com.ashlikun.okhttputils.retrofit.Parse
+import com.ashlikun.utils.other.store.getStore
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import okhttp3.Response
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
@@ -20,6 +23,15 @@ import java.lang.reflect.Type
  *
  * 功能介绍：
  */
+/**
+ * 从本地存储直接加载成Json 对象
+ * 内部空判断
+ */
+inline fun <reified T> String.getStoreFromJson() =
+    this.getStore().let { if (it.isNullOrEmpty()) null else it }?.fromJson<T>(T::class.java)
+
+inline fun <reified T> String.getStoreFromJsonList() =
+    this.getStore().let { if (it.isNullOrEmpty()) null else it }?.fromJson<MutableList<T>>(object : TypeToken<List<T>>() {}.type)
 
 /**
  * 简化Parse
@@ -33,10 +45,10 @@ annotation class ParseMulti
  * 多样式的gson
  */
 inline fun MultiTypeGsonBuilder.autoRegister(cls: Type, typeName: String = "type") =
-        this.registerTypeElementName(typeName)
-                .registerTargetParentClass(cls)
-                .autoRegisterType()
-                .build().create()
+    this.registerTypeElementName(typeName)
+        .registerTargetParentClass(cls)
+        .autoRegisterType()
+        .build().create()
 
 /**
  * 实现这个接口自动实现全局多样式
@@ -49,8 +61,8 @@ interface MultiTypeResult<D> : IHttpResponse {
 
     override fun <T> parseData(gson: Gson, json: String, type: Type, response: Response?): T {
         return GsonHelper.getMultiTypeNotNull()
-                .autoRegister(HttpUtils.getType(this::class.java))
-                .fromJson(json, type)
+            .autoRegister(HttpUtils.getType(this::class.java))
+            .fromJson(json, type)
     }
 }
 
@@ -60,7 +72,7 @@ interface MultiTypeResult<D> : IHttpResponse {
 fun HttpRequest.parseGson(it: HttpServiceMethod<*>): HttpRequest {
     val gson = when (it.parseType) {
         MultiTypeResult.parseType -> GsonHelper.getMultiTypeNotNull()
-                .autoRegister(getArgType(it.resultType))
+            .autoRegister(getArgType(it.resultType))
         else -> okHttpManage.parseGson
     }
     return parseGson(gson)

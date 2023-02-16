@@ -99,7 +99,8 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
             bottomNavigationBar.addOnTabSelectedListener(this@HomeActivity)
             //防止重复添加
             FragmentUtils.removeAll(supportFragmentManager)
-            viewPager.offscreenPageLimit = adapter.count
+            //启动只加载左右1个
+            viewPager.offscreenPageLimit = 1
             viewPager.setAdapter(adapter)
             //登录之后可以左右滑动
             viewPager.setCanSlide(RouterManage.login()?.isLogin() ?: false)

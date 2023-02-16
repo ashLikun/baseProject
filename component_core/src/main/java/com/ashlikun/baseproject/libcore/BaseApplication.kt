@@ -9,6 +9,7 @@ import com.ashlikun.baseproject.libcore.router.RouterManage
 import com.ashlikun.baseproject.libcore.utils.http.HttpManager
 import com.ashlikun.baseproject.libcore.utils.other.AppCrashEventListener
 import com.ashlikun.baseproject.libcore.utils.other.CacheUtils
+import com.ashlikun.baseproject.libcore.utils.other.LogConfig
 import com.ashlikun.baseproject.libcore.utils.other.initBugly
 import com.ashlikun.glideutils.GlideUtils
 import com.ashlikun.loadswitch.LoadSwitch
@@ -18,6 +19,7 @@ import com.ashlikun.orm.LiteOrmUtil
 import com.ashlikun.utils.AppUtils
 import com.ashlikun.utils.other.file.FileUtils
 import com.ashlikun.utils.ui.modal.SuperToast
+import com.ashlikun.vlayout.VLayoutUtils
 import com.didichuxing.doraemonkit.DoKit
 
 /**
@@ -34,13 +36,13 @@ open class BaseApplication : MultiDexApplication() {
     private val applications = ArrayList<IApplication>()
 
     override fun attachBaseContext(base: Context) {
+        //app工具
+        AppUtils.init(this, BuildConfig.DEBUG)
         AppUtils.attachBaseContext(base)
         var newContext = base
         applications.forEach {
             newContext = it.attachBaseContext(newContext)
         }
-        //app工具
-        AppUtils.init(this)
         super.attachBaseContext(newContext)
     }
 
@@ -70,7 +72,6 @@ open class BaseApplication : MultiDexApplication() {
     }
 
     private fun initLib() {
-        AppUtils.isDebug = BuildConfig.DEBUG
         LoadSwitch.init(this)
         CacheUtils.init(resources.getString(R.string.app_name_letter))
         //异常捕获
@@ -78,8 +79,14 @@ open class BaseApplication : MultiDexApplication() {
             .eventListener(AppCrashEventListener())
             .isDebug(AppUtils.isDebug)
             .apply()
+
+        //toast库
+        SuperToast.setGravity(Gravity.CENTER)
+        VLayoutUtils.isDebug = AppUtils.isDebug
         //开发助手
-        DoKit.Builder(this).productId(FileUtils.getMetaValue("DOKIT_PID")).build()
+        if (AppUtils.isDebug) {
+            DoKit.Builder(this).customKits(listOf(LogConfig.MyLogKit())).productId(FileUtils.getMetaValue("dokit_pid")).build()
+        }
         //数据库
         LiteOrmUtil.init(this)
         LiteOrmUtil.setVersionCode(AppUtils.versionCode)
@@ -91,12 +98,11 @@ open class BaseApplication : MultiDexApplication() {
         DownloadManager.initPath(CacheUtils.appSDDownloadPath)
         GlideUtils.setDEBUG(AppUtils.isDebug)
         //Glide图片加载使用一个okHttpClient
-        GlideUtils.init(OkHttpManage.get().okHttpClient.newBuilder().apply {
+        GlideUtils.init(this, OkHttpManage.get().okHttpClient.newBuilder().apply {
             interceptors().clear()
             networkInterceptors().clear()
         }.build())
-        //toast库
-        SuperToast.setGravity(Gravity.CENTER)
+
         //腾讯Bugly
         initBugly()
         //x5内核

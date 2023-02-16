@@ -1,6 +1,8 @@
 ext {
     frameVersion = "3.2.6"
     lifecycleVersion = "2.5.1"
+    jpushVersion = "4.8.4"
+    jpushCoreVersion = "3.3.6"
     android = [
             applicationId   : "com.ashlikun.baseproject",
             compileSdk      : 32,
@@ -36,173 +38,176 @@ ext {
 
 
     dependencies = [
-            ktx                  : "androidx.core:core-ktx:1.7.0",
-            kotlinReflect        : "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version",
+            ktx                       : "androidx.core:core-ktx:1.7.0",
+            kotlinReflect             : "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version",
             //kotlin的协程
-            KotlinxCoroutines    : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version",
-            appcompat            : "androidx.appcompat:appcompat:1.5.1",
-            design               : "com.google.android.material:material:1.7+",
+            KotlinxCoroutines         : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version",
+            appcompat                 : "androidx.appcompat:appcompat:1.5.1",
+            design                    : "com.google.android.material:material:1.7+",
             //约束布局
-            constraintLayout     : 'androidx.constraintlayout:constraintlayout:2.1.4',
+            constraintLayout          : 'androidx.constraintlayout:constraintlayout:2.1.4',
             //协调布局
-            coordinatorLayout    : 'androidx.coordinatorlayout:coordinatorlayout:1.2.0',
+            coordinatorLayout         : 'androidx.coordinatorlayout:coordinatorlayout:1.2.0',
             //recyclerview
-            recyclerview         : 'androidx.recyclerview:recyclerview:1.2.1',
+            recyclerview              : 'androidx.recyclerview:recyclerview:1.2.1',
             //生命周期扩展 Viewmodel
-            lifecycleViewmodelKtx: "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion",
+            lifecycleViewmodelKtx     : "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion",
             //生命周期扩展 Activity
-            lifecycleRuntimeKtx  : "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion",
+            lifecycleRuntimeKtx       : "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion",
             //LiveData
-            lifecycleLiveDataKtx : "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion",
+            lifecycleLiveDataKtx      : "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion",
             //Activity
-            Activity             : 'androidx.activity:activity-ktx:1.5.1',
+            Activity                  : 'androidx.activity:activity-ktx:1.5.1',
             //Fragment
-            Fragment             : 'androidx.fragment:fragment-ktx:1.5.3',
+            Fragment                  : 'androidx.fragment:fragment-ktx:1.5.3',
 
 
             //基本架构
-            CustomMvvm           : "com.github.ashLikun.Framework:libraryMvvm:2.3.22",
+            CustomMvvm                : "com.github.ashLikun.Framework:libraryMvvm:2.3.25",
             //多个Dex
-            multidex             : 'androidx.multidex:multidex:2.0.1',
+            multidex                  : 'androidx.multidex:multidex:2.0.1',
             //webview封装
-            XWebView             : "com.github.ashLikun.XWebView:core:2.1.4",
+            XWebView                  : "com.github.ashLikun.XWebView:core:2.1.4",
             //alibaba的路由框架
-            arouterapi           : "com.alibaba:arouter-api:+",
-            aroutercompiler      : "com.alibaba:arouter-compiler:+",
+            arouterapi                : "com.alibaba:arouter-api:+",
+            aroutercompiler           : "com.alibaba:arouter-compiler:+",
             //6.0权限管理
-            permissionsdispatcher: "com.github.permissions-dispatcher:permissionsdispatcher:4.9.2",
+            permissionsdispatcher     : "com.github.permissions-dispatcher:permissionsdispatcher:4.9.2",
             //简单的PopupWindow
-            EasyPopupWindow      : "com.github.ashLikun:EasyPopupWindow:2.0.0",
+            EasyPopupWindow           : "com.github.ashLikun:EasyPopupWindow:2.0.0",
             //事件总线
-            EventBus             : "com.github.ashLikun:LiveDataVBus:2.1.10",
+            EventBus                  : "com.github.ashLikun:LiveDataVBus:2.1.10",
             //数据库
-            LiteOrm              : "com.github.ashLikun:LiteOrm:2.0.3",
+            LiteOrm                   : "com.github.ashLikun:LiteOrm:2.0.3",
             //MMKV
-            MMKV                 : 'com.tencent:mmkv:1.2.11',
+            MMKV                      : 'com.tencent:mmkv:1.2.11',
 
             //保活的策略
-            Keeplive             : "com.github.ashLikun:Keeplive:1.0.13",
+            Keeplive                  : "com.github.ashLikun:Keeplive:1.0.13",
 
             //封装的RecycleViewFr
-            XRecycleView         : "com.github.ashLikun:XRecycleView:3.0.5",
+            XRecycleView              : "com.github.ashLikun:XRecycleView:3.0.5",
             //动画菜单,可以不用
-            AnimationMenu        : "com.github.ashLikun:AnimationMenu:2.0.0",
+            AnimationMenu             : "com.github.ashLikun:AnimationMenu:2.0.0",
             //自定义的下拉刷新
-            RefreshLayout        : "com.github.ashLikun:RefreshLayout:2.0.4",
+            RefreshLayout             : "com.github.ashLikun:RefreshLayout:2.0.4",
             //封装的viewpager，banner，启动页
-            XViewPager           : "com.github.ashLikun:XViewPager:2.2.4",
-            XViewPager2          : "com.github.ashLikun:XViewPager2:1.2.2",
+            XViewPager                : "com.github.ashLikun:XViewPager:2.2.4",
+            XViewPager2               : "com.github.ashLikun:XViewPager2:1.2.2",
             //公共的工具
-            CommonUtils          : "com.github.ashLikun:CommonUtils:4.6.56",
+            CommonUtils               : "com.github.ashLikun:CommonUtils:4.6.60",
             //公共的Adapter
-            CommonAdapter        : "com.github.ashLikun:CommonAdapter:4.4.4",
+            CommonAdapter             : "com.github.ashLikun:CommonAdapter:4.4.9",
             //Google官方改造
-            XTabLayout           : "com.github.ashLikun:XTabLayout:2.1.11",
+            XTabLayout                : "com.github.ashLikun:XTabLayout:2.1.11",
             //功能更加丰富
-            XTabLayout2          : "com.github.ashLikun:XTabLayout2:1.0.5",
+            XTabLayout2               : "com.github.ashLikun:XTabLayout2:1.0.5",
             //阿里的vlayout
-            vlayout              : "com.alibaba.android:vlayout:1.2.36@aar",
+            vlayout                   : "com.github.ashLikun:vLayout:1.0.3",
             //习惯的对话框
-            CustomDialog         : "com.github.ashLikun:CustomDialog:3.2.4",
+            CustomDialog              : "com.github.ashLikun:CustomDialog:3.2.5",
+            //第三方MD风格对话框 https://github.com/afollestad/material-dialogs
+            MaterialDialog            : "com.afollestad.material-dialogs:core:3.3.0",
+            MaterialDialogInput       : "com.afollestad.material-dialogs:input:3.3.0",
+            //https://github.com/afollestad/material-dialogs/blob/main/documentation/BOTTOMSHEETS.md
+            MaterialDialogBottomSheets: "com.afollestad.material-dialogs:bottomsheets:3.3.0",
             //圆形的进度条
-            CircleProgressView   : "com.github.ashLikun:CircleProgressView:2.0.2",
+            CircleProgressView        : "com.github.ashLikun:CircleProgressView:2.0.2",
             //LayoutManage
-            XLayoutManager       : "com.github.ashLikun:XLayoutManager:1.0.9",
+            XLayoutManager            : "com.github.ashLikun:XLayoutManager:1.0.9",
             //布局切换
-            LoadSwitch           : "com.github.ashLikun:LoadSwitch:2.1.3",
+            LoadSwitch                : "com.github.ashLikun:LoadSwitch:2.1.3",
             //兼容的View
-            CompatView           : "com.github.ashLikun:CompatView:2.1.2",
+            CompatView                : "com.github.ashLikun:CompatView:2.1.2",
             //错误捕获
-            AppCrashDispose      : "com.github.ashLikun:AppCrashDispose:2.0.7",
-            FreeReflection       : "com.github.tiann:FreeReflection:3.1.0",
+            AppCrashDispose           : "com.github.ashLikun:AppCrashDispose:2.0.7",
+            FreeReflection            : "com.github.tiann:FreeReflection:3.1.0",
             //app内存溢出捕获
-            leakcanaryDebug      : "com.squareup.leakcanary:leakcanary-android:2.9",
+            leakcanaryDebug           : "com.squareup.leakcanary:leakcanary-android:2.10",
             //滴滴的开发助手 https://github.com/didi/DoKit
-            doraemonkitDebug     : "io.github.didi.dokit:dokitx:$dokit_version",
+            doraemonkitDebug          : "io.github.didi.dokit:dokitx:$dokit_version",
             //文件同步模块
-            doraemonFtDebug      : "io.github.didi.dokit:dokitx-ft:$dokit_version",
+            doraemonFtDebug           : "io.github.didi.dokit:dokitx-ft:$dokit_version",
             //一机多控模块
-            doraemonMcDebug      : "io.github.didi.dokit:dokitx-mc:$dokit_version",
-            doraemonkitRelease   : "io.github.didi.dokit:dokitx-no-op:$dokit_version",
+            doraemonMcDebug           : "io.github.didi.dokit:dokitx-mc:$dokit_version",
+            doraemonkitRelease        : "io.github.didi.dokit:dokitx-no-op:$dokit_version",
 
             //shimmer 效果
-            shimmer              : "io.supercharge:shimmerlayout:2.1.0",
+            shimmer                   : "io.supercharge:shimmerlayout:2.1.0",
             //导航tab
-            BottomNavigation     : "com.github.ashLikun:BottomNavigation:3.0.4",
+            BottomNavigation          : "com.github.ashLikun:BottomNavigation:3.0.4",
             //rxjava
-            rxandroid            : "io.reactivex.rxjava2:rxandroid:2.1.1",
-            rxjava               : "io.reactivex.rxjava2:rxjava:2.2.6",
-            RxLife               : "com.github.ashLikun:RxLife:1.0.2",
+            rxandroid                 : "io.reactivex.rxjava2:rxandroid:2.1.1",
+            rxjava                    : "io.reactivex.rxjava2:rxjava:2.2.6",
+            RxLife                    : "com.github.ashLikun:RxLife:1.0.2",
             //okhttp
-            okhttp               : "com.squareup.okhttp3:okhttp:4.10.0",
-            gson                 : "com.google.code.gson:gson:2.10",
+            okhttp                    : "com.squareup.okhttp3:okhttp:4.10.0",
+            gson                      : "com.google.code.gson:gson:2.8.5",
             //不同type的json解析,依赖于gson
-            MultiTypeGson        : "com.github.ashLikun:MultiTypeGson:2.1.3",
+            MultiTypeGson             : "com.github.ashLikun:MultiTypeGson:2.1.3",
             //基于Okhttp封装的
-            OkHttpUtils          : "com.github.ashLikun:OkHttpUtils:3.4.3",
+            OkHttpUtils               : "com.github.ashLikun:OkHttpUtils:3.4.3",
             //图片加载
-            GlideUtils           : "com.github.ashLikun:GlideUtils:3.0.6",
-            glide                : "com.github.bumptech.glide:glide:4.14.1",
-            glideCompiler        : "com.github.bumptech.glide:compiler:4.14.1",
-            glideTransformations : "jp.wasabeef:glide-transformations:4+",//4.2.0 glide4.11.0
-            glidegpuimage        : "jp.co.cyberagent.android:gpuimage:2+",//2.0.4
+            GlideUtils                : "com.github.ashLikun:GlideUtils:3.0.7",
+            glide                     : "com.github.bumptech.glide:glide:4.14.1",
+            glideCompiler             : "com.github.bumptech.glide:compiler:4.14.1",
+            glideTransformations      : "jp.wasabeef:glide-transformations:4+",//4.2.0 glide4.11.0
+            glidegpuimage             : "jp.co.cyberagent.android:gpuimage:2+",//2.0.4
             //日期选择 https://github.com/loperSeven/DateTimePicker
-            DateTimePicker       : "com.github.loperSeven:DateTimePicker:0.5.8",
+            DateTimePicker            : "com.github.loperSeven:DateTimePicker:0.5.8",
             //自定义键盘 https://github.com/jenly1314/KingKeyboard
-            kingkeyboard         : "com.github.jenly1314:kingkeyboard:1.0.4",
+            kingkeyboard              : "com.github.jenly1314:kingkeyboard:1.0.4",
             //lottie 动画
-            lottie               : "com.airbnb.android:lottie:3.4.0",
+            lottie                    : "com.airbnb.android:lottie:3.4.0",
             //Android官方流布局
-            flexbox              : "com.google.android:flexbox:+",
+            flexbox                   : "com.google.android:flexbox:+",
             //图片查看
-            PhotoView            : "com.github.ashLikun:PhotoView:2.0.4",
+            PhotoView                 : "com.github.ashLikun:PhotoView:2.0.4",
             //照片处理
-            PhotoHander          : "com.github.ashLikun:PhotoHander:2.1.14",
+            PhotoHander               : "com.github.ashLikun:PhotoHander:2.1.14",
             //输入验证码
-            VerificationCodeInput: "com.github.ashLikun:VerifyCodeView:1.0.0",
+            VerificationCodeInput     : "com.github.ashLikun:VerifyCodeView:1.0.0",
             //带圆角，边框的的ImageView
-            RoundedImageView     : "com.makeramen:roundedimageview:2.3.0",
+            RoundedImageView          : "com.makeramen:roundedimageview:2.3.0",
             //评分控件 exclude group: 'com.android.support'
-            MaterialRatingBar    : "com.github.ashLikun:MaterialRatingBar:2.0.0",
-            CalendarView         : "com.github.ashLikun:CalendarView:2.0.0",
+            MaterialRatingBar         : "com.github.ashLikun:MaterialRatingBar:2.0.0",
+            CalendarView              : "com.github.ashLikun:CalendarView:2.0.0",
             //微信分享，登录sdk
-            wechat               : "com.tencent.mm.opensdk:wechat-sdk-android-without-mta:6.8.0",
+            wechat                    : "com.tencent.mm.opensdk:wechat-sdk-android-without-mta:6.8.0",
             //扫码
-            ZxingUtils           : "com.github.ashLikun.ZxingUtils:zxingLib:2.0.11",
-            EasyPay              : "com.github.ashLikun:EasyPay:2.0.4",
+            ZxingUtils                : "com.github.ashLikun.ZxingUtils:zxingLib:2.0.11",
+            EasyPay                   : "com.github.ashLikun:EasyPay:2.0.4",
             //腾讯X5浏览器 44136  http://soft.imtt.qq.com/browser/tes/feedback.html 显示000000表示加载的是系统内核，显示大于零的数字表示加载了x5内核（该数字是x5内核版本号）
-            tbssdk               : "com.tencent.tbs:tbssdk:44181",
+            tbssdk                    : "com.tencent.tbs:tbssdk:44181",
             // 极光推送
-            jpush                : 'cn.jiguang.sdk:jpush:4.5.0',
+            jpush                     : "cn.jiguang.sdk:jpush:$jpushVersion",
             // 极光推送
-            jcore                : 'cn.jiguang.sdk:jcore:3.1.0',
+            jcore                     : "cn.jiguang.sdk:jcore:$jpushCoreVersion",
             //腾讯Bugly
-            BugLy                : 'com.tencent.bugly:crashreport:latest.release',
+            BugLy                     : 'com.tencent.bugly:crashreport:latest.release',
 
-            shareQQ              : 'com.tencent.tauth:qqopensdk:3.53.0',
-            shareSina            : 'io.github.sinaweibosdk:core:11.11.1@aar',
+            shareQQ                   : 'com.tencent.tauth:qqopensdk:3.53.0',
+            shareSina                 : 'io.github.sinaweibosdk:core:11.11.1@aar',
 
             //友盟统计与分享
             // 友盟基础组件库（所有友盟业务SDK都依赖基础组件库）
-            umsdkCommon          : 'com.umeng.umsdk:common:9.5.0',
-            umsdkAsms            : 'com.umeng.umsdk:asms:1.5.0',
-            // U-APM产品包依赖(必选)
-            umsdkApm             : 'com.umeng.umsdk:apm:1.6.4',
+            umsdkCommon               : 'com.umeng.umsdk:common:9.5.4',
+            umsdkAsms                 : 'com.umeng.umsdk:asms:1.6.3',
             //分享核心库，必选
-            umsdkShareCore       : 'com.umeng.umsdk:share-core:7.1.9',
+            umsdkShareCore            : 'com.umeng.umsdk:share-core:7.1.9',
             //分享面板功能，可选
-            umsdkShareBoard      : 'com.umeng.umsdk:share-board:7.1.9',
+            umsdkShareBoard           : 'com.umeng.umsdk:share-board:7.1.9',
             //在线依赖目前支持QQ、微信、新浪微博、支付宝、钉钉；若需支持其他平台，请选择手动下载SDK
             //微信完整版
-            umsdkShareWx         : 'com.umeng.umsdk:share-wx:7.1.9',
-
+            umsdkShareWx              : 'com.umeng.umsdk:share-wx:7.1.9',
 
             //RangeSeekBar 进度条
-            RangeSeekBar         : 'com.github.Jay-Goo:RangeSeekBar:v3.0.0',
-            EasyMedia            : 'com.github.ashLikun.EasyMedia:ExoPlay2:2.4.6',
+            RangeSeekBar              : 'com.github.Jay-Goo:RangeSeekBar:v3.0.0',
+            EasyMedia                 : 'com.github.ashLikun.EasyMedia:ExoPlay2:2.4.6',
             //ExoPlay
-            extensionRtmp        : 'com.google.android.exoplayer:extension-rtmp:2.11.7',
-            exoplayer            : 'com.google.android.exoplayer:exoplayer:2.11.7',
-            ijkplayerJava        : 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8',
+            extensionRtmp             : 'com.google.android.exoplayer:extension-rtmp:2.11.7',
+            exoplayer                 : 'com.google.android.exoplayer:exoplayer:2.11.7',
+            ijkplayerJava             : 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8',
+
     ]
 }
