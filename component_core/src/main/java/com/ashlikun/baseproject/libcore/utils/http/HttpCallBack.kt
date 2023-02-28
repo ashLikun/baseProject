@@ -85,21 +85,14 @@ open class HttpCallBack<ResultType> constructor(val handle: HttpUiHandle?) :
         //全局处理结果
         val res = HttpManager.handelResult(result)
         if (res != null) {
-            //不显示toast
             handle?.apply {
-                val oldToastShow = isErrorToastShow
-                isErrorToastShow = false
                 //如果code全局处理的时候错误了，那么是不会走success的，这里就得自己处理UI设置为错误状态
-                kotlin.error(
-                    ContextData(
-                        title = res.exception.message,
-                        errCode = (res.exception.code),
-                        resId = R.drawable.material_service_error
-                    )
+                //不显示toast
+                error(
+                    ContextData(title = res.exception.message, errCode = (res.exception.code), resId = R.drawable.material_service_error),
+                    false
                 )
-                isErrorToastShow = oldToastShow
             }
-
         }
         return res
     }

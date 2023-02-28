@@ -105,7 +105,7 @@ class HttpUiHandle private constructor() {
     var isCanceledOnTouchOutside = false
 
     /**
-     * 是否错误的时候toast提示,http 错误
+     * 是否错误的时候toast提示,http 错误,代码错误
      */
     var isErrorToastShow = true
 
@@ -372,7 +372,7 @@ class HttpUiHandle private constructor() {
 
     /**
      * 接口错误，
-     * @param showToast 是否显示toast，无论isErrorToastShow 是什么
+     * @param showToast 是否显示toast，无论isErrorToastShow 是什么,true 就显示
      */
     fun error(data: ContextData, showToast: Boolean? = null) {
 //        val message = "${data.title}"
@@ -381,6 +381,9 @@ class HttpUiHandle private constructor() {
         if (pageHelpListener != null) {
             showContent()
             pageHelpListener?.failure(message)
+        }
+        if (showToast == true) {
+            isShowToastNeibu = true
         }
         //这里判断是否需要显示错误页面
         if (pageHelpListener?.itemCount ?: 0 == 0) {
@@ -479,17 +482,17 @@ val HttpUiHandle.coroutineExceptionHandler
         error.printStackTrace()
         when (error) {
             is HttpHandelResultException -> {
-                val old = isErrorToastShow
                 //不显示toast
-                isErrorToastShow = false
                 //如果code全局处理的时候错误了，那么是不会走success的，这里就得自己处理UI设置为错误状态
-                error(ContextData(title = error.exception.message, resId = R.drawable.material_service_error, errCode = error.exception.code))
-                //还原显示toast
-                isErrorToastShow = old
+                error(ContextData(title = error.exception.message, resId = R.drawable.material_service_error, errCode = error.exception.code), false)
             }
             is HttpException -> error(ContextData(title = error.message, resId = R.drawable.material_service_error, errCode = error.code))
-            else -> error((ContextData(title = error.message.orEmpty(),
-                resId = R.drawable.material_service_error, errCode = HttpErrorCode.HTTP_UNKNOWN)))
+            else -> error(
+                ContextData(
+                    title = error.message.orEmpty(),
+                    resId = R.drawable.material_service_error, errCode = HttpErrorCode.HTTP_UNKNOWN
+                )
+            )
         }
         completed()
     }

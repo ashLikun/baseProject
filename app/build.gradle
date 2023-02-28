@@ -20,6 +20,21 @@ apply from: './upLoadPgy.gradle'
 def releaseTime() {
     return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
 }
+//替换manifestPlaceholders default 里面的 applicationId 放入对应环境
+def replaceManifestPlaceholdersAppId(String newAppid, String applicationIdSuffix, def map) {
+    if (applicationIdSuffix != null && !applicationIdSuffix.isEmpty() && map != null && map instanceof Map) {
+        println "开始替换 ManifestPlaceholder appId"
+        String oldAppId = newAppid.replace("." + applicationIdSuffix, "")
+        def config = rootProject.ext.android // 工程配置
+        map.entrySet().forEach {
+            if (it.value == oldAppId || it.value == config.applicationId) it.value = newAppid
+        }
+        (sdk.default as Map).entrySet().forEach {
+            //强行插入新的
+            if (it.value == oldAppId || it.value == config.applicationId) map.put(it.key, newAppid)
+        }
+    }
+}
 
 android {
 
@@ -92,14 +107,15 @@ android {
         beta {
             //构建的时候打印文本
             println 'build - beta'
-            //这里配置打包不同的参数
-            manifestPlaceholders = sdk.releasBuild
             //注入string，如果在代码中使用，就定义一个同key的string，这里会替换
+            versionNameSuffix "-bate"
+            //applicationIdSuffix-  Beta版本
+            applicationIdSuffix "bate"
+            //这里配置打包不同的参数
+            manifestPlaceholders = sdk.betaBuild
             sdk.releasBuild.entrySet().forEach {
                 resValue "string", it.key, it.value
             }
-//            versionNameSuffix "-beta"
-//            applicationIdSuffix "test"
             //app名称
 //            resValue "string", "my_app_name", "@string/my_app_name_beta"
         }
@@ -118,9 +134,9 @@ android {
             //设置混淆配置文件
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             //versionNameSuffix
-            //  versionNameSuffix "_内测"
+            versionNameSuffix "-debug"
             //applicationIdSuffix-测试版本使用debug作为后缀
-            // applicationIdSuffix "debug"
+            applicationIdSuffix "bate"
             //这里配置打包不同的参数
             manifestPlaceholders = sdk.debugBuild
             //注入string，如果在代码中使用，就定义一个同key的string，这里会替换
@@ -132,17 +148,20 @@ android {
             }
 
         }
-
     }
     /**
      * 指定签名包得输入文件名称
+     * ApplicationVariantImpl变量访问地址
+     * http://dcow.io/android-gradle-plugin-docs/index.html?overview-summary.html
+     *
+     * https://developer.android.google.cn/studio/build/build-variants?hl=zh-cn#groovy
      */
     applicationVariants.all { variant ->
         variant.outputs.all {
             if (variant.buildType.isDebuggable()) {
-                outputFileName = "App-v${variant.versionName}-${variant.buildType.name}-${releaseTime()}.apk"
+                outputFileName = "App-v${variant.versionName}-${releaseTime()}.apk"
             } else {
-                outputFileName = "App-v${variant.versionName}-${variant.buildType.name}-${releaseTime()}.apk"
+                outputFileName = "App-v${variant.versionName}-${releaseTime()}.apk"
             }
         }
     }
@@ -185,6 +204,30 @@ android {
             // This property is set to true by default.
             enableSplit = true
         }
+    }
+}
+//解析各个工程build.gradle之前会执行。
+beforeEvaluate {
+
+}
+//这个方法回调在配置完成之后，也就是解析Build.gradle配置文件之后会执行，如果在配置文件，通过Extension的方式，配置了一些参数，如果想获取参数的值就需要在这个方法回调里边获取才行
+afterEvaluate {
+    project.android.applicationVariants.all { variant ->
+        def map = variant.mergedFlavor.manifestPlaceholders as Map
+        def newAppid = variant.applicationId
+        //统一修改ApplicationId
+        String applicationIdSuffix = variant.buildType.applicationIdSuffix
+        if (applicationIdSuffix != null && !applicationIdSuffix.isEmpty()) {
+            String oldAppId = newAppid.replace("." + applicationIdSuffix, "")
+            map.entrySet().forEach {
+                if (it.value == oldAppId || it.value == config.applicationId) it.value = newAppid
+            }
+        } else {
+            map.entrySet().forEach {
+                if (it.value == config.applicationId) it.value = newAppid
+            }
+        }
+        println map
     }
 }
 

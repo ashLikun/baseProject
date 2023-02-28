@@ -27,12 +27,13 @@ ext {
                     DOKIT_PID    : "f2ab59a864aabba32dd5ebeddac76c83", //滴滴的开发助手,https://www.dokit.cn/
             ],
             debugBuild : [
-                    //高德地图的KEY
-                    MAP_KEY: "ebdc4e35503dd9d99692ac7e0b37ce60"
+                    type: "type",
+            ],
+            betaBuild  : [
+                    type: "type",
             ],
             releasBuild: [
-                    //高德地图的KEY
-                    MAP_KEY: "03c6da12f537654eac8f71ea54f2f41c"
+                    type: "type"
             ]
     ]
 
@@ -63,7 +64,7 @@ ext {
 
 
             //基本架构
-            CustomMvvm                : "com.github.ashLikun.Framework:libraryMvvm:2.3.25",
+            CustomMvvm                : "com.github.ashLikun.Framework:libraryMvvm:2.3.27",
             //多个Dex
             multidex                  : 'androidx.multidex:multidex:2.0.1',
             //webview封装
@@ -95,7 +96,7 @@ ext {
             XViewPager                : "com.github.ashLikun:XViewPager:2.2.4",
             XViewPager2               : "com.github.ashLikun:XViewPager2:1.2.2",
             //公共的工具
-            CommonUtils               : "com.github.ashLikun:CommonUtils:4.6.60",
+            CommonUtils               : "com.github.ashLikun:CommonUtils:4.6.62",
             //公共的Adapter
             CommonAdapter             : "com.github.ashLikun:CommonAdapter:4.4.9",
             //Google官方改造
