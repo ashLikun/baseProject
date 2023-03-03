@@ -55,7 +55,8 @@ android {
         flavorDimensions config.flavorDimensions
         signingConfig signingConfigs.release
         ndk {
-            abiFilters "armeabi-v7a", "arm64-v8a", "x86"
+            //"x86"
+            abiFilters "armeabi-v7a", "arm64-v8a"/*, "x86", "x86-64"*/
         }
         // 适配默认语言"en-rUS"
 //        resConfigs "en", "zh", "fr"

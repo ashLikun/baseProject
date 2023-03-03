@@ -202,6 +202,8 @@ ext {
             //微信完整版
             umsdkShareWx              : 'com.umeng.umsdk:share-wx:7.1.9',
 
+            //Socket.Io 对应服务器的2.x版本
+            socketIo                  : 'io.socket:socket.io-client:1.0.0',
             //RangeSeekBar 进度条
             RangeSeekBar              : 'com.github.Jay-Goo:RangeSeekBar:v3.0.0',
             EasyMedia                 : 'com.github.ashLikun.EasyMedia:ExoPlay2:2.4.6',
