@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ashlikun.baseproject.module.other">
 
-    <application>
+    <application android:theme="@style/AppTheme">
         <activity
             android:name=".view.WelcomeActivity"
             android:configChanges="orientation|keyboardHidden"

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ashlikun.baseproject.libcore">
 
-    <application>
+    <application android:theme="@style/AppTheme">
         <activity
             android:name="com.ashlikun.photo_hander.PhotoHanderActivity"
             android:configChanges="orientation|screenSize"

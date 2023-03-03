@@ -10,6 +10,7 @@ import com.ashlikun.baseproject.libcore.utils.http.interceptor.DefaultIntercepto
 import com.ashlikun.baseproject.libcore.utils.http.interceptor.LoggingInterceptor
 import com.ashlikun.baseproject.libcore.utils.other.AppConfig
 import com.ashlikun.baseproject.libcore.utils.other.CacheUtils
+import com.ashlikun.baseproject.libcore.utils.other.LogConfig
 import com.ashlikun.baseproject.libcore.utils.other.postBugly
 import com.ashlikun.livedatabus.busForever
 import com.ashlikun.okhttputils.http.HttpException

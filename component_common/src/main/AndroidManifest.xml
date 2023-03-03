@@ -29,7 +29,7 @@
         android:name="android.permission.SYSTEM_ALERT_WINDOW"
         tools:ignore="ProtectedPermissions" />
 
-    <application>
+    <application android:theme="@style/AppTheme">
         <!-- 显示Fragment的Activity-->
         <activity
             android:name=".view.activity.ShowFragmentActivity"

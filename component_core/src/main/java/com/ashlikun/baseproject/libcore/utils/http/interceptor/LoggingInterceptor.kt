@@ -1,6 +1,6 @@
 package com.ashlikun.baseproject.libcore.utils.http.interceptor
 
-import com.ashlikun.baseproject.libcore.utils.http.HttpManager
+import com.ashlikun.baseproject.libcore.utils.other.LogConfig
 import com.ashlikun.okhttputils.http.HttpUtils
 import com.ashlikun.utils.other.LogUtils
 import okhttp3.Interceptor
@@ -24,7 +24,7 @@ internal class LoggingInterceptor : Interceptor {
         //request.url, chain.connection(), request.headers
 
         val response: Response = chain.proceed(request)
-        if (HttpManager.isLog) {
+        if (LogConfig.httpIsLog) {
             LogUtils.d(
                 "********************************************Http请求开始********************************************\n" +
                         "*********************************************Request********************************************\n" +

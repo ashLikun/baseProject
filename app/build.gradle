@@ -185,7 +185,6 @@ android {
     buildFeatures {
         viewBinding = true
     }
-    project.ext.upload2d project, "更新APK"//引用插件并传入参数
 
     // 这里配置AAB
     bundle {

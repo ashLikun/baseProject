@@ -1,11 +1,11 @@
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
-def run = { extension, buildUpdateDescription, names ->
+def runPgy = { buildUpdateDescription, names ->
     //在这里获取: https://www.pgyer.com/doc/view/api#uploadApp
 //    logger.log(LogLevel.ERROR, "qqqqqqq ${extension.android.applicationVariants}")
-    extension.android.applicationVariants.all { variant ->
-        //这里只是打Release
+    project.android.applicationVariants.all { variant ->
+        //这里只是打Beta
         if (!variant.buildType.isDebuggable()) {
 //            logger.log(LogLevel.ERROR, "wwwwww111 ${variant.name}")
 //            logger.log(LogLevel.ERROR, "wwwwww111 ${variant}")
@@ -92,18 +92,36 @@ def postFile(String filePath, String buildUpdateDescription) {
 task testPpp() {
 //    postFile("D:\\vinka\\vinkaLife\\app\\build\\intermediates\\apk\\vinkaLife\\release\\App-v2.0.54-release-2022-08-26_vinkaLife.apk")
 }
-project.ext {
-    upload2d = { extension, buildUpdateDescription ->
-        extension.android {
-            //全部打包上传
-            task uploadAll(group: 'upload2Pgyer', description: '打包上传 Release 到蒲公英',
-                    dependsOn: ['assembleRelease',
-                    ]) {
-                doLast {
-                    //dependsOn 是二维数组
-                    run(extension, buildUpdateDescription, dependsOn[0])
-                }
-            }
-        }
+//全部打包上传
+task uploadAll(type: UploadPayTask, group: 'upload2Pgyer', description: '打包上传 Beta 到蒲公英',
+        dependsOn: ['assembleBeta',
+        ]) {
+
+    doLast {
+        //dependsOn 是二维数组
+        runPgy("更新BetaApp", depOn[0])
+    }
+
+}
+
+//全部打包上传
+task uploadReleaseAll(type: UploadPayTask,group: 'upload2Pgyer', description: '打包上传 Release 到蒲公英',
+        dependsOn: ['assembleRelease',
+        ]) {
+    doLast {
+        //dependsOn 是二维数组
+        runPgy("更新BetaApp", depOn[0])
+    }
+}
+/**
+ * 7.4.5版本不能读取dependsOn，这里记录下
+ */
+class UploadPayTask extends DefaultTask {
+    public Object[] depOn = new Object[0];
+
+    @Override
+    Task dependsOn(Object... paths) {
+        depOn = paths
+        return super.dependsOn(paths)
     }
 }
