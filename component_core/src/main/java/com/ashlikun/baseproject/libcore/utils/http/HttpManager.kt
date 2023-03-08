@@ -26,6 +26,8 @@ import com.ashlikun.utils.other.MainHandle
 import com.ashlikun.utils.other.StringUtils
 import com.ashlikun.utils.other.file.FileUtils
 import com.ashlikun.utils.other.store.getBoolStore
+import com.ashlikun.utils.other.store.getIntStore
+import com.ashlikun.utils.other.store.storeContains
 import com.ashlikun.utils.ui.ActivityManager
 import com.ashlikun.utils.ui.modal.SuperToast
 import okhttp3.Cache
@@ -43,6 +45,7 @@ import java.util.concurrent.TimeUnit
  */
 class HttpManager private constructor() {
     init {
+        initBaseHost()
         HttpResponse.SUCCEED = 0
         HttpResponse.ERROR = 1
         OkHttpManage.init(AppUtils.app, getOkHttpClientBuilder().build())
@@ -138,10 +141,12 @@ class HttpManager private constructor() {
         const val ACTION = "action"
 
         //服务器地址，任何地方代码使用
-        val BASE_URL = if (AppConfig.isBeta || AppConfig.isDebug) URL_TEST else URL_PROD
+        var BASE_URL: String = ""
+            private set
 
         //URL 加上 Path
-        val URL_PATH = BASE_URL + BASE_PATH
+        val URL_PATH
+            get() = BASE_URL + BASE_PATH
 
         /**
          * 退出对话框是否显示,防止多次显示
@@ -150,6 +155,24 @@ class HttpManager private constructor() {
 
         private val INSTANCE by lazy {
             HttpManager()
+        }
+
+        /**
+         * 初始化一些基础地址，这种方法方便再运行过程中修改
+         */
+        fun initBaseHost() {
+            if (SpKey.BASE_URL_TYPE.storeContains()) {
+                val sp = SpKey.BASE_URL_TYPE.getIntStore(1)
+                if (sp == 1) {
+                    BASE_URL = URL_PROD
+                    return
+                }
+                if (sp == 2) {
+                    BASE_URL = URL_TEST
+                    return
+                }
+            }
+            BASE_URL = if (AppConfig.isBeta || AppConfig.isDebug) URL_TEST else URL_PROD
         }
 
         fun get(): HttpManager {

@@ -9,6 +9,12 @@ package com.ashlikun.baseproject.libcore.constant
  * 功能介绍：SharedPre的键
  */
 object SpKey {
+    /**
+     * 当前保存的服务器地址
+     */
+    const val BASE_URL_TYPE = "BASE_URL_TYPE"
+
+
     const val RUN = "Run"
     const val VERSION_CODE = "VersionCode"
 
