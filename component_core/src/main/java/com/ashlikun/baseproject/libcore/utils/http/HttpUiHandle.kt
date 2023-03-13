@@ -20,6 +20,7 @@ import com.ashlikun.okhttputils.http.OkHttpManage
 import com.ashlikun.okhttputils.http.response.HttpErrorCode
 import com.ashlikun.okhttputils.http.response.IHttpResponse
 import com.ashlikun.utils.main.ActivityUtils
+import com.ashlikun.utils.other.MainHandle
 import com.ashlikun.utils.other.coroutines.taskLaunchMain
 import com.ashlikun.utils.ui.extend.toLifecycleOrNull
 import com.ashlikun.utils.ui.modal.SuperToast
@@ -28,7 +29,6 @@ import com.ashlikun.xrecycleview.RefreshLayout
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
-
 /**
  * 作者　　: 李坤
  * 创建时间: 2018/12/25　13:43
@@ -242,15 +242,15 @@ class HttpUiHandle private constructor() {
     }
 
 
-    fun showLoading() {
+    private fun showLoading() {
         switchService?.showLoading(ContextData(title = hint.orEmpty()))
     }
 
-    fun showContent() {
+    private fun showContent() {
         switchService?.showContent()
     }
 
-    fun showRetry(data: ContextData): Boolean {
+    private fun showRetry(data: ContextData): Boolean {
         switchService?.showRetry(data)
         return switchService != null
     }
@@ -258,12 +258,12 @@ class HttpUiHandle private constructor() {
     /**
      * 是否可以显示加载相关的
      */
-    fun canShowLoadding() = activity?.isFinishing == false || dialog?.isShowing == true
+    private fun canShowLoadding() = activity?.isFinishing == false || dialog?.isShowing == true
 
     /**
      * 显示对话框
      */
-    fun showDialog() {
+    private fun showDialog() {
         if (isShowLoadding) {
             if (canShowLoadding()) {
                 if (isDialogMode) {
@@ -282,6 +282,7 @@ class HttpUiHandle private constructor() {
                         try {
                             show()
                         } catch (e: Exception) {
+                            e.printStackTrace()
                         }
                     }
                 } else {
@@ -301,6 +302,7 @@ class HttpUiHandle private constructor() {
                         try {
                             show()
                         } catch (e: Exception) {
+                            e.printStackTrace()
                         }
                     }
                 }
@@ -311,7 +313,7 @@ class HttpUiHandle private constructor() {
     /**
      * 隐藏对话框
      */
-    fun hintProgress() {
+    private fun hintProgress() {
         //如果不显示对话框,就直接返回
         if (!isShowLoadding || (loadDialog == null && loadView == null)) {
             return
@@ -336,19 +338,21 @@ class HttpUiHandle private constructor() {
      * 开始执行
      */
     fun start() {
-        isStatusCompleted = false
-        goSetEnableView(false)
-        if (swipeRefreshLayout?.isRefreshing() == true) {
-            if (switchService?.isStatusContent == false) {
-                //布局切换没有归为
-                showLoading()
+        MainHandle.post {
+            isStatusCompleted = false
+            goSetEnableView(false)
+            if (swipeRefreshLayout?.isRefreshing() == true) {
+                if (switchService?.isStatusContent == false) {
+                    //布局切换没有归为
+                    showLoading()
+                }
+                return@post
             }
-            return
-        }
-        if (switchService?.isLoadingCanShow == true) {
-            showLoading()
-        } else {
-            showDialog()
+            if (switchService?.isLoadingCanShow == true) {
+                showLoading()
+            } else {
+                showDialog()
+            }
         }
     }
 
@@ -395,24 +399,30 @@ class HttpUiHandle private constructor() {
     }
 
     fun completed() {
-        jobTimeOut?.cancel()
-        jobTimeOut = null
-        goSetEnableView(true)
-        dismissUi()
-        isStatusCompleted = true
+        MainHandle.post {
+            jobTimeOut?.cancel()
+            jobTimeOut = null
+            goSetEnableView(true)
+            dismissUi()
+            isStatusCompleted = true
+        }
     }
 
     /**
      * 调用success和completed
      */
     fun completedSuccess() {
-        success(Any())
-        completed()
+        MainHandle.post {
+            success(Any())
+            completed()
+        }
     }
 
     fun dismissUi() {
-        swipeRefreshLayout?.setRefreshing(false)
-        hintProgress()
+        MainHandle.post {
+            swipeRefreshLayout?.setRefreshing(false)
+            hintProgress()
+        }
     }
 
     fun isShow() = loadDialog?.isShowing ?: loadView?.isShowing ?: false
@@ -489,8 +499,7 @@ val HttpUiHandle.coroutineExceptionHandler
             is HttpException -> error(ContextData(title = error.message, resId = R.drawable.material_service_error, errCode = error.code))
             else -> error(
                 ContextData(
-                    title = error.message.orEmpty(),
-                    resId = R.drawable.material_service_error, errCode = HttpErrorCode.HTTP_UNKNOWN
+                    title = error.message.orEmpty(), resId = R.drawable.material_service_error, errCode = HttpErrorCode.HTTP_UNKNOWN
                 )
             )
         }
