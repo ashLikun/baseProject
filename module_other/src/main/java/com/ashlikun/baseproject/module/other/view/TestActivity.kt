@@ -2,10 +2,7 @@ package com.ashlikun.baseproject.module.other.view
 
 import android.content.Intent
 import android.view.ContextThemeWrapper
-import androidx.appcompat.app.AlertDialog
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.ashlikun.baseproject.common.utils.extend.setNegativeButtonX
-import com.ashlikun.baseproject.common.utils.extend.setPositiveButtonX
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.utils.http.HttpRequestParam
 import com.ashlikun.baseproject.libcore.utils.http.HttpUiHandle
@@ -14,7 +11,6 @@ import com.ashlikun.baseproject.libcore.utils.other.CacheUtils
 import com.ashlikun.baseproject.module.other.R
 import com.ashlikun.baseproject.module.other.databinding.OtherActivityTestBinding
 import com.ashlikun.baseproject.module.other.mode.ApiOther
-import com.ashlikun.baseproject.module.other.utils.MaotaiUtils
 import com.ashlikun.core.activity.BaseActivity
 import com.ashlikun.core.mvvm.launch
 import com.ashlikun.customdialog.DialogSelectMore
@@ -24,7 +20,6 @@ import com.ashlikun.utils.encryption.Md5Utils
 import com.ashlikun.utils.encryption.SHAUtil
 import com.ashlikun.utils.other.DateUtils
 import com.ashlikun.utils.other.LogUtils
-import com.ashlikun.utils.other.file.FileUtils
 import com.ashlikun.utils.other.logge
 import com.ashlikun.utils.ui.extend.bitmap
 import com.ashlikun.utils.ui.extend.resDrawable
@@ -107,25 +102,10 @@ class TestActivity : BaseActivity() {
                 themeResId = R.style.Dialog_BottonFormTop,
                 items = arrayOf("11111", "2222222")
             ).show()
-            val dd = AlertDialog.Builder(requireContext)
-                .setTitle("wwwwww")
-                .setMessage("我的文档哇多")
-                .setPositiveButtonX { dialoog ->
-                }
-                .setNegativeButtonX { }
-                .show()
 
             //跳转
 //            startActivity(Intent(this, Test2Activity::class.java))
 //            WindowCompat.getInsetsController(window, inputView)?.show(WindowInsetsCompat.Type.ime())
-//            AlertDialog.Builder(this)
-//                    .setTitle(com.ashlikun.baseproject.module.other.R.string.ph_permission_dialog_title)
-//                    .setMessage("11111111111111")
-//                    .setPositiveButton(com.ashlikun.baseproject.module.other.R.string.ph_permission_dialog_ok, DialogInterface.OnClickListener { dialog, which ->
-//
-//                    })
-//                    .setNegativeButton(com.ashlikun.baseproject.module.other.R.string.ph_permission_dialog_cancel, null)
-//                    .create().show()
 //            RouterJump.startLockImage(0, RESURL2.map { ImageData(it, it, 0) } as ArrayList, true)
 
             val resss =
@@ -185,12 +165,7 @@ class TestActivity : BaseActivity() {
 //                val aaa = ApiOther.api.testx(HttpUiHandle.get())
 //                LogUtils.e(aaa?.json)
             }
-//            AlertDialog.Builder(this)
-//                    .setCancelable(false)
-//                    .setMessage("确定退出当前账户吗？")
-//                    .setPositiveButton("残忍退出") { dialoog, which ->
-//                    }
-//                    .show()
+
             val token = "xjWseiKzeNP1JLDZD5a94ai5AwdNdzo"
             val paasid = "wechatinternationalprogram"
             val timestamp = System.currentTimeMillis() / 1000

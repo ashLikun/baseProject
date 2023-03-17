@@ -1,12 +1,12 @@
 package com.ashlikun.baseproject.module.other.view
 
-import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.afollestad.materialdialogs.MaterialDialog
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.adapter.recyclerview.common.CommonAdapter
-import com.ashlikun.baseproject.common.utils.extend.setNegativeButtonX
-import com.ashlikun.baseproject.common.utils.extend.setPositiveButtonX
+import com.ashlikun.baseproject.common.utils.extend.negativeButtonX
+import com.ashlikun.baseproject.common.utils.extend.positiveButtonX
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.utils.other.LogConfig
 import com.ashlikun.baseproject.module.other.databinding.OtherActivityTestLogBinding
@@ -39,19 +39,19 @@ class TestLogActivity : BaseActivity() {
                 scrollJob?.cancel()
                 scrollJob = null
                 isCanScrollTop = false
-                AlertDialog.Builder(this)
-                    .setMessage(it.getAll())
-                    .setPositiveButtonX ()
-                    .setNegativeButtonX("复制") { dialog ->
-                        ClipboardUtils.copyText(it.getAll())
-                    }
-                    .setOnDismissListener {
+                MaterialDialog(this).show {
+                    message(text = it.getAll())
+                    setOnDismissListener {
                         scrollJob?.cancel()
                         scrollJob = launch(delayTime = 10000) {
                             isCanScrollTop = true
                         }
                     }
-                    .show()
+                    negativeButtonX()
+                    positiveButtonX(text = "复制") { dialog ->
+                        ClipboardUtils.copyText(it.getAll())
+                    }
+                }
             },
             convert = {
                 binding<OtherItemLogBinding> {

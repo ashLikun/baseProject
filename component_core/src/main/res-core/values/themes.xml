@@ -1,8 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="AppTheme" parent="BaseTheme"></style>
-
-    <style name="BaseTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="BaseTheme" parent="Theme.MaterialComponents.Light.NoActionBar"></style>
+    <style name="BaseTheme.Light">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -14,6 +14,8 @@
         <item name="android:windowBackground">@color/activity_backgound</item>
         <item name="android:listSelector">@color/translucent</item>
         <item name="android:textColorPrimary">@color/text_color</item>
+        <item name="android:textColorSecondary">@color/black_33</item>
+        <item name="android:textColorTertiary">@color/black_4b</item>
         <item name="android:textColor">@color/text_color</item>
         <item name="android:textSize">@dimen/dp_14</item>
         <item name="android:textColorHighlight">@color/black_33</item>
@@ -28,23 +30,14 @@
         <item name="colorError">@color/design_textinput_error_color_light</item>
         <item name="statusColorCustom">@color/statusColorCustom</item>
 
-
         <item name="SwipeRefreshLayout_Color1">@color/colorPrimary</item>
         <item name="SwipeRefreshLayout_Color2">@color/colorPrimary</item>
         <item name="SwipeRefreshLayout_Color3">@color/colorPrimary</item>
         <item name="SwipeRefreshLayout_Color4">@color/colorPrimary</item>
 
-        <!--vector 根据theme动态改变颜色-->
-        <item name="color1">@color/colorPrimary</item>
-        <item name="color2">@color/colorPrimary</item>
-        <item name="color3">@color/colorPrimary</item>
-        <item name="color4">@color/colorPrimary</item>
-        <item name="color5">@color/colorPrimary</item>
-        <item name="color6">@color/colorPrimary</item>
-        <item name="color7">@color/colorPrimary</item>
-        <item name="color8">@color/colorPrimary</item>
-        <item name="color9">@color/colorPrimary</item>
-        <item name="color10">@color/colorPrimary</item>
+
+        <!--vector 根据theme动态改变颜色 android:fillColor="?attr/svgColor1"-->
+        <item name="svgColor1">@color/colorPrimary</item>
     </style>
 
     <style name="AppTheme.PhotoHander">

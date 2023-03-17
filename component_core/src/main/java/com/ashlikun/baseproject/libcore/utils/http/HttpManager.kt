@@ -3,6 +3,7 @@ package com.ashlikun.baseproject.libcore.utils.http
 import android.app.Activity
 import android.os.Looper
 import androidx.appcompat.app.AlertDialog
+import com.afollestad.materialdialogs.MaterialDialog
 import com.ashlikun.baseproject.libcore.constant.EventBusKey
 import com.ashlikun.baseproject.libcore.constant.SpKey
 import com.ashlikun.baseproject.libcore.router.RouterManage
@@ -271,15 +272,22 @@ class HttpManager private constructor() {
                 RouterManage.login()?.exitLogin()
                 return
             }
-            AlertDialog.Builder(activity).setCancelable(false).setTitle("账号异常").setOnDismissListener { IS_LOGIN_OUT_DIALOG_SHOW = false }
-                .setMessage(message).setPositiveButton("知道了") { dialoog, which ->
+            MaterialDialog(activity).show {
+                cancelable(false)
+                title(text = "账号异常")
+                message(text = message)
+                setOnDismissListener {
+                    IS_LOGIN_OUT_DIALOG_SHOW = false
+                }
+                positiveButton(text = "知道了") { dia ->
                     if (code == HttpCodeApp.TOKEN_ERROR) {
                         RouterManage.login()?.exitLogin()
                     }
                     if (code == HttpCodeApp.NO_LOGIN) {
                         RouterManage.login()?.startLogin()
                     }
-                }.show()
+                }
+            }
         }
     }
 

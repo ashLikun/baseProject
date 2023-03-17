@@ -1,12 +1,7 @@
 package com.ashlikun.baseproject.libcore.utils.extend
 
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import com.ashlikun.baseproject.libcore.R
-import com.ashlikun.core.registerForActivityResultX
-import permissions.dispatcher.PermissionUtils
 
 /**
  * 作者　　: 李坤
@@ -17,21 +12,17 @@ import permissions.dispatcher.PermissionUtils
  */
 
 /**
- * @param isDeniedShowDialog 拒绝过是否显示对话框提示,false:会回调denied方法
+ * @param isShowDialog 拒绝过是否显示对话框提示,false:会回调denied方法
  */
 fun Fragment.requestPermission(
     permission: Array<String>,
-    showRationaleMessage: String? = null,
-    isDeniedShowDialog: Boolean = true,
+    message: String? = null,
+    title: String? = null,
+    isShowDialog: Boolean = true,
+    isFirstShowDialog: Boolean = false,
     denied: (() -> Unit)? = null,
     success: (() -> Unit)
 ): ActivityResultLauncher<Array<String>> {
-    return requireActivity().requestPermission(
-        permission,
-        showRationaleMessage,
-        isDeniedShowDialog,
-        denied,
-        success
-    )
+    return requireActivity().requestPermission(permission, message, title, isShowDialog, isFirstShowDialog, denied, success)
 }
 

@@ -29,6 +29,7 @@
     <!--基础第三方库-->
     <string name="base_dialog_cancel">取消</string>
     <string name="base_dialog_confirm">确定</string>
+    <string name="base_dialog_tips">提示</string>
 
     <string name="dokit_log">自定义日志</string>
 

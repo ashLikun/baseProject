@@ -1,13 +1,14 @@
 package com.ashlikun.baseproject.common.utils.other
 
 import android.app.NotificationManager
-import androidx.appcompat.app.AlertDialog
 import androidx.core.app.NotificationCompat
+import com.afollestad.materialdialogs.MaterialDialog
 import com.ashlikun.baseproject.common.R
 import com.ashlikun.baseproject.common.mode.ApiCommon
+import com.ashlikun.baseproject.common.utils.extend.negativeButtonX
+import com.ashlikun.baseproject.common.utils.extend.positiveButtonX
 import com.ashlikun.baseproject.libcore.utils.extend.showToast
 import com.ashlikun.baseproject.libcore.utils.http.HttpUiHandle
-import com.ashlikun.core.mvvm.launch
 import com.ashlikun.customdialog.DialogProgress
 import com.ashlikun.livedatabus.XLiveData
 import com.ashlikun.okhttputils.http.download.DownloadManager
@@ -21,7 +22,6 @@ import com.ashlikun.utils.ui.ActivityManager
 import com.ashlikun.utils.ui.NotificationUtil
 import com.ashlikun.utils.ui.extend.toastInfo
 import com.ashlikun.utils.ui.fActivity
-import com.ashlikun.utils.ui.fCActivity
 import com.ashlikun.utils.ui.modal.SuperToast
 import java.io.File
 
@@ -62,19 +62,17 @@ object AppUpdate {
         ApiCommon.api.checkUpdata(handle).also {
             if (it.isSucceed) {
                 if (!it.dataX!!.url.isNullOrEmpty()) {
-                    val aa = AlertDialog.Builder(ActivityManager.foregroundActivity!!)
-                        .setCancelable(false)
-                        .setTitle(it.dataX!!.content)
-                        .setMessage(it.dataX!!.updateInfo)
-                    aa.setPositiveButton("升级") { dialoog, which ->
-                        DownloadHandle().downloadApk(it.dataX.url, it.dataX.isForce == 1)
+                    MaterialDialog(fActivity!!).show {
+                        cancelable(false)
+                        title(text = it.dataX!!.content)
+                        message(text = it.dataX!!.updateInfo)
+                        if (it.dataX!!.isForce == 0) {
+                            negativeButtonX(text = "稍后再说")
+                        }
+                        positiveButtonX(text = "升级") { dia ->
+                            DownloadHandle().downloadApk(it.dataX.url, it.dataX.isForce == 1)
+                        }
                     }
-                    if (it.dataX!!.isForce == 0) {
-                        aa.setNegativeButton("稍后再说", null)
-                    } else if (it.dataX!!.isForce == 1) {
-                        aa.setCancelable(false)
-                    }
-                    aa.show()
                 } else {
                     if (handle.isErrorToastShow) {
                         SuperToast.showInfoMessage("已经是最新版本了")

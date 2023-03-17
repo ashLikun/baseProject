@@ -1,9 +1,9 @@
 package com.ashlikun.baseproject.module.login.mode.javabean
 
 import android.content.Context
-import androidx.appcompat.app.AlertDialog
-import com.ashlikun.baseproject.common.utils.extend.setNegativeButtonX
-import com.ashlikun.baseproject.common.utils.extend.setPositiveButtonX
+import com.afollestad.materialdialogs.MaterialDialog
+import com.ashlikun.baseproject.common.utils.extend.negativeButtonX
+import com.ashlikun.baseproject.common.utils.extend.positiveButtonX
 import com.ashlikun.baseproject.common.utils.jpush.JpushUtils
 import com.ashlikun.baseproject.common.utils.jump.RouterJump
 import com.ashlikun.baseproject.common.utils.store.AppStoreUtils
@@ -182,15 +182,15 @@ class UserData {
          * 退出登录,对话框
          */
         fun exit(context: Context) {
-            AlertDialog.Builder(context)
-                .setCancelable(false)
-                .setTitle("提示")
-                .setMessage("确认退出登录吗？")
-                .setPositiveButtonX("残忍退出") { dialoog ->
+            MaterialDialog(context).show {
+                cancelable(false)
+                title(text = "提示")
+                message(text = "确认退出登录吗？")
+                negativeButtonX(text = "继续使用")
+                positiveButtonX(text = "残忍退出") { dia ->
                     exitLogin()
                 }
-                .setNegativeButtonX("继续使用")
-                .show()
+            }
         }
     }
 

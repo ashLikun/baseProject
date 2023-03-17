@@ -5,17 +5,8 @@
     <attr name="SwipeRefreshLayout_Color3" format="color"></attr>
     <attr name="SwipeRefreshLayout_Color4" format="color"></attr>
 
-    <!--vector 根据theme动态改变颜色 android:fillColor="?attr/color1"-->
-    <attr name="color1" format="color" />
-    <attr name="color2" format="color" />
-    <attr name="color3" format="color" />
-    <attr name="color4" format="color" />
-    <attr name="color5" format="color" />
-    <attr name="color6" format="color" />
-    <attr name="color7" format="color" />
-    <attr name="color8" format="color" />
-    <attr name="color9" format="color" />
-    <attr name="color10" format="color" />
+    <!--vector 根据theme动态改变颜色 android:fillColor="?attr/svgColor1"-->
+    <attr name="svgColor1" format="color" />
 
     <style name="OtherAnimation" parent="@android:style/Animation.Activity">
         <!--<item name="android:windowEnterAnimation">@anim/activity_open_enter</item>-->

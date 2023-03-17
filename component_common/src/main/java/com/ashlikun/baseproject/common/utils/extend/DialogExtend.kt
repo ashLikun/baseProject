@@ -1,6 +1,10 @@
 package com.ashlikun.baseproject.common.utils.extend
 
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
+import com.afollestad.materialdialogs.DialogCallback
+import com.afollestad.materialdialogs.MaterialDialog
+import com.ashlikun.baseproject.common.R
 
 /**
  * 作者　　: 李坤
@@ -9,20 +13,24 @@ import androidx.appcompat.app.AlertDialog
  *
  * 功能介绍：
  */
-fun AlertDialog.Builder.setPositiveButtonX(
-    text: String = "确定",
-    function: ((dialog: AlertDialog) -> Unit)? = null
-): AlertDialog.Builder {
-    return setPositiveButton(text) { dialog, which ->
-        function?.invoke(dialog as AlertDialog)
-    }
+
+fun MaterialDialog.positiveButtonX(
+    @StringRes res: Int? = R.string.base_dialog_confirm,
+    text: CharSequence? = null,
+    click: DialogCallback? = null
+): MaterialDialog {
+    return positiveButton(res, text, click)
 }
 
-fun AlertDialog.Builder.setNegativeButtonX(
-    text: String = "取消",
-    function: ((dialog: AlertDialog) -> Unit)? = null
-): AlertDialog.Builder {
-    return setNegativeButton(text) { dialog, which ->
-        function?.invoke(dialog as AlertDialog)
-    }
+fun MaterialDialog.negativeButtonX(
+    @StringRes res: Int? = R.string.base_dialog_cancel,
+    text: CharSequence? = null,
+    click: DialogCallback? = null
+): MaterialDialog {
+    return negativeButton(res, text, click)
 }
+
+inline fun MaterialDialog.titleX(
+    @StringRes res: Int? = R.string.base_dialog_tips,
+    text: String? = null
+) = title(res, text)
