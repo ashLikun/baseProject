@@ -1,5 +1,5 @@
 ext {
-    frameVersion = "3.2.6"
+    frameVersion = "3.2.7"
     lifecycleVersion = "2.5.1"
     jpushVersion = "4.8.4"
     jpushCoreVersion = "3.3.6"
@@ -96,7 +96,7 @@ ext {
             XViewPager                : "com.github.ashLikun:XViewPager:2.2.4",
             XViewPager2               : "com.github.ashLikun:XViewPager2:1.2.2",
             //公共的工具
-            CommonUtils               : "com.github.ashLikun:CommonUtils:4.6.66",
+            CommonUtils               : "com.github.ashLikun:CommonUtils:4.6.68",
             //公共的Adapter
             CommonAdapter             : "com.github.ashLikun:CommonAdapter:4.4.9",
             //Google官方改造

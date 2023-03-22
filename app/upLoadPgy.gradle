@@ -1,64 +1,83 @@
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
-def runPgy = { buildUpdateDescription, names ->
-    //在这里获取: https://www.pgyer.com/doc/view/api#uploadApp
-//    logger.log(LogLevel.ERROR, "qqqqqqq ${extension.android.applicationVariants}")
-    project.android.applicationVariants.all { variant ->
-        //这里只是打Beta
-        if (!variant.buildType.isDebuggable()) {
-//            logger.log(LogLevel.ERROR, "wwwwww111 ${variant.name}")
-//            logger.log(LogLevel.ERROR, "wwwwww111 ${variant}")
-//            logger.log(LogLevel.ERROR, "wwwwww111 ${variant.buildType}")
-////            logger.log(LogLevel.ERROR, "wwwwww222 ${variant.outputs}")
-//            logger.log(LogLevel.ERROR, "wwwwww333 ${variant}")
-//            logger.log(LogLevel.ERROR, "dddddd ${variant.outputs}")
-            (names as List<String>).forEach {
-                if (it.toUpperCase().contains(variant.name.toUpperCase())) {
-                    //存在
-                    variant.outputs.each { out ->
-                        def outputFile = out.outputFile
-                        if (outputFile != null && outputFile.exists()) {
-//                            logger.log(LogLevel.ERROR, "开始上传蒲公英的文件${outputFile} \n")
-                            logger.log(LogLevel.ERROR, "开始上传蒲公英的文件 : ${outputFile.absolutePath}")
-                            postFile(outputFile.absolutePath, buildUpdateDescription)
-                        }
-                    }
+task testPpp() {
+//    postFile("D:\\vinka\\vinkaLife\\app\\build\\intermediates\\apk\\vinkaLife\\release\\App-v2.0.54-release-2022-08-26_vinkaLife.apk")
+}
+
+
+/**
+ * 7.4.5版本不能读取dependsOn，这里记录下*/
+class UploadPayTask extends DefaultTask {
+    public Object[] depOn = new Object[0];
+    @Input
+    ArrayList<String> outputFilePath
+
+    @TaskAction
+    def doSelf() {
+        println "doSelf"
+
+    }
+
+    @Override
+    Task dependsOn(Object... paths) {
+        depOn = paths
+
+        return super.dependsOn(paths)
+    }
+
+
+/**
+ *  在这里获取: https://www.pgyer.com/doc/view/api#uploadApp*/
+    public void start() {
+        println 333333333
+        //dependsOn 是二维数组
+        //    logger.log(LogLevel.ERROR, "qqqqqqq ${extension.android.applicationVariants}")
+        if (outputFilePath != null) {
+            outputFilePath.forEach {
+                if (it != null && new File(it).exists()) {
+                    println "开始上传蒲公英的文件${it} \n"
+                    postFile(it)
+                } else {
+                    println "file no exists ${it} \n"
                 }
             }
+        } else {
+            println "file no exists !! \n"
         }
+
+
     }
-}
 
-def String getParams(String result, String regex) {
-    Pattern pattern = Pattern.compile(regex)
-    Matcher matcher = pattern.matcher(result)
-    if (matcher.find()) {
-        return matcher.group(1)
+    def String getParams(String result, String regex) {
+        Pattern pattern = Pattern.compile(regex)
+        Matcher matcher = pattern.matcher(result)
+        if (matcher.find()) {
+            return matcher.group(1)
+        }
+        return ""
     }
-    return ""
-}
 
-def String execCommand(String cmd) {
-    def execCommand = cmd
-    logger.log(LogLevel.ERROR, execCommand)
-    Runtime runtime = Runtime.getRuntime()
-    Process p = runtime.exec(execCommand)
-    InputStream fis = p.getInputStream()
-    InputStreamReader isr = new InputStreamReader(fis)
+    def String execCommand(String cmd) {
+        def execCommand = cmd
+        logger.log(LogLevel.ERROR, execCommand)
+        Runtime runtime = Runtime.getRuntime()
+        Process p = runtime.exec(execCommand)
+        InputStream fis = p.getInputStream()
+        InputStreamReader isr = new InputStreamReader(fis)
 
-    BufferedReader br = new BufferedReader(isr)
-    String line = null
-    String result = ""
+        BufferedReader br = new BufferedReader(isr)
+        String line = null
+        String result = ""
 
-    while ((line = br.readLine()) != null) {
-        result = result + line
+        while ((line = br.readLine()) != null) {
+            result = result + line
+        }
+        br.close()
+        isr.close()
+        fis.close()
+        return result
     }
-    br.close()
-    isr.close()
-    fis.close()
-    return result
-}
 
 /**
  * 开始上传
@@ -66,62 +85,72 @@ def String execCommand(String cmd) {
  * @param filePath 文件地址
  * @return
  */
-def postFile(String filePath, String buildUpdateDescription) {
+    def postFile(String filePath) {
 //    def filePath = "D:\\vinka\\vinkaLife\\app\\build\\intermediates\\apk\\vinkaLife\\release\\App-v2.0.54-release-2022-08-26_vinkaLife.apk"
-    //在这里获取: https://www.pgyer.com/doc/view/api#uploadApp
-    String pgyerApiKey = ''
-    String result = execCommand("curl -D  - --form-string  \"_api_key=$pgyerApiKey\" --form-string buildType=android --form-string \"buildUpdateDescription=$buildUpdateDescription\" http://www.pgyer.com/apiv2/app/getCOSToken")
-    logger.log(LogLevel.ERROR, "获取蒲公英Token的结果${result} \n")
-    String endpoint = getParams(result, "endpoint\":\"([\\:\\_\\.\\/\\\\A-Za-z0-9\\-]+)").replace("\\", "")
-    String key = getParams(result, "key\":\"([\\.a-z0-9]+)")
-    String signature = getParams(result, "signature\":\"([\\=\\&\\_\\;A-Za-z0-9\\-]+)")
-    String x_cos_security_token = getParams(result, "x-cos-security-token\":\"([\\_A-Za-z0-9\\-]+)")
+        //在这里获取: https://www.pgyer.com/doc/view/api#uploadApp
+        String pgyerApiKey = ''
+        String result = execCommand("curl -D  - --form-string  \"_api_key=$pgyerApiKey\" --form-string buildType=android --form-string \"buildUpdateDescription=更新APK\" http://www.pgyer.com/apiv2/app/getCOSToken")
+        logger.log(LogLevel.ERROR, "获取蒲公英Token的结果${result} \n")
+        String endpoint = getParams(result, "endpoint\":\"([\\:\\_\\.\\/\\\\A-Za-z0-9\\-]+)").replace("\\", "")
+        String key = getParams(result, "key\":\"([\\.a-z0-9]+)")
+        String signature = getParams(result, "signature\":\"([\\=\\&\\_\\;A-Za-z0-9\\-]+)")
+        String x_cos_security_token = getParams(result, "x-cos-security-token\":\"([\\_A-Za-z0-9\\-]+)")
 //    logger.log(LogLevel.ERROR, "获取蒲公英endpoint的结果${endpoint} \n")
 //    logger.log(LogLevel.ERROR, "获取蒲公英key的结果${key} \n")
 //    logger.log(LogLevel.ERROR, "获取蒲公英signature的结果${signature} \n")
 //    logger.log(LogLevel.ERROR, "获取蒲公英x_cos_security_token的结果${x_cos_security_token} \n")
-    String postFileResult = execCommand("curl -D  - --form-string \"key=${key}\" --form-string \"signature=${signature}\" --form-string \"x-cos-security-token=${x_cos_security_token}\" -F \"file=@${filePath}\" ${endpoint}")
-    if (postFileResult.trim().isEmpty() || postFileResult.trim().contains("204 No Content")) {
-        logger.log(LogLevel.ERROR, "上传文件的结果 上传成功 \n")
-    } else {
-        logger.log(LogLevel.ERROR, "上传文件的结果 上传失败 ${postFileResult} \n")
-    }
-
-}
-
-task testPpp() {
-//    postFile("D:\\vinka\\vinkaLife\\app\\build\\intermediates\\apk\\vinkaLife\\release\\App-v2.0.54-release-2022-08-26_vinkaLife.apk")
-}
-//全部打包上传
-task uploadAll(type: UploadPayTask, group: 'upload2Pgyer', description: '打包上传 Beta 到蒲公英',
-        dependsOn: ['assembleBeta',
-        ]) {
-
-    doLast {
-        //dependsOn 是二维数组
-        runPgy("更新BetaApp", depOn[0])
-    }
-
-}
-
-//全部打包上传
-task uploadReleaseAll(type: UploadPayTask,group: 'upload2Pgyer', description: '打包上传 Release 到蒲公英',
-        dependsOn: ['assembleRelease',
-        ]) {
-    doLast {
-        //dependsOn 是二维数组
-        runPgy("更新BetaApp", depOn[0])
+        String postFileResult = execCommand("curl -D  - --form-string \"key=${key}\" --form-string \"signature=${signature}\" --form-string \"x-cos-security-token=${x_cos_security_token}\" -F \"file=@${filePath}\" ${endpoint}")
+        if (postFileResult.trim().isEmpty() || postFileResult.trim().contains("204 No Content")) {
+            println "上传文件的结果 上传成功 \n"
+        } else {
+            println "上传文件的结果 上传失败 ${postFileResult} \n"
+        }
     }
 }
-/**
- * 7.4.5版本不能读取dependsOn，这里记录下
- */
-class UploadPayTask extends DefaultTask {
-    public Object[] depOn = new Object[0];
+
+class PackagePgyerUploadPlugin implements Plugin<Project> {
 
     @Override
-    Task dependsOn(Object... paths) {
-        depOn = paths
-        return super.dependsOn(paths)
+    void apply(Project project) {
+        project.afterEvaluate {
+            //全部打包上传
+            createTaskBefore(project, "uploadAll", ["assembleBeta"], '打包上传 Beta 到蒲公英')
+            //全部打包上传
+            createTaskBefore(project, "uploadReleaseAll", ["assembleRelease"], '打包上传 Release 到蒲公英')
+        }
     }
+    /**
+     * 创建Task 之前先确定 需要上传的文件*/
+    void createTaskBefore(Project project, String name, List<String> depOn, String desc) {
+        ArrayList<String> filePaths = new ArrayList<>()
+        project.android.applicationVariants.all { variant ->
+            //这里只是打Beta
+            if (!variant.buildType.isDebuggable()) {
+                depOn.forEach {
+                    if (it.toUpperCase().contains(variant.name.toUpperCase())) {
+                        variant.outputs.each { out -> filePaths.add(out.outputFile.absolutePath) }
+                    }
+                }
+            }
+        }
+        createTask(project, name, depOn, filePaths, desc)
+    }
+    /**
+     * 创建Task
+     * */
+    void createTask(Project project, String name, List<String> depOn, ArrayList<String> filePaths, String desc) {
+        //上传VinkaLife
+        UploadPayTask task = project.tasks.create(name, UploadPayTask) {
+            doLast {
+                start()
+            }
+        }
+        task.outputFilePath = filePaths
+        task.dependsOn(depOn)
+        task.setGroup('upload2Pgyer')
+        task.setDescription(desc)
+    }
+
 }
+
+apply plugin: PackagePgyerUploadPlugin
