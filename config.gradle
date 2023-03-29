@@ -64,7 +64,7 @@ ext {
 
 
             //基本架构
-            CustomMvvm                : "com.github.ashLikun.Framework:libraryMvvm:2.3.27",
+            CustomMvvm                : "com.github.ashLikun.Framework:libraryMvvm:2.3.28",
             //多个Dex
             multidex                  : 'androidx.multidex:multidex:2.0.1',
             //webview封装
@@ -96,7 +96,7 @@ ext {
             XViewPager                : "com.github.ashLikun:XViewPager:2.2.4",
             XViewPager2               : "com.github.ashLikun:XViewPager2:1.2.2",
             //公共的工具
-            CommonUtils               : "com.github.ashLikun:CommonUtils:4.6.68",
+            CommonUtils               : "com.github.ashLikun:CommonUtils:4.6.69",
             //公共的Adapter
             CommonAdapter             : "com.github.ashLikun:CommonAdapter:4.4.9",
             //Google官方改造
@@ -165,7 +165,7 @@ ext {
             //图片查看
             PhotoView                 : "com.github.ashLikun:PhotoView:2.0.4",
             //照片处理
-            PhotoHander               : "com.github.ashLikun:PhotoHander:2.1.14",
+            PhotoHander               : "com.github.ashLikun:PhotoHander:2.1.15",
             //输入验证码
             VerificationCodeInput     : "com.github.ashLikun:VerifyCodeView:1.0.0",
             //带圆角，边框的的ImageView
