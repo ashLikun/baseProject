@@ -62,7 +62,6 @@ ext {
             //Fragment
             Fragment                  : 'androidx.fragment:fragment-ktx:1.5.3',
 
-
             //基本架构
             CustomMvvm                : "com.github.ashLikun.Framework:libraryMvvm:2.3.28",
             //多个Dex

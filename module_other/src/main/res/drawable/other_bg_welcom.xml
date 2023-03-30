@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:width="1000dp"
+        android:height="1000dp"
+        android:gravity="fill">
+        <color android:color="@color/activity_backgound" />
+    </item>
+    <item
+        android:width="100dp"
+        android:height="100dp"
+        android:drawable="@mipmap/app_logo"
+        android:gravity="center" />
+
+
+</layer-list>
