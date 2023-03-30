@@ -44,7 +44,7 @@ ext {
             //kotlin的协程
             KotlinxCoroutines         : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version",
             appcompat                 : "androidx.appcompat:appcompat:1.5.1",
-            design                    : "com.google.android.material:material:1.7+",
+            design                    : "com.google.android.material:material:1.7.0",
             //约束布局
             constraintLayout          : 'androidx.constraintlayout:constraintlayout:2.1.4',
             //协调布局
@@ -70,8 +70,8 @@ ext {
             //webview封装
             XWebView                  : "com.github.ashLikun.XWebView:core:2.1.4",
             //alibaba的路由框架
-            arouterapi                : "com.alibaba:arouter-api:+",
-            aroutercompiler           : "com.alibaba:arouter-compiler:+",
+            arouterapi                : "com.alibaba:arouter-api:1.5.2",
+            aroutercompiler           : "com.alibaba:arouter-compiler:1.5.2",
             //6.0权限管理
             permissionsdispatcher     : "com.github.permissions-dispatcher:permissionsdispatcher:4.9.2",
             //简单的PopupWindow
@@ -152,8 +152,8 @@ ext {
             GlideUtils                : "com.github.ashLikun:GlideUtils:3.0.7",
             glide                     : "com.github.bumptech.glide:glide:4.14.1",
             glideCompiler             : "com.github.bumptech.glide:compiler:4.14.1",
-            glideTransformations      : "jp.wasabeef:glide-transformations:4+",//4.2.0 glide4.11.0
-            glidegpuimage             : "jp.co.cyberagent.android:gpuimage:2+",//2.0.4
+            glideTransformations      : "jp.wasabeef:glide-transformations:4.3.0",//4.2.0 glide4.11.0
+            glidegpuimage             : "jp.co.cyberagent.android:gpuimage:2.1.0",//2.0.4
             //日期选择 https://github.com/loperSeven/DateTimePicker
             DateTimePicker            : "com.github.loperSeven:DateTimePicker:0.5.8",
             //自定义键盘 https://github.com/jenly1314/KingKeyboard
@@ -161,7 +161,7 @@ ext {
             //lottie 动画
             lottie                    : "com.airbnb.android:lottie:3.4.0",
             //Android官方流布局
-            flexbox                   : "com.google.android:flexbox:+",
+            flexbox                   : "com.google.android.flexbox:flexbox:3.0.0",
             //图片查看
             PhotoView                 : "com.github.ashLikun:PhotoView:2.0.4",
             //照片处理
