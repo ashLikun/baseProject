@@ -63,7 +63,7 @@ ext {
             Fragment                  : 'androidx.fragment:fragment-ktx:1.5.3',
 
             //基本架构
-            CustomMvvm                : "com.github.ashLikun.Framework:libraryMvvm:2.3.28",
+            CustomMvvm                : "com.github.ashLikun.Framework:libraryMvvm:2.3.29",
             //多个Dex
             multidex                  : 'androidx.multidex:multidex:2.0.1',
             //webview封装
@@ -71,14 +71,12 @@ ext {
             //alibaba的路由框架
             arouterapi                : "com.alibaba:arouter-api:1.5.2",
             aroutercompiler           : "com.alibaba:arouter-compiler:1.5.2",
-            //6.0权限管理
-            permissionsdispatcher     : "com.github.permissions-dispatcher:permissionsdispatcher:4.9.2",
             //简单的PopupWindow
-            EasyPopupWindow           : "com.github.ashLikun:EasyPopupWindow:2.0.0",
+            EasyPopupWindow           : "com.github.ashLikun:EasyPopupWindow:2.0.2",
             //事件总线
             EventBus                  : "com.github.ashLikun:LiveDataVBus:2.1.10",
             //数据库
-            LiteOrm                   : "com.github.ashLikun:LiteOrm:2.0.3",
+            LiteOrm                   : "com.github.ashLikun:LiteOrm:2.0.5",
             //MMKV
             MMKV                      : 'com.tencent:mmkv:1.2.11',
 
@@ -95,9 +93,9 @@ ext {
             XViewPager                : "com.github.ashLikun:XViewPager:2.2.4",
             XViewPager2               : "com.github.ashLikun:XViewPager2:1.2.2",
             //公共的工具
-            CommonUtils               : "com.github.ashLikun:CommonUtils:4.6.69",
+            CommonUtils               : "com.github.ashLikun:CommonUtils:4.6.75",
             //公共的Adapter
-            CommonAdapter             : "com.github.ashLikun:CommonAdapter:4.4.9",
+            CommonAdapter             : "com.github.ashLikun:CommonAdapter:4.5.0",
             //Google官方改造
             XTabLayout                : "com.github.ashLikun:XTabLayout:2.1.11",
             //功能更加丰富

@@ -5,7 +5,6 @@ import android.content.Context
 import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
 import com.afollestad.materialdialogs.MaterialDialog
 import com.ashlikun.baseproject.libcore.R
 import com.ashlikun.core.activity.BaseActivity
@@ -14,10 +13,12 @@ import com.ashlikun.core.mvvm.BaseViewModel
 import com.ashlikun.core.registerForActivityResultX
 import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.loadswitch.LoadSwitchService
+import com.ashlikun.utils.other.PermissionStatus
+import com.ashlikun.utils.other.PermissionUtils
+import com.ashlikun.utils.other.PermisstionSettingUtils
 import com.ashlikun.utils.ui.extend.getActivity
 import com.ashlikun.utils.ui.extend.resString
 import com.ashlikun.utils.ui.extend.toastInfo
-import permissions.dispatcher.PermissionUtils
 
 /**
  * 作者　　: 李坤
@@ -61,13 +62,16 @@ fun ComponentActivity.requestPermission(
     denied: (() -> Unit)? = null,
     success: (() -> Unit)
 ): ActivityResultLauncher<Array<String>> {
+
     var launcher = registerForActivityResultX(ActivityResultContracts.RequestMultiplePermissions()) {
+        PermissionUtils.savePerFlag(it)
         if (it.all { itt -> itt.value }) {
             success.invoke()
         } else {
             if (denied != null) denied?.invoke() else R.string.permission_denied.resString.toastInfo()
         }
     }
+    val status = PermissionUtils.getStatus(this, *permission)
 
     //弹窗提示
     fun showRationaleDialog(message: String? = null) {
@@ -81,28 +85,33 @@ fun ComponentActivity.requestPermission(
                 launcher.unregister()
             }
             positiveButton(R.string.base_dialog_confirm) { dia ->
-                launcher.launch(permission)
+                if (status == PermissionStatus.REFUSE_PERMANENT) {
+                    //永久拒绝,跳转到系统设置
+                    PermisstionSettingUtils.start()
+                } else {
+                    launcher.launch(permission)
+                }
             }
         }
     }
 
     //是否已经有权限
-    if (PermissionUtils.hasSelfPermissions(this, *permission)) {
+    if (status == PermissionStatus.SUCCESS) {
         success.invoke()
         launcher.unregister()
         return launcher
-    } else {
+    } else if (isShowDialog && isFirstShowDialog) {
         //弹窗提示
-        if (isShowDialog && isFirstShowDialog) {
-            showRationaleDialog(message)
-        } else {
-            //是否之前拒绝过
-            if (isShowDialog && PermissionUtils.shouldShowRequestPermissionRationale(this, *permission)) {
-                showRationaleDialog(message)
-            } else {
-                launcher.launch(permission)
-            }
-        }
+        showRationaleDialog(message)
+    } else if (isShowDialog && status == PermissionStatus.REFUSE) {
+        //之前拒绝过,弹窗提升
+        showRationaleDialog(message)
+    } else if (status == PermissionStatus.REFUSE_PERMANENT) {
+        //永久拒绝,跳转到系统设置
+        PermisstionSettingUtils.start()
+    } else {
+        //未请求过
+        launcher.launch(permission)
     }
     return launcher
 }

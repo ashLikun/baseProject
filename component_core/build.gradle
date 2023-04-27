@@ -72,12 +72,6 @@ dependencies {
     //alibaba的路由框架
     api libs.arouterapi
 
-    //6.0权限管理
-    api(libs.permissionsdispatcher) {
-        // if you don't use android.app.Fragment you can exclude support for them
-        exclude module: "permissionsdispatcher-annotation"
-    }
-
     //基础的框架
     api 'com.github.ashLikun.frame:stickyrecyclerview:' + rootProject.ext.frameVersion
     api 'com.github.ashLikun.frame:flatbutton:' + rootProject.ext.frameVersion
