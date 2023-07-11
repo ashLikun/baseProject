@@ -29,6 +29,7 @@ import com.ashlikun.xrecycleview.RefreshLayout
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+
 /**
  * 作者　　: 李坤
  * 创建时间: 2018/12/25　13:43
@@ -290,8 +291,6 @@ class HttpUiHandle private constructor() {
                         loadView = LoadView(context!!)
                         if (loadTarget != null) {
                             loadView!!.attachedView = loadTarget!!
-                        } else if (dialog != null) {
-                            loadView!!.attachedView = dialog?.window?.decorView as ViewGroup
                         }
                     }
                     loadView?.run {
@@ -456,6 +455,8 @@ class HttpUiHandle private constructor() {
         operator fun get(dialog: Dialog?): HttpUiHandle {
             val buider = get()
             buider.tag = dialog
+            //附属到对话框上
+            buider.loadTarget = dialog?.window?.decorView as ViewGroup
             return buider
         }
 
@@ -496,6 +497,7 @@ val HttpUiHandle.coroutineExceptionHandler
                 //如果code全局处理的时候错误了，那么是不会走success的，这里就得自己处理UI设置为错误状态
                 error(ContextData(title = error.exception.message, resId = R.drawable.material_service_error, errCode = error.exception.code), false)
             }
+
             is HttpException -> error(ContextData(title = error.message, resId = R.drawable.material_service_error, errCode = error.code))
             else -> error(
                 ContextData(

@@ -5,7 +5,7 @@ ext {
     jpushCoreVersion = "3.3.6"
     android = [
             applicationId   : "com.ashlikun.baseproject",
-            compileSdk      : 32,
+            compileSdk      : 33,
             versionCode     : 1,
             versionName     : "1.0.0",
             targetSdk       : 32,
@@ -62,8 +62,9 @@ ext {
             //Fragment
             Fragment                  : 'androidx.fragment:fragment-ktx:1.5.3',
 
+
             //基本架构
-            CustomMvvm                : "com.github.ashLikun.Framework:libraryMvvm:2.3.29",
+            CustomMvvm                : "com.github.ashLikun.Framework:libraryMvvm:2.3.30",
             //多个Dex
             multidex                  : 'androidx.multidex:multidex:2.0.1',
             //webview封装
@@ -76,12 +77,12 @@ ext {
             //事件总线
             EventBus                  : "com.github.ashLikun:LiveDataVBus:2.1.10",
             //数据库
-            LiteOrm                   : "com.github.ashLikun:LiteOrm:2.0.5",
+            LiteOrm                   : "com.github.ashLikun:LiteOrm:2.0.6",
             //MMKV
             MMKV                      : 'com.tencent:mmkv:1.2.11',
 
             //保活的策略
-            Keeplive                  : "com.github.ashLikun:Keeplive:1.0.13",
+            Keeplive                  : "com.github.ashLikun:Keeplive:1.0.14",
 
             //封装的RecycleViewFr
             XRecycleView              : "com.github.ashLikun:XRecycleView:3.0.5",
@@ -93,7 +94,7 @@ ext {
             XViewPager                : "com.github.ashLikun:XViewPager:2.2.4",
             XViewPager2               : "com.github.ashLikun:XViewPager2:1.2.2",
             //公共的工具
-            CommonUtils               : "com.github.ashLikun:CommonUtils:4.6.75",
+            CommonUtils               : "com.github.ashLikun:CommonUtils:4.6.85",
             //公共的Adapter
             CommonAdapter             : "com.github.ashLikun:CommonAdapter:4.5.0",
             //Google官方改造
@@ -101,9 +102,9 @@ ext {
             //功能更加丰富
             XTabLayout2               : "com.github.ashLikun:XTabLayout2:1.0.5",
             //阿里的vlayout
-            vlayout                   : "com.github.ashLikun:vLayout:1.0.3",
+            vlayout                   : "com.github.ashLikun:vLayout:1.0.4",
             //习惯的对话框
-            CustomDialog              : "com.github.ashLikun:CustomDialog:3.2.6",
+            CustomDialog              : "com.github.ashLikun:CustomDialog:3.2.7",
             //第三方MD风格对话框 https://github.com/afollestad/material-dialogs
             MaterialDialog            : "com.afollestad.material-dialogs:core:3.3.0",
             MaterialDialogInput       : "com.afollestad.material-dialogs:input:3.3.0",
@@ -118,7 +119,7 @@ ext {
             //兼容的View
             CompatView                : "com.github.ashLikun:CompatView:2.1.2",
             //错误捕获
-            AppCrashDispose           : "com.github.ashLikun:AppCrashDispose:2.0.7",
+            AppCrashDispose           : "com.github.ashLikun:AppCrashDispose:2.0.8",
             FreeReflection            : "com.github.tiann:FreeReflection:3.1.0",
             //app内存溢出捕获
             leakcanaryDebug           : "com.squareup.leakcanary:leakcanary-android:2.10",
@@ -178,9 +179,9 @@ ext {
             //腾讯X5浏览器 44136  http://soft.imtt.qq.com/browser/tes/feedback.html 显示000000表示加载的是系统内核，显示大于零的数字表示加载了x5内核（该数字是x5内核版本号）
             tbssdk                    : "com.tencent.tbs:tbssdk:44181",
             // 极光推送
-            jpush                     : "cn.jiguang.sdk:jpush:$jpushVersion",
+            jpush                     : "cn.jiguang.sdk:jpush-google:$jpushVersion",
             // 极光推送
-            jcore                     : "cn.jiguang.sdk:jcore:$jpushCoreVersion",
+            jcore                     : "cn.jiguang.sdk:jcore-google:$jpushCoreVersion",
             //腾讯Bugly
             BugLy                     : 'com.tencent.bugly:crashreport:latest.release',
 
@@ -199,15 +200,15 @@ ext {
             //微信完整版
             umsdkShareWx              : 'com.umeng.umsdk:share-wx:7.1.9',
 
-            //Socket.Io 对应服务器的2.x版本
-            socketIo                  : 'io.socket:socket.io-client:1.0.0',
-            //RangeSeekBar 进度条
+            //RangeSeekBar 进度条 https://github.com/Jay-Goo/RangeSeekBar/wiki
             RangeSeekBar              : 'com.github.Jay-Goo:RangeSeekBar:v3.0.0',
-            EasyMedia                 : 'com.github.ashLikun.EasyMedia:ExoPlay2:2.4.6',
+            //播放器
+            EasyMedia                 : 'com.github.ashLikun.EasyMedia:BaseMedia:2.6.8',
+            EasyMediaExo3             : 'com.github.ashLikun.EasyMedia:ExoPlay3:2.6.8',
             //ExoPlay
-            extensionRtmp             : 'com.google.android.exoplayer:extension-rtmp:2.11.7',
-            exoplayer                 : 'com.google.android.exoplayer:exoplayer:2.11.7',
-            ijkplayerJava             : 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8',
+            media3Common              : 'androidx.media3:media3-common:1.0.2',
+            media3Exo                 : 'androidx.media3:media3-exoplayer:1.0.2',
+            media3Rtsp                : 'androidx.media3:media3-exoplayer-rtsp:1.0.2',
 
     ]
 }

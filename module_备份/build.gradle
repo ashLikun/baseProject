@@ -13,6 +13,8 @@ def config = rootProject.ext.android // 工程配置
 def libs = rootProject.ext.dependencies // 库依赖
 apply from: file('.././configs_module_common.gradle')
 android {
+    //这个模块的包名
+    namespace 'com.ashlikun.baseproject.module.module_name'
     rootProject.ext.changRun(currentModule, sdk, config)
     compileSdk config.compileSdk
     defaultConfig {

@@ -37,7 +37,6 @@ def replaceManifestPlaceholdersAppId(String newAppid, String applicationIdSuffix
 }
 
 android {
-
     signingConfigs {
         release {
         }
@@ -186,7 +185,6 @@ android {
     buildFeatures {
         viewBinding = true
     }
-
     // 这里配置AAB
     bundle {
         language {
@@ -205,6 +203,7 @@ android {
             enableSplit = true
         }
     }
+
 }
 //解析各个工程build.gradle之前会执行。
 beforeEvaluate {

@@ -88,7 +88,7 @@ open class BaseApplication : MultiDexApplication() {
             DoKit.Builder(this).customKits(listOf(LogConfig.MyLogKit())).productId(FileUtils.getMetaValue("dokit_pid")).build()
         }
         //数据库
-        LiteOrmUtil.init(this)
+        LiteOrmUtil.init(this,AppUtils.isDebug)
         LiteOrmUtil.setVersionCode(AppUtils.versionCode)
         LiteOrmUtil.setIsDebug(AppUtils.isDebug)
         //路由

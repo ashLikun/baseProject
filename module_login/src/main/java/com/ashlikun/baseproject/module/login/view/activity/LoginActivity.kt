@@ -27,13 +27,6 @@ class LoginActivity : BaseMvvmActivity<LoginViewModel>() {
         LoginActivityLoginBinding.inflate(layoutInflater)
     }
 
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        return super.onTouchEvent(event)
-    }
-
-    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        return super.dispatchTouchEvent(ev)
-    }
     override fun initView() {
 
         toolbar!!.setTitle("登录")

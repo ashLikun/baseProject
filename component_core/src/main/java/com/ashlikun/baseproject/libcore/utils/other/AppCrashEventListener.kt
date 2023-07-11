@@ -16,6 +16,7 @@ class AppCrashEventListener : CrashEventListener() {
     }
 
     override fun onBandageExceptionHappened(throwable: Throwable?) {
+        throwable?.postBugly()
     }
 
     override fun onEnterSafeMode() {

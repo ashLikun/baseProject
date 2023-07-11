@@ -12,6 +12,8 @@ def sdk = rootProject.ext.sdk // SDK配置
 def config = rootProject.ext.android // 工程配置
 def libs = rootProject.ext.dependencies // 库依赖
 android {
+    //这个模块的包名
+    namespace 'com.ashlikun.baseproject.common'
     compileSdk config.compileSdk
     defaultConfig {
         minSdk config.minSdk

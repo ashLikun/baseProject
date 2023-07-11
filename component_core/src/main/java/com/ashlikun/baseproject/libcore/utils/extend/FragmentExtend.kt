@@ -26,3 +26,4 @@ fun Fragment.requestPermission(
     return requireActivity().requestPermission(permission, message, title, isShowDialog, isFirstShowDialog, denied, success)
 }
 
+fun Fragment.requestAllFilePermission(denied: (() -> Unit)? = null, success: () -> Unit) = requireActivity().requestAllFilePermission(denied, success)

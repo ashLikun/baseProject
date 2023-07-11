@@ -15,8 +15,6 @@ android {
     defaultConfig {
         minSdk config.minSdk
         targetSdk config.targetSdk
-        versionCode config.versionCode
-        versionName config.versionName
         kapt {
             arguments {
                 arg("AROUTER_MODULE_NAME", project.getName())
