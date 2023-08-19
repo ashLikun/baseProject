@@ -11,9 +11,11 @@
         android:icon="@mipmap/app_logo"
         android:label="@string/my_app_name"
         android:networkSecurityConfig="@xml/network_security_config"
+        android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:label">
+        <!--如果 targetSdkVersion >= 29 上，还需要在清单文件中加上 android:requestLegacyExternalStorage="true" 否则就算申请了存储权限，在安卓 10.0 的设备上将无法正常读写外部存储上的文件 -->
         <!--
        android:extractNativeLib="true"
        # 压缩so 但用户在手机端进行apk安装时，系统会对压缩后的so库进行解压，从而造成用户安装apk的时间变长
