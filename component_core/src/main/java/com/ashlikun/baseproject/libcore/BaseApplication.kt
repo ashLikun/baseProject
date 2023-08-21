@@ -85,7 +85,7 @@ open class BaseApplication : MultiDexApplication() {
         VLayoutUtils.isDebug = AppUtils.isDebug
         //开发助手
         if (AppUtils.isDebug) {
-            DoKit.Builder(this).customKits(listOf(LogConfig.MyLogKit())).productId(FileUtils.getMetaValue("dokit_pid")).build()
+//            DoKit.Builder(this).customKits(listOf(LogConfig.MyLogKit())).productId(FileUtils.getMetaValue("dokit_pid")).build()
         }
         //数据库
         LiteOrmUtil.init(this,AppUtils.isDebug)

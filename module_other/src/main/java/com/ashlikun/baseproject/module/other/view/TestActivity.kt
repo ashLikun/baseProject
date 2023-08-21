@@ -1,6 +1,8 @@
 package com.ashlikun.baseproject.module.other.view
 
+import android.content.Context
 import android.content.Intent
+import android.hardware.usb.UsbManager
 import android.view.ContextThemeWrapper
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.libcore.constant.RouterPath
@@ -10,10 +12,8 @@ import com.ashlikun.baseproject.libcore.utils.http.syncExecute
 import com.ashlikun.baseproject.libcore.utils.other.CacheUtils
 import com.ashlikun.baseproject.module.other.R
 import com.ashlikun.baseproject.module.other.databinding.OtherActivityTestBinding
-import com.ashlikun.baseproject.module.other.mode.ApiOther
 import com.ashlikun.core.activity.BaseActivity
 import com.ashlikun.core.mvvm.launch
-import com.ashlikun.customdialog.DialogSelectMore
 import com.ashlikun.gson.GsonHelper
 import com.ashlikun.photo_hander.PhotoHander
 import com.ashlikun.utils.encryption.Md5Utils
@@ -93,35 +93,38 @@ class TestActivity : BaseActivity() {
         }
         binding.ceshiButton.setOnClickListener {
 
-            launch {
-                val aaa = ApiOther.api.test(111, HttpUiHandle.get())
-                LogUtils.e(aaa.json)
-            }
-            DialogSelectMore(
-                requireContext,
-                themeResId = R.style.Dialog_BottonFormTop,
-                items = arrayOf("11111", "2222222")
-            ).show()
+            val usbManager: UsbManager = getSystemService(Context.USB_SERVICE) as UsbManager
+            usbManager.deviceList
+//
+//            launch {
+//                val aaa = ApiOther.api.test(111, HttpUiHandle.get())
+//                LogUtils.e(aaa.json)
+//            }
+//            DialogSelectMore(
+//                requireContext,
+//                themeResId = R.style.Dialog_BottonFormTop,
+//                items = arrayOf("11111", "2222222")
+//            ).show()
 
             //跳转
 //            startActivity(Intent(this, Test2Activity::class.java))
 //            WindowCompat.getInsetsController(window, inputView)?.show(WindowInsetsCompat.Type.ime())
 //            RouterJump.startLockImage(0, RESURL2.map { ImageData(it, it, 0) } as ArrayList, true)
 
-            val resss =
-                "{\"regtime\":\"Wed Jan 20 11:40:42 CST 2021\",\"logintime\":\"Wed Jan 20 11:40:42 CST 2021\",\"code\":\"\",\"address\":\"\",\"loginname\":\"zwfw9108459708\",\"iid\":\"70456\",\"isalipay\":\"0\",\"mobile\":\"18662288251\",\"headportraitpath\":\"\",\"newauthlevel\":\"2\",\"uuid\":\"79f89b48db7e431b95ab96e908087e35\",\"isauthuser\":\"1\",\"name\":\"李坤\",\"authlevel\":\"1\",\"nickname\":\"\",\"registeredresidence\":\"\",\"aplipayuserid\":\"2088802461284647\",\"iswx\":\"0\",\"papersnumber\":\"320724199107080632\",\"residence\":\"\",\"paperstype\":\"1\",\"email\":\"\"}"
-            val publicKey =
-                "048bd8ac485d6d31d281bc1f5fd6e842ae54036c6d63a3df6ff232374bccc0fff9354b4f9f4c5c39cdeb29e9b618ced22af40b0867e4c53c31c7b3ec7120ad5182"
-            val privateKey = "00cd57fc8661d62bc5ff449ef03ff02e858c07c90e93ef9c813d845405773cec66"
-            val aaa =
-                "04a13015b3b8cc1dbf1f2387e21c131cb22b75f54c56be603375438f6019bf62f936ebbfd186d512ae77ac2e495576886507e8704157388d5ea104e66b9ae0577d493d1228f8d3b7ab89f3d126b9883b4f5cdfbac84d89d9007ad65175f1dc0651e8145a22fd79fe5411b227f230c6eea96794363c81f1eccb672805cc119e88deee3e1ee41f223fc0a1e05e40ea6f33bee2abb3b8ba55a9dc487987506bb15d6e8effe00ae6420c3c5ede21a62c1e0e0b0a713c735a526d6a7008cf895699efd0fd0c6933c31231bcb9c8ab0097a453fdb68d549f630a47d7375e2fd78548a4f5f94fc775f7f972a8d6c40eddeda90ee3bba3f09aff8473f93fc73dc2074b6e826be0fe318da0880356f7d865ed39316d3228c117c2778f2a108f0d471579883441214c8f8ab1fd0dd7507f43cb433ae5e7ff86bc0677ac0a7252516b5975b729bcd1e4c913714738231debb14dd1983224a3799f5ffeb7838224688585f694f19e6016175e4d8633e5c097a47efded8ab137fbc0a569e2e3efeedae54c9aecec92c6e32e253bf0f4efeb00ba6c7953a4f8294ccc8a6af55cd31d6a2b9ad781e535cdc95897bcf82cb9d3f53c3221c840e448eeaaf59c227ac4b0df5ce0c13f34ad61845177883f30970b92bf1a66696d9ba75f9c57066f7ded1d29fb0bd8102f6f6f0ea029b46d3a8eb21f7f72bc4c81afd1b9dfd5d83f1c1ff1f2a237ef34533696420a00a5f44183e1e3e42c0d23bd039f32696df59c5a1d6d59295ef569beda1f0721ecf61c69917f6cecfde00eb7fc08d0bedf3a82825cb521810f36717ecbfb748094"
-            try {
-//                val jiami = Sm2Kit().simpleEnCode("aaaaaaaaaaaadddaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaddddddffffffff", publicKey)
-//                LogUtils.e(jiami)
-//                LogUtils.e(Sm2Kit().simpleDeCode(jiami, privateKey))
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+//            val resss =
+//                "{\"regtime\":\"Wed Jan 20 11:40:42 CST 2021\",\"logintime\":\"Wed Jan 20 11:40:42 CST 2021\",\"code\":\"\",\"address\":\"\",\"loginname\":\"zwfw9108459708\",\"iid\":\"70456\",\"isalipay\":\"0\",\"mobile\":\"18662288251\",\"headportraitpath\":\"\",\"newauthlevel\":\"2\",\"uuid\":\"79f89b48db7e431b95ab96e908087e35\",\"isauthuser\":\"1\",\"name\":\"李坤\",\"authlevel\":\"1\",\"nickname\":\"\",\"registeredresidence\":\"\",\"aplipayuserid\":\"2088802461284647\",\"iswx\":\"0\",\"papersnumber\":\"320724199107080632\",\"residence\":\"\",\"paperstype\":\"1\",\"email\":\"\"}"
+//            val publicKey =
+//                "048bd8ac485d6d31d281bc1f5fd6e842ae54036c6d63a3df6ff232374bccc0fff9354b4f9f4c5c39cdeb29e9b618ced22af40b0867e4c53c31c7b3ec7120ad5182"
+//            val privateKey = "00cd57fc8661d62bc5ff449ef03ff02e858c07c90e93ef9c813d845405773cec66"
+//            val aaa =
+//                "04a13015b3b8cc1dbf1f2387e21c131cb22b75f54c56be603375438f6019bf62f936ebbfd186d512ae77ac2e495576886507e8704157388d5ea104e66b9ae0577d493d1228f8d3b7ab89f3d126b9883b4f5cdfbac84d89d9007ad65175f1dc0651e8145a22fd79fe5411b227f230c6eea96794363c81f1eccb672805cc119e88deee3e1ee41f223fc0a1e05e40ea6f33bee2abb3b8ba55a9dc487987506bb15d6e8effe00ae6420c3c5ede21a62c1e0e0b0a713c735a526d6a7008cf895699efd0fd0c6933c31231bcb9c8ab0097a453fdb68d549f630a47d7375e2fd78548a4f5f94fc775f7f972a8d6c40eddeda90ee3bba3f09aff8473f93fc73dc2074b6e826be0fe318da0880356f7d865ed39316d3228c117c2778f2a108f0d471579883441214c8f8ab1fd0dd7507f43cb433ae5e7ff86bc0677ac0a7252516b5975b729bcd1e4c913714738231debb14dd1983224a3799f5ffeb7838224688585f694f19e6016175e4d8633e5c097a47efded8ab137fbc0a569e2e3efeedae54c9aecec92c6e32e253bf0f4efeb00ba6c7953a4f8294ccc8a6af55cd31d6a2b9ad781e535cdc95897bcf82cb9d3f53c3221c840e448eeaaf59c227ac4b0df5ce0c13f34ad61845177883f30970b92bf1a66696d9ba75f9c57066f7ded1d29fb0bd8102f6f6f0ea029b46d3a8eb21f7f72bc4c81afd1b9dfd5d83f1c1ff1f2a237ef34533696420a00a5f44183e1e3e42c0d23bd039f32696df59c5a1d6d59295ef569beda1f0721ecf61c69917f6cecfde00eb7fc08d0bedf3a82825cb521810f36717ecbfb748094"
+//            try {
+////                val jiami = Sm2Kit().simpleEnCode("aaaaaaaaaaaadddaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaddddddffffffff", publicKey)
+////                LogUtils.e(jiami)
+////                LogUtils.e(Sm2Kit().simpleDeCode(jiami, privateKey))
+//            } catch (e: Exception) {
+//                e.printStackTrace()
+//            }
 //            try {
 //                LogUtils.e(AESUtils.decrypt(aaa, "048bd8ac485d6d31d281bc1f5fd6e842ae54036c6d63a3df6ff232374bccc0fff9354b4f9f4c5c39cdeb29e9b618ced22af40b0867e4c53c31c7b3ec7120ad5182"))
 //
