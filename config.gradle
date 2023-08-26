@@ -71,7 +71,7 @@ ext {
             XWebView                  : "com.github.ashLikun.XWebView:core:2.1.4",
             //alibaba的路由框架
             arouterapi                : "com.alibaba:arouter-api:1.5.2",
-            aroutercompiler           : "com.github.ashLikun:ArouterKspCompiler:$kotlin_version-1.0.4",
+            aroutercompiler           : "com.github.ashLikun:ArouterKspCompiler:$kotlin_version-1.0.5",
             //简单的PopupWindow
             EasyPopupWindow           : "com.github.ashLikun:EasyPopupWindow:2.0.2",
             //事件总线
