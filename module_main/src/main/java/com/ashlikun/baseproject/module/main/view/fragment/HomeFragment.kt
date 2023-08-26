@@ -37,7 +37,7 @@ class HomeFragment : BaseMvvmFragment<HomeViewModel>() {
 
 
     override fun initView() {
-        "initView".logge()
+        arguments
         binding.apply {
             ceshiButton.setOnClickListener {
                 RouterJump.startLockImage(0, RESURL2.map { ImageData(it, it, 0) } as ArrayList, true)

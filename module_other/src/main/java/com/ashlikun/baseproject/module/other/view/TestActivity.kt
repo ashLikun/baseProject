@@ -12,7 +12,10 @@ import com.ashlikun.baseproject.libcore.utils.http.syncExecute
 import com.ashlikun.baseproject.libcore.utils.other.CacheUtils
 import com.ashlikun.baseproject.module.other.R
 import com.ashlikun.baseproject.module.other.databinding.OtherActivityTestBinding
+import com.ashlikun.baseproject.module.other.viewmodel.TestViewModel
 import com.ashlikun.core.activity.BaseActivity
+import com.ashlikun.core.mvvm.BaseMvvmActivity
+import com.ashlikun.core.mvvm.IViewModel
 import com.ashlikun.core.mvvm.launch
 import com.ashlikun.gson.GsonHelper
 import com.ashlikun.photo_hander.PhotoHander
@@ -29,9 +32,9 @@ import com.tencent.mm.opensdk.modelbiz.WXLaunchMiniProgram
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import java.util.*
 
-
+@IViewModel(TestViewModel::class)
 @Route(path = RouterPath.TEST)
-class TestActivity : BaseActivity() {
+class TestActivity : BaseMvvmActivity<TestViewModel>() {
     override val binding by lazy {
         OtherActivityTestBinding.inflate(layoutInflater)
     }
