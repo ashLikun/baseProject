@@ -1,11 +1,10 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-apply from: './config.gradle'
-apply from: './config_component.gradle'
-//签名
-apply from: './app/configs_signing.gradle'
+
+
 buildscript {
     ext.kotlin_version = '1.8.20'
     ext.coroutine_version = '1.7.1'
+    ext.ksp_version = "${kotlin_version}-1.0.10"
     ext.dokit_version = '3.7.1'
     repositories {
         maven { url 'https://maven.aliyun.com/repository/google/' }
@@ -17,12 +16,19 @@ buildscript {
     }
     dependencies {
         //7.0  kotlin/Metadata 被去除，导致混淆后反射无法获取接口方法参数名称，retrofit就不能代理，注意，等7.1+就可以了
-        classpath 'com.android.tools.build:gradle:7.4.2'
+        classpath 'com.android.tools.build:gradle:8.0.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         //滴滴开发助手插件,更新三方库老瞎几把报类冲突
         //classpath "io.github.didi.dokit:dokitx-plugin:$dokit_version"
     }
 }
+plugins {
+    id 'com.google.devtools.ksp' version "${ksp_version}" apply false
+}
+apply from: './config.gradle'
+apply from: './config_component.gradle'
+//签名
+apply from: './app/configs_signing.gradle'
 
 allprojects {
     repositories {
@@ -34,5 +40,6 @@ allprojects {
         mavenCentral()
         google()
     }
+
 }
 

@@ -2,8 +2,8 @@ plugins {
     id 'com.android.library'
     // 使用Kotlin插件
     id 'kotlin-android'
-    //kapt插件
-    id 'kotlin-kapt'
+    //ksp 插件
+    id 'com.google.devtools.ksp'
 }
 //公共配置
 apply from: '../configs_module_common.gradle'
@@ -11,15 +11,14 @@ apply from: '../configs_module_common.gradle'
 def config = rootProject.ext.android // 工程配置
 def libs = rootProject.ext.dependencies // 库依赖
 android {
+    namespace 'com.ashlikun.baseproject.libcore'
     compileSdk config.compileSdk
     defaultConfig {
         minSdk config.minSdk
         targetSdk config.targetSdk
-        kapt {
-            arguments {
-                arg("AROUTER_MODULE_NAME", project.getName())
-            }
-        }
+        ksp {
+    arg("AROUTER_MODULE_NAME", project.getName())
+}
         //向清单文件注入参数
         manifestPlaceholders = sdk.default
     }
@@ -35,12 +34,13 @@ android {
         //so文件
         jniLibs.srcDirs = ['libs']
     }
+
 }
 
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
-    kapt libs.aroutercompiler
-    kapt libs.glideCompiler
+    ksp libs.aroutercompiler
+    ksp libs.glideCompiler
     api libs.ktx
     //Kotlin 反射相关
     api libs.kotlinReflect

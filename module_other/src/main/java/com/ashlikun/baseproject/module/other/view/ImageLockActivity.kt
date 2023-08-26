@@ -64,7 +64,7 @@ class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener {
     override val isStatusTranslucent = true
 
     @Autowired(name = RouterKey.FLAG_DATA)
-    lateinit var listDatas: ArrayList<ImageData>
+    var listDatas = arrayListOf<ImageData>()
 
     @Autowired(name = RouterKey.FLAG_POSITION)
     @JvmField
@@ -114,7 +114,12 @@ class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener {
                     val url = listDatas[viewPager.realPosition].getImageUrl()
                     GlideUtils.downloadBitmap(this@ImageLockActivity, url) { file ->
                         if (file != null && file.exists()) {
-                            requestPermission(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                            requestPermission(
+                                arrayOf(
+                                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                    Manifest.permission.READ_EXTERNAL_STORAGE
+                                )
+                            ) {
                                 var saveFile = CacheUtils.newImage()
                                 if (FileIOUtils.copyFile(file, saveFile, false)) {
                                     "图片已保存至 /${saveFile.path} ".toastInfo()
@@ -190,7 +195,11 @@ class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener {
     }
 
     override fun onSwiping(offsetY: Float, alpha: Float): Boolean {
-        window.navigationBarColor = ColorUtils.computeColor(R.color.black.resColor, R.color.activity_backgound.resColor, 1 - alpha)
+        window.navigationBarColor = ColorUtils.computeColor(
+            R.color.black.resColor,
+            R.color.activity_backgound.resColor,
+            1 - alpha
+        )
         return false
     }
 

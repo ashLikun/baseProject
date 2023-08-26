@@ -26,6 +26,11 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    sourceSets {
+        //ksp 插件
+        all { it.java.srcDir("build/generated/ksp/${it.name}/kotlin/") }
+    }
+
     buildFeatures {
         viewBinding = true
         dataBinding = false

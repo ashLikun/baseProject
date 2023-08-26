@@ -117,7 +117,7 @@ object RouterJump {
         listDatas: List<ImageData>?,
         isShowDownload: Boolean = false
     ) {
-        if (listDatas == null || listDatas.isEmpty()) {
+        if (listDatas.isNullOrEmpty()) {
             SuperToast.showErrorMessage("没有对应的图片")
             return
         }

@@ -2,28 +2,24 @@ plugins {
     id 'com.android.library'
     // 使用Kotlin插件
     id 'kotlin-android'
-    //kapt插件
-    id 'kotlin-kapt'
+    //ksp 插件
+    id 'com.google.devtools.ksp'
 }
 //公共配置
 apply from: '../configs_module_common.gradle'
-
 def sdk = rootProject.ext.sdk // SDK配置
 def config = rootProject.ext.android // 工程配置
 def libs = rootProject.ext.dependencies // 库依赖
 android {
-    //这个模块的包名
     namespace 'com.ashlikun.baseproject.common'
     compileSdk config.compileSdk
     defaultConfig {
         minSdk config.minSdk
         targetSdk config.targetSdk
 
-        kapt {
-            arguments {
-                arg("AROUTER_MODULE_NAME", project.getName())
-            }
-        }
+        ksp {
+    arg("AROUTER_MODULE_NAME", project.getName())
+}
         manifestPlaceholders = sdk.default
     }
 
@@ -35,8 +31,8 @@ dependencies {
     implementation libs.arouterapi
     //公共模块引用核心模块，其他模块只需引用本模块就可以
     api project(':component_core')
-    kapt libs.aroutercompiler
-    kapt libs.glideCompiler
+    ksp libs.aroutercompiler
+    ksp libs.glideCompiler
 }
 
 

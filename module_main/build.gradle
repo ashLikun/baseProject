@@ -6,14 +6,13 @@ if (currentModule.isRun) {
 }
 // 使用Kotlin插件
 apply plugin: 'kotlin-android'
-//kapt插件
-apply plugin: 'kotlin-kapt'
+//ksp 插件
+apply plugin:  'com.google.devtools.ksp'
 def sdk = rootProject.ext.sdk // SDK配置
 def config = rootProject.ext.android // 工程配置
 def libs = rootProject.ext.dependencies // 库依赖
 apply from: file('.././configs_module_common.gradle')
 android {
-    //这个模块的包名
     namespace 'com.ashlikun.baseproject.module.main'
     rootProject.ext.changRun(currentModule, sdk, config)
     compileSdk config.compileSdk
@@ -28,11 +27,9 @@ android {
         versionCode config.versionCode
         versionName config.versionName
         multiDexEnabled true
-        kapt {
-            arguments {
-                arg("AROUTER_MODULE_NAME", project.getName())
-            }
-        }
+        ksp {
+    arg("AROUTER_MODULE_NAME", project.getName())
+}
         //强制前缀，防止组件之间名称重复而替换
         resourcePrefix currentModule.name + "_"
         //向清单文件注入参数
@@ -62,6 +59,6 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':component_common')
-    kapt libs.aroutercompiler
-    kapt libs.glideCompiler
+    ksp libs.aroutercompiler
+    ksp libs.glideCompiler
 }

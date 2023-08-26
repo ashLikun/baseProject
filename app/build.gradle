@@ -2,10 +2,9 @@ plugins {
     id 'com.android.application'
     // 使用Kotlin插件
     id 'kotlin-android'
-    //kapt插件
-    id 'kotlin-kapt'
+    //ksp 插件
+    id 'com.google.devtools.ksp'
 }
-
 
 def config = rootProject.ext.android // 工程配置
 def sdk = rootProject.ext.sdk // SDK配置
@@ -44,6 +43,7 @@ android {
         }
     }
     rootProject.ext.loadSigningConfigs(this)
+    namespace "com.ashlikun.baseproject"
     compileSdk config.compileSdk
     defaultConfig {
         applicationId config.applicationId
@@ -61,10 +61,8 @@ android {
 //        resConfigs "en", "zh", "fr"
         resConfigs "zh"
         multiDexEnabled true
-        kapt {
-            arguments {
-                arg("AROUTER_MODULE_NAME", project.getName())
-            }
+        ksp {
+            arg("AROUTER_MODULE_NAME", project.getName())
         }
         //向清单文件注入参数
         manifestPlaceholders = sdk.default
@@ -173,15 +171,17 @@ android {
         main {
             jniLibs.srcDirs = ['libs']
         }
+        all { it.java.srcDir("build/generated/ksp/${it.name}/kotlin/") }
     }
     compileOptions {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
     }
-
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+
     buildFeatures {
         viewBinding = true
     }
@@ -205,6 +205,7 @@ android {
     }
 
 }
+
 //解析各个工程build.gradle之前会执行。
 beforeEvaluate {
 
@@ -234,8 +235,8 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //公共组件
     implementation project(':component_common')
-    kapt libs.aroutercompiler
-    kapt libs.glideCompiler
+    ksp libs.aroutercompiler
+    ksp libs.glideCompiler
     //主模块
     if (!moudles.main.isRun) {
         implementation project(':module_main')
