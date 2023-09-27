@@ -7,8 +7,9 @@ buildscript {
     ext.ksp_version = "${kotlin_version}-1.0.10"
     ext.dokit_version = '3.7.1'
     repositories {
-        maven { url 'https://maven.aliyun.com/repository/google/' }
         maven { url 'https://maven.aliyun.com/repository/public/' }
+        maven { url 'https://maven.aliyun.com/repository/central' }
+        maven { url 'https://maven.aliyun.com/repository/google/' }
         maven { url 'https://maven.aliyun.com/repository/gradle-plugin/' }
         mavenCentral()
         gradlePluginPortal()
@@ -33,8 +34,9 @@ apply from: './app/configs_signing.gradle'
 allprojects {
     repositories {
         //jitpack
-        maven { url 'https://maven.aliyun.com/repository/google/' }
         maven { url 'https://maven.aliyun.com/repository/public/' }
+        maven { url 'https://maven.aliyun.com/repository/central' }
+        maven { url 'https://maven.aliyun.com/repository/google/' }
         maven { url 'https://maven.aliyun.com/repository/gradle-plugin/' }
         maven { url "https://www.jitpack.io" }
         mavenCentral()

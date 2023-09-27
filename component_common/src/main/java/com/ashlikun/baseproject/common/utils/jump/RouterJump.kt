@@ -6,11 +6,10 @@ import com.ashlikun.baseproject.common.mode.javabean.ImageData
 import com.ashlikun.baseproject.libcore.constant.RouterKey
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.utils.extend.ARouterNavigation
-import com.ashlikun.baseproject.libcore.utils.extend.withMap
+import com.ashlikun.core.mvvm.withMap
 import com.ashlikun.utils.ui.ActivityManager
 import com.ashlikun.utils.ui.modal.SuperToast
 import java.io.Serializable
-import java.util.ArrayList
 
 /**
  * 作者　　: 李坤

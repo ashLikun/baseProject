@@ -2,6 +2,8 @@ package com.ashlikun.baseproject.libcore
 
 import android.content.Context
 import android.content.res.Configuration
+import android.os.Looper
+import android.util.Log
 import android.view.Gravity
 import androidx.multidex.MultiDexApplication
 import com.ashlikun.appcrash.AppCrashConfig
@@ -17,6 +19,7 @@ import com.ashlikun.okhttputils.http.OkHttpManage
 import com.ashlikun.okhttputils.http.download.DownloadManager
 import com.ashlikun.orm.LiteOrmUtil
 import com.ashlikun.utils.AppUtils
+import com.ashlikun.utils.other.LogUtils
 import com.ashlikun.utils.other.file.FileUtils
 import com.ashlikun.utils.ui.modal.SuperToast
 import com.ashlikun.vlayout.VLayoutUtils
@@ -37,7 +40,7 @@ open class BaseApplication : MultiDexApplication() {
 
     override fun attachBaseContext(base: Context) {
         //app工具
-        AppUtils.init(this, BuildConfig.DEBUG)
+        AppUtils.init(this, false)
         AppUtils.attachBaseContext(base)
         var newContext = base
         applications.forEach {
@@ -48,6 +51,9 @@ open class BaseApplication : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
+        Looper.getMainLooper().setMessageLogging {
+            Log.d("aaa"," MessageLogging   ${it}")
+        }
         initLib()
         //布局切换管理器
 //        LoadSwitch.BASE_EMPTY_LAYOUT_ID = R2.layout.base_load_empty
@@ -88,7 +94,7 @@ open class BaseApplication : MultiDexApplication() {
 //            DoKit.Builder(this).customKits(listOf(LogConfig.MyLogKit())).productId(FileUtils.getMetaValue("dokit_pid")).build()
         }
         //数据库
-        LiteOrmUtil.init(this,AppUtils.isDebug)
+        LiteOrmUtil.init(this, AppUtils.isDebug)
         LiteOrmUtil.setVersionCode(AppUtils.versionCode)
         LiteOrmUtil.setIsDebug(AppUtils.isDebug)
         //路由
