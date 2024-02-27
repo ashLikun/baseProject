@@ -80,7 +80,7 @@ class UserData {
             LiteOrmUtil.get().save(this)
             userData = this
             //发送通知
-            EventBus.get(EventBusKey.LOGIN).post()
+            EventBus.get(EventBusKey.LOGIN).post(null)
             //设置推送别名
             JpushUtils.setAlias()
             return true
@@ -168,7 +168,7 @@ class UserData {
             userData = null
             if (res > 0) {
                 //发送退出广播
-                EventBus.get(EventBusKey.EXIT_LOGIN).post()
+                EventBus.get(EventBusKey.EXIT_LOGIN).post(null)
             }
             if (res <= 0) {
                 return false

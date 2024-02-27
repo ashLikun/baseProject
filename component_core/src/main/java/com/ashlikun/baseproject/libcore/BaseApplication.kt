@@ -2,28 +2,27 @@ package com.ashlikun.baseproject.libcore
 
 import android.content.Context
 import android.content.res.Configuration
-import android.os.Looper
-import android.util.Log
 import android.view.Gravity
+import androidx.lifecycle.setViewTreeLifecycleOwner
 import androidx.multidex.MultiDexApplication
 import com.ashlikun.appcrash.AppCrashConfig
 import com.ashlikun.baseproject.libcore.router.RouterManage
 import com.ashlikun.baseproject.libcore.utils.http.HttpManager
+import com.ashlikun.baseproject.libcore.utils.other.AppConfig
 import com.ashlikun.baseproject.libcore.utils.other.AppCrashEventListener
 import com.ashlikun.baseproject.libcore.utils.other.CacheUtils
-import com.ashlikun.baseproject.libcore.utils.other.LogConfig
 import com.ashlikun.baseproject.libcore.utils.other.initBugly
+//import com.ashlikun.baseproject.BuildConfig
+
+import com.ashlikun.customdialog.BaseDialog
 import com.ashlikun.glideutils.GlideUtils
 import com.ashlikun.loadswitch.LoadSwitch
 import com.ashlikun.okhttputils.http.OkHttpManage
 import com.ashlikun.okhttputils.http.download.DownloadManager
 import com.ashlikun.orm.LiteOrmUtil
 import com.ashlikun.utils.AppUtils
-import com.ashlikun.utils.other.LogUtils
-import com.ashlikun.utils.other.file.FileUtils
 import com.ashlikun.utils.ui.modal.SuperToast
 import com.ashlikun.vlayout.VLayoutUtils
-import com.didichuxing.doraemonkit.DoKit
 
 /**
  * @author　　: 李坤
@@ -40,7 +39,7 @@ open class BaseApplication : MultiDexApplication() {
 
     override fun attachBaseContext(base: Context) {
         //app工具
-        AppUtils.init(this, false)
+        AppUtils.init(this, base.resources.getString(R.string.app_name_letter), AppConfig.debug)
         AppUtils.attachBaseContext(base)
         var newContext = base
         applications.forEach {
@@ -51,8 +50,14 @@ open class BaseApplication : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        Looper.getMainLooper().setMessageLogging {
-            Log.d("aaa"," MessageLogging   ${it}")
+        if (AppUtils.isDebug) {
+            /**
+             * 17:07:33.824  D   主线程消息执行调试,注意频繁调用   >>>>> Dispatching to Handler (android.view.Choreographer$FrameHandler) {43b53cb} android.view.Choreographer$FrameDisplayEventReceiver@accb7a8: 0
+             * 17:07:33.830  D   主线程消息执行调试,注意频繁调用   <<<<< Finished to Handler (android.view.Choreographer$FrameHandler) {43b53cb} android.view.Choreographer$FrameDisplayEventReceiver@accb7a8
+             */
+//            Looper.getMainLooper().setMessageLogging {
+//                LogUtils.d(" 主线程消息执行调试,注意频繁调用   ${it}")
+//            }
         }
         initLib()
         //布局切换管理器
@@ -79,7 +84,6 @@ open class BaseApplication : MultiDexApplication() {
 
     private fun initLib() {
         LoadSwitch.init(this)
-        CacheUtils.init(resources.getString(R.string.app_name_letter))
         //异常捕获
         AppCrashConfig.Builder.create(this)
             .eventListener(AppCrashEventListener())
@@ -108,7 +112,6 @@ open class BaseApplication : MultiDexApplication() {
             interceptors().clear()
             networkInterceptors().clear()
         }.build())
-
         //腾讯Bugly
         initBugly()
         //x5内核

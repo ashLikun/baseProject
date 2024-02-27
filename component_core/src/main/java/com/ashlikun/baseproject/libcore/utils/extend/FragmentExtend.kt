@@ -20,10 +20,11 @@ fun Fragment.requestPermission(
     title: String? = null,
     isShowDialog: Boolean = true,
     isFirstShowDialog: Boolean = false,
+    permanent: (() -> Unit)? = null,
     denied: (() -> Unit)? = null,
     success: (() -> Unit)
 ): ActivityResultLauncher<Array<String>> {
-    return requireActivity().requestPermission(permission, message, title, isShowDialog, isFirstShowDialog, denied, success)
+    return requireActivity().requestPermission(permission, message, title, isShowDialog, isFirstShowDialog, permanent, denied, success)
 }
 
 fun Fragment.requestAllFilePermission(denied: (() -> Unit)? = null, success: () -> Unit) = requireActivity().requestAllFilePermission(denied, success)

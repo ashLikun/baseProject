@@ -1,47 +1,19 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-
-
 buildscript {
-    ext.kotlin_version = '1.8.20'
-    ext.coroutine_version = '1.7.1'
-    ext.ksp_version = "${kotlin_version}-1.0.10"
-    ext.dokit_version = '3.7.1'
-    repositories {
-        maven { url 'https://maven.aliyun.com/repository/public/' }
-        maven { url 'https://maven.aliyun.com/repository/central' }
-        maven { url 'https://maven.aliyun.com/repository/google/' }
-        maven { url 'https://maven.aliyun.com/repository/gradle-plugin/' }
-        mavenCentral()
-        gradlePluginPortal()
-        google()
-    }
-    dependencies {
-        //7.0  kotlin/Metadata 被去除，导致混淆后反射无法获取接口方法参数名称，retrofit就不能代理，注意，等7.1+就可以了
-        classpath 'com.android.tools.build:gradle:8.0.2'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        //滴滴开发助手插件,更新三方库老瞎几把报类冲突
-        //classpath "io.github.didi.dokit:dokitx-plugin:$dokit_version"
-    }
+    apply from: './config.gradle'
+    apply from: './config_component.gradle'
+    //签名
+    apply from: './app/configs_signing.gradle'
 }
 plugins {
+    //7.0  kotlin/Metadata 被去除，导致混淆后反射无法获取接口方法参数名称，retrofit就不能代理，注意，等7.1+就可以了
+    //7.4.2  总是在这个项目 莫名报 Unresolved reference *** ，都是一些扩展方法
+    id 'com.android.application' version '8.0.2' apply false
+    //id 'com.android.library' version '8.0.2' apply false
+
     id 'com.google.devtools.ksp' version "${ksp_version}" apply false
+    //滴滴开发助手插件,更新三方库老瞎几把报类冲突
+    //id "io.github.didi.dokit:dokitx-plugin" version dokit_version apply false
 }
-apply from: './config.gradle'
-apply from: './config_component.gradle'
-//签名
-apply from: './app/configs_signing.gradle'
 
-allprojects {
-    repositories {
-        //jitpack
-        maven { url 'https://maven.aliyun.com/repository/public/' }
-        maven { url 'https://maven.aliyun.com/repository/central' }
-        maven { url 'https://maven.aliyun.com/repository/google/' }
-        maven { url 'https://maven.aliyun.com/repository/gradle-plugin/' }
-        maven { url "https://www.jitpack.io" }
-        mavenCentral()
-        google()
-    }
-
-}
 

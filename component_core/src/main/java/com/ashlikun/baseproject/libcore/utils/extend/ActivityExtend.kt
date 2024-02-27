@@ -48,10 +48,11 @@ fun Context.requestPermission(
     title: String? = null,
     isShowDialog: Boolean = true,
     isFirstShowDialog: Boolean = false,
+    permanent: (() -> Unit)? = null,
     denied: (() -> Unit)? = null,
     success: (() -> Unit)
 ): ActivityResultLauncher<Array<String>> {
-    return (this.getActivity() as ComponentActivity).requestPermission(permission, message, title, isShowDialog, isFirstShowDialog, denied, success)
+    return (this.getActivity() as ComponentActivity).requestPermission(permission, message, title, isShowDialog, isFirstShowDialog, permanent, denied, success)
 }
 
 /**
@@ -65,6 +66,7 @@ fun ComponentActivity.requestPermission(
     title: String? = null,
     isShowDialog: Boolean = true,
     isFirstShowDialog: Boolean = false,
+    permanent: (() -> Unit)? = null,
     denied: (() -> Unit)? = null,
     success: (() -> Unit)
 ): ActivityResultLauncher<Array<String>> {
@@ -76,6 +78,10 @@ fun ComponentActivity.requestPermission(
         } else {
             if (denied != null) denied?.invoke() else R.string.permission_denied.resString.toastInfo()
         }
+    }
+    if (permission.isEmpty()) {
+        success.invoke()
+        return launcher
     }
     val status = PermissionUtils.getStatus(this, *permission)
 
@@ -92,8 +98,12 @@ fun ComponentActivity.requestPermission(
             }
             positiveButton(R.string.base_dialog_confirm) { dia ->
                 if (status == PermissionStatus.REFUSE_PERMANENT) {
-                    //永久拒绝,跳转到系统设置
-                    PermisstionSettingUtils.start()
+                    if (permanent != null) {
+                        permanent.invoke()
+                    } else {
+                        //永久拒绝,跳转到系统设置
+                        PermisstionSettingUtils.start()
+                    }
                 } else {
                     launcher.launch(permission)
                 }
@@ -113,8 +123,12 @@ fun ComponentActivity.requestPermission(
         //之前拒绝过,弹窗提升
         showRationaleDialog(message)
     } else if (status == PermissionStatus.REFUSE_PERMANENT) {
-        //永久拒绝,跳转到系统设置
-        PermisstionSettingUtils.start()
+        if (permanent != null) {
+            permanent.invoke()
+        } else {
+            //永久拒绝,跳转到系统设置
+            PermisstionSettingUtils.start()
+        }
     } else {
         //未请求过
         launcher.launch(permission)
@@ -148,18 +162,18 @@ fun ComponentActivity.requestAllFilePermission(denied: (() -> Unit)? = null, suc
     }
 }
 
-fun BaseFragment.showEmpty(text: String = R.string.loadswitch_empty_text.resString) {
+fun BaseFragment.showEmptyX(text: String = R.string.loadswitch_empty_text.resString) {
     showEmpty(ContextData(title = text, buttonText = ""))
 }
 
-fun BaseActivity.showEmpty(text: String = R.string.loadswitch_empty_text.resString) {
+fun BaseActivity.showEmptyX(text: String = R.string.loadswitch_empty_text.resString) {
     showEmpty(ContextData(title = text, buttonText = ""))
 }
 
-fun LoadSwitchService.showEmpty(text: String = R.string.loadswitch_empty_text.resString) {
+fun LoadSwitchService.showEmptyX(text: String = R.string.loadswitch_empty_text.resString) {
     showEmpty(ContextData(title = text, buttonText = ""))
 }
 
-fun BaseViewModel.showEmpty(text: String = R.string.loadswitch_empty_text.resString) {
+fun BaseViewModel.showEmptyX(text: String = R.string.loadswitch_empty_text.resString) {
     showEmpty(ContextData(title = text, buttonText = ""))
 }

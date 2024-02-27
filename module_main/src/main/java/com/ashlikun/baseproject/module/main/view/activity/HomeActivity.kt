@@ -13,6 +13,7 @@ import com.ashlikun.bottomnavigation.AHBottomNavigation
 import com.ashlikun.bottomnavigation.AHBottomNavigationItem
 import com.ashlikun.core.activity.BaseActivity
 import com.ashlikun.livedatabus.bus
+import com.ashlikun.utils.main.ProcessUtils
 import com.ashlikun.utils.other.logge
 import com.ashlikun.utils.ui.ActivityManager
 import com.ashlikun.utils.ui.extend.resColor
@@ -123,9 +124,9 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
             SuperToast.get("再按一次退出程序").info()
             exitTime = System.currentTimeMillis()
         } else {
-            // 退出
-            ActivityManager.get().exitAllActivity()
             ToastUtils.cancel()
+            // 退出
+            ProcessUtils.killProcess()
         }
     }
 

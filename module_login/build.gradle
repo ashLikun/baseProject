@@ -7,7 +7,7 @@ if (currentModule.isRun) {
 // 使用Kotlin插件
 apply plugin: 'kotlin-android'
 //ksp 插件
-apply plugin:  'com.google.devtools.ksp'
+apply plugin: 'com.google.devtools.ksp'
 def sdk = rootProject.ext.sdk // SDK配置
 def config = rootProject.ext.android // 工程配置
 def libs = rootProject.ext.dependencies // 库依赖
@@ -29,8 +29,8 @@ android {
         versionName config.versionName
         multiDexEnabled true
         ksp {
-    arg("AROUTER_MODULE_NAME", project.getName())
-}
+            arg("AROUTER_MODULE_NAME", project.getName())
+        }
 
         //强制前缀，防止组件之间名称重复而替换
         resourcePrefix currentModule.name + "_"

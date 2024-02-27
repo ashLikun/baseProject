@@ -255,6 +255,3 @@ dependencies {
     }
 
 }
-repositories {
-    mavenCentral()
-}

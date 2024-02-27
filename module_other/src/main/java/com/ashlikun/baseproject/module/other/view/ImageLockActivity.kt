@@ -12,6 +12,7 @@ import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.common.mode.javabean.ImageData
 import com.ashlikun.baseproject.common.utils.extend.show
+import com.ashlikun.baseproject.common.utils.other.PermissionConst
 import com.ashlikun.baseproject.libcore.constant.RouterKey
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.baseproject.libcore.utils.extend.requestPermission
@@ -114,12 +115,7 @@ class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener {
                     val url = listDatas[viewPager.realPosition].getImageUrl()
                     GlideUtils.downloadBitmap(this@ImageLockActivity, url) { file ->
                         if (file != null && file.exists()) {
-                            requestPermission(
-                                arrayOf(
-                                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                    Manifest.permission.READ_EXTERNAL_STORAGE
-                                )
-                            ) {
+                            requestPermission(PermissionConst.PERMISSION_STORAGE_IMAGE) {
                                 var saveFile = CacheUtils.newImage()
                                 if (FileIOUtils.copyFile(file, saveFile, false)) {
                                     "图片已保存至 /${saveFile.path} ".toastInfo()

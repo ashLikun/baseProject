@@ -3,7 +3,6 @@ package com.ashlikun.baseproject
 import android.content.Context
 import android.content.res.Configuration
 import com.ashlikun.baseproject.libcore.BaseApplication
-
 /**
  * 作者　　: 李坤
  * 创建时间: 2018/7/24　15:45

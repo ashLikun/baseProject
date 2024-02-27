@@ -13,7 +13,6 @@ import java.io.File
  * 功能介绍：get属性是为了清空目录的时候再次使用可能No such file or directory异常
  */
 object CacheUtils {
-    var rootName = ""
 
     //app缓存路径，内部
     val appCachePath = ""
@@ -63,7 +62,7 @@ object CacheUtils {
     val sdDcimPath =""
         get() = check(
                 if (field.isNullOrEmpty()) {
-                    PathUtils.externalDcim + File.separator + rootName
+                    PathUtils.externalDcim + File.separator + AppUtils.simpleName
                 } else field
         )
 
@@ -84,14 +83,6 @@ object CacheUtils {
         return path
     }
 
-
-    /**
-     * @param rootName 跟目录名称，一般为app名称
-     */
-    @JvmStatic
-    fun init(rootName: String) {
-        CacheUtils.rootName = rootName
-    }
 
     /**
      * 获取一个新的图片文件

@@ -1,7 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="AppTheme" parent="BaseTheme"></style>
+    <style name="AppTheme" parent="BaseTheme.Light"></style>
+
     <style name="BaseTheme" parent="Theme.MaterialComponents.Light.NoActionBar"></style>
+
     <style name="BaseTheme.Light">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -44,6 +46,7 @@
         <item name="android:statusBarColor">@color/statusColorCustom</item>
         <item name="android:windowAnimationStyle">@style/OtherAnimation</item>
         <item name="colorPrimary">@color/statusColorCustom</item>
+        <item name="phTitleColor">@color/black</item>
     </style>
     <!--背景颜色白色-->
     <style name="AppTheme.OtherTheme.White">

@@ -16,9 +16,11 @@ android {
     defaultConfig {
         minSdk config.minSdk
         targetSdk config.targetSdk
+        versionCode config.versionCode
+        versionName config.versionName
         ksp {
-    arg("AROUTER_MODULE_NAME", project.getName())
-}
+            arg("AROUTER_MODULE_NAME", project.getName())
+        }
         //向清单文件注入参数
         manifestPlaceholders = sdk.default
     }
@@ -34,7 +36,9 @@ android {
         //so文件
         jniLibs.srcDirs = ['libs']
     }
-
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
@@ -71,16 +75,15 @@ dependencies {
     api libs.arouterapi
 
     //基础的框架
-    api 'com.github.ashLikun.frame:stickyrecyclerview:' + rootProject.ext.frameVersion
-    api 'com.github.ashLikun.frame:flatbutton:' + rootProject.ext.frameVersion
-    api 'com.github.ashLikun.frame:numberprogressbar:' + rootProject.ext.frameVersion
-    api 'com.github.ashLikun.frame:segmentcontrol:' + rootProject.ext.frameVersion
-    api 'com.github.ashLikun.frame:charbar:' + rootProject.ext.frameVersion
-    api 'com.github.ashLikun.frame:supertoobar:' + rootProject.ext.frameVersion
-    api 'com.github.ashLikun.frame:wheelview3d:' + rootProject.ext.frameVersion
-    api 'com.github.ashLikun.frame:badgeview:' + rootProject.ext.frameVersion
-    api 'com.github.ashLikun.frame:animcheckbox:' + rootProject.ext.frameVersion
-    api 'com.github.ashLikun.frame:pathanim:' + rootProject.ext.frameVersion
+    api 'com.gitee.ashlikun.frame:stickyrecyclerview:' + rootProject.ext.frameVersion
+    api 'com.gitee.ashlikun.frame:flatbutton:' + rootProject.ext.frameVersion
+    api 'com.gitee.ashlikun.frame:numberprogressbar:' + rootProject.ext.frameVersion
+    api 'com.gitee.ashlikun.frame:segmentcontrol:' + rootProject.ext.frameVersion
+    api 'com.gitee.ashlikun.frame:charbar:' + rootProject.ext.frameVersion
+    api 'com.gitee.ashlikun.frame:supertoobar:' + rootProject.ext.frameVersion
+    api 'com.gitee.ashlikun.frame:wheelview3d:' + rootProject.ext.frameVersion
+    api 'com.gitee.ashlikun.frame:badgeview:' + rootProject.ext.frameVersion
+    api 'com.gitee.ashlikun.frame:animcheckbox:' + rootProject.ext.frameVersion
 
     //简单的PopupWindow
     api libs.EasyPopupWindow
@@ -104,7 +107,6 @@ dependencies {
 
     ///封装的viewpager，banner，启动页
     api libs.XViewPager
-    api libs.XViewPager2
 
     //公共的工具
     api libs.CommonUtils
@@ -192,6 +194,8 @@ dependencies {
     api libs.glideTransformations
     //日期选择
     api libs.DateTimePicker
+    //自定义键盘
+    api libs.kingkeyboard
     //lottie 动画
     api libs.lottie
     //Android官方流布局
@@ -210,7 +214,11 @@ dependencies {
     api libs.jcore
     //wechat
     api libs.wechat
-    //ZxingUtils
-    api libs.ZxingUtils
+    //zxingLib
+    api libs.zxingCore
+    api libs.zxingLib
+    api libs.zxingGrayScaleLib
+    //进度条
+    api libs.RangeSeekBar
 }
 

@@ -27,34 +27,37 @@ class RefreshTokenInterceptor : Interceptor {
     private var refreshTokenResponseCache: HttpResponse? = null
     override fun intercept(chain: Interceptor.Chain): Response {
         var oldResponse = chain.proceed(chain.request())
-        val json = HttpUtils.getResponseColneBody(oldResponse)
-        if (!json.isNullOrEmpty()) {
-            runCatching {
-                //是否过期
-                if (HttpResponse().apply { setOnGsonErrorData(json) }.isTokenExpire()) {
-                    var isUseCache = false
-                    //刷新token要防止并发
-                    if (refreshStart) {
-                        isUseCache = true
-                        LogUtils.e("刷新token：等待同步")
-                    }
-                    synchronized(this) {
-                        if (!isUseCache || refreshTokenResponseCache?.isSucceed != true) {
-                            LogUtils.e("刷新token：开始")
-                            refreshStart = true
-                            refreshTokenResponseCache = null
-                            refreshTokenResponseCache = RouterManage.login()?.goRefreshToken()
-                            LogUtils.e("刷新token：返回${refreshTokenResponseCache?.json}")
-                            refreshStart = false
-                        } else {
-                            LogUtils.e("刷新token：使用缓存：${refreshTokenResponseCache?.json}")
+        // 只处理json的 "application/json
+        if (oldResponse.header("Content-Type").orEmpty().contains("json", ignoreCase = true)) {
+            val json = HttpUtils.getResponseColneBody(oldResponse)
+            if (!json.isNullOrEmpty()) {
+                runCatching {
+                    //是否过期
+                    if (HttpResponse().apply { setOnGsonErrorData(json) }.isTokenExpire()) {
+                        var isUseCache = false
+                        //刷新token要防止并发
+                        if (refreshStart) {
+                            isUseCache = true
+                            LogUtils.e("刷新token：等待同步")
                         }
+                        synchronized(this) {
+                            if (!isUseCache || refreshTokenResponseCache?.isSucceed != true) {
+                                LogUtils.e("刷新token：开始")
+                                refreshStart = true
+                                refreshTokenResponseCache = null
+                                refreshTokenResponseCache = RouterManage.login()?.goRefreshToken()
+                                LogUtils.e("刷新token：返回${refreshTokenResponseCache?.json}")
+                                refreshStart = false
+                            } else {
+                                LogUtils.e("刷新token：使用缓存：${refreshTokenResponseCache?.json}")
+                            }
+                        }
+                        oldResponse = reRequest(chain, oldResponse, refreshTokenResponseCache) ?: oldResponse
                     }
-                    oldResponse = reRequest(chain, oldResponse, refreshTokenResponseCache) ?: oldResponse
+                }.onFailure {
+                    refreshStart = false
+                    it.printStackTrace()
                 }
-            }.onFailure {
-                refreshStart = false
-                it.printStackTrace()
             }
         }
         return oldResponse

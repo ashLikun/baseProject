@@ -259,7 +259,7 @@ class HttpUiHandle private constructor() {
     /**
      * 是否可以显示加载相关的
      */
-    private fun canShowLoadding() = activity?.isFinishing == false || dialog?.isShowing == true
+    private fun canShowLoadding() = activity?.isFinishing == false || dialog?.isShowing == false
 
     /**
      * 显示对话框
@@ -315,15 +315,6 @@ class HttpUiHandle private constructor() {
     private fun hintProgress() {
         //如果不显示对话框,就直接返回
         if (!isShowLoadding || (loadDialog == null && loadView == null)) {
-            return
-        }
-        //如果count > 1，说明当前页面还有请求，就不销毁对话框
-        if (count() > 1) {
-            //是否等待,Okhttp内部在子线程里面执行的，这里延时1秒检测
-            //可能会一直占用内存不释放，所以这里false
-            taskLaunchMain(delayTime = 1000) {
-                hintProgress()
-            }
             return
         }
         jobTimeOut?.cancel()
