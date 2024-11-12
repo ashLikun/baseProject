@@ -12,10 +12,8 @@ import androidx.annotation.DrawableRes
 import com.ashlikun.baseproject.common.R
 import com.ashlikun.glideutils.GlideLoad
 import com.ashlikun.glideutils.GlideUtils
-import com.ashlikun.utils.AppUtils
 import com.ashlikun.utils.other.DimensUtils
 import com.ashlikun.utils.ui.extend.dp
-import com.ashlikun.utils.ui.extend.getViewSize
 import com.ashlikun.utils.ui.extend.resColor
 import com.ashlikun.utils.ui.extend.resDrawable
 import com.bumptech.glide.load.DataSource
@@ -28,8 +26,10 @@ import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.ImageViewTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
+import com.bumptech.glide.request.transition.Transition
 import com.makeramen.roundedimageview.RoundedDrawable
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 import kotlin.math.min
@@ -69,6 +69,8 @@ fun ImageView.getDefaultTransformation(
  * @param placeholderResId 占位图
  * @param placeholderSize 占位图宽度大小
  * @param placeholderSizeMax 占位图是否最大化（和控件一样大，等比）
+ * @param placeholderOriginal  是否使用原始api 设置占位图,去除缩放类型
+ * @param placeholderNoCache  占位图是否只有在缓存不存在的时候才显示
  * @param withCrossFade 是否使用淡入淡出过度效果
  * @param requestListener 事件回调
  */
@@ -79,39 +81,53 @@ fun ImageView.show(
     @DrawableRes
     placeholderResId: Int? = null,
     placeholderSizeMax: Boolean = false,
+    placeholderOriginal: Boolean = false,
+    placeholderNoCache: Boolean = false,
     placeholderSize: Int = -1,
     showBgColorRes: Int? = null,
     withCrossFade: Boolean = false,
     requestOptions: RequestOptions? = null,
     requestListener: RequestListener<Drawable>? = null
 ) {
+    var isSetScaleType = false
+    //动态改变缩放类型
+//    isSetScaleType(false)
     var options = requestOptions ?: RequestOptions()
     var placeholderResId = placeholderResId
-    if (defaultPlace) {
-        placeholderResId = R.drawable.material_default_image_1_1
-    }
+    if (defaultPlace) placeholderResId = R.drawable.material_default_image_1_1
     var layerDrawable: PlaceholderDrawable? = null
     if (placeholderResId != null || showBgColorRes != null) {
         //没有缓存才加载
         try {
-            layerDrawable = PlaceholderDrawable(
-                this, placeholderResId?.resDrawable,
-                placeholderSizeMax, placeholderSize,
-                bgColor = showBgColorRes?.resColor,
-                radius = radiusDp.dp.toFloat(),
-            )
-            options.error(layerDrawable)
-            options.placeholder(layerDrawable)
-            //如果图片是空，直接显示占位符
-            if (path.isNullOrEmpty()) {
-                setImageDrawable(layerDrawable)
-                return
+            if (placeholderOriginal && placeholderResId != null) {
+                options.error(placeholderResId)
+                options.placeholder(placeholderResId)
+                //如果图片是空，直接显示占位符
+                if (path.isNullOrEmpty()) {
+                    setImageResource(placeholderResId)
+                    return
+                }
+            } else {
+                layerDrawable = PlaceholderDrawable(
+                    this, placeholderResId?.resDrawable,
+                    placeholderSizeMax, placeholderSize,
+                    bgColor = showBgColorRes?.resColor,
+                    radius = radiusDp.dp.toFloat(),
+                )
+                options.error(layerDrawable)
+                options.placeholder(layerDrawable)
+                //如果图片是空，直接显示占位符
+                if (path.isNullOrEmpty()) {
+                    setImageDrawable(layerDrawable)
+                    return
+                }
+                if (placeholderResId != null) isSetScaleType = true
             }
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
-
+    //圆角
     if (radiusDp > 0) {
         if (!options.transformations.isNullOrEmpty()) {
             val a = options.transformations[Bitmap::class.java]!! as Transformation<Bitmap>
@@ -124,26 +140,41 @@ fun ImageView.show(
         .load(path ?: "")
         .options(options)
         .apply {
+            isSetScaleType(isSetScaleType)
             if (withCrossFade) {
                 transition(DrawableTransitionOptions.withCrossFade(DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true)))
             }
+            if (requestListener != null) {
+                listener(requestListener)
+            }
         }
-        .listener(requestListener)
         .also {
             if (layerDrawable != null) {
                 it.addListener(layerDrawable)
             }
+            if (placeholderNoCache) {
+                val target = MyImageViewTarget(this, path)
+                if (target.hasCache) {
+                    //缩放类型 一致
+                    it.isSetScaleType(false)
+                    it.show(target)
+                } else {
+                    it.show(this)
+                }
+            } else {
+                it.show(this)
+            }
+
         }
-        .show(this)
 }
 
 fun ImageView.showCircle(
     path: String?,
     @DrawableRes
-    placeholderResId: Int? = null,
+    placeholderResId: Int? = R.drawable.material_default_image_1_1,
     placeholderSizeMax: Boolean = false,
     placeholderSize: Int = -1,
-    showBgColorRes: Int? = R.color.gray_ee,
+    showBgColorRes: Int? = null,
     withCrossFade: Boolean = false,
 ) {
     show(
@@ -154,16 +185,17 @@ fun ImageView.showCircle(
         placeholderSize = placeholderSize,
         placeholderSizeMax = placeholderSizeMax,
         withCrossFade = withCrossFade,
-        requestOptions = GlideUtils.getCircleOptions()
+        requestOptions = GlideUtils.circleOptions
     )
 }
 
 fun ImageView.showPlace(
     path: String?, radiusDp: Float = 0f,
     @DrawableRes
-    placeholderResId: Int? = null,
+    placeholderResId: Int? = R.drawable.material_default_image_1_1,
     placeholderSizeMax: Boolean = false,
-    placeholderSize: Int = -1, showBgColorRes: Int? = R.color.gray_ee,
+    placeholderSize: Int = -1, showBgColorRes: Int? = null,
+    placeholderOriginal: Boolean = false,
     withCrossFade: Boolean = false,
     requestOptions: RequestOptions? = null
 ) {
@@ -173,6 +205,7 @@ fun ImageView.showPlace(
         showBgColorRes = showBgColorRes,
         placeholderSize = placeholderSize,
         placeholderSizeMax = placeholderSizeMax,
+        placeholderOriginal = placeholderOriginal,
         withCrossFade = withCrossFade,
         requestOptions = requestOptions
     )
@@ -275,26 +308,62 @@ class PlaceholderDrawable(
         }
     }
 
-    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>, isFirstResource: Boolean): Boolean {
         loadStatus = 2
         return false
     }
 
-    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+    override fun onResourceReady(resource: Drawable, model: Any, target: Target<Drawable>?, dataSource: DataSource, isFirstResource: Boolean): Boolean {
         loadStatus = 1
         return false
     }
 }
 
 private fun viewSize(view: View): Point? {
-    if (view.width > 0 || view.height > 0) {
+    if (view.width > 0 && view.height > 0) {
         return Point(view.width, view.height)
     }
-    if (view.measuredWidth > 0 || view.measuredHeight > 0) {
+    if (view.measuredWidth > 0 && view.measuredHeight > 0) {
         return Point(view.measuredWidth, view.measuredHeight)
     }
-    if (view.layoutParams.width > 0 || view.layoutParams.height > 0) {
+    if (view.layoutParams.width > 0 && view.layoutParams.height > 0) {
         return Point(view.layoutParams.width, view.layoutParams.height)
     }
     return null
+}
+
+/**
+ * 这里判断缓存是否存在，如果存在就不使用占位图
+ */
+class MyImageViewTarget(val imageView: ImageView, val url: String?) : ImageViewTarget<Drawable>(imageView) {
+    val hasCache by lazy { GlideUtils.isCache(url) }
+    var start = System.currentTimeMillis()
+
+    override fun setResource(resource: Drawable?) {
+        view.setImageDrawable(resource)
+    }
+
+    override fun setDrawable(drawable: Drawable?) {
+        super.setDrawable(drawable)
+    }
+
+    override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+        super.onResourceReady(resource, transition)
+//        LogUtils.e("wwwwwwwwwww onResourceReady ${System.currentTimeMillis() - start}")
+    }
+
+    override fun onLoadFailed(errorDrawable: Drawable?) {
+        super.onLoadFailed(errorDrawable)
+    }
+
+    override fun onLoadStarted(placeholder: Drawable?) {
+//        start = System.currentTimeMillis()
+        //这里判断缓存是否存在，如果存在就不使用占位图
+        if (placeholder != null && !hasCache) {
+            super.onLoadStarted(placeholder)
+        } else {
+            //还原
+        }
+    }
+
 }

@@ -23,7 +23,7 @@ dependencyResolutionManagement {
         maven { url 'https://maven.aliyun.com/repository/gradle-plugin/' }
         maven { url "https://www.jitpack.io" }
         //aar文件的编译
-//        flatDir { dirs 'libs', '../app/libsAndAar' }
+        flatDir { dirs 'libs', '../app/libsAndAar' }
         mavenCentral()
         google()
 //        jcenter()

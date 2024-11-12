@@ -1,9 +1,10 @@
 package com.ashlikun.baseproject.libcore
 
+//import com.ashlikun.baseproject.BuildConfig
+
 import android.content.Context
 import android.content.res.Configuration
 import android.view.Gravity
-import androidx.lifecycle.setViewTreeLifecycleOwner
 import androidx.multidex.MultiDexApplication
 import com.ashlikun.appcrash.AppCrashConfig
 import com.ashlikun.baseproject.libcore.router.RouterManage
@@ -12,9 +13,6 @@ import com.ashlikun.baseproject.libcore.utils.other.AppConfig
 import com.ashlikun.baseproject.libcore.utils.other.AppCrashEventListener
 import com.ashlikun.baseproject.libcore.utils.other.CacheUtils
 import com.ashlikun.baseproject.libcore.utils.other.initBugly
-//import com.ashlikun.baseproject.BuildConfig
-
-import com.ashlikun.customdialog.BaseDialog
 import com.ashlikun.glideutils.GlideUtils
 import com.ashlikun.loadswitch.LoadSwitch
 import com.ashlikun.okhttputils.http.OkHttpManage
@@ -106,7 +104,7 @@ open class BaseApplication : MultiDexApplication() {
         //http
         HttpManager.get()
         DownloadManager.initPath(CacheUtils.appSDDownloadPath)
-        GlideUtils.setDEBUG(AppUtils.isDebug)
+        GlideUtils.isDebug = AppUtils.isDebug
         //Glide图片加载使用一个okHttpClient
         GlideUtils.init(this, OkHttpManage.get().okHttpClient.newBuilder().apply {
             interceptors().clear()

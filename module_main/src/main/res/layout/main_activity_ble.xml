@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/dp_20">
+
+    <com.ashlikun.flatbutton.FlatButton
+        android:id="@+id/button0"
+        style="@style/FlatButton.Main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="扫蓝牙" />
+
+    <com.ashlikun.flatbutton.FlatButton
+        android:id="@+id/button1"
+        style="@style/FlatButton.Main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:text="连接蓝牙" />
+
+    <com.ashlikun.flatbutton.FlatButton
+        android:id="@+id/button22"
+        style="@style/FlatButton.Main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:text="握手" />
+
+    <com.ashlikun.flatbutton.FlatButton
+        android:id="@+id/button2"
+        style="@style/FlatButton.Main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:text="鉴权" />
+
+    <com.ashlikun.flatbutton.FlatButton
+        android:id="@+id/button3"
+        style="@style/FlatButton.Main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:text="开锁" />
+
+    <com.ashlikun.flatbutton.FlatButton
+        android:id="@+id/button4"
+        style="@style/FlatButton.Main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:text="上锁" />
+</LinearLayout>

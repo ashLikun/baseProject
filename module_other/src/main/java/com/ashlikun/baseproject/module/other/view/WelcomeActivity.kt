@@ -9,11 +9,11 @@ import com.ashlikun.baseproject.libcore.router.RouterManage
 import com.ashlikun.baseproject.module.other.R
 import com.ashlikun.baseproject.module.other.databinding.OtherActivityWelcomBinding
 import com.ashlikun.core.activity.BaseActivity
-import com.ashlikun.core.finishNoAnim
 import com.ashlikun.core.mvvm.launch
 import com.ashlikun.utils.AppUtils
 import com.ashlikun.utils.other.store.StoreUtils
 import com.ashlikun.utils.ui.ActivityManager
+import com.ashlikun.utils.ui.extend.finishNoAnim
 import com.ashlikun.utils.ui.extend.resColor
 
 /**

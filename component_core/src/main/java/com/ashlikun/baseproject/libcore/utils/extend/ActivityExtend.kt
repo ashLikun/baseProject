@@ -14,15 +14,15 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.ashlikun.baseproject.libcore.R
 import com.ashlikun.core.activity.BaseActivity
 import com.ashlikun.core.fragment.BaseFragment
-import com.ashlikun.core.launchForActivityResult
 import com.ashlikun.core.mvvm.BaseViewModel
-import com.ashlikun.core.registerForActivityResultX
 import com.ashlikun.loadswitch.ContextData
 import com.ashlikun.loadswitch.LoadSwitchService
 import com.ashlikun.utils.other.PermissionStatus
 import com.ashlikun.utils.other.PermissionUtils
 import com.ashlikun.utils.other.PermisstionSettingUtils
 import com.ashlikun.utils.ui.extend.getActivity
+import com.ashlikun.utils.ui.extend.launchForActivityResult
+import com.ashlikun.utils.ui.extend.registerForActivityResultX
 import com.ashlikun.utils.ui.extend.resString
 import com.ashlikun.utils.ui.extend.toastInfo
 

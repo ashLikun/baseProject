@@ -150,7 +150,7 @@ class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener {
                     override fun onLoadFailed(
                         e: GlideException?,
                         model: Any?,
-                        target: Target<Drawable>?,
+                        target: Target<Drawable>,
                         isFirstResource: Boolean
                     ): Boolean {
                         view.findViewById<View>(R.id.progressView)?.visibility = View.GONE
@@ -159,9 +159,9 @@ class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener {
 
                     override fun onResourceReady(
                         resource: Drawable,
-                        model: Any?,
+                        model: Any,
                         target: Target<Drawable>?,
-                        dataSource: DataSource?,
+                        dataSource: DataSource,
                         isFirstResource: Boolean
                     ): Boolean {
                         view.findViewById<View>(R.id.progressView)?.visibility = View.GONE

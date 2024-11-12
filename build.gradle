@@ -10,7 +10,7 @@ plugins {
     //7.4.2  总是在这个项目 莫名报 Unresolved reference *** ，都是一些扩展方法
     id 'com.android.application' version '8.0.2' apply false
     //id 'com.android.library' version '8.0.2' apply false
-
+    id 'org.jetbrains.kotlin.android' version "${kotlin_version}" apply false
     id 'com.google.devtools.ksp' version "${ksp_version}" apply false
     //滴滴开发助手插件,更新三方库老瞎几把报类冲突
     //id "io.github.didi.dokit:dokitx-plugin" version dokit_version apply false

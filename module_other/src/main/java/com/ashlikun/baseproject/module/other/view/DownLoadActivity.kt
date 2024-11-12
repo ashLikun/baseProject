@@ -28,10 +28,10 @@ class DownLoadActivity : AppCompatActivity(), View.OnClickListener, DownloadTask
     internal val downloadManager by lazy { DownloadManager.get() }
 
     private val url_360 =
-            "http://msoftdl.360.cn/mobilesafe/shouji360/360safesis/360StrongBox_1.0.9.1008.apk"
+        "http://msoftdl.360.cn/mobilesafe/shouji360/360safesis/360StrongBox_1.0.9.1008.apk"
 
     private val url_qq =
-            "http://221.228.67.156/dd.myapp.com/16891/62B928C30FE677EDEEA9C504486444E9" + ".apk?mkey=5736f6098218f3cf&f=1b58&c=0&fsname=com.tencent.mobileqq_6.3.3_358.apk&p=.apk"
+        "http://221.228.67.156/dd.myapp.com/16891/62B928C30FE677EDEEA9C504486444E9" + ".apk?mkey=5736f6098218f3cf&f=1b58&c=0&fsname=com.tencent.mobileqq_6.3.3_358.apk&p=.apk"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,12 +60,15 @@ class DownLoadActivity : AppCompatActivity(), View.OnClickListener, DownloadTask
                 button === v -> {
                     download360()
                 }
+
                 buttoncancel === v -> {
                     downloadManager.cancel(URL_360_ID)
                 }
+
                 buttonpause === v -> {
                     downloadManager.pause(URL_360_ID)
                 }
+
                 buttonresume === v -> {
                     downloadManager.resume(URL_360_ID)
                 }
@@ -76,14 +79,21 @@ class DownLoadActivity : AppCompatActivity(), View.OnClickListener, DownloadTask
                 button1 === v -> {
                     downloadQQ()
                 }
+
                 buttoncancel1 === v -> {
                     downloadManager.cancel(URL_QQ_ID)
                 }
+
                 buttonpause1 === v -> {
                     downloadManager.pause(URL_QQ_ID)
                 }
+
                 buttonresume1 === v -> {
                     downloadManager.resume(URL_QQ_ID)
+                }
+
+                else -> {
+
                 }
             }
         }
@@ -92,30 +102,30 @@ class DownLoadActivity : AppCompatActivity(), View.OnClickListener, DownloadTask
 
     private fun download360() {
         downloadManager.addDownloadTask(
-                DownloadTask(
-                        id = URL_360_ID, url = url_360, listener = this
-                )
+            DownloadTask(
+                id = URL_360_ID, url = url_360, listener = this
+            )
         )
     }
 
     private fun downloadQQ() {
         downloadManager.addDownloadTask(
-                DownloadTask(
-                        id = URL_QQ_ID, url = url_qq, listener = this
-                )
+            DownloadTask(
+                id = URL_QQ_ID, url = url_qq, listener = this
+            )
         )
     }
 
     //=========================================================================
     override fun onDownloading(
-            downloadTask: DownloadTask,
-            completedSize: Long,
-            totalSize: Long,
-            percent: Double
+        downloadTask: DownloadTask,
+        completedSize: Long,
+        totalSize: Long,
+        percent: Double
     ) {
         LogUtils.i(
-                "onDownloading completedSize=" + completedSize + " ,totalSize=" + totalSize + " ,percent=" +
-                        percent
+            "onDownloading completedSize=" + completedSize + " ,totalSize=" + totalSize + " ,percent=" +
+                    percent
         )
         if (downloadTask.id == URL_360_ID) {
             binding.progressBar.progress = percent.toInt()
@@ -128,10 +138,10 @@ class DownLoadActivity : AppCompatActivity(), View.OnClickListener, DownloadTask
     }
 
     override fun onPause(
-            downloadTask: DownloadTask,
-            completedSize: Long,
-            totalSize: Long,
-            percent: Double
+        downloadTask: DownloadTask,
+        completedSize: Long,
+        totalSize: Long,
+        percent: Double
     ) {
         LogUtils.i("onPause=$completedSize ,totalSize=$totalSize ,percent=$percent")
         if (downloadTask.id == URL_360_ID) {
