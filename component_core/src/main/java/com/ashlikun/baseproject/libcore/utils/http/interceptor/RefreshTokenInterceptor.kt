@@ -7,6 +7,7 @@ import com.ashlikun.baseproject.libcore.utils.http.HttpCodeApp
 import com.ashlikun.gson.GsonHelper
 import com.ashlikun.okhttputils.http.HttpUtils
 import com.ashlikun.okhttputils.http.OkHttpManage
+import com.ashlikun.okhttputils.http.extend.getResponseCloneBody
 import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.utils.other.LogUtils
 import com.ashlikun.utils.ui.extend.resString
@@ -29,7 +30,7 @@ class RefreshTokenInterceptor : Interceptor {
         var oldResponse = chain.proceed(chain.request())
         // 只处理json的 "application/json
         if (oldResponse.header("Content-Type").orEmpty().contains("json", ignoreCase = true)) {
-            val json = HttpUtils.getResponseColneBody(oldResponse)
+            val json = oldResponse.getResponseCloneBody()
             if (!json.isNullOrEmpty()) {
                 runCatching {
                     //是否过期
@@ -76,7 +77,7 @@ class RefreshTokenInterceptor : Interceptor {
             newRequest.header("accessToken", token)
             OkHttpManage.get().commonHeaders["accessToken"] = token
             val newResponse = chain.proceed(newRequest.build())
-            val jsonNew = HttpUtils.getResponseColneBody(newResponse)
+            val jsonNew = newResponse.getResponseCloneBody()
             //再次判断是否过期
             if (HttpResponse().apply { setOnGsonErrorData(jsonNew) }.isTokenExpire()) {
                 //退出登录

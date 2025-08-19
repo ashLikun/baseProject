@@ -45,13 +45,13 @@ dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
     ksp libs.aroutercompiler
     ksp libs.glideCompiler
-    api libs.ktx
+    api libs.coreKtx
     //Kotlin 反射相关
     api libs.kotlinReflect
     //KotlinxCoroutines
-    api libs.KotlinxCoroutines
+    api libs.kotlinCoroutines
     api libs.appcompat
-    api libs.design
+    api libs.materialDesign
     api libs.lifecycleViewmodelKtx
     api libs.lifecycleRuntimeKtx
     api libs.lifecycleLiveDataKtx
@@ -211,7 +211,6 @@ dependencies {
     api libs.BugLy
     //极光推送
     api libs.jpush
-    api libs.jcore
     //wechat
     api libs.wechat
     //zxingLib

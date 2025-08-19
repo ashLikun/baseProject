@@ -1,22 +1,21 @@
 ext {
-    kotlin_version = '1.9.0'
+    //https://kotlinlang.org/docs/releases.html#release-details
+    //Android compileSdk =35 kotlin版本小于1.9.0 会导致List.reversed()方法报错NoSuchMethodError
+    kotlin_version = '2.0.0'
+    //https://github.com/Kotlin/kotlinx.coroutines/releases
     coroutine_version = '1.7.1'
-    //1.9.0-1.0.13
-    ksp_version = "${kotlin_version}-1.0.13"
+    //https://github.com/google/ksp/releases
+    ksp_version = "${kotlin_version}-1.0.24"
     dokit_version = '3.7.1'
 
-    frameVersion = "1.1.4"
-    jpushVersion = "4.8.4"
-    jpushCoreVersion = "3.3.6"
+    frameVersion = "1.2.8"
+    lifecycleVersion = "2.9.2"
+    jpushVersion = "5.2.4"
 
-    androidxCore = "1.13.1"
-    appcompat = "1.7.0"
-    lifecycle = "2.8.4"
-    activity = "1.9.0"
-    fragment = "1.8.2"
+
     android = [
             applicationId   : "com.ashlikun.baseproject",
-            compileSdk      : 34,
+            compileSdk      : 35,
             versionCode     : 1,
             versionName     : "1.0.0",
             targetSdk       : 32,
@@ -50,52 +49,54 @@ ext {
 
 
     dependencies = [
-            ktx                       : "androidx.core:core-ktx:$androidxCore",
+            coreKtx                   : "androidx.core:core-ktx:1.16.0",
             kotlinReflect             : "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version",
             //kotlin的协程
-            KotlinxCoroutines         : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version",
-            appcompat                 : "androidx.appcompat:appcompat:$appcompat",
-            design                    : "com.google.android.material:material:1.9.0",
+            kotlinCoroutines          : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version",
+            appcompat                 : "androidx.appcompat:appcompat:1.7.1",
+            //https://github.com/material-components/material-components-android/releases
+            materialDesign            : "com.google.android.material:material:1.12.0",
             //约束布局,如果升级2.2.0以上，必须 LoadSwitch使用对应版本
-            constraintLayout          : 'androidx.constraintlayout:constraintlayout:2.2.0-alpha13',
+            constraintLayout          : 'androidx.constraintlayout:constraintlayout:2.2.1',
             //协调布局
-            coordinatorLayout         : 'androidx.coordinatorlayout:coordinatorlayout:1.2.0',
+            coordinatorLayout         : 'androidx.coordinatorlayout:coordinatorlayout:1.3.0',
             //recyclerview
-            recyclerview              : 'androidx.recyclerview:recyclerview:1.3.2',
+            recyclerview              : 'androidx.recyclerview:recyclerview:1.4.0',
             //生命周期扩展 Viewmodel
-            lifecycleViewmodelKtx     : "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle",
+            lifecycleViewmodelKtx     : "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion",
             //生命周期扩展 Activity
-            lifecycleRuntimeKtx       : "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle",
+            lifecycleRuntimeKtx       : "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion",
             //LiveData
-            lifecycleLiveDataKtx      : "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle",
+            lifecycleLiveDataKtx      : "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion",
             //Activity
-            Activity                  : "androidx.activity:activity-ktx:$activity",
+            Activity                  : 'androidx.activity:activity-ktx:1.10.1',
             //Fragment
-            Fragment                  : "androidx.fragment:fragment-ktx:$fragment",
-
-            //基本架构 1.0.6 适配viewmodel2.6.1之后，之前请用1.0.5
-            CustomMvvm                : "com.gitee.ashlikun.Framework:libraryMvvm:1.0.11",
+            Fragment                  : 'androidx.fragment:fragment-ktx:1.8.8',
             //多个Dex
             multidex                  : 'androidx.multidex:multidex:2.0.1',
+
+            //基本架构 1.0.6 适配viewmodel2.6.1之后，之前请用1.0.5
+            CustomMvvm                : "com.gitee.ashlikun.Framework:libraryMvvm:1.1.4",
+
             //webview封装
             XWebView                  : "com.gitee.ashlikun.XWebView:core:1.0.2",
             //alibaba的路由框架
             arouterapi                : "com.alibaba:arouter-api:1.5.2",
-            aroutercompiler           : "com.github.ashLikun:ArouterKspCompiler:$kotlin_version-1.0.0",
+            aroutercompiler           : "com.github.ashLikun:ArouterKspCompiler:$ksp_version",
             //简单的PopupWindow
-            EasyPopupWindow           : "com.gitee.ashlikun:EasyPopupWindow:1.0.0",
+            EasyPopupWindow           : "com.gitee.ashlikun:EasyPopupWindow:1.0.1",
             //事件总线
-            EventBus                  : "com.gitee.ashlikun:LiveDataBus:1.0.2",
+            EventBus                  : "com.gitee.ashlikun:LiveDataBus:1.0.4",
             //数据库
             LiteOrm                   : "com.gitee.ashlikun:LiteOrm:1.0.1",
             //MMKV
-            MMKV                      : 'com.tencent:mmkv:1.3.9',
+            MMKV                      : 'com.tencent:mmkv:2.2.2',
 
-            //保活的策略，上架需要FOREGROUND_SERVICE_DATA_SYNC
+            //保活的策略
             Keeplive                  : "com.gitee.ashlikun:Keeplive:1.0.3",
 
             //封装的RecycleViewFr
-            XRecycleView              : "com.gitee.ashlikun:XRecycleView:1.0.2",
+            XRecycleView              : "com.gitee.ashlikun:XRecycleView:1.0.4",
             //动画菜单,可以不用
             AnimationMenu             : "com.gitee.ashlikun:AnimationMenu:1.0.0",
             //自定义的下拉刷新
@@ -104,7 +105,7 @@ ext {
             XViewPager                : "com.gitee.ashlikun:XViewPager:1.0.0",
             XViewPager2               : "com.gitee.ashlikun:XViewPager2:1.0.1",
             //公共的工具
-            CommonUtils               : "com.gitee.ashlikun:common-utils:4.8.16",
+            CommonUtils               : "com.gitee.ashlikun:common-utils:4.9.14",
             //公共的Adapter
             CommonAdapter             : "com.gitee.ashlikun:CommonAdapter:1.0.2",
             //Google官方改造
@@ -114,7 +115,7 @@ ext {
             //阿里的vlayout
             vlayout                   : "com.gitee.ashlikun:vLayout:1.0.0",
             //习惯的对话框
-            CustomDialog              : "com.gitee.ashlikun:CustomDialog:1.0.3",
+            CustomDialog              : "com.gitee.ashlikun:CustomDialog:1.0.11",
             //第三方MD风格对话框 https://github.com/afollestad/material-dialogs
             MaterialDialog            : "com.afollestad.material-dialogs:core:3.3.0",
             MaterialDialogInput       : "com.afollestad.material-dialogs:input:3.3.0",
@@ -132,7 +133,7 @@ ext {
             AppCrashDispose           : "com.gitee.ashlikun:AppCrashDispose:1.0.0",
             FreeReflection            : "com.github.tiann:FreeReflection:3.1.0",
             //app内存溢出捕获
-            leakcanaryDebug           : "com.squareup.leakcanary:leakcanary-android:2.10",
+            leakcanaryDebug           : "com.squareup.leakcanary:leakcanary-android:2.14",
             //滴滴的开发助手 https://github.com/didi/DoKit
             doraemonkitDebug          : "io.github.didi.dokit:dokitx:$dokit_version",
             //文件同步模块
@@ -144,7 +145,7 @@ ext {
             //shimmer 效果
             shimmer                   : "io.supercharge:shimmerlayout:2.1.0",
             //导航tab
-            BottomNavigation          : "com.gitee.ashlikun:BottomNavigation:1.0.0",
+            BottomNavigation          : "com.gitee.ashlikun:BottomNavigation:1.0.5",
             //rxjava
             rxandroid                 : "io.reactivex.rxjava2:rxandroid:2.1.1",
             rxjava                    : "io.reactivex.rxjava2:rxjava:2.2.6",
@@ -155,7 +156,7 @@ ext {
             //不同type的json解析,依赖于gson
             MultiTypeGson             : "com.gitee.ashlikun:MultiTypeGson:1.0.0",
             //基于Okhttp封装的
-            OkHttpUtils               : "com.gitee.ashlikun:OkHttpUtils:1.0.2",
+            OkHttpUtils               : "com.gitee.ashlikun:OkHttpUtils:1.0.11",
             //图片加载
             GlideUtils                : "com.gitee.ashlikun:GlideUtils:1.0.4",
             glide                     : "com.github.bumptech.glide:glide:4.16.0",
@@ -173,9 +174,9 @@ ext {
             //图片查看
             PhotoView                 : "com.gitee.ashlikun:PhotoView:1.0.0",
             //照片处理
-            PhotoHander               : "com.gitee.ashlikun:PhotoHander:1.0.0",
+            PhotoHander               : "com.gitee.ashlikun:PhotoHander:1.0.2",
             //输入验证码
-            VerificationCodeInput     : "com.github.ashLikun:VerifyCodeView:1.0.5",
+            VerificationCodeInput     : "com.gitee.ashlikun:verify-code-view:1.0.5",
             //带圆角，边框的的ImageView
             RoundedImageView          : "com.makeramen:roundedimageview:2.3.0",
             //评分控件 exclude group: 'com.android.support'
@@ -185,27 +186,23 @@ ext {
             wechat                    : "com.tencent.mm.opensdk:wechat-sdk-android-without-mta:6.8.0",
             //扫码
             zxingCore                 : "com.google.zxing:core:3.5.3",
-            zxingLib                  : "com.gitee.ashlikun.camera-x:zxingLib:1.1.3",
-            zxingGrayScaleLib         : "com.gitee.ashlikun.camera-x:zxingGrayScaleLib:1.1.3",
+            zxingLib                  : "com.gitee.ashlikun.camera-x:zxingLib:1.1.8",
+            zxingGrayScaleLib         : "com.gitee.ashlikun.camera-x:zxingGrayScaleLib:1.1.8",
             EasyPay                   : "com.github.ashLikun:EasyPay:2.0.4",
             //腾讯X5浏览器 44136  http://soft.imtt.qq.com/browser/tes/feedback.html 显示000000表示加载的是系统内核，显示大于零的数字表示加载了x5内核（该数字是x5内核版本号）
             tbssdk                    : "com.tencent.tbs:tbssdk:44181",
             // 极光推送
             jpush                     : "cn.jiguang.sdk:jpush-google:$jpushVersion",
-            // 极光推送
-            jcore                     : "cn.jiguang.sdk:jcore-google:$jpushCoreVersion",
             //腾讯Bugly
-            BugLy                     : 'com.tencent.bugly:crashreport:latest.release',
+            BugLy                     : 'com.tencent.bugly:crashreport:4.1.9.2',
 
             shareQQ                   : 'com.tencent.tauth:qqopensdk:3.53.0',
             shareSina                 : 'io.github.sinaweibosdk:core:11.11.1@aar',
 
             //友盟统计与分享
             // 友盟基础组件库（所有友盟业务SDK都依赖基础组件库）
-            umsdkCommon               : 'com.umeng.umsdk:common:9.5.0',
-            umsdkAsms                 : 'com.umeng.umsdk:asms:1.5.0',
-            // U-APM产品包依赖(必选)
-            umsdkApm                  : 'com.umeng.umsdk:apm:1.6.4',
+            umsdkCommon               : 'com.umeng.umsdk:common:9.5.4',
+            umsdkAsms                 : 'com.umeng.umsdk:asms:1.6.3',
             //分享核心库，必选
             umsdkShareCore            : 'com.umeng.umsdk:share-core:7.1.9',
             //分享面板功能，可选
@@ -213,15 +210,20 @@ ext {
             //在线依赖目前支持QQ、微信、新浪微博、支付宝、钉钉；若需支持其他平台，请选择手动下载SDK
             //微信完整版
             umsdkShareWx              : 'com.umeng.umsdk:share-wx:7.1.9',
+            //java WebSocket 这个库可以实现服务端
+            javaWebSocket             : 'org.java-websocket:Java-WebSocket:1.5.1',
 
             //RangeSeekBar 进度条 https://github.com/Jay-Goo/RangeSeekBar/wiki
             RangeSeekBar              : 'com.github.Jay-Goo:RangeSeekBar:v3.0.0',
             //播放器
             EasyMedia                 : 'com.gitee.ashlikun.EasyMedia:BaseMedia:1.0.0',
             EasyMediaExo3             : 'com.gitee.ashlikun.EasyMedia:ExoPlay3:1.0.0',
+            //Ijkplay
+            ijkplayerEx               : 'com.gitee.ashlikun.EasyMedia:ijkplayer-ex_so-live:1.0.0',
             //ExoPlay
-            media3Common              : 'androidx.media3:media3-common:1.0.2',
-            media3Exo                 : 'androidx.media3:media3-exoplayer:1.0.2',
-            media3Rtsp                : 'androidx.media3:media3-exoplayer-rtsp:1.0.2',
+            media3Common              : 'androidx.media3:media3-common:1.8.0',
+            media3Exo                 : 'androidx.media3:media3-exoplayer:1.8.0',
+            media3Rtsp                : 'androidx.media3:media3-exoplayer-rtsp:1.8.0',
+
     ]
 }

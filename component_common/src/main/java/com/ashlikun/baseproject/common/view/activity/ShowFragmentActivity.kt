@@ -13,6 +13,7 @@ import com.ashlikun.baseproject.libcore.constant.RouterKey
 import com.ashlikun.baseproject.libcore.constant.RouterPath
 import com.ashlikun.core.activity.BaseActivity
 import com.ashlikun.utils.ui.extend.resColor
+import com.ashlikun.utils.ui.status.enableEdgeToEdgeX
 
 /**
  * 作者　　: 李坤
@@ -45,15 +46,8 @@ class ShowFragmentActivity : BaseActivity() {
     @Autowired(name = RouterKey.FLAG_STATUS_TRANS)
     var statusTranslucent = true
 
-    @JvmField
-    @Autowired(name = RouterKey.FLAG_STATUS_COLOR)
-    var barColor = R.color.statusColorCustom.resColor
-
-    override val statusBarColor by lazy {
-        barColor
-    }
-    override val isStatusTranslucent by lazy {
-        statusTranslucent
+    override fun setSafeArea() {
+        enableEdgeToEdgeX(isSetView = !statusTranslucent)
     }
 
     override fun parseIntent(intent: Intent) {

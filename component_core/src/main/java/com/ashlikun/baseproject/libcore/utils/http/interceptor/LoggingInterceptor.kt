@@ -2,6 +2,8 @@ package com.ashlikun.baseproject.libcore.utils.http.interceptor
 
 import com.ashlikun.baseproject.libcore.utils.other.LogConfig
 import com.ashlikun.okhttputils.http.HttpUtils
+import com.ashlikun.okhttputils.http.extend.getRequestToString
+import com.ashlikun.okhttputils.http.extend.getResponseToString
 import com.ashlikun.utils.other.LogUtils
 import okhttp3.Interceptor
 import okhttp3.Request
@@ -19,8 +21,6 @@ internal class LoggingInterceptor : Interceptor {
         val request: Request = chain.request()
         val startTime = System.nanoTime()
 
-        HttpUtils.getRequestToString(request)
-
         //request.url, chain.connection(), request.headers
 
         val response: Response = chain.proceed(request)
@@ -28,9 +28,9 @@ internal class LoggingInterceptor : Interceptor {
             LogUtils.d(
                 "********************************************Http请求开始********************************************\n" +
                         "*********************************************Request********************************************\n" +
-                        "${HttpUtils.getRequestToString(request)}\n\n" +
+                        "${request.getRequestToString()}\n\n" +
                         "*********************************************Response*******************************************\n" +
-                        "${HttpUtils.getResponseToString(response)}\n\n" +
+                        "${response.getResponseToString()}\n\n" +
                         "time : ${(System.nanoTime() - startTime) / 1e6} \n" +
                         "********************************************Http请求结束********************************************\n"
             )

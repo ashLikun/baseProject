@@ -54,17 +54,17 @@
         <!-- 新的 tag/alias 接口结果返回需要开发者配置一个自定的广播 -->
         <!-- 3.3.0开始所有事件将通过该类回调 -->
         <!-- 该广播需要继承 JPush 提供的 JPushMessageReceiver 类, 并如下新增一个 Intent-Filter -->
-        <receiver
+        <service
             android:name=".utils.jpush.JpushReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
-                <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
+                <action android:name="cn.jpush.android.intent.SERVICE_MESSAGE" />
                 <!--需要配置这个,并且不调用super.onNotifyMessageOpened，不然打开就是重新启动应用-->
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
                 <category android:name="${applicationId}" />
             </intent-filter>
-        </receiver>
+        </service>
         <!-- Since JCore2.0.0 Required SDK核心功能-->
         <!-- 可配置 android:process=":pushcore"参数将Service放在其他进程中；android:enabled属性不能是false -->
         <!-- 这个是自定义Service，要继承极光JCommonService，可以在更多手机平台上使得推送通道保持的更稳定 -->

@@ -4,7 +4,7 @@ import android.content.Context
 import cn.jpush.android.api.CustomMessage
 import cn.jpush.android.api.JPushMessage
 import cn.jpush.android.api.NotificationMessage
-import cn.jpush.android.service.JPushMessageReceiver
+import cn.jpush.android.service.JPushMessageService
 import com.ashlikun.baseproject.common.mode.javabean.JpushJsonData
 import com.ashlikun.baseproject.libcore.router.RouterManage
 import com.ashlikun.utils.other.LogUtils
@@ -21,7 +21,7 @@ import kotlinx.coroutines.Job
  * 功能介绍：新的tag/alias接口结果返回需要开发者配置一个自定的广播 -->
  * 该广播需要继承JPush提供的JPushMessageReceiver类, 并如下新增一个 Intent-Filter
  */
-class JpushReceiver : JPushMessageReceiver() {
+class JpushReceiver : JPushMessageService() {
     companion object {
         var setAliasJob: Job? = null
         var deleteAliasJob: Job? = null
@@ -65,8 +65,8 @@ class JpushReceiver : JPushMessageReceiver() {
     override fun onTagOperatorResult(context: Context, message: JPushMessage) {
         super.onTagOperatorResult(context, message)
         //对应操作的返回码,0为成功，其他返回码请参考错误码定义.
-        if (message.sequence === JpushUtils.JPUSH_TAGS_SET_ID) {
-            if (message.errorCode !== 0) {
+        if (message.sequence == JpushUtils.JPUSH_TAGS_SET_ID) {
+            if (message.errorCode != 0) {
                 LogUtils.e("极光推送Tags设置失败 ,Tags = " + message.tags + ",错误码 = " + message.errorCode)
                 //6021 3.0.7 版本新增的错误码，多次调用 tag 相关的 API，请在获取到上一次调用回调后再做下一次操作；在未取到回调的情况下，等待 20 秒后再做下一次操作。
                 if (message.errorCode != 6021) {
@@ -80,8 +80,8 @@ class JpushReceiver : JPushMessageReceiver() {
                 setTagsJob?.cancel()
                 deleteTagsJob?.cancel()
             }
-        } else if (message.sequence === JpushUtils.JPUSH_TAGS_DELETE_ID) {
-            if (message.errorCode !== 0) {
+        } else if (message.sequence == JpushUtils.JPUSH_TAGS_DELETE_ID) {
+            if (message.errorCode != 0) {
                 LogUtils.e("极光推送Tags删除失败 ,别名 = " + message.tags + ",错误码 = " + message.errorCode)
                 //6021 3.0.7 版本新增的错误码，多次调用 tag 相关的 API，请在获取到上一次调用回调后再做下一次操作；在未取到回调的情况下，等待 20 秒后再做下一次操作。
                 if (message.errorCode != 6021) {
@@ -103,8 +103,8 @@ class JpushReceiver : JPushMessageReceiver() {
         super.onAliasOperatorResult(context, message)
         LogUtils.e("极光推送别名 ,$message")
         //对应操作的返回码,0为成功，其他返回码请参考错误码定义.
-        if (message.sequence === JpushUtils.JPUSH_ALIAS_SET_ID) {
-            if (message.errorCode !== 0) {
+        if (message.sequence == JpushUtils.JPUSH_ALIAS_SET_ID) {
+            if (message.errorCode != 0) {
                 LogUtils.e("极光推送别名设置失败 ,别名 = " + message.alias + ",错误码 = " + message.errorCode)
                 if (!noErrorCode.contains(message.errorCode)) {
                     setAliasJob?.cancel()
@@ -117,8 +117,8 @@ class JpushReceiver : JPushMessageReceiver() {
                 setAliasJob?.cancel()
                 deleteAliasJob?.cancel()
             }
-        } else if (message.sequence === JpushUtils.JPUSH_ALIAS_DELETE_ID) {
-            if (message.errorCode !== 0) {
+        } else if (message.sequence == JpushUtils.JPUSH_ALIAS_DELETE_ID) {
+            if (message.errorCode != 0) {
                 LogUtils.e("极光推送别名删除失败 ,别名 = " + message.alias + ",错误码 = " + message.errorCode)
                 //6022 3.0.7 版本新增的错误码，多次调用 alias 相关的 API，请在获取到上一次调用回调后再做下一次操作；在未取到回调的情况下，等待 20 秒后再做下一次操作。
                 if (!noErrorCode.contains(message.errorCode)) {

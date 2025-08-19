@@ -55,7 +55,7 @@ suspend fun <T> HttpRequest.syncExecute(handle: HttpUiHandle?, resultType: Type)
             }
             if (!continuation.isCancelled) {
                 call = execute(callback)
-            }else{
+            } else {
                 handle?.completed()
             }
         } catch (e: Exception) {
@@ -137,7 +137,7 @@ fun <T> HttpRequest.execute(
 ): ExecuteCall {
     val callback = SimpleHttpCallback<T>(handle)
     if (tag == null) {
-        tag = handle?.tag
+        tag = handle.tag
     }
     //由于SimpleHttpCallback的泛型这里无法直接指定，只能通过其他参数获取
     val type = success?.javaClass ?: successSubThread?.javaClass
@@ -158,7 +158,7 @@ fun <T> HttpRequest.execute(
 /**
  * 获取回调里面的泛型
  */
-fun getType(mClass: Class<*>): Type? {
+fun getType(mClass: Class<*>): Type {
     val types = mClass.genericSuperclass
     var parentypes: Array<Type?>? //泛型类型集合
     if (types is ParameterizedType) {
@@ -173,9 +173,8 @@ fun getType(mClass: Class<*>): Type? {
         }
     }
     if (parentypes.isNullOrEmpty()) {
-        Throwable("BaseApiService  ->>>  回调 不能没有泛型，请查看execute方法几个回调是否有泛型是否有泛型")
+        throw Throwable("BaseApiService  ->>>  回调 不能没有泛型，请查看execute方法几个回调是否有泛型是否有泛型")
     } else {
-        return parentypes!![0]
+        return parentypes!![0]!!
     }
-    return null
 }

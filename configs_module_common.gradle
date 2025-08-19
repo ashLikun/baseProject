@@ -8,7 +8,7 @@ android {
             //保存appid，因为当前模块本来的appid是清单文件的包名
         }
         release {
-            minifyEnabled true
+            minifyEnabled false
             //保存appid，因为当前模块本来的appid是清单文件的包名
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

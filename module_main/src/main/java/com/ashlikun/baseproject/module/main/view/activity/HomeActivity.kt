@@ -19,6 +19,7 @@ import com.ashlikun.utils.ui.ActivityManager
 import com.ashlikun.utils.ui.extend.resColor
 import com.ashlikun.utils.ui.modal.SuperToast
 import com.ashlikun.utils.ui.modal.ToastUtils
+import com.ashlikun.utils.ui.status.enableEdgeToEdgeX
 import com.ashlikun.xviewpager.FragmentUtils
 import com.ashlikun.xviewpager.fragment.FragmentPagerAdapter
 import com.ashlikun.xviewpager.fragment.FragmentPagerItem
@@ -47,6 +48,10 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
             .addItem(FragmentPagerItem.get(RouterPath.FRAGMENT_HOME))
             .setCache(true)
             .build()
+    }
+
+    override fun setSafeArea() {
+        enableEdgeToEdgeX(bottom = false)
     }
 
     override fun parseIntent(intent: Intent) {

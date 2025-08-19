@@ -15,6 +15,7 @@ import com.ashlikun.utils.other.store.StoreUtils
 import com.ashlikun.utils.ui.ActivityManager
 import com.ashlikun.utils.ui.extend.finishNoAnim
 import com.ashlikun.utils.ui.extend.resColor
+import com.ashlikun.utils.ui.status.enableEdgeToEdgeX
 
 /**
  * @author　　: 李坤
@@ -30,9 +31,14 @@ class WelcomeActivity : BaseActivity() {
     override val binding by lazy {
         OtherActivityWelcomBinding.inflate(layoutInflater)
     }
-    override val statusBarColor = R.color.translucent.resColor
-    override val isStatusTranslucent = true
     private val time = 200L
+    override fun setSafeArea() {
+        enableEdgeToEdgeX(isSetView = false)
+//        window.hindNavigationBar()
+//        window.hideStatusBar()
+//        getRootView().setSfeAreaPadding(top = false, bottom = true)
+    }
+
     override fun initView() {
         launch(delayTime = time) {
             when {

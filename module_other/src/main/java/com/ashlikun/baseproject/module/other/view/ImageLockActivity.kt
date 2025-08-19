@@ -33,6 +33,7 @@ import com.ashlikun.utils.ui.image.BitmapUtil
 import com.ashlikun.utils.ui.image.updatePhotoMedia
 import com.ashlikun.utils.ui.modal.SuperToast
 import com.ashlikun.utils.ui.resources.ColorUtils
+import com.ashlikun.utils.ui.status.enableEdgeToEdgeX
 import com.ashlikun.xviewpager.listener.ViewPageHelperListener
 import com.ashlikun.xviewpager.view.BannerViewPager
 import com.bumptech.glide.load.DataSource
@@ -62,7 +63,6 @@ class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener {
     override val binding by lazy {
         OtherActivityImageLockBinding.inflate(layoutInflater)
     }
-    override val isStatusTranslucent = true
 
     @Autowired(name = RouterKey.FLAG_DATA)
     var listDatas = arrayListOf<ImageData>()
@@ -94,9 +94,12 @@ class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener {
         )
     }
 
+    override fun setSafeArea() {
+        enableEdgeToEdgeX(isSetView = false)
+    }
+
     override fun initView() {
         binding.run {
-            statusBar?.setNavigationTransparent(true)
             window.navigationBarColor = R.color.black.resColor
             window.setBackgroundDrawableResource(R.color.translucent)
             viewPager.setPages(adapter, listDatas)
@@ -116,7 +119,7 @@ class ImageLockActivity : BaseActivity(), ScaleFinishView.OnSwipeListener {
                     GlideUtils.downloadBitmap(this@ImageLockActivity, url) { file ->
                         if (file != null && file.exists()) {
                             requestPermission(PermissionConst.PERMISSION_STORAGE_IMAGE) {
-                                var saveFile = CacheUtils.newImage()
+                                val saveFile = CacheUtils.newImage()
                                 if (FileIOUtils.copyFile(file, saveFile, false)) {
                                     "图片已保存至 /${saveFile.path} ".toastInfo()
                                     saveFile.updatePhotoMedia()

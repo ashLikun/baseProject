@@ -17,6 +17,8 @@ import com.ashlikun.livedatabus.busForever
 import com.ashlikun.okhttputils.http.HttpException
 import com.ashlikun.okhttputils.http.HttpUtils
 import com.ashlikun.okhttputils.http.OkHttpManage
+import com.ashlikun.okhttputils.http.extend.getRequestToString
+import com.ashlikun.okhttputils.http.extend.getResponseToString
 import com.ashlikun.okhttputils.http.response.HttpResponse
 import com.ashlikun.okhttputils.http.response.IHttpResponse
 import com.ashlikun.okhttputils.retrofit.Retrofit
@@ -51,8 +53,8 @@ class HttpManager private constructor() {
         HttpResponse.ERROR = 1
         OkHttpManage.init(AppUtils.app, getOkHttpClientBuilder().build())
         OkHttpManage.onDataParseError = { code, exception, response, json ->
-            val requestStr = HttpUtils.getRequestToString(response.request)
-            val responseStr = HttpUtils.getResponseToString(response)
+            val requestStr = response.request.getRequestToString()
+            val responseStr = response.getResponseToString()
             RuntimeException("request:\n$requestStr\nresponse:\n$responseStr \n$json", exception).postBugly()
         }
         OkHttpManage.onHttpError = {
@@ -64,7 +66,7 @@ class HttpManager private constructor() {
             request.syncExecute<Any>(params?.find { it is HttpUiHandle } as? HttpUiHandle, result.resultType)
         }
         Retrofit.get().onProxyStart = { method, args ->
-            (args?.find { it is HttpUiHandle } as? HttpUiHandle)?.start()
+            (args.find { it is HttpUiHandle } as? HttpUiHandle)?.start()
         }
         EventBusKey.LOGIN.busForever {
             setCommonParams()
@@ -227,6 +229,7 @@ class HttpManager private constructor() {
                         }
                         httpException = HttpException(response.code, response.message)
                     }
+
                     response.code == HttpCodeApp.NO_LOGIN -> {
 
                         RouterManage.login()?.exit()
@@ -248,10 +251,12 @@ class HttpManager private constructor() {
                         }
                         httpException = HttpException(response.code, response.message)
                     }
+
                     response.code == HttpCodeApp.SIGN_ERROR -> {
                         SuperToast.get("签名错误").error()
                         httpException = HttpException(response.code, response.message)
                     }
+
                     else -> null
                 }
             }
