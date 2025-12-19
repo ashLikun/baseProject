@@ -105,7 +105,7 @@ ext {
             XViewPager                : "com.gitee.ashlikun:XViewPager:1.0.0",
             XViewPager2               : "com.gitee.ashlikun:XViewPager2:1.0.1",
             //公共的工具
-            CommonUtils               : "com.gitee.ashlikun:common-utils:4.9.14",
+            CommonUtils               : "com.gitee.ashlikun:common-utils:4.9.16",
             //公共的Adapter
             CommonAdapter             : "com.gitee.ashlikun:CommonAdapter:1.0.2",
             //Google官方改造
@@ -115,7 +115,7 @@ ext {
             //阿里的vlayout
             vlayout                   : "com.gitee.ashlikun:vLayout:1.0.0",
             //习惯的对话框
-            CustomDialog              : "com.gitee.ashlikun:CustomDialog:1.0.11",
+            CustomDialog              : "com.gitee.ashlikun:CustomDialog:1.0.13",
             //第三方MD风格对话框 https://github.com/afollestad/material-dialogs
             MaterialDialog            : "com.afollestad.material-dialogs:core:3.3.0",
             MaterialDialogInput       : "com.afollestad.material-dialogs:input:3.3.0",

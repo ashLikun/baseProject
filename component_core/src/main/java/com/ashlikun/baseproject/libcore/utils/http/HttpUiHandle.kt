@@ -21,7 +21,6 @@ import com.ashlikun.okhttputils.http.response.HttpErrorCode
 import com.ashlikun.okhttputils.http.response.IHttpResponse
 import com.ashlikun.utils.main.ActivityUtils
 import com.ashlikun.utils.other.MainHandle
-import com.ashlikun.utils.other.coroutines.taskLaunchMain
 import com.ashlikun.utils.ui.extend.toLifecycleOrNull
 import com.ashlikun.utils.ui.modal.SuperToast
 import com.ashlikun.xrecycleview.PageHelpListener
@@ -106,7 +105,7 @@ class HttpUiHandle private constructor() {
     var isCanceledOnTouchOutside = false
 
     /**
-     * 是否错误的时候toast提示,http 错误,代码错误
+     * 是否错误的时候toast提示,http 错误,代码错误,不包括接口json code 错误
      */
     var isErrorToastShow = true
 
@@ -121,7 +120,7 @@ class HttpUiHandle private constructor() {
      * 默认为走错误方法
      * 一般用于布局切换和显示toast
      */
-    var isAutoHanderError: Boolean = true
+    var isAutoHandlerError: Boolean = true
 
     /**
      * 是否显示进度，进度回调才用到的
@@ -131,7 +130,7 @@ class HttpUiHandle private constructor() {
     /**
      * 是否显示对话框
      */
-    var isShowLoadding = true
+    var isShowLoading = true
 
     /**
      * 加载是否以对话框形式
@@ -172,7 +171,7 @@ class HttpUiHandle private constructor() {
 
     /**
      * 在当前页面是否第一次请求
-     * 如果这个请求集合大于1，说明当前页面还有请求，
+     * 如果这个请求集合大于1，说明当前TAG页面还有请求，
      */
     fun isFirstRequest() = count() <= 1
 
@@ -200,8 +199,10 @@ class HttpUiHandle private constructor() {
      * 设置默默调用，不提示
      */
     fun setNoTips(): HttpUiHandle {
-        isShowLoadding = false
+        isShowLoading = false
         isErrorToastShow = false
+        isAutoHandlerError = false
+        isDataCodeErrorToastShow = false
         return this
     }
 
@@ -226,19 +227,19 @@ class HttpUiHandle private constructor() {
      */
     fun setLoadingStatus(tag: BaseViewModel): HttpUiHandle {
         if (tag is BaseListViewModel) {
-            tag?.also {
+            tag.also {
                 if (tag.swipeRefreshLayout != null) {
-                    isShowLoadding = false
+                    isShowLoading = false
                     swipeRefreshLayout = tag.swipeRefreshLayout
                 }
                 if (tag.pageHelpListener != null) {
-                    isShowLoadding = false
+                    isShowLoading = false
                     pageHelpListener = tag.pageHelpListener
                 }
             }
         }
         //布局切换
-        if (tag is BaseViewModel) switchService = tag?.loadSwitchService
+        switchService = tag.loadSwitchService
         return this
     }
 
@@ -259,13 +260,13 @@ class HttpUiHandle private constructor() {
     /**
      * 是否可以显示加载相关的
      */
-    private fun canShowLoadding() = activity?.isFinishing == false || dialog?.isShowing == false
+    private fun canShowLoadding() = activity?.isFinishing == false || dialog?.isShowing == true
 
     /**
      * 显示对话框
      */
     private fun showDialog() {
-        if (isShowLoadding) {
+        if (isShowLoading) {
             if (canShowLoadding()) {
                 if (isDialogMode) {
                     if (loadDialog == null && context != null) {
@@ -314,7 +315,7 @@ class HttpUiHandle private constructor() {
      */
     private fun hintProgress() {
         //如果不显示对话框,就直接返回
-        if (!isShowLoadding || (loadDialog == null && loadView == null)) {
+        if (!isShowLoading || (loadDialog == null && loadView == null)) {
             return
         }
         jobTimeOut?.cancel()
@@ -352,7 +353,7 @@ class HttpUiHandle private constructor() {
      */
     fun success(result: Any) {
         pageHelpListener?.complete()
-        if (result is IHttpResponse && isAutoHanderError) {
+        if (result is IHttpResponse && isAutoHandlerError) {
             if (result.isSucceed) {
                 showContent()
             } else {
@@ -369,8 +370,8 @@ class HttpUiHandle private constructor() {
      * @param showToast 是否显示toast，无论isErrorToastShow 是什么,true 就显示
      */
     fun error(data: ContextData, showToast: Boolean? = null) {
-//        val message = "${data.title}"
-        val message = "${data.title} (${data.errCode})"
+        val message = data.title
+//        val message = "${data.title} (${data.errCode})"
         var isShowToastNeibu = isErrorToastShow
         if (pageHelpListener != null) {
             showContent()
@@ -384,7 +385,9 @@ class HttpUiHandle private constructor() {
             isShowToastNeibu = !showRetry(data) && isShowToastNeibu
         }
         if (isShowToastNeibu && showToast != false) {
-            SuperToast.showErrorMessage(message)
+            if (!data.title.isNullOrEmpty()) {
+                SuperToast.showErrorMessage(message)
+            }
         }
     }
 
@@ -418,10 +421,12 @@ class HttpUiHandle private constructor() {
     fun isShow() = loadDialog?.isShowing ?: loadView?.isShowing ?: false
 
     /**
+     * 启动并且设置超时
      * 开始超时,防止对话框不会消失
      */
     fun startTimeOut(time: Int = 3000) {
-        if (!isShowLoadding) return
+        start()
+        if (!isShowLoading) return
         jobTimeOut?.cancel()
         jobTimeOut = activity?.toLifecycleOrNull()?.launch {
             delay(time.toLong())
@@ -429,52 +434,62 @@ class HttpUiHandle private constructor() {
         }
     }
 
+    /**
+     * 跟新当前正在提示的提示语
+     */
+    fun updateHint(hint: String) {
+        this.hint = hint
+        switchService?.showLoading(ContextData(title = hint.orEmpty()))
+        loadDialog?.setContent(hint)
+        loadView?.setContent(hint)
+    }
+
     companion object {
 
         operator fun get(baseViewModel: BaseViewModel): HttpUiHandle {
-            val buider = get()
-            buider.tag = baseViewModel
-            return buider
+            val builder = get()
+            builder.tag = baseViewModel
+            return builder
         }
 
         operator fun get(context: Context?): HttpUiHandle {
-            val buider = get()
-            buider.mContext = context
-            return buider
+            val builder = get()
+            builder.mContext = context
+            return builder
         }
 
         operator fun get(dialog: Dialog?): HttpUiHandle {
-            val buider = get()
-            buider.tag = dialog
+            val builder = get()
+            builder.tag = dialog
             //附属到对话框上
-            buider.loadTarget = dialog?.window?.decorView as ViewGroup
-            return buider
+            builder.loadTarget = dialog?.window?.decorView as ViewGroup
+            return builder
         }
 
         fun getNoTips(baseViewModel: BaseViewModel): HttpUiHandle {
-            val buider = get()
-            buider.tag = baseViewModel
-            buider.setNoTips()
-            return buider
+            val builder = get()
+            builder.tag = baseViewModel
+            builder.setNoTips()
+            return builder
         }
 
         fun getNoTips(context: Context?): HttpUiHandle {
-            val buider = get()
-            buider.mContext = context
-            buider.setNoTips()
-            return buider
+            val builder = get()
+            builder.mContext = context
+            builder.setNoTips()
+            return builder
         }
 
         fun getNoTips(tag: Any? = null): HttpUiHandle {
-            val buider = get(tag)
-            buider.setNoTips()
-            return buider
+            val builder = get(tag)
+            builder.setNoTips()
+            return builder
         }
 
         fun get(tag: Any? = null): HttpUiHandle {
-            val buider = HttpUiHandle()
-            buider.tag = tag
-            return buider
+            val builder = HttpUiHandle()
+            builder.tag = tag
+            return builder
         }
     }
 }
