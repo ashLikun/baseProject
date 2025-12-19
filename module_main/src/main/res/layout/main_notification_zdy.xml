@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:text="预计充满还需25分钟"
-            android:textColor="@color/dk_color_337CC4"
+            android:textColor="@color/colorPrimary"
             android:textSize="14dp" />
     </RelativeLayout>
 </LinearLayout>

@@ -18,7 +18,7 @@ import com.ashlikun.core.mvvm.BaseMvvmActivity
 import com.ashlikun.core.mvvm.IViewModel
 import com.ashlikun.core.mvvm.launch
 import com.ashlikun.gson.GsonHelper
-import com.ashlikun.photo_hander.PhotoHander
+import com.ashlikun.photo_hander.PhotoHandler
 import com.ashlikun.utils.encryption.Md5Utils
 import com.ashlikun.utils.encryption.SHAUtil
 import com.ashlikun.utils.other.DateUtils
@@ -228,7 +228,7 @@ class TestActivity : BaseMvvmActivity<TestViewModel>() {
             }
         }
         binding.ceshiButton3.setOnClickListener {
-            PhotoHander.create()
+            PhotoHandler.create()
                 .showCamera(true)
                 .single()
                 .crop(true)

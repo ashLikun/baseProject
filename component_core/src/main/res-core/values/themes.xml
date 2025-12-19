@@ -42,7 +42,7 @@
         <item name="svgColor1">@color/colorPrimary</item>
     </style>
 
-    <style name="AppTheme.PhotoHander">
+    <style name="AppTheme.PhotoHandler">
         <item name="android:statusBarColor">@color/statusColorCustom</item>
         <item name="android:windowAnimationStyle">@style/OtherAnimation</item>
         <item name="colorPrimary">@color/statusColorCustom</item>

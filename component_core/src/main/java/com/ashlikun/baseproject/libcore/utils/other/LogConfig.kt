@@ -13,7 +13,6 @@ import com.ashlikun.utils.other.LogUtils
 import com.ashlikun.utils.other.store.getBoolStore
 import com.ashlikun.utils.other.store.putStore
 import com.ashlikun.utils.ui.fActivity
-import com.didichuxing.doraemonkit.kit.AbstractKit
 
 /**
  * 作者　　: 李坤
@@ -102,21 +101,5 @@ object LogConfig {
         }
     }
 
-    class MyLogKit : AbstractKit() {
-        override val name: Int
-            get() = R.string.dokit_log
-        override val icon: Int
-            get() = R.mipmap.dk_log_info
 
-
-        override fun onClickWithReturn(activity: Activity): Boolean {
-            ARouter.getInstance().build(RouterPath.TEST_LOG).navigation(fActivity)
-            return true
-        }
-
-        override fun onAppInit(context: Context?) {
-        }
-
-        override fun innerKitId(): String = "dokit_sdk_comm_ck_log"
-    }
 }

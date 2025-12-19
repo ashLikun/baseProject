@@ -7,4 +7,4 @@
 /build
 /captures
 .externalNativeBuild
-java_pid7504.hprof
+*.kotlin

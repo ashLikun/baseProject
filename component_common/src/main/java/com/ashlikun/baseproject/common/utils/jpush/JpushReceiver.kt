@@ -4,14 +4,13 @@ import android.content.Context
 import cn.jpush.android.api.CustomMessage
 import cn.jpush.android.api.JPushMessage
 import cn.jpush.android.api.NotificationMessage
-import cn.jpush.android.service.JPushMessageService
 import com.ashlikun.baseproject.common.mode.javabean.JpushJsonData
 import com.ashlikun.baseproject.libcore.router.RouterManage
 import com.ashlikun.utils.other.LogUtils
 import com.ashlikun.utils.other.coroutines.taskLaunch
 import com.ashlikun.utils.other.coroutines.taskLaunchMain
 import kotlinx.coroutines.Job
-
+import cn.jpush.android.service.JPushMessageService
 /**
  * 作者　　: 李坤
  * 创建时间: 2017/11/27　14:25
