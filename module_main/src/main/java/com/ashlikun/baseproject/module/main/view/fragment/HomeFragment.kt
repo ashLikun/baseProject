@@ -1,5 +1,6 @@
 package com.ashlikun.baseproject.module.main.view.fragment
 
+import android.os.SystemClock
 import android.util.Log
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ashlikun.baseproject.common.utils.jump.RouterJump
@@ -57,18 +58,20 @@ class HomeFragment : BaseMvvmFragment<HomeViewModel>() {
     )
 
     private fun changeUi(flag: Int) {
-        val startTime = System.currentTimeMillis()
+        //耗时统计用 uptimeMillis（单调递增，修改系统时间不会得出负耗时）
+        val startTime = SystemClock.uptimeMillis()
         scope2.launch {
-            Log.e("HomeFragment", "changeUi($flag): launch time = ${System.currentTimeMillis() - startTime}")
+            Log.e("HomeFragment", "changeUi($flag): launch time = ${SystemClock.uptimeMillis() - startTime}")
             timeConsuming(100)
             binding.ceshi2Button.text = "${System.currentTimeMillis()}-From changeUi $flag"
         }
     }
 
     private fun task(delay: Int) {
-        val startTime = System.currentTimeMillis()
+        //耗时统计用 uptimeMillis（单调递增，修改系统时间不会得出负耗时）
+        val startTime = SystemClock.uptimeMillis()
         scope2.launch {
-            Log.e("HomeFragment", "task: launch($delay) time = ${System.currentTimeMillis() - startTime}")
+            Log.e("HomeFragment", "task: launch($delay) time = ${SystemClock.uptimeMillis() - startTime}")
             timeConsuming(delay)
             binding.ceshi2Button.text = "${System.currentTimeMillis()}-From task($delay)"
         }

@@ -1,5 +1,6 @@
 package com.ashlikun.baseproject.module.main.view.activity
 
+import android.os.SystemClock
 import android.content.Context
 import android.content.Intent
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -125,9 +126,9 @@ class HomeActivity : BaseActivity(), AHBottomNavigation.OnTabSelectedListener {
 
 
     fun isExitApplication(context: Context) {
-        if (System.currentTimeMillis() - exitTime > 2000) {
+        if (SystemClock.uptimeMillis() - exitTime > 2000) {
             SuperToast.get("再按一次退出程序").info()
-            exitTime = System.currentTimeMillis()
+            exitTime = SystemClock.uptimeMillis()
         } else {
             ToastUtils.cancel()
             // 退出

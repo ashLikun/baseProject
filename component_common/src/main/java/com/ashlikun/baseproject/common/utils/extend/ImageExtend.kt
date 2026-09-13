@@ -1,5 +1,6 @@
 package com.ashlikun.baseproject.common.utils.extend
 
+import android.os.SystemClock
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Point
@@ -337,7 +338,7 @@ private fun viewSize(view: View): Point? {
  */
 class MyImageViewTarget(val imageView: ImageView, val url: String?) : ImageViewTarget<Drawable>(imageView) {
     val hasCache by lazy { GlideUtils.isCache(url) }
-    var start = System.currentTimeMillis()
+    var start = SystemClock.uptimeMillis()
 
     override fun setResource(resource: Drawable?) {
         view.setImageDrawable(resource)
@@ -349,7 +350,7 @@ class MyImageViewTarget(val imageView: ImageView, val url: String?) : ImageViewT
 
     override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
         super.onResourceReady(resource, transition)
-//        LogUtils.e("wwwwwwwwwww onResourceReady ${System.currentTimeMillis() - start}")
+//        LogUtils.e("wwwwwwwwwww onResourceReady ${SystemClock.uptimeMillis() - start}")
     }
 
     override fun onLoadFailed(errorDrawable: Drawable?) {
@@ -357,7 +358,7 @@ class MyImageViewTarget(val imageView: ImageView, val url: String?) : ImageViewT
     }
 
     override fun onLoadStarted(placeholder: Drawable?) {
-//        start = System.currentTimeMillis()
+//        start = SystemClock.uptimeMillis()
         //这里判断缓存是否存在，如果存在就不使用占位图
         if (placeholder != null && !hasCache) {
             super.onLoadStarted(placeholder)
